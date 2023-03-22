@@ -1,0 +1,43 @@
+@use "../colors";
+
+@mixin ui-code {
+  code {
+    // https://github.com/necolas/normalize.css/issues/519#issuecomment-197131966
+    font-family: monospace, monospace;
+    font-weight: 500;
+
+    color: colors.$gray-700;
+
+    .token {
+      &.function {
+        color: colors.$blue-700;
+      }
+
+      &.keyword {
+        color: colors.$pink-700;
+      }
+
+      &.comment {
+        color: colors.$success-700;
+      }
+    }
+  }
+
+  .dark code {
+    color: colors.$gray-50;
+
+    .token {
+      &.function {
+        color: colors.$blue-300;
+      }
+
+      &.keyword {
+        color: colors.$pink-500;
+      }
+
+      &.comment {
+        color: colors.$success-500;
+      }
+    }
+  }
+}

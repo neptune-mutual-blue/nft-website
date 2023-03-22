@@ -1,9 +1,8 @@
-import '@/styles/globals.css';
+import "@/styles/globals.scss";
 
-import { Inter } from 'next/font/google';
+import { Inter } from "next/font/google";
 
-// If loading a variable font, you don't need to specify the font weight
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function App({ Component, pageProps }) {
   return (
@@ -15,5 +14,5 @@ export default function App({ Component, pageProps }) {
       `}</style>
       <Component {...pageProps} />
     </>
-  )
+  );
 }

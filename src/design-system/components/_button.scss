@@ -1,0 +1,80 @@
+@use "../colors";
+@use "../typography/weights";
+@use "../utils";
+
+@mixin ui-button {
+  .button .content.hidden {
+    @include utils.sr-only;
+  }
+
+  .button[data-icon-only-mobile] {
+
+    > span {
+      @media (max-width: 767px) {
+        display: none;
+      }  
+    }
+  }
+
+  .button:not(.container) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    gap: 8px;
+    padding: 8px 14px;
+    text-align: center;
+
+    &[data-text-size="md"] {
+      padding: 10px 16px;
+    }
+
+    &[data-text-size="lg"] {
+      padding: 10px 18px;
+    }
+
+    &[data-text-size="xl"] {
+      padding: 12px 20px;
+    }
+
+    &[data-text-size="2xl"] {
+      padding: 16px 28px;
+    }
+
+    @include weights.semibold;
+
+    &:disabled,
+    &[data-disabled] {
+      cursor: not-allowed;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    @media (min-width: 768px) {
+      &[data-text-size="2xl"] {
+        gap: 12px;
+      }
+    }
+
+    &[data-icon="default"][data-text-size="2xl"] {
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    &[data-icon="dot-leading"] {
+      svg {
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+
+  .dark .button.link.color {
+    color: colors.$primary-500;
+  }
+}
