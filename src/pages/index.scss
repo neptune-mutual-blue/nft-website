@@ -1,5 +1,5 @@
-h1 {
-  color: red;
-}
+@import "../styles/global.scss";
 
-@import "../common/components/Footer/Footer.scss";
+@import "../elements/Icon.scss";
+
+@import "../components/Footer/Footer.scss";
