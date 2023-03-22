@@ -1,0 +1,40 @@
+@use "../design-system/colors";
+@use "../design-system/typography/styles";
+@use "../design-system/typography/weights";
+@use "../design-system/theme/light";
+@use "../design-system/theme/dark";
+@use "../design-system/shadows";
+@use "../design-system/spacing";
+
+i {
+  color: currentColor;
+
+  svg {
+    color: currentColor !important;
+    width: auto;
+  }
+}
+
+i[data-size="xs"] svg {
+  height: 10px;
+}
+
+i[data-size="sm"] svg {
+  height: 14px;
+}
+
+i[data-size="md"] svg {
+  height: 18px;
+}
+
+i[data-size="lg"] svg {
+  height: 20px;
+}
+
+i[data-size="xl"] svg {
+  height: 22px;
+}
+
+i[data-size="2xl"] svg {
+  height: 28px;
+}
