@@ -1,0 +1,96 @@
+@use "../design-system/theme/light" as light-theme;
+@use "../design-system/theme/dark" as dark-theme;
+@use "../design-system/utils";
+@use "../design-system/colors";
+@import "../design-system/base";
+
+.full.width.container {
+  @include utils.full-width-container;
+}
+
+html:not(.dark) {
+  color-scheme: light-theme.$color-scheme;
+  text-rendering: optimizeSpeed;
+
+  body {
+    background-color: light-theme.$primary-background-color;
+    color: light-theme.$color;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+html.dark {
+  color-scheme: dark-theme.$color-scheme;
+  text-rendering: optimizeSpeed;
+
+  body {
+    background-color: colors.$black;
+    color: dark-theme.$color;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.mobile.only.visible {
+  display: none;
+
+  @media (max-width: 767px) {
+    display: unset;
+  }
+}
+
+.desktop.only.visible {
+  display: none;
+
+  @media (min-width: 768px) {
+    display: unset;
+  }
+}
+
+.light.only {
+  display: flex;
+
+  .dark & {
+    display: none;
+  }
+}
+
+.dark.only {
+  display: none;
+
+  .dark & {
+    display: flex;
+  }
+}
+
+.sr-only {
+  @include utils.sr-only;
+}
+
+:root {
+  --header-height: 80px;
+
+  @media (max-width: 767px) {
+    --header-height: 72px;
+  }
+}
+
+main {
+  padding-top: var(--header-height);
+}
+
+button,
+.pointer {
+  cursor: pointer;
+}
+
+.no.vertical.scroll {
+  overflow-y: hidden;
+}
+
+@import "../pages/index.scss";
