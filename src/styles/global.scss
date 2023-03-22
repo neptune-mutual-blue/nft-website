@@ -62,7 +62,7 @@ html.dark {
 
 .dark.only {
   display: none;
-
+  
   .dark & {
     display: flex;
   }
@@ -74,7 +74,7 @@ html.dark {
 
 :root {
   --header-height: 80px;
-
+  
   @media (max-width: 767px) {
     --header-height: 72px;
   }
@@ -84,15 +84,10 @@ main {
   padding-top: var(--header-height);
 }
 
-button,
-.pointer {
+button, .pointer {
   cursor: pointer;
 }
 
 .no.vertical.scroll {
   overflow-y: hidden;
 }
-
-@import "../elements/Icon.scss";
-
-@import "../pages/index.scss";
