@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "standard.vscode-standard",
+    "dozerg.tsimportsorter",
+    "streetsidesoftware.code-spell-checker",
+    "usernamehw.errorlens",
+    "mrmlnc.vscode-scss"
+  ]
+}

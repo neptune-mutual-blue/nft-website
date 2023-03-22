@@ -1,0 +1,25 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    },
+  "standard.autoFixOnSave": true,
+  "[javascriptreact]": {
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "standard.vscode-standard",
+      "editor.codeActionsOnSave": {
+          "source.fixAll": true
+      }
+  },
+  "[javascript]": {
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "standard.vscode-standard",
+      "editor.codeActionsOnSave": {
+          "source.fixAll": true
+      }
+  },
+  "editor.tabSize": 2,
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "cSpell.words": [
+  ]
+}
