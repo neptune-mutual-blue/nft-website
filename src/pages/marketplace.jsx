@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { getMarketplaceFilters, searchMarketplace } from '@/services/marketplace-api'
 import { Marketplace } from '@/views/Marketplace'
 
-export async function getStaticProps () {
+export async function getServerSideProps () {
   const initialMarketplaceData = await (await searchMarketplace()).data
   const marketplaceFilters = await (await getMarketplaceFilters()).data
 
