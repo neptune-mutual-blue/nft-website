@@ -1,30 +1,30 @@
-import { useEffect, useState } from "react";
-import { paths } from "./icons/paths";
+import { useEffect, useState } from 'react'
+import { paths } from './icons/paths'
 
 const Icon = ({ variant, size }) => {
-  const [innerHTML, setInnerHTML] = useState(null);
+  const [innerHTML, setInnerHTML] = useState(null)
 
   const setHTML = async () => {
-    let html = null;
+    let html = null
 
     if (variant !== undefined) {
-      html = await paths[variant].then((x) => x.default);
+      html = await paths[variant].then((x) => x.default)
 
-      console.log(html);
+      console.log(html)
 
-      setInnerHTML(html);
+      setInnerHTML(html)
     }
-  };
+  }
 
   useEffect(() => {
-    setHTML();
-  }, []);
+    setHTML()
+  }, [])
 
   return (
     <i data-size={size}>
       <img src={innerHTML?.src} />
     </i>
-  );
-};
+  )
+}
 
-export { Icon };
+export { Icon }
