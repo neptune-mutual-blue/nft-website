@@ -1,0 +1,191 @@
+@use "../../design-system/utils";
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+@use "../../design-system/shadows";
+@use "../../design-system/theme/light";
+@use "../../design-system/theme/dark";
+
+.marketplace.filter.container {
+  padding-right: 16px;
+  border-right: 1px solid colors.$gray-200;
+  height: 100%;
+
+  .filter.inner {
+    h2 {
+      @include styles.text-xl;
+      @include weights.semibold;
+    }
+
+    .input.container {
+      margin-top: 24px;
+      border: 1px solid colors.$gray-300;
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      gap: 8px;
+      color: colors.$gray-500;
+
+      input {
+        outline: none;
+      }
+    }
+
+    .filters.list {
+      margin-top: 24px;
+
+      .container {
+        button {
+          width: 100%;
+          padding: 8px 12px;
+          display: flex;
+          justify-content: space-between;
+          gap: 8px;
+          border-radius: 6px;
+
+          .name {
+            @include styles.text-md;
+            @include weights.semibold;
+            color: colors.$gray-700;
+          }
+
+          .count {
+            padding: 2px 8px;
+            margin-left: auto;
+            @include styles.text-xs;
+            @include weights.medium;
+            background-color: colors.$gray-100;
+            border-radius: 16px;
+            color: colors.$gray-700;
+          }
+
+          svg {
+            height: 20px;
+            aspect-ratio: 1 / 1;
+            color: colors.$gray-500;
+          }
+        }
+
+        .options {
+          margin-top: 8px;
+          overflow: hidden;
+          visibility: hidden;
+          max-height: 0;
+          transition: all .25s;
+
+          ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+              padding: 8px 12px;
+              border-radius: 6px;
+              display: flex;
+              gap: 12px;
+              align-items: flex-start;
+
+              &:hover {
+                background-color: colors.$gray-50;
+              }
+
+              input {
+                height: 16px;
+                aspect-ratio: 1 / 1;
+                align-self: center;
+                cursor: pointer;
+              }
+
+              label {
+                @include styles.text-md;
+                @include weights.semibold;
+                color: colors.$gray-700;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+
+        &.active {
+          button {
+            background-color: colors.$gray-50;
+            box-shadow: shadows.$ring-light;
+
+            .name {
+              color: colors.$gray-900;
+            }
+
+            svg {
+              transform: rotate(180deg);
+            }
+          }
+
+          .options {
+            visibility: visible;
+            max-height: 1000px;
+          }
+        }
+
+        &:not(:first-of-type) {
+          margin-top: 4px;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    width: 320px;
+  }
+}
+
+.dark .marketplace.filter.container {
+  border-right: 1px solid colors.$gray-800;
+
+  .filter.inner {
+    .input.container {
+      border: 1px solid colors.$gray-800;
+      background-color: dark.$primary-background-color;
+      color: colors.$gray-25;
+    }
+
+    .filters.list {
+      .container {
+        button {
+          .name {
+            color: colors.$base-white;
+          }
+
+          .count {
+            background-color: colors.$gray-100;
+            color: colors.$gray-900;
+          }
+
+          svg {
+            color: colors.$gray-400;
+          }
+        }
+
+        .options {
+          ul {
+            li {
+              &:hover {
+                background-color: colors.$gray-900;
+              }
+
+              label {
+                color: colors.$base-white;
+              }
+            }
+          }
+        }
+
+        &.active {
+          button {
+            background-color: colors.$gray-800;
+            box-shadow: shadows.$ring-dark;
+          }
+        }
+      }
+    }
+  }
+}
