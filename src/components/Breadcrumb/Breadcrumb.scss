@@ -1,0 +1,72 @@
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+ol.breadcrumb.trail {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding-left: 0;
+
+  svg {
+    color: colors.$gray-300;
+    flex-shrink: 0;
+    height: 16px;
+    width: 16px;
+  }
+
+  .crumb {
+    display: inline-block;
+    color: colors.$gray-600;
+    padding: 4px 8px;
+    cursor: pointer;
+
+    @include styles.text-sm;
+    @include weights.medium;
+
+    &:hover {
+      background-color: colors.$gray-50;
+      border-radius: 6px;
+      color: colors.$gray-700;
+    }
+
+    a,
+    a:hover {
+      color: inherit;
+    }
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+
+    &:last-of-type {
+      .crumb {
+        background-color: colors.$gray-200;
+        color: colors.$gray-700;
+        border-radius: 6px;
+        @include weights.semibold;
+      }
+    }
+  }
+}
+
+.dark ol.breadcrumb.trail {
+  li .crumb {
+    color: colors.$gray-300;
+
+    &:hover {
+      background-color: colors.$gray-700;
+      color: colors.$gray-25;
+    }
+  }
+
+  li:last-of-type {
+    .crumb {
+      background-color: colors.$gray-700;
+      color: colors.$gray-25;
+    }
+  }
+}

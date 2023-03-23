@@ -1,0 +1,146 @@
+@use "../../design-system/utils";
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+@use "../../design-system/theme/light";
+@use "../../design-system/theme/dark";
+
+header {
+  width: 100%;
+  position: fixed;
+  border-bottom: 1px solid colors.$gray-200;
+  background-color: light.$primary-background-color;
+  z-index: 999;
+
+  .inner.container {
+    @include utils.full-width-container;
+
+    padding-top: 24px;
+    padding-bottom: 24px;
+
+    @media (max-width: 767px) {
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo.and.rest,
+    .language.and.theme.only,
+    .nav.with.language.and.theme {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo.and.rest {
+      gap: 40px;
+      width: 100%;
+    }
+
+    .language.and.theme.only {
+      @media (max-width: 1023px) {
+        border-bottom: 1px solid colors.$gray-100;
+        @include utils.full-width-container;
+
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        padding: 24px 16px;
+      }
+    }
+
+    .nav.with.language.and.theme {
+      justify-content: space-between;
+      flex: 1;
+      background-color: light.$primary-background-color;
+
+      @media (max-width: 1023px) {
+        & > *:nth-child(1) {
+          order: 2;
+        }
+        & > *:nth-child(2) {
+          order: 1;
+        }
+        & > *:nth-child(3) {
+          order: 3;
+        }
+
+        flex-direction: column;
+        flex: auto;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 8px;
+        border-top: 1px solid colors.$gray-100;
+
+        position: fixed;
+        top: var(--header-height);
+        left: 0px;
+        bottom: 0px;
+        z-index: 2;
+        width: 100%;
+        overflow-x: hidden;
+
+        &[data-open="false"] {
+          display: none;
+        }
+      }
+    }
+
+    .logo.light {
+      display: none;
+    }
+
+    .logo.dark {
+      display: flex;
+    }
+  }
+
+  .sr-only {
+    @include utils.sr-only;
+  }
+
+  &[data-style="colored"] {
+    background-color: colors.$primary-25;
+
+    @media (min-width: 1024px) {
+      .inner.container .nav.with.language.and.theme {
+        background-color: colors.$primary-25;
+      }
+    }
+  }
+}
+
+.dark header {
+  border-bottom: 1px solid colors.$gray-800;
+  background-color: colors.$black;
+
+  .inner.container {
+    .nav.with.language.and.theme {
+      background-color: colors.$black;
+    }
+
+    @media (max-width: 1023px) {
+      .nav.with.language.and.theme {
+        border-top: 1px solid colors.$gray-800;
+      }
+
+      .language.and.theme.only {
+        border-bottom: 1px solid colors.$gray-700;
+      }
+    }
+  }
+
+  &[data-style="colored"] {
+    background-color: colors.$black;
+
+    @media (min-width: 1024px) {
+      .inner.container .nav.with.language.and.theme {
+        background-color: colors.$black;
+      }
+    }
+  }
+}

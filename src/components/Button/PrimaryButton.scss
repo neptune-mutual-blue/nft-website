@@ -1,0 +1,92 @@
+@use "../../design-system/components/button";
+@use "../../design-system/colors";
+@use "../../design-system/shadows";
+
+@include button.ui-button;
+
+@-webkit-keyframes scaleIn {
+  from {
+      -webkit-transform: scale(0);
+  }
+  to {
+      -webkit-transform: scale(1);
+  }
+}
+@keyframes scaleIn {
+  from {
+      transform: scale(0);
+  }
+  to {
+      transform: scale(1);
+  }
+}
+
+.button.primary {
+  background-color: colors.$primary-600;
+  border: 1px solid colors.$primary-600;
+  color: colors.$white;
+  border-radius: 8px;
+  box-shadow: shadows.$xs;
+  transition: all 100ms ease-in;
+
+  &:disabled,
+  &[data-disabled] {
+    background-color: colors.$primary-200;
+    border-color: colors.$primary-200;
+  }
+
+  &:not(&:disabled):not(&[data-disabled]):not([data-destructive]) {
+    &[data-state="hover"],
+    &:hover {
+      color: colors.$white;
+      background-color: colors.$primary-700;
+    }
+
+    &[data-state="focused"],
+    &:focus,
+    &:active,
+    &:focus-visible {
+      background-color: colors.$primary-600;
+      box-shadow: shadows.$xs, 0px 0px 0px 4px colors.$primary-100;
+    }
+  }
+}
+
+
+.button.primary[data-destructive] {
+  background-color: colors.$error-600;
+  border: 1px solid colors.$error-600;
+
+  &:disabled,
+  &[data-disabled] {
+    background-color: colors.$error-200;
+    border: 1px solid colors.$error-200;
+  }
+
+  &:not(&:disabled):not(&[data-disabled]) {
+    &[data-state="hover"],
+    &:hover {
+      background-color: colors.$error-700;
+    }
+
+    &[data-state="focused"],
+    &:focus,
+    &:active,
+    &:focus-visible {
+      background-color: colors.$error-600;
+
+      box-shadow: shadows.$xs, 0px 0px 0px 4px colors.$error-100;
+    }
+  }
+}
+
+.dark .button.primary[data-destructive] {
+  &:not(&:disabled):not(&[data-disabled]) {
+    &[data-state="focused"],
+    &:focus,
+    &:active,
+    &:focus-visible {
+      box-shadow: shadows.$xs, 0px 0px 0px 4px colors.$error-800;
+    }
+  }
+}

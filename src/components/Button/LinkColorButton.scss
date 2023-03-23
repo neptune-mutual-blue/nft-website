@@ -1,0 +1,75 @@
+@use "../../design-system/components/button";
+@use "../../design-system/colors";
+
+@include button.ui-button;
+
+.button.link.color {
+  color: colors.$primary-600;
+  background-color: transparent;
+  padding-left: 0!important;
+  padding-right: 0!important;
+
+  &:disabled,
+  &[data-disabled] {
+    color: colors.$primary-300;
+  }
+
+  &:not(:disabled):not(&[data-disabled]):not(&[data-destructive]) {
+    &[data-state="hover"],
+    &:hover {
+      color: colors.$primary-700;
+    }
+
+    &[data-state="focused"],
+    &:focus,
+    &:active,
+    &:focus-visible {
+      color: colors.$primary-600;
+    }
+  }
+}
+
+.button.link.color[data-destructive] {
+  color: colors.$error-300;
+
+  .active {
+    background-color: colors.$primary-700;
+  }
+
+  &:disabled,
+  &[data-disabled] {
+    color: colors.$error-200;
+  }
+}
+
+.dark .button.link.color {
+  color: colors.$primary-50;
+
+  &:disabled,
+  &[data-disabled] {
+    color: colors.$primary-600;
+  }
+
+  &:not(&:disabled):not(&[data-disabled]):not(&[data-destructive]) {
+    &[data-state="hover"],
+    &:hover {
+      color: colors.$primary-300;
+    }
+
+    &[data-state="focused"],
+    &:focus,
+    &:active,
+    &:focus-visible {
+      color: colors.$primary-600;
+    }
+  }
+}
+
+.dark .button.link.color[data-destructive] {
+  color: colors.$error-700;
+
+  &:disabled,
+  &[data-disabled] {
+    color: colors.$error-900;
+  }
+}

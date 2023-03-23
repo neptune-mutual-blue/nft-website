@@ -2,7 +2,7 @@ import { Icon } from '@/elements/Icon'
 
 const NftCard = ({ name, views, count, nftId, image }) => {
   return (
-    <a className='nft card container' href={`/nft/marketplace/${nftId}`}>
+    <a className='nft card container' href={`/marketplace/${nftId}`}>
       <div className='image container'>
         <img src={image} alt={name || 'NFT Image'} loading='lazy' />
       </div>

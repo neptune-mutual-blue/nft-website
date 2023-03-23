@@ -1,9 +1,60 @@
-import Head from 'next/head'
-
-import { Footer } from '@/components/Footer/Footer'
+import { NftApi } from '@/service/nft-api'
 import { Home } from '@/views/Home'
+import Head from 'next/head'
+import Script from 'next/script'
+import { useEffect } from 'react'
 
-export default function HomePage () {
+export async function getStaticProps () {
+  const [
+    knowTheCharactersResponse,
+    mostViewedNftsResponse,
+    regularNftsResponse,
+    premiumNftsResponse
+  ] = await Promise.all([
+    NftApi.knowTheCharacters(),
+    NftApi.mostViewedNfts(),
+    NftApi.regularNfts(),
+    NftApi.premiumNfts()
+  ])
+
+  // Sort the Characters in Descending Order by level (No level means Higher Level)
+  knowTheCharactersResponse.data.sort((a, b) => {
+    if (!a.level) {
+      return -1
+    }
+
+    if (!b.level) {
+      return 1
+    }
+    return b.level - a.level
+  })
+
+  const charactersByPage = []
+
+  for (let i = 0; i < knowTheCharactersResponse.data.length; i += 5) {
+    charactersByPage.push(knowTheCharactersResponse.data.slice(i, i + 5))
+  }
+  return {
+    props: {
+      ssg: {
+        charactersByPage,
+        mostViewedNfts: mostViewedNftsResponse.data,
+        regularNfts: regularNftsResponse.data,
+        premiumNfts: premiumNftsResponse.data
+      }
+    }
+  }
+}
+
+export default function HomePage ({ ssg }) {
+  const initializeSlider = () => {
+    window?.initializeSlider?.()
+  }
+
+  useEffect(() => {
+    initializeSlider()
+  }, [])
+
   return (
     <>
       <Head>
@@ -13,11 +64,9 @@ export default function HomePage () {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Home />
+      <Home ssg={ssg} />
 
-      <main>
-        <Footer />
-      </main>
+      <Script strategy='beforeInteractive' src='/scripts/slider.js' />
     </>
   )
 }

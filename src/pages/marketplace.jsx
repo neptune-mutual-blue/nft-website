@@ -1,6 +1,5 @@
 import Head from 'next/head'
 
-import { Footer } from '@/components/Footer/Footer'
 import { getMarketplaceFilters, searchMarketplace } from '@/services/marketplace-api'
 import { Marketplace } from '@/views/Marketplace'
 
@@ -30,10 +29,6 @@ export default function MarketplacePage (props) {
         initialData={props.initialMarketplaceData}
         filters={props.marketplaceFilters}
       />
-
-      <main>
-        <Footer />
-      </main>
     </>
   )
 }

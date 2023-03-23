@@ -1,0 +1,67 @@
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+@use "../../design-system/colors";
+@use "../../design-system/blurs";
+
+.most.viewed.nfts {
+  padding: 32px;
+  border: 1px solid colors.$gray-200;
+  background-color: colors.$gray-50;
+  border-radius: 16px;
+
+  h3 {
+    @include styles.text-lg;
+    margin-bottom: 24px;
+  }
+
+  .character.details {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 18px;
+    align-items: center;
+    margin-bottom: 25.5px;
+    padding-bottom: 25.5px;
+    border-bottom: 1px solid colors.$gray-200;
+
+    &:last-of-type {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    img {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+    }
+
+    .character.name {
+      @include weights.semibold;
+      @include styles.text-md;
+      margin-bottom: 5px;
+    }
+
+    .character.description {
+      @include styles.text-sm;
+      margin-bottom: 5px;
+    }
+
+    .character.viewed {
+      @include styles.text-xs;
+      color: colors.$gray-600;
+    }
+  }
+}
+
+.dark .most.viewed.nfts {
+  border: none;
+  background-color: colors.$gray-800;
+
+  .character.details {
+    border-color: colors.$gray-700;
+
+    .character.viewed {
+      color: colors.$gray-400;
+    }
+  }
+}

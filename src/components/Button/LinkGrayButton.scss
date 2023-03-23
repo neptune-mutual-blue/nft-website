@@ -1,0 +1,69 @@
+@use "../../design-system/components/button";
+@use "../../design-system/colors";
+
+@include button.ui-button;
+
+.button.link.gray {
+  color: colors.$gray-600;
+  background-color: transparent;
+
+  &:disabled,
+  &[data-disabled] {
+    color: colors.$gray-300;
+  }
+
+  &:not(:disabled):not(&[data-disabled]):not(&[data-destructive]) {
+    &[data-state="hover"],
+    &:hover {
+      color: colors.$gray-700;
+    }
+
+    &[data-state="focused"],
+    &:focus,
+    &:active,
+    &:focus-visible {
+      color: colors.$gray-600;
+    }
+  }
+}
+
+.button.link.gray[data-destructive] {
+  color: colors.$error-300;
+
+  &:disabled,
+  &[data-disabled] {
+    color: colors.$error-200;
+  }
+}
+
+.dark .button.link.gray {
+  color: colors.$gray-50;
+
+  &:disabled,
+  &[data-disabled] {
+    color: colors.$gray-600;
+  }
+
+  &:not(&:disabled):not(&[data-disabled]):not(&[data-destructive]) {
+    &[data-state="hover"],
+    &:hover {
+      color: colors.$gray-300;
+    }
+
+    &[data-state="focused"],
+    &:focus,
+    &:active,
+    &:focus-visible {
+      color: colors.$white;
+    }
+  }
+}
+
+.dark .button.link.gray[data-destructive] {
+  color: colors.$error-700;
+
+  &:disabled,
+  &[data-disabled] {
+    color: colors.$error-900;
+  }
+}

@@ -1,4 +1,5 @@
-import '@/styles/main.scss'
+import { BaseLayout } from '@/layouts/BaseLayout'
+import '@/styles/global.scss'
 
 import { Inter } from 'next/font/google'
 
@@ -13,7 +14,10 @@ export default function App ({ Component, pageProps }) {
         }
       `}
       </style>
-      <Component {...pageProps} />
+
+      <BaseLayout>
+        <Component {...pageProps} />
+      </BaseLayout>
     </>
   )
 }

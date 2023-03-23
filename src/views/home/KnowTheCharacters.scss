@@ -1,0 +1,116 @@
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+@use "../../design-system/colors";
+@use "../../design-system/blurs";
+
+.know.the.characters {
+  h2 {
+    @include styles.display-xs;
+    margin-bottom: 8px;
+  }
+
+  .character.page {
+    height: 656px;
+    overflow: hidden;
+
+    &.hidden {
+      display: none;
+    }
+
+    .character.details {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 18px;
+      padding: 16px 0;
+      margin-bottom: 27px;
+
+      &:last-of-type {
+        margin-bottom: 0px;
+      }
+
+      img {
+        height: 74px;
+        width: 74px;
+        border-radius: 50%;
+      }
+
+      .character.name {
+        @include weights.semibold;
+        @include styles.text-lg;
+      }
+
+      .character.description {
+        @include styles.text-md;
+        color: colors.$gray-600;
+      }
+    }
+  }
+
+  .pagination {
+    padding-top: 16px;
+    border-top: 1px solid colors.$gray-200;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & > div {
+      @include weights.medium;
+      @include styles.text-sm;
+    }
+
+    button {
+      width: 48px;
+      height: 48px;
+      backdrop-filter: blurs.$sm;
+      border-radius: 50%;
+
+      background-color: colors.$white;
+      color: colors.$gray-500;
+      border: 1px solid colors.$gray-300;
+
+      &:not(:disabled):not([data-disabled]):hover {
+        background-color: colors.$gray-50 !important;
+        color: colors.$gray-700 !important;
+      }
+
+      &:disabled,
+      &[data-disabled] {
+        cursor: not-allowed;
+        opacity: 50%;
+      }
+    }
+  }
+}
+
+.dark .know.the.characters {
+  .pagination {
+    border-color: colors.$gray-800;
+  }
+
+  .character.page {
+    .character.details {
+      .character.description {
+        color: colors.$gray-300;
+      }
+    }
+  }
+
+  button {
+    border-radius: 50%;
+    background-color: colors.$gray-800;
+    color: colors.$white;
+    border: none;
+
+    &:not(:disabled):not([data-disabled]):hover {
+      background-color: colors.$gray-700 !important;
+      color: colors.$white !important;
+    }
+
+    &:disabled,
+    &[data-disabled] {
+      color: colors.$white;
+      border-color: transparent !important;
+    }
+  }
+}

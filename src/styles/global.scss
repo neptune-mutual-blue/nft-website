@@ -62,7 +62,7 @@ html.dark {
 
 .dark.only {
   display: none;
-  
+
   .dark & {
     display: flex;
   }
@@ -74,7 +74,7 @@ html.dark {
 
 :root {
   --header-height: 80px;
-  
+
   @media (max-width: 767px) {
     --header-height: 72px;
   }
@@ -84,10 +84,32 @@ main {
   padding-top: var(--header-height);
 }
 
-button, .pointer {
+button,
+.pointer {
   cursor: pointer;
 }
 
 .no.vertical.scroll {
   overflow-y: hidden;
 }
+
+@import "../components/Header/Header.scss";
+@import "../components/Header/ThemeSelector.scss";
+@import "../components/Footer/Footer.scss";
+@import "../elements/Icon.scss";
+@import "../components/Slider/Slider.scss";
+@import "../components/HeaderSection/HeaderSection.scss";
+@import "../components/Breadcrumb/Breadcrumb.scss";
+@import "../components/Tags/Tags.scss";
+
+@import "../components/Button/_base/index.scss";
+@import "../components/Button/Button.scss";
+@import "../components/Button/PrimaryButton.scss";
+@import "../components/Button/SecondaryGrayButton.scss";
+@import "../components/Button/LinkGrayButton.scss";
+@import "../components/Button/LinkColorButton.scss";
+
+@import "../components/NftCard.scss";
+@import "../components/NftCardWithBlurEffect.scss";
+
+@import "./main.scss";

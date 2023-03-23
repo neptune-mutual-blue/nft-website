@@ -1,0 +1,117 @@
+@use "../../design-system/components/button";
+@use "../../design-system/theme/light";
+@use "../../design-system/theme/dark";
+@use "../../design-system/colors";
+@use "../../design-system/shadows";
+
+@include button.ui-button;
+
+.button.secondary.gray {
+  border: 1px solid colors.$gray-300;
+  background-color: light.$primary-background-color;
+  color: colors.$gray-700;
+
+  &:disabled,
+  &[data-disabled] {
+    color: colors.$gray-300;
+    border: 1px solid colors.$gray-200;
+  }
+
+  &:not(:disabled):not(&[data-disabled]) {
+    &[data-state="hover"],
+    &:hover {
+      color: colors.$gray-800;
+      background-color: colors.$gray-50;
+    }
+
+    &[data-state="focused"],
+    &:focus,
+    &:active,
+    &:focus-visible {
+      border: 1px solid colors.$gray-200;
+      box-shadow: shadows.$xs, 0px 0px 0px 4px colors.$gray-100;
+    }
+  }
+}
+
+.button.secondary.gray[data-destructive] {
+  border: 1px solid colors.$error-300;
+  color: colors.$error-700;
+
+  &:disabled,
+  &[data-disabled] {
+    color: colors.$error-300;
+    border: 1px solid colors.$error-200;
+  }
+
+  &:not(&:disabled):not(&[data-disabled]) {
+    &[data-state="hover"],
+    &:hover {
+      color: colors.$error-800;
+      background-color: colors.$error-50;
+    }
+
+    &[data-state="focused"],
+    &:focus,
+    &:active,
+    &:focus-visible {
+      border: 1px solid colors.$error-200;
+      box-shadow: shadows.$xs, 0px 0px 0px 4px colors.$error-100;
+    }
+  }
+}
+
+.dark .button.secondary.gray {
+  border: 1px solid colors.$gray-800;
+  background-color: colors.$black;
+  color: colors.$gray-50;
+
+  &:disabled,
+  &[data-disabled] {
+    color: colors.$gray-700;
+  }
+
+  &:not(&:disabled):not(&[data-disabled]) {
+    &[data-state="hover"],
+    &:hover {
+      color: colors.$gray-100;
+      background-color: colors.$gray-900;
+    }
+
+    &[data-state="focused"],
+    &:focus,
+    &:active,
+    &:focus-visible {
+      border: 1px solid colors.$gray-600;
+      box-shadow: shadows.$xs, 0px 0px 0px 4px colors.$gray-700;
+    }
+  }
+}
+
+.dark .button.secondary.gray[data-destructive] {
+  border: 1px solid colors.$error-700;
+  color: colors.$error-300;
+
+  &:disabled,
+  &[data-disabled] {
+    border: 1px solid colors.$error-900;
+    color: colors.$error-900;
+  }
+
+  &:not(&:disabled):not(&[data-disabled]) {
+    &[data-state="hover"],
+    &:hover {
+      color: colors.$error-300;
+      background-color: colors.$error-900;
+    }
+
+    &[data-state="focused"],
+    &:focus,
+    &:active,
+    &:focus-visible {
+      border: 1px solid colors.$error-600;
+
+      box-shadow: shadows.$xs, 0px 0px 0px 4px colors.$error-700;
+    }
+  }
+}
