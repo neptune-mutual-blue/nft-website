@@ -90,7 +90,7 @@
         &:hover>span,
         &.active>span,
         &:focus-visible>span {
-          color: colors.$gray-25 !important;
+          color: colors.$gray-25;
           background-color: colors.$primary-700;
         }
       }
