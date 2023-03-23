@@ -1,0 +1,62 @@
+@use "../../design-system/utils";
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+@use "../../design-system/shadows";
+@use "../../design-system/theme/light";
+@use "../../design-system/theme/dark";
+
+.marketplace.search.container {
+  background-color: colors.$base-white;
+  padding: 96px 0;
+
+  .inner.container {
+    @include utils.full-width-container;
+    display: grid;
+    column-gap: 40px;
+    grid-template-columns: auto 1fr;
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      input.search {
+        padding: 10px 14px;
+        @include styles.text-md;
+        @include weights.regular;
+        border-radius: 8px;
+        border: 1px solid colors.$gray-300;
+        box-shadow: shadows.$xs;
+        width: 100%;
+        min-width: 100px;
+      }
+
+      .nft.grid {
+        margin-top: 48px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        row-gap: 48px;
+        column-gap: 26px;
+        place-items: center;
+
+        @media (max-width: 1280px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    }
+
+  }
+}
+
+.dark .marketplace.search.container {
+  background-color: colors.$black;
+
+  .inner.container {
+    .right {
+      input.search {
+        border: 1px solid colors.$gray-700;
+      }
+    }
+  }
+}

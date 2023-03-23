@@ -1,0 +1,99 @@
+@use "../../design-system/utils";
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+@use "../../design-system/shadows";
+@use "../../design-system/theme/light";
+@use "../../design-system/theme/dark";
+
+.ui.pagination {
+  margin-top: 48px;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid colors.$gray-200;
+
+    .previous.page,
+    .next.page {
+      display: flex;
+      gap: 8px;
+      @include styles.text-sm;
+      @include weights.semibold;
+
+      &:disabled {
+        color: colors.$gray-400;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .page.numbers {
+    display: flex;
+    gap: 2px;
+
+    @media (max-width: 767px) {
+      display: none;
+    }
+
+    .continues,
+    .button {
+      display: flex;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      justify-content: center;
+      color: colors.$gray-600;
+      border-radius: 8px;
+    }
+
+    .button {
+
+      &:hover,
+      &.active,
+      &:focus-visible,
+      &:hover>span,
+      &.active>span,
+      &:focus-visible>span {
+        background-color: colors.$gray-100;
+        color: colors.$gray-800;
+      }
+    }
+  }
+}
+
+.dark .ui.pagination {
+  .container {
+    border-top: 1px solid colors.$gray-700;
+
+    .previous.page,
+    .next.page {
+      &:disabled {
+        color: colors.$gray-600;
+      }
+    }
+
+    .continues {
+      color: colors.$gray-25;
+    }
+
+    .page.numbers {
+
+      .button {
+        color: colors.$gray-25;
+
+        &:hover,
+        &.active,
+        &:focus-visible,
+        &:hover>span,
+        &.active>span,
+        &:focus-visible>span {
+          color: colors.$gray-25;
+          background-color: colors.$primary-700;
+        }
+      }
+    }
+  }
+}
