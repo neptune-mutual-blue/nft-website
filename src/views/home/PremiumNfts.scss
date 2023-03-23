@@ -1,0 +1,38 @@
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+@use "../../design-system/colors";
+@use "../../design-system/blurs";
+
+.premium.nfts {
+  margin-bottom: 24px;
+
+  .slider.container {
+    padding: 0;
+    .arrows {
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 24px;
+
+      button {
+        width: 36px !important;
+        height: 36px !important;
+        backdrop-filter: blurs.$sm !important;
+
+        background-color: colors.$black-900 !important;
+        color: colors.$white !important;
+        border: none !important;
+
+        &:not(:disabled):not([data-disabled]):hover {
+          background-color: colors.$gray-800 !important;
+          color: colors.$white !important;
+        }
+
+        &:disabled,
+        &[data-disabled] {
+          cursor: not-allowed;
+          opacity: 50%;
+        }
+      }
+    }
+  }
+}

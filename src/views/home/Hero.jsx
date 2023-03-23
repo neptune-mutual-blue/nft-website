@@ -1,3 +1,6 @@
+import { Icon } from '@/elements/Icon'
+import Link from 'next/link'
+
 const Hero = () => {
   return (
     <div className='home hero container'>
@@ -10,11 +13,12 @@ const Hero = () => {
 
         <div className='buttons container'>
           <button className='view'>View Minting Levels</button>
-          <button className='access'>
-            {/* @todo: replace with icon */}
-            <i>image-indent-left</i>
-            <span>Access Marketplace</span>
-          </button>
+          <Link href='/marketplace'>
+            <button className='access'>
+              <Icon variant='image-indent-left' size='md' />
+              <span>Access Marketplace</span>
+            </button>
+          </Link>
         </div>
       </div>
 

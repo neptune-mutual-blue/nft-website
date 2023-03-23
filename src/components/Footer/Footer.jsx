@@ -17,8 +17,8 @@ const Footer = () => {
         <div className='nav container'>
           <Link className='logo' href='/'>
             <span className='sr-only'>Neptune Mutual</span>
-            <img className='light only' src={NpmLightLogo.src} />
-            <img className='dark only' src={NpmDarkLogo.src} />
+            <span className='light only'><NpmLightLogo /></span>
+            <span className='dark only'><NpmDarkLogo /></span>
           </Link>
 
           <nav>

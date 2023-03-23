@@ -1,0 +1,90 @@
+@use "../../design-system/utils";
+@use "../../design-system/blurs";
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+@use "../../design-system/theme/light";
+@use "../../design-system/theme/dark";
+
+.slider.container {
+  width: 100%;
+  overflow: auto;
+  padding: 4px;
+
+  &.extra.padding {
+    padding-bottom: 64px;
+  }
+
+  .slider.scrollable {
+    display: inline-flex;
+    gap: 16px;
+    transition: transform 0.4s ease-in;
+  }
+
+  .slick-track {
+    display: flex !important;
+  }
+
+  .slick-list {
+    margin: 0 -16px;
+  }
+
+  .slick-slide {
+    margin: 0 16px;
+
+    &[aria-hidden="true"] {
+      visibility: hidden;
+      transition: visibility 0.3s 1s linear;
+    }
+  }
+
+  .arrows {
+    display: flex;
+    gap: 32px;
+    margin-top: 32px;
+
+    button {
+      width: 56px;
+      height: 56px;
+      backdrop-filter: blurs.$sm;
+      border-radius: 50%;
+
+      background-color: colors.$white;
+      color: colors.$gray-500;
+      border: 1px solid colors.$gray-200;
+
+      &:not(:disabled):not([data-disabled]):hover {
+        background-color: colors.$gray-50 !important;
+        color: colors.$gray-700 !important;
+      }
+
+      &:disabled,
+      &[data-disabled] {
+        border: 1px solid colors.$gray-100 !important;
+        color: colors.$gray-300 !important;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+.dark .slider.container {
+  .arrows {
+    button {
+      background-color: colors.$gray-700;
+      color: colors.$gray-50;
+      border: 1px solid colors.$gray-600;
+
+      &:not(:disabled):not([data-disabled]):hover {
+        background-color: colors.$gray-600 !important;
+        color: colors.$white !important;
+      }
+
+      &:disabled,
+      [data-disabled] {
+        border: 1px solid colors.$gray-600 !important;
+        color: colors.$gray-600 !important;
+      }
+    }
+  }
+}

@@ -1,9 +1,10 @@
+import { Hero } from '@/views/marketplace/Hero'
 import { MarketPlaceSection } from '@/views/marketplace/MarketplaceSection'
 
 const Marketplace = ({ initialData, filters }) => {
   return (
     <>
-      {/* <Hero /> */}
+      <Hero />
 
       <MarketPlaceSection
         initialData={initialData}

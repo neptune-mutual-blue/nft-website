@@ -112,7 +112,11 @@ const paths = {
   'help-cirlce': import('./variants/General/help-circle.svg?raw'),
   table: import('./variants/Layout/table.svg?raw'),
   minus: import('./variants/General/minus.svg?raw'),
-  eye: import('./variants/General/eye.svg?raw')
+  eye: import('./variants/General/eye.svg?raw'),
+  'image-indent-left': import('./variants/Editor/image-indent-left.svg'),
+  'expand-01': import('./variants/Arrows/expand-01.svg?raw'),
+  'share-01': import('./variants/General/share-01.svg?raw'),
+  heart: import('./variants/General/heart.svg?raw')
 }
 
 export { paths }

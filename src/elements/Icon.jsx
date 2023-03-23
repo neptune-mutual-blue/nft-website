@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { paths } from './icons/paths'
 
 const Icon = ({ variant, size }) => {
-  const [innerHTML, setInnerHTML] = useState(null)
+  const [component, setComponent] = useState(null)
 
   const setHTML = async () => {
     let html = null
@@ -10,9 +10,7 @@ const Icon = ({ variant, size }) => {
     if (variant !== undefined) {
       html = await paths[variant].then((x) => x.default)
 
-      console.log(html)
-
-      setInnerHTML(html)
+      setComponent(html)
     }
   }
 
@@ -22,7 +20,7 @@ const Icon = ({ variant, size }) => {
 
   return (
     <i data-size={size}>
-      <img src={innerHTML?.src} />
+      {component}
     </i>
   )
 }

@@ -1,0 +1,183 @@
+@use "../../design-system/utils";
+@use "../../design-system/colors";
+@use "../../design-system/shadows";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+@use "../../design-system/theme/light";
+@use "../../design-system/theme/dark";
+
+.ui.hero.section {
+  // border-bottom: 0.5px solid #ccc;
+
+  > .container {
+    padding: 96px 32px;
+    gap: 128px;
+
+    @media (max-width: 767px) {
+      padding: 64px 12px;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+
+      .heading.and.supporting.text {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        @media (max-width: 767px) {
+          gap: 16px;
+        }
+
+        .heading.and.subheading {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+
+          .heading:not(.sub) {
+            color: light.$color;
+            @include styles.display-lg;
+            @include weights.semibold;
+
+            @media (max-width: 767px) {
+              @include styles.display-md;
+            }
+          }
+
+          .sub.heading {
+            color: colors.$primary-700;
+            @include styles.text-md;
+            @include weights.semibold;
+
+            @media (max-width: 767px) {
+              @include styles.text-sm;
+            }
+          }
+        }
+
+        .supporting.text {
+          @include styles.text-xl;
+          @include weights.regular;
+
+          @media (max-width: 767px) {
+            @include styles.text-lg;
+          }
+        }
+      }
+
+      .actions {
+        display: flex;
+        gap: 12px;
+
+        @media (max-width: 424px) {
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}
+
+.ui.center.hero.section {
+  .content {
+    text-align: center;
+    max-width: 768px;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media (max-width: 767px) {
+      padding: 0;
+      text-align: left;
+    }
+
+    .message {
+      text-align: left;
+    }
+  }
+
+  .actions {
+    justify-content: center;
+  }
+
+  .heading.and.supporting.text {
+    padding: 0;
+  }
+
+  .supporting.text {
+    padding: 0;
+
+    @media (max-width: 1023px) {
+      padding: 0;
+    }
+  }
+}
+
+.ui.left.hero.section {
+  .heading.and.supporting.text {
+    width: 768px;
+
+    @media (max-width: 767px) {
+      width: 100%;
+    }
+  }
+
+  .text.block.and.hero {
+    display: flex;
+    gap: 128px;
+    align-items: center;
+
+    @media (max-width: 767px) {
+      gap: 32px;
+      flex-direction: column;
+    }
+
+    @media (max-width: 1023px) {
+      gap: 64px;
+    }
+
+    .hero {
+      text-align: center;
+    }
+  }
+
+  .actions {
+    .button.secondary.gray {
+      box-shadow: shadows.$xs;
+    }
+  }
+}
+
+.dark .ui.hero.section {
+  background-color: dark.$primary-background-color;
+
+  > .container {
+    .content {
+      .heading.and.supporting.text {
+        .heading.and.subheading {
+          .heading:not(.sub) {
+            color: dark.$color;
+          }
+
+          .sub.heading {
+            color: colors.$primary-300;
+          }
+        }
+      }
+    }
+  }
+
+  .actions {
+    .button.secondary.gray {
+      border: 1px solid colors.$gray-300;
+    }
+  }
+}
+
+.ui.basic.hero.section {
+  background-color: colors.$indigo-25;
+}
+
+.dark .ui.basic.hero.section {
+  background-color: dark.$primary-background-color;
+}
