@@ -1,0 +1,87 @@
+@use "../../design-system/utils";
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+@use "../../design-system/shadows";
+
+.home.hero.container {
+  padding-top: 56px;
+
+  .titles.container {
+    text-align: center;
+
+    .title {
+      @include styles.display-xl;
+      @include weights.bold;
+    }
+
+    .intro {
+      @include styles.text-xl;
+      @include weights.regular;
+      color: colors.$gray-600;
+      margin-top: 12px;
+      max-width: 768px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .buttons.container {
+      margin-top: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+
+      button,
+      a {
+        padding: 10px 18px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        @include styles.text-sm;
+        @include weights.semibold;
+        box-shadow: shadows.$xs;
+      }
+
+      .view {
+        border: 1px solid colors.$gray-300;
+        color: colors.$gray-700
+      }
+
+      .access {
+        background-color: colors.$indigo-600;
+        color: colors.$base-white
+      }
+    }
+  }
+
+  .image.container {
+    margin-top: 12px;
+
+    @media (max-width: 767px) {
+      img {
+        min-height: 320px;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+.dark .home.hero.container {
+  .titles.container {
+    .title {
+      color: colors.$base-white;
+    }
+
+    .intro {
+      color: colors.$gray-25;
+    }
+
+    .buttons.container {
+      .view {
+        color: colors.$base-white
+      }
+    }
+  }
+}

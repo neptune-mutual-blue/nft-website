@@ -1,8 +1,9 @@
 import Head from 'next/head'
 
 import { Footer } from '@/components/Footer/Footer'
+import { Home } from '@/views/Home'
 
-export default function Home () {
+export default function HomePage () {
   return (
     <>
       <Head>
@@ -11,6 +12,9 @@ export default function Home () {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+
+      <Home />
+
       <main>
         <Footer />
       </main>

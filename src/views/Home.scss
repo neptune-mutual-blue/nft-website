@@ -1,0 +1,19 @@
+@use "../design-system/utils";
+
+.home.page {
+  @include utils.full-width-container;
+
+  section {
+    padding: 96px 0;
+  }
+
+  .dashboard {
+    display: grid;
+    grid-template-columns: 368px 1fr;
+    gap: 24px;
+
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
