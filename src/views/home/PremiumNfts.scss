@@ -24,8 +24,8 @@
         border: none;
 
         &:not(:disabled):not([data-disabled]):hover {
-          background-color: colors.$gray-800;
-          color: colors.$white;
+          background-color: colors.$gray-800 !important;
+          color: colors.$white !important;
         }
 
         &:disabled,

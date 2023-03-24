@@ -103,8 +103,8 @@
     border: none;
 
     &:not(:disabled):not([data-disabled]):hover {
-      background-color: colors.$gray-700;
-      color: colors.$white;
+      background-color: colors.$gray-700 !important;
+      color: colors.$white !important;
     }
 
     &:disabled,
