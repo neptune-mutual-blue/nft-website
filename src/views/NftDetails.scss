@@ -11,6 +11,17 @@
     padding-top: 56px;
   }
 
+  .breadcrumb.and.connect.wallet {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & > div,
+    & > button {
+      margin-top: 20px;
+    }
+  }
+
   .content.grid {
     margin-top: 32px;
     display: grid;
@@ -23,67 +34,10 @@
       grid-template-columns: 1fr;
     }
 
-    .image {
-      position: relative;
-
-      img {
-        width: 100%;
-        border-radius: 24px;
-      }
-
-      .fullscreen.icon {
-        position: absolute;
-        top: 24px;
-        right: 24px;
-        padding: 8px;
-        border-radius: 8px;
-        background-color: colors.$gray-50;
-
-        svg {
-          color: colors.$gray-700 !important;
-        }
-      }
-    }
-
     .mint {
       border-radius: 24px;
       padding: 32px;
       border: 1px solid colors.$gray-300;
-
-      .nickname {
-        margin-top: 8px;
-        @include styles.text-md;
-        @include weights.semibold;
-
-        // NFT Levels
-        &[data-color="level1"] {
-          color: colors.$orange-dark-400;
-        }
-
-        &[data-color="level2"] {
-          color: colors.$orange-dark-600;
-        }
-
-        &[data-color="level3"] {
-          color: colors.$blue-dark-400;
-        }
-
-        &[data-color="level4"] {
-          color: colors.$blue-dark-700;
-        }
-
-        &[data-color="level5"] {
-          color: colors.$pink-500;
-        }
-
-        &[data-color="level6"] {
-          color: colors.$pink-600;
-        }
-
-        &[data-color="level7"] {
-          color: colors.$teal-500;
-        }
-      }
 
       .character.name {
         margin-top: 32px;
@@ -92,18 +46,8 @@
       }
 
       .siblings.and.stage {
-        display: flex;
-        gap: 8px;
-        align-items: center;
         margin-top: 32px;
         margin-bottom: 56px;
-
-        & > div {
-          &:first-of-type {
-            color: colors.$gray-600;
-            @include styles.text-md;
-          }
-        }
       }
 
       .minting.btn {
@@ -111,6 +55,12 @@
         flex-direction: column;
         align-items: center;
         margin-bottom: 56px;
+
+        & > div {
+          width: 100%;
+          text-align: center;
+        }
+
         button.ui.primary.button {
           width: 100%;
         }
@@ -123,18 +73,8 @@
       }
 
       .like.and.share {
-        display: flex;
-        gap: 16px;
-        align-items: center;
         padding-top: 32px;
-        color: colors.$gray-600;
         border-top: 1px solid colors.$gray-300;
-
-        & > div {
-          display: flex;
-          align-items: center;
-          gap: 4px;
-        }
       }
     }
 
@@ -217,14 +157,6 @@
     .mint {
       border-color: colors.$gray-800;
 
-      .siblings.and.stage {
-        & > div {
-          &:first-of-type {
-            color: colors.$gray-200;
-          }
-        }
-      }
-
       .minting.btn {
         & > div:last-of-type {
           color: colors.$gray-200;
@@ -233,7 +165,6 @@
 
       .like.and.share {
         border-color: colors.$gray-800;
-        color: colors.$gray-200;
       }
     }
   }

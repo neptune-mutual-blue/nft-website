@@ -65,7 +65,7 @@ export default function HomePage ({ ssg }) {
       </Head>
 
       <Home ssg={ssg} />
-
+      {/* eslint-disable-next-line */}
       <Script strategy='beforeInteractive' src='/scripts/slider.js' />
     </>
   )

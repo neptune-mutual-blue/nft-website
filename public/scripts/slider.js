@@ -84,9 +84,7 @@ const initializeSlider = () => {
         return
       }
 
-      console.log(elements)
       const gap = parseInt(elements.sliderContainer.dataset.gap)
-      console.log(elements.firstItem.getBoundingClientRect().width + gap)
 
       const positions = {
         getFirstItemX: () => elements.firstItem.getBoundingClientRect().x,

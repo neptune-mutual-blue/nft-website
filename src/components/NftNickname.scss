@@ -1,0 +1,37 @@
+@use "../design-system/colors";
+@use "../design-system/typography/styles";
+@use "../design-system/typography/weights";
+
+.formatted.nickname {
+  margin-top: 8px;
+  @include styles.text-md;
+  @include weights.semibold;
+  // NFT Levels
+  &[data-color="level1"] {
+    color: colors.$orange-dark-400;
+  }
+
+  &[data-color="level2"] {
+    color: colors.$orange-dark-600;
+  }
+
+  &[data-color="level3"] {
+    color: colors.$blue-dark-400;
+  }
+
+  &[data-color="level4"] {
+    color: colors.$blue-dark-700;
+  }
+
+  &[data-color="level5"] {
+    color: colors.$pink-500;
+  }
+
+  &[data-color="level6"] {
+    color: colors.$pink-600;
+  }
+
+  &[data-color="level7"] {
+    color: colors.$teal-500;
+  }
+}

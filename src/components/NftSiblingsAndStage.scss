@@ -1,0 +1,23 @@
+@use "../design-system/colors";
+@use "../design-system/typography/styles";
+
+.siblings.and.stage {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  & > div {
+    &:first-of-type {
+      color: colors.$gray-600;
+      @include styles.text-md;
+    }
+  }
+}
+
+.dark .siblings.and.stage {
+  & > div {
+    &:first-of-type {
+      color: colors.$gray-200;
+    }
+  }
+}

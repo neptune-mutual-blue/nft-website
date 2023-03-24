@@ -1,0 +1,43 @@
+import { ConnectorNames } from '../config/connectors'
+
+/**
+ * Asynchronously load the selected connector only
+ *
+ * @param {string} name
+ */
+export const getConnectorByName = async (name) => {
+  switch (name) {
+    case ConnectorNames.Injected: {
+      const c = await import('./injected/connector')
+
+      return c.getConnector()
+    }
+
+    case ConnectorNames.OKXWallet: {
+      const c = await import('./okx-wallet/connector')
+
+      return c.getConnector()
+    }
+
+    // case ConnectorNames.BSC: {
+    //   const c = await import('./binance-wallet/connector')
+
+    //   return c.getConnector()
+    // }
+
+    case ConnectorNames.Gnosis: {
+      const c = await import('./gnosis-safe/connector')
+
+      return c.getConnector()
+    }
+
+    case ConnectorNames.CoinbaseWallet: {
+      const c = await import('./coinbase-wallet/connector')
+
+      return c.getConnector()
+    }
+
+    default:
+      return null
+  }
+}

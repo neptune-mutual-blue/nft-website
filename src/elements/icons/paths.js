@@ -94,6 +94,7 @@ const paths = {
   ),
   'log-out-01': import('./variants/General/log-out-01.svg?raw'),
   metamask: import('./custom/Brands/default/SvgMetamask.svg?raw'),
+  coinbase: import('./custom/Brands/default/Coinbase.svg?raw'),
   'okx-wallet': import('./custom/Brands/default/SvgOkxWallet.svg?raw'),
   'gnosis-wallet': import('./custom/Brands/default/SvgGnosisWallet.svg?raw'),
   'wallet-connect': import('./custom/Brands/default/SvgWalletConnect.svg?raw'),

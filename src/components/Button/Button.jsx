@@ -2,8 +2,10 @@ import { LinkColorButton } from '@/components/Button/LinkColorButton'
 import { LinkGrayButton } from '@/components/Button/LinkGrayButton'
 import { PrimaryButton } from '@/components/Button/PrimaryButton'
 import SecondaryGrayButton from '@/components/Button/SecondaryGrayButton'
+import { forwardRef } from 'react'
 
-const Button = (props) => {
+// eslint-disable-next-line react/display-name
+const Button = forwardRef((props, forwardedRef) => {
   const { variant, children } = props
 
   let BtnComponent = PrimaryButton
@@ -20,10 +22,10 @@ const Button = (props) => {
   }
 
   return (
-    <BtnComponent {...props}>
+    <BtnComponent ref={forwardedRef} {...props}>
       {children}
     </BtnComponent>
   )
-}
+})
 
 export { Button }
