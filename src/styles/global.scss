@@ -102,6 +102,7 @@ button,
 @import "../components/Breadcrumb/Breadcrumb.scss";
 @import "../components/Tags/Tags.scss";
 @import "../components/Tooltip/Tooltip.scss";
+@import "../components/Checkbox/Checkbox.scss";
 
 @import "../components/Button/_base/index.scss";
 @import "../components/Button/Button.scss";
@@ -127,6 +128,6 @@ button,
 
 //Pages
 @import "../pages/index.scss";
-@import "../pages/marketplace.scss";
+@import "../pages/marketplace/index.scss";
 @import "../views/NftDetails.scss";
 @import "../views/MintNft.scss";
