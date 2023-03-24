@@ -1,3 +1,4 @@
+import { Checkbox } from '@/components/Checkbox/Checkbox'
 import { Icon } from '@/elements/Icon'
 import { useMemo, useState } from 'react'
 
@@ -79,13 +80,18 @@ const Filter = ({ filters = [], setProperties }) => {
                         })
                         return (
                           <li className='option' key={idx}>
-                            <input
+                            {/* <input
                               type='checkbox'
                               id={`option-${value}`}
                               checked={Boolean(checked)}
                               onChange={() => handleFilterUpdate(filter.key, value)}
                             />
-                            <label htmlFor={`option-${value}`}>{value}</label>
+                            <label htmlFor={`option-${value}`}>{value}</label> */}
+                            <Checkbox
+                              label={value}
+                              checked={Boolean(checked)}
+                              onChange={() => handleFilterUpdate(filter.key, value)}
+                            />
                           </li>
                         )
                       })
