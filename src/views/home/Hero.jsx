@@ -13,11 +13,9 @@ const Hero = () => {
 
         <div className='buttons container'>
           <button className='view'>View Minting Levels</button>
-          <Link href='/marketplace'>
-            <button className='access'>
-              <Icon variant='image-indent-left' size='md' />
-              <span>Access Marketplace</span>
-            </button>
+          <Link href='/marketplace' className='access'>
+            <Icon variant='image-indent-left' size='md' />
+            <span>Access Marketplace</span>
           </Link>
         </div>
       </div>

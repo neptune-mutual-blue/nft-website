@@ -14,7 +14,7 @@ const Pagination = ({ currentPage, totalPages, onChange }) => {
           disabled={!previous}
           onClick={() => onChange(previous)}
         >
-          <Icon variant='arrow-left' />
+          <Icon variant='arrow-left' size='lg' />
           <span>{t('Previous')}</span>
         </button>
 
@@ -47,7 +47,7 @@ const Pagination = ({ currentPage, totalPages, onChange }) => {
           onClick={() => onChange(next)}
         >
           <span>{t('Next')}</span>
-          <Icon variant='arrow-right' />
+          <Icon variant='arrow-right' size='lg' />
         </button>
       </div>
     </div>

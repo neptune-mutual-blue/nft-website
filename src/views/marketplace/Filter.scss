@@ -12,6 +12,11 @@
   height: 100%;
 
   .filter.inner {
+    position: sticky;
+    top: var(--header-height);
+    overflow-y: auto;
+    max-height: calc(100vh - var(--header-height));
+
     h2 {
       @include styles.text-xl;
       @include weights.semibold;
@@ -28,6 +33,11 @@
 
       input {
         outline: none;
+      }
+
+      svg {
+        height: 20px;
+        aspect-ratio: 1 / 1;
       }
     }
 
