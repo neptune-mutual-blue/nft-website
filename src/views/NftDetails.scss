@@ -40,7 +40,7 @@
         background-color: colors.$gray-50;
 
         svg {
-          color: colors.$gray-700 !important;
+          color: colors.$gray-700;
         }
       }
     }
@@ -98,7 +98,7 @@
         margin-top: 32px;
         margin-bottom: 56px;
 
-        & > div {
+        &>div {
           &:first-of-type {
             color: colors.$gray-600;
             @include styles.text-md;
@@ -111,11 +111,12 @@
         flex-direction: column;
         align-items: center;
         margin-bottom: 56px;
+
         button.ui.primary.button {
           width: 100%;
         }
 
-        & > div:last-of-type {
+        &>div:last-of-type {
           margin-top: 8px;
           color: colors.$gray-600;
           @include styles.text-sm;
@@ -130,7 +131,7 @@
         color: colors.$gray-600;
         border-top: 1px solid colors.$gray-300;
 
-        & > div {
+        &>div {
           display: flex;
           align-items: center;
           gap: 4px;
@@ -187,22 +188,24 @@
 
   .nfts.you.may.like {
     margin-top: 64px;
+
     h3 {
       @include styles.display-xs;
       @include weights.bold;
       margin-bottom: 24px;
     }
+
     .nft.characters {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
       gap: 12.8px;
 
       @media (max-width: 767px) {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: 1fr;
       }
 
       .blur.effect.character.details {
-        width: 100% !important;
+        width: 100%;
 
         img {
           height: auto;
@@ -218,7 +221,7 @@
       border-color: colors.$gray-800;
 
       .siblings.and.stage {
-        & > div {
+        &>div {
           &:first-of-type {
             color: colors.$gray-200;
           }
@@ -226,7 +229,7 @@
       }
 
       .minting.btn {
-        & > div:last-of-type {
+        &>div:last-of-type {
           color: colors.$gray-200;
         }
       }
@@ -237,6 +240,7 @@
       }
     }
   }
+
   .properties {
     .table {
       border-color: colors.$gray-800;
