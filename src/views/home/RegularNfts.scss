@@ -5,7 +5,7 @@
 
 .regular.nfts {
   .character.details {
-    width: 136px !important;
+    width: 136px;
     position: relative;
 
     img {
@@ -31,19 +31,20 @@
 
   .slider.container {
     padding: 0;
+
     .arrows {
       justify-content: flex-end;
       gap: 12px;
       margin-top: 24px;
 
       button {
-        width: 36px !important;
-        height: 36px !important;
-        backdrop-filter: blurs.$sm !important;
+        width: 36px;
+        height: 36px;
+        backdrop-filter: blurs.$sm;
 
-        background-color: colors.$black-900 !important;
-        color: colors.$white !important;
-        border: none !important;
+        background-color: colors.$black-900;
+        color: colors.$white;
+        border: none;
 
         &:not(:disabled):not([data-disabled]):hover {
           background-color: colors.$gray-800 !important;
@@ -61,7 +62,9 @@
 }
 
 .dark .regular.nfts {
-  .supporting.text {
-    color: colors.$gray-300 !important;
+  .character.details {
+    .supporting.text {
+      color: colors.$gray-300;
+    }
   }
 }

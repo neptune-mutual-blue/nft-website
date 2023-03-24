@@ -22,7 +22,7 @@
   }
 
   .slick-track {
-    display: flex !important;
+    display: flex;
   }
 
   .slick-list {
@@ -54,14 +54,14 @@
       border: 1px solid colors.$gray-200;
 
       &:not(:disabled):not([data-disabled]):hover {
-        background-color: colors.$gray-50 !important;
-        color: colors.$gray-700 !important;
+        background-color: colors.$gray-50;
+        color: colors.$gray-700;
       }
 
       &:disabled,
       &[data-disabled] {
-        border: 1px solid colors.$gray-100 !important;
-        color: colors.$gray-300 !important;
+        border: 1px solid colors.$gray-100;
+        color: colors.$gray-300;
         cursor: not-allowed;
       }
     }
@@ -76,14 +76,14 @@
       border: 1px solid colors.$gray-600;
 
       &:not(:disabled):not([data-disabled]):hover {
-        background-color: colors.$gray-600 !important;
-        color: colors.$white !important;
+        background-color: colors.$gray-600;
+        color: colors.$white;
       }
 
       &:disabled,
       [data-disabled] {
-        border: 1px solid colors.$gray-600 !important;
-        color: colors.$gray-600 !important;
+        border: 1px solid colors.$gray-600;
+        color: colors.$gray-600;
       }
     }
   }

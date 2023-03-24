@@ -1,7 +1,7 @@
 
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { Button } from '@/components/Button/Button'
-import NftCardWithBlurEffect from '@/components/NftCardWithBlurEffect'
+import NftCardWithBlurEffect from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
 import { Tags } from '@/components/Tags/Tags'
 import { Icon } from '@/elements/Icon'
 

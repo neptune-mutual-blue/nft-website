@@ -1,4 +1,4 @@
-import { NftCard } from '@/components/NftCard'
+import { NftCard } from '@/components/NftCard/NftCard'
 import { useDebounce } from '@/hooks/useDebounce'
 import { apiOrigin, imageOrigin, searchMarketplace } from '@/services/marketplace-api'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'

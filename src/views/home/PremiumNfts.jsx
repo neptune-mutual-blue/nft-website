@@ -1,4 +1,4 @@
-import NftCardWithBlurEffect from '@/components/NftCardWithBlurEffect'
+import NftCardWithBlurEffect from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
 import { Slider } from '@/components/Slider/Slider'
 
 function PremiumNfts ({ premiumNfts }) {

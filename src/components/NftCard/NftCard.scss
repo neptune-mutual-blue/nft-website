@@ -1,10 +1,10 @@
-@use "../design-system/utils";
-@use "../design-system/colors";
-@use "../design-system/shadows";
-@use "../design-system/typography/styles";
-@use "../design-system/typography/weights";
-@use "../design-system/theme/light";
-@use "../design-system/theme/dark";
+@use "../../design-system/utils";
+@use "../../design-system/colors";
+@use "../../design-system/shadows";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+@use "../../design-system/theme/light";
+@use "../../design-system/theme/dark";
 
 .nft.card.container {
   display: block;
@@ -16,7 +16,7 @@
   border: 1px solid colors.$gray-200;
   box-shadow: 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
   transition: transform 0.5s;
-  
+
   &:hover,
   &:focus-visible {
     transform: scale(1.05);
@@ -79,8 +79,8 @@
 }
 
 .dark .nft.card.container {
-  border: 1px solid colors.$gray-true-600;
-  background-color: colors.$gray-true-800;
+  border: 1px solid colors.$gray-800;
+  background-color: dark.$primary-background-color;
 
   h3 {
     color: dark.$color;
