@@ -1,9 +1,16 @@
 
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { Button } from '@/components/Button/Button'
+import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
 import NftCardWithBlurEffect from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
+import NftImageWithExpand from '@/components/NftImageWithExpand'
+import { NftNickname } from '@/components/NftNickname'
+import { NftSiblingsAndStage } from '@/components/NftSiblingsAndStage'
 import { Tags } from '@/components/Tags/Tags'
+import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import { Icon } from '@/elements/Icon'
+import { useWeb3React } from '@web3-react/core'
+import { useRouter } from 'next/router'
 
 const NftDetails = ({ nftDetails, premiumNfts }) => {
   const crumbs = [
@@ -21,19 +28,21 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
     }
   ]
 
+  const { active } = useWeb3React()
+
+  const router = useRouter()
+
   return (
+
     <div className='nft details page'>
       <section className='hero'>
-        <Breadcrumb items={crumbs} />
+        <div className='breadcrumb and connect wallet'>
+          <Breadcrumb items={crumbs} />
+          <ConnectWallet />
+        </div>
 
         <div className='content grid'>
-          <div className='image'>
-            <img src={nftDetails.image} alt={nftDetails.name} />
-
-            <div className='fullscreen icon'>
-              <Icon variant='expand-01' size='lg' />
-            </div>
-          </div>
+          <NftImageWithExpand nft={nftDetails} />
           <div>
             <div className='mint'>
               {nftDetails.level && (
@@ -48,27 +57,20 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
                   ]}
                 />
               )}
-              <div className='nickname' data-color={'level' + nftDetails.level}>
-                {nftDetails.nickname}
-              </div>
+              <NftNickname nft={nftDetails} />
               <div className='character name'>{nftDetails.name}</div>
-              <div className='siblings and stage'>
-                <div>{nftDetails.siblings} siblings</div>
-                <div>
-                  <Tags
-                    tags={[
-                      {
-                        id: '1',
-                        slug: '1',
-                        text: nftDetails.stage,
-                        color: 'nft-stage'
-                      }
-                    ]}
-                  />
-                </div>
-              </div>
+              <NftSiblingsAndStage nft={nftDetails} />
               <div className='minting btn'>
-                <Button type='button' size='2xl'>Mint This NFT for Free</Button>
+                <CustomTooltip text='Connect Your Wallet' disabled={active}>
+                  <div>
+                    <Button
+                      type='button' size='xl' disabled={!active} onClick={() => {
+                        router.push('/marketplace/mint/' + nftDetails.tokenId)
+                      }}
+                    >I Want This for Free
+                    </Button>
+                  </div>
+                </CustomTooltip>
                 <div className='supporting text'>
                   {nftDetails.wantToMint} people want to mint this.
                 </div>

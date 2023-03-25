@@ -1,0 +1,61 @@
+@use "../../design-system/colors";
+
+.connect.wallet.modal {
+  max-width: 397px;
+
+  .wallet.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    color: colors.$primary-600;
+    background-color: colors.$primary-100;
+    width: max-content;
+    border-radius: 50%;
+    box-shadow: 0 0 0 8px colors.$primary-50;
+    margin-bottom: 12px;
+
+    .dark & {
+      color: colors.$white;
+      background-color: colors.$gray-600;
+      box-shadow: 0 0 0 8px colors.$gray-700;
+    }
+  }
+
+  .DialogDescription {
+    margin-top: 4px;
+    margin-bottom: 24px;
+
+    a {
+      color: inherit;
+    }
+  }
+
+  .ui.secondary.gray.button {
+    width: 100%;
+    margin-top: 12px;
+    justify-content: flex-start;
+
+    .content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .light.only {
+      display: inline-block;
+
+      .dark & {
+        display: none;
+      }
+    }
+
+    .dark.only {
+      display: none;
+
+      .dark & {
+        display: inline-block;
+      }
+    }
+  }
+}

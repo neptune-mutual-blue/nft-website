@@ -1,0 +1,113 @@
+@use "../design-system/utils";
+@use "../design-system/colors";
+@use "../design-system/typography/styles";
+@use "../design-system/typography/weights";
+
+.mint.nft.page {
+  @include utils.full-width-container;
+
+  .breadcrumb.and.connect.wallet {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 56px;
+    padding-bottom: 48px;
+
+    & > div,
+    & > button {
+      margin-top: 20px;
+    }
+  }
+
+  .hero {
+    padding: 90px 110px;
+
+    .character.name {
+      @include styles.display-sm;
+      @include weights.semibold;
+      margin-top: 32px;
+      margin-bottom: 16px;
+    }
+
+    .siblings.and.stage {
+      margin-bottom: 40px;
+    }
+
+    .image.and.milestones {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 35px;
+
+      & > div:first-of-type {
+        text-align: center;
+
+        button {
+          width: 100%;
+          margin-top: 16px;
+          margin-bottom: 8px;
+        }
+      }
+
+      .milestones {
+        padding: 4px 0;
+
+        h3 {
+          @include styles.text-lg;
+          @include weights.semibold;
+          margin-bottom: 16px;
+        }
+
+        .progress.info {
+          margin-bottom: 24px;
+
+          .title {
+            @include styles.text-sm;
+            margin-bottom: 8px;
+          }
+
+          .remaining {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 8px;
+            @include styles.text-sm;
+            @include weights.semibold;
+            color: colors.$indigo-600;
+
+            svg {
+              color: colors.$gray-400 !important;
+            }
+
+            & > div:first-of-type {
+              display: flex;
+              align-items: center;
+              gap: 4px;
+            }
+          }
+        }
+
+        .like.and.share {
+          padding-top: 16px;
+          border-top: 1px solid colors.$gray-300;
+        }
+      }
+    }
+  }
+}
+
+.dark .mint.nft.page {
+  .hero {
+    .image.and.milestones {
+      .milestones {
+        .progress.info {
+          .remaining {
+            color: colors.$primary-300;
+          }
+        }
+        .like.and.share {
+          border-color: colors.$gray-800;
+        }
+      }
+    }
+  }
+}

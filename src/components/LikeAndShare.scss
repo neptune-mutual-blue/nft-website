@@ -1,0 +1,16 @@
+.like.and.share {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  color: colors.$gray-600;
+
+  & > div {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+.dark .like.and.share {
+  color: colors.$gray-200;
+}

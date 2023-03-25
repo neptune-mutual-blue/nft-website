@@ -14,12 +14,12 @@ const Breadcrumb = (props) => {
         return (
           <li
             key={i}
-            itemprop='itemListElement'
+            itemProp='itemListElement'
             itemscope
             itemtype='https://schema.org/ListItem'
           >
             <a
-              itemprop='item'
+              itemProp='item'
               className='crumb'
               href={
                 ['#', ''].includes(item.link)
@@ -28,13 +28,13 @@ const Breadcrumb = (props) => {
               }
               data-is-last={items.length === i}
             >
-              <span itemprop='name'>{item.name}</span>
+              <span itemProp='name'>{item.name}</span>
             </a>
             {i < items.length - 1 && (
               <Icon size='md' variant='chevron-right' />
             )}
 
-            <meta itemprop='position' content={`${i + 1}`} />
+            <meta itemProp='position' content={`${i + 1}`} />
           </li>
         )
       })

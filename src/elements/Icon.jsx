@@ -16,6 +16,7 @@ const Icon = ({ variant, size }) => {
 
   useEffect(() => {
     setHTML()
+    // eslint-disable-next-line
   }, [])
 
   return (

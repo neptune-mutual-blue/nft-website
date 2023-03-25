@@ -1,0 +1,17 @@
+@use "../../design-system/colors";
+
+.progress.bar {
+  background: colors.$primary-100;
+  height: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+
+  .value {
+    height: 100%;
+    background: colors.$primary-600;
+  }
+}
+
+.dark .progress.bar {
+  background: colors.$gray-700;
+}

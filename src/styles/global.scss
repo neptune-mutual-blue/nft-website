@@ -101,6 +101,7 @@ button,
 @import "../components/HeaderSection/HeaderSection.scss";
 @import "../components/Breadcrumb/Breadcrumb.scss";
 @import "../components/Tags/Tags.scss";
+@import "../components/Tooltip/Tooltip.scss";
 @import "../components/Checkbox/Checkbox.scss";
 
 @import "../components/Button/_base/index.scss";
@@ -109,8 +110,24 @@ button,
 @import "../components/Button/SecondaryGrayButton.scss";
 @import "../components/Button/LinkGrayButton.scss";
 @import "../components/Button/LinkColorButton.scss";
+@import "../components/Progress/Progress.scss";
 
+@import "../components/NftImageWithExpand.scss";
+@import "../components/NftNickname.scss";
+@import "../components/NftSiblingsAndStage.scss";
+@import "../components/LikeAndShare.scss";
 @import "../components/NftCard/NftCard.scss";
 @import "../components/NftCardWithBlurEffect/NftCardWithBlurEffect.scss";
 
-@import "./main.scss";
+@import "../components/Modal/Modal.scss";
+
+@import "../components/ConnectWallet/ConnectWallet.scss";
+@import "../components/ConnectWallet/ConnectedDropdown.scss";
+
+@import "../layouts/BaseLayout.scss";
+
+//Pages
+@import "../pages/index.scss";
+@import "../pages/marketplace/index.scss";
+@import "../views/NftDetails.scss";
+@import "../views/MintNft.scss";
