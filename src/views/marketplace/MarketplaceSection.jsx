@@ -1,35 +1,56 @@
 import { NftCard } from '@/components/NftCard/NftCard'
 import { useDebounce } from '@/hooks/useDebounce'
-import { apiOrigin, imageOrigin, searchMarketplace } from '@/services/marketplace-api'
+import { imageOrigin } from '@/services/marketplace-api'
+import { useRouter } from 'next/router'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Filter } from './Filter'
 import { Pagination } from './Pagination'
 
-const MarketPlaceSection = ({ initialData = [], filters = [] }) => {
-  const [searchValue, setSearchValue] = useState('')
-  const [properties, setProperties] = useState([])
-  const [data, setData] = useState(initialData)
+const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
+  const [searchValue, setSearchValue] = useState(pageData?.search || '')
+  const [properties, setProperties] = useState(pageData?.filters ?? [])
   const initial = useRef(true)
+  const inputRef = useRef(null)
+
+  const router = useRouter()
 
   const debouncedSearchValue = useDebounce(searchValue, 500)
 
-  const makeApiCall = useCallback((_page, _searchValue, _properties) => {
+  const updateUrlPath = useCallback((_page, _search, _filters) => {
     if (initial.current) return
+    console.log('updating')
 
-    (async function async () {
-      try {
-        const { data: _data } = await searchMarketplace(_searchValue, _properties, _page, undefined, apiOrigin)
-        if (_data && Array.isArray(_data)) {
-          setData(_data)
-        }
-      } catch {}
-    })()
+    let url = '/marketplace'
+
+    if (_page !== 1) url += `/page/${_page}`
+
+    const query = {}
+    if (_search) query.search = _search
+    if (_filters.length) query.filters = JSON.stringify(_filters)
+
+    router.push({
+      pathname: url,
+      query
+
+    }, undefined, { scroll: false })
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
-    makeApiCall(1, debouncedSearchValue, properties)
-    initial.current = false
-  }, [debouncedSearchValue, properties, makeApiCall])
+    updateUrlPath(1, debouncedSearchValue, properties)
+  }, [debouncedSearchValue, properties, updateUrlPath])
+
+  useEffect(() => {
+    /* initial delay of 500ms */
+    setTimeout(() => {
+      initial.current = false
+    }, 500)
+  }, [])
+
+  // useEffect(() => {
+  //   inputRef.current.value = router.query.search
+  // }, [router.query])
 
   const [curentPage, totalPages] = useMemo(() => {
     if (!data.length) return [1, 1]
@@ -45,7 +66,7 @@ const MarketPlaceSection = ({ initialData = [], filters = [] }) => {
   }
 
   const handlePageChange = (page) => {
-    makeApiCall(page, searchValue)
+    updateUrlPath(page, searchValue, properties)
   }
 
   return (
@@ -53,6 +74,7 @@ const MarketPlaceSection = ({ initialData = [], filters = [] }) => {
       <div className='inner container'>
         <Filter
           setProperties={setProperties}
+          properties={properties}
           filters={filters}
         />
 
@@ -63,6 +85,7 @@ const MarketPlaceSection = ({ initialData = [], filters = [] }) => {
               className='search input'
               value={searchValue}
               onChange={handleInputChange}
+              ref={inputRef}
             />
             <div className='nft grid'>
               {
@@ -73,7 +96,7 @@ const MarketPlaceSection = ({ initialData = [], filters = [] }) => {
                     nftId={nft.tokenId}
                     views={nft.views}
                     count={nft.siblings}
-                    image={nft.image || `${imageOrigin}/images/${nft.tokenId}.png`}
+                    image={nft.image || `${imageOrigin}/thumbnails/${nft.tokenId}.webp`}
                   />
                 ))
               }
