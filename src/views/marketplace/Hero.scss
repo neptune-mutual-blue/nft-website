@@ -13,6 +13,7 @@
       padding: 46px 16px 64px;
     }
     > .content {
+      gap: 48px;
       @media (max-width: 767px) {
         gap: 32px;
       }
@@ -44,11 +45,11 @@
     }
   }
   .actions {
+    .button {
+      padding: 11px 20px;
+    }
     @media (max-width: 767px) {
       flex-direction: column;
-      .button {
-        padding: 12px 20px;
-      }
     }
   }
 }

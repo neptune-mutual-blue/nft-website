@@ -32,26 +32,24 @@
       justify-content: center;
       gap: 16px;
 
-      button,
-      a {
-        padding: 10px 18px;
+      button {
+        padding: 11px 20px;
         border-radius: 8px;
         display: flex;
         align-items: center;
         gap: 8px;
-        @include styles.text-sm;
+        @include styles.text-md;
         @include weights.semibold;
-        box-shadow: shadows.$xs;
       }
 
       .view {
         border: 1px solid colors.$gray-300;
-        color: colors.$gray-700
+        color: colors.$gray-700;
       }
 
       .access {
         background-color: colors.$indigo-600;
-        color: colors.$base-white
+        color: colors.$base-white;
       }
     }
   }
@@ -80,7 +78,7 @@
 
     .buttons.container {
       .view {
-        color: colors.$base-white
+        color: colors.$base-white;
       }
     }
   }

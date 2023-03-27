@@ -64,4 +64,10 @@
   .supporting.text {
     color: colors.$gray-300 !important;
   }
+
+  .slider.container {
+    button {
+      background-color: colors.$gray-700 !important;
+    }
+  }
 }
