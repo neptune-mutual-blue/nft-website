@@ -10,22 +10,21 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 56px;
-    padding-bottom: 48px;
-
-    & > div,
-    & > button {
-      margin-top: 20px;
+    padding-top: 32px;
+    padding-bottom: 58px;
+    > ol {
+      margin: 0;
     }
   }
 
   .hero {
-    padding: 90px 110px;
-
-    .formatted.nickname {
-      margin-top: 8px;
+    .minting.level.connected {
+      max-width: 1060px;
+      margin: 0 auto 58px;
+      border: 1px solid colors.$gray-300;
+      padding: 32px;
+      border-radius: 24px;
     }
-
     .character.name {
       @include styles.display-sm;
       @include weights.semibold;
@@ -97,10 +96,35 @@
       }
     }
   }
+  .explore.minting.collection {
+    margin-bottom: 96px;
+    h3 {
+      @include styles.display-sm;
+      @include weights.bold;
+      margin-bottom: 24px;
+    }
+
+    .nft.characters {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12.8px;
+
+      @media (max-width: 767px) {
+        grid-template-columns: 1fr;
+      }
+
+      .blur.effect.character.details {
+        width: 100%;
+      }
+    }
+  }
 }
 
 .dark .mint.nft.page {
   .hero {
+    .minting.level.connected {
+      border-color: colors.$gray-800;
+    }
     .image.and.milestones {
       .milestones {
         .progress.info {

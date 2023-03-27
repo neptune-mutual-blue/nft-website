@@ -1,10 +1,14 @@
+import {
+  useEffect,
+  useState
+} from 'react'
+
 import { ConnectedDropdown } from '@/components/ConnectWallet/ConnectedDropdown'
 import { Modal } from '@/components/Modal/Modal'
 import { Icon } from '@/elements/Icon'
 import { wallets } from '@/lib/connect-wallet/config/wallets'
 import useAuth from '@/lib/connect-wallet/hooks/useAuth'
 import { useWeb3React } from '@web3-react/core'
-import { useEffect, useState } from 'react'
 
 const { Button } = require('@/components/Button/Button')
 
@@ -51,7 +55,7 @@ const ConnectWallet = () => {
         }
         visible={popupOpen} setVisible={setPopupOpen}
         trigger={
-          <Button onClick={handleWalletButtonClick}>Connect Wallet</Button>
+          <Button onClick={handleWalletButtonClick} size='md'>Connect Wallet</Button>
     }
         description={
           <>By connecting a wallet, you agree to Neptune Mutual <a href=''>Terms & Conditions</a> and acknowledge that you have read and understand the Neptune Mutual Protocol Disclaimer.</>

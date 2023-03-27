@@ -1,5 +1,6 @@
-import { Icon } from '@/elements/Icon'
 import Link from 'next/link'
+
+import { Icon } from '@/elements/Icon'
 
 const Hero = () => {
   return (
@@ -13,7 +14,7 @@ const Hero = () => {
 
         <div className='buttons container'>
           <button className='view'>View Minting Levels</button>
-          <Link href='/marketplace' className='access'>
+          <Link href='/marketplace' className='access button'>
             <Icon variant='image-indent-left' size='md' />
             <span>Access Marketplace</span>
           </Link>
