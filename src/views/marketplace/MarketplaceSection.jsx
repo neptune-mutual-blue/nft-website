@@ -18,7 +18,6 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
 
   const updateUrlPath = useCallback((_page, _search, _filters) => {
     if (initial.current) return
-    console.log('updating')
 
     let url = '/marketplace'
 
@@ -30,8 +29,8 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
 
     router.push({
       pathname: url,
-      query
-
+      query,
+      hash: 'view-nfts'
     }, undefined, { scroll: false })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,10 +46,6 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
       initial.current = false
     }, 500)
   }, [])
-
-  // useEffect(() => {
-  //   inputRef.current.value = router.query.search
-  // }, [router.query])
 
   const [curentPage, totalPages] = useMemo(() => {
     if (!data.length) return [1, 1]
@@ -96,7 +91,7 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
                     nftId={nft.tokenId}
                     views={nft.views}
                     count={nft.siblings}
-                    image={nft.image || `${imageOrigin}/thumbnails/${nft.tokenId}.webp`}
+                    image={`${imageOrigin}/thumbnails/${nft.tokenId}.webp`}
                   />
                 ))
               }

@@ -44,7 +44,7 @@ const Filter = ({ filters = [], properties, setProperties }) => {
   }, [searchValue, filters])
 
   return (
-    <div className='marketplace filter container'>
+    <div className='marketplace filter container' id='view-nfts'>
       <div className='filter inner'>
         <h2>Properties</h2>
 
