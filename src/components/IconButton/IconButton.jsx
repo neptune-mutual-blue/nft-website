@@ -21,7 +21,7 @@ const IconButton = (props) => {
   }, [feedback])
 
   return (
-    <div
+    <button
       className={'icon button' + (noWrapper ? ' no wrapper' : '')}
       onClick={() => {
         onClick?.()
@@ -29,13 +29,13 @@ const IconButton = (props) => {
           setFeedback(true)
         }
       }}
-      role='button' tabIndex={0}
+
     >
       {feedback &&
         <Icon variant='check' size={size} />}
       {!feedback &&
         <Icon variant={variant} size={size} />}
-    </div>
+    </button>
   )
 }
 

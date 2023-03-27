@@ -11,16 +11,17 @@
     align-items: center;
     justify-content: space-between;
     padding-top: 56px;
-    padding-bottom: 48px;
+  }
 
-    & > div,
-    & > button {
-      margin-top: 20px;
-    }
+  .content.inset {
+    margin: 58px 78px;
   }
 
   .hero {
-    padding: 90px 110px;
+    background-color: colors.$white;
+    border: 1px solid colors.$gray-300;
+    padding: 32px;
+    border-radius: 24px;
 
     .formatted.nickname {
       margin-top: 8px;
@@ -101,6 +102,8 @@
 
 .dark .mint.nft.page {
   .hero {
+    background-color: colors.$black-800;
+    border-color: colors.$gray-800;
     .image.and.milestones {
       .milestones {
         .progress.info {

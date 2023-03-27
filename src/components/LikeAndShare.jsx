@@ -6,19 +6,19 @@ const LikeAndShare = ({ nft }) => {
   const [showSharePopup, setShowSharePopup] = useState(false)
   return (
     <div className='like and share'>
-      <div className='like btn' role='button' tabIndex={0}>
+      <button className='like btn'>
         <Icon variant='heart' size='lg' />
         1,024
-      </div>
+      </button>
       <ShareNft open={showSharePopup} setOpen={setShowSharePopup} nft={nft}>
-        <div
-          className='share btn' role='button' tabIndex={0} onClick={() => {
+        <button
+          className='share btn' onClick={() => {
             setShowSharePopup(true)
           }}
         >
           <Icon variant='share-01' size='lg' />
           Share
-        </div>
+        </button>
       </ShareNft>
     </div>
   )
