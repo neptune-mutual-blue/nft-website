@@ -29,6 +29,7 @@ const IconButton = (props) => {
           setFeedback(true)
         }
       }}
+      role='button' tabIndex={0}
     >
       {feedback &&
         <Icon variant='check' size={size} />}

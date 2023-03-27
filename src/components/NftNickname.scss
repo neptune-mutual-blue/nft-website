@@ -3,7 +3,6 @@
 @use "../design-system/typography/weights";
 
 .formatted.nickname {
-  margin-top: 8px;
   @include styles.text-md;
   @include weights.semibold;
   // NFT Levels

@@ -22,10 +22,10 @@
     "eslint-plugin-node": "~11.1.0",
     "eslint-plugin-promise": "~5.1.0",
     "eslint-plugin-unused-imports": "2.0.0",
+    "ethers": "^6.2.2",
     "next": "13.2.4",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "web3": "^1.9.0"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.5.1",

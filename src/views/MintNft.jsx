@@ -98,7 +98,7 @@ const MintNft = ({ nftDetails }) => {
               percent: '92',
               remaining: '200'
             })}
-            <LikeAndShare />
+            <LikeAndShare nft={nftDetails} />
           </div>
         </div>
 

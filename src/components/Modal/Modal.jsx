@@ -11,23 +11,28 @@ const Modal = (props) => {
       <Dialog.Portal>
         <Dialog.Overlay className='DialogOverlay' />
         <Dialog.Content className={'DialogContent' + (className ? ' ' + className : '')}>
-          <div className='titlebar'>
-            <Dialog.Title className='DialogTitle'>
-              <div className='title'>
-                {title}
-              </div>
-            </Dialog.Title>
-            {cross && (
-              <Dialog.Close asChild>
-                <button className='IconButton' aria-label='Close'>
-                  <Icon variant='x-close' size='xl' />
-                </button>
-              </Dialog.Close>
-            )}
-          </div>
-          <Dialog.Description className='DialogDescription'>
-            {description}
-          </Dialog.Description>
+          {title && (
+            <div className='titlebar'>
+              <Dialog.Title className='DialogTitle'>
+                <div className='title'>
+                  {title}
+                </div>
+              </Dialog.Title>
+              {cross && (
+                <Dialog.Close asChild>
+                  <button className='IconButton' aria-label='Close'>
+                    <Icon variant='x-close' size='xl' />
+                  </button>
+                </Dialog.Close>
+              )}
+            </div>
+          )}
+          {description && (
+
+            <Dialog.Description className='DialogDescription'>
+              {description}
+            </Dialog.Description>
+          )}
           {children}
         </Dialog.Content>
       </Dialog.Portal>

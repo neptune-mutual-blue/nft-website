@@ -1,8 +1,9 @@
 import { Icon } from '@/elements/Icon'
+import Link from 'next/link'
 
 const NftCard = ({ name, views, count, nftId, image }) => {
   return (
-    <a className='nft card container' href={`/marketplace/${nftId}`}>
+    <Link className='nft card container' href={`/marketplace/${nftId}`}>
       <div className='image container'>
         <img src={image} alt={name || 'NFT Image'} loading='lazy' />
       </div>
@@ -30,7 +31,7 @@ const NftCard = ({ name, views, count, nftId, image }) => {
           </div>
         </div>
       </div>
-    </a>
+    </Link>
   )
 }
 

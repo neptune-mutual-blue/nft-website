@@ -1,4 +1,5 @@
 import { Icon } from '@/elements/Icon'
+import Link from 'next/link'
 
 const Breadcrumb = (props) => {
   const { className, items } = props
@@ -18,18 +19,20 @@ const Breadcrumb = (props) => {
             itemscope
             itemtype='https://schema.org/ListItem'
           >
-            <a
+            <Link
               itemProp='item'
-              className='crumb'
+              className={'crumb' + (['#', ''].includes(item.link)
+                ? ' pointer events none'
+                : '')}
               href={
                 ['#', ''].includes(item.link)
-                  ? undefined
+                  ? '#'
                   : item.link
               }
               data-is-last={items.length === i}
             >
               <span itemProp='name'>{item.name}</span>
-            </a>
+            </Link>
             {i < items.length - 1 && (
               <Icon size='md' variant='chevron-right' />
             )}

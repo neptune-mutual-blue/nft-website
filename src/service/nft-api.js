@@ -41,12 +41,34 @@ const getNftDetails = async (tokenId) => {
   return data
 }
 
+const logView = async (tokenId) => {
+  const response = await fetch(origin + '/insights/log/view/' + tokenId, {
+    method: 'POST'
+  })
+
+  const data = await response.json()
+
+  return data
+}
+
+const logWantToMint = async (tokenId) => {
+  const response = await fetch(origin + '/insights/log/want-to-mint/' + tokenId, {
+    method: 'POST'
+  })
+
+  const data = await response.json()
+
+  return data
+}
+
 const NftApi = {
   knowTheCharacters,
   mostViewedNfts,
   premiumNfts,
   regularNfts,
-  getNftDetails
+  getNftDetails,
+  logView,
+  logWantToMint
 }
 
 export { NftApi }
