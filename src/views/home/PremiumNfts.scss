@@ -37,3 +37,11 @@
     }
   }
 }
+
+.dark .premium.nfts {
+  .slider.container {
+    button {
+      background-color: colors.$gray-700 !important;
+    }
+  }
+}

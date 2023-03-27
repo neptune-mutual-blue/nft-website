@@ -13,12 +13,12 @@ const Hero = () => {
           href: 'https://github.com/neptune-mutual-blue/neptune-mutual-nft',
           target: '_blank',
           rel: 'noopener',
-          size: '2xl'
+          size: 'xl'
         }}
         primary={{
           text: 'View Minting Levels',
           href: '/',
-          size: '2xl'
+          size: 'xl'
         }}
         subheading={
           <div className='sub heading'>
