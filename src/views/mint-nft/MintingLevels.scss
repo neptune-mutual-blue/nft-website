@@ -24,6 +24,7 @@
       .info {
         padding: 32px;
         text-align: center;
+        border-bottom: 1px solid colors.$gray-200;
 
         svg {
           width: 56px;
@@ -133,6 +134,10 @@
   .categorization {
     & > div {
       border-color: colors.$gray-800;
+
+      .info {
+        border-color: colors.$gray-800;
+      }
 
       .characters {
         .character {
