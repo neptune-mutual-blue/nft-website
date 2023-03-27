@@ -24,30 +24,30 @@ const ShareNft = (props) => {
       </div>
 
       <div className='share options'>
-        <div className='share platform' role='button' tabIndex={0}>
+        <button className='share platform'>
           <div className='platform icon'>
-            <Icon variant='twitter' size='24' />
+            <Icon variant='twitter' />
           </div>
           <div>Twitter</div>
-        </div>
-        <div className='share platform' role='button' tabIndex={0}>
+        </button>
+        <button className='share platform'>
           <div className='platform icon'>
-            <Icon variant='facebook' size='24' />
+            <Icon variant='facebook' />
           </div>
           <div>Facebook</div>
-        </div>
-        <div className='share platform' role='button' tabIndex={0}>
+        </button>
+        <button className='share platform'>
           <div className='platform icon'>
-            <Icon variant='telegram' size='24' />
+            <Icon variant='telegram' />
           </div>
           <div>Telegram</div>
-        </div>
-        <div className='share platform' role='button' tabIndex={0}>
+        </button>
+        <button className='share platform'>
           <div className='platform icon'>
-            <Icon variant='email' size='24' />
+            <Icon variant='email' />
           </div>
           <div>E-mail</div>
-        </div>
+        </button>
       </div>
 
       <div className='share link'>
@@ -56,6 +56,7 @@ const ShareNft = (props) => {
         </div>
 
         <IconButton
+          noWrapper
           showFeedback
           size='lg' variant='copy-01' onClick={() => {
             copyToClipboard(`${typeof window !== 'undefined' ? window.location.origin : ''}/marketplace/${nft.tokenId}/`)

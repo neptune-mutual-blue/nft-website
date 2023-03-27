@@ -10,7 +10,7 @@ const RegularNfts = ({ regularNfts }) => {
           return (
             <div key={character.name} className='character details with slider'>
               <div>
-                <img src={character.image} alt={character.name} />
+                <img src={character.thumbnail} alt={character.name} />
               </div>
 
               <div className='character name'>{character.name}</div>

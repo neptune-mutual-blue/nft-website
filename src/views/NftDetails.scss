@@ -15,11 +15,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    & > div,
-    & > button {
-      margin-top: 20px;
-    }
   }
 
   .content.grid {
@@ -96,34 +91,72 @@
         .text {
           @include styles.text-xl;
           padding: 8px 0;
+          color: colors.$gray-700;
         }
       }
     }
   }
 
-  .properties {
+  .properties,
+  .activities,
+  .nft.links {
     margin-top: 24px;
+  }
 
-    .table {
+  .nft.links {
+    .links.content {
       border: 1px solid colors.$gray-300;
       border-radius: 12px;
       margin-top: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+      @include styles.text-md;
+      @include weights.semibold;
 
-      .row {
-        display: grid;
-        grid-template-columns: 142px 1fr;
-        padding: 24px;
-        padding-right: 0;
-        border-bottom: 1px solid colors.$gray-200;
-        @include styles.text-md;
-        @include weights.semibold;
+      & > a {
+        all: unset;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
 
-        &:first-of-type {
-          padding: 10px 24px;
+        svg {
+          height: 20px;
         }
+      }
+    }
+  }
 
-        .value {
-          @include weights.regular;
+  .table {
+    border: 1px solid colors.$gray-300;
+    border-radius: 12px;
+    margin-top: 16px;
+
+    .row {
+      display: grid;
+      grid-template-columns: 142px 1fr;
+      padding: 24px;
+      padding-right: 0;
+      border-bottom: 1px solid colors.$gray-200;
+      @include styles.text-md;
+      @include weights.semibold;
+
+      &.header {
+        padding: 10px 24px;
+      }
+
+      .timestamp {
+        color: colors.$gray-600;
+      }
+
+      .value {
+        @include weights.regular;
+
+        .action {
+          display: inline;
+          @include weights.semibold;
         }
       }
     }
@@ -173,14 +206,30 @@
         border-color: colors.$gray-800;
       }
     }
+
+    .more.details {
+      .description {
+        .text {
+          color: colors.$gray-200;
+        }
+      }
+    }
   }
 
-  .properties {
-    .table {
+  .nft.links {
+    .links.content {
       border-color: colors.$gray-800;
+    }
+  }
 
-      .row {
-        border-bottom-color: colors.$gray-800;
+  .table {
+    border-color: colors.$gray-800;
+
+    .row {
+      border-bottom-color: colors.$gray-800;
+
+      .timestamp {
+        color: colors.$gray-200;
       }
     }
   }

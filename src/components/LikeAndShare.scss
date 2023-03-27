@@ -1,15 +1,19 @@
+@use "../design-system/colors";
+@use "../design-system/typography/styles";
+
 .like.and.share {
   display: flex;
   gap: 16px;
   align-items: center;
   color: colors.$gray-600;
 
-  & > div {
+  & > button {
     display: flex;
     align-items: center;
     gap: 4px;
     outline-offset: 4px;
     cursor: pointer;
+    @include styles.text-sm;
   }
 }
 

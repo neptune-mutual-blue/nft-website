@@ -48,6 +48,10 @@
       border: 1px solid colors.$gray-300;
       border-radius: 9px;
       margin-bottom: 8px;
+
+      svg {
+        color: colors.$gray-600;
+      }
     }
   }
 
@@ -58,7 +62,15 @@
     @include styles.text-sm;
     @include weights.semibold;
     overflow: hidden;
+    white-space: nowrap;
     position: relative;
+    background-image: linear-gradient(
+      90deg,
+      black calc(90% - 64px),
+      rgba(0, 0, 0, 0)
+    );
+    background-clip: text;
+    color: transparent;
 
     .icon.button {
       position: absolute;
@@ -82,14 +94,24 @@
 
     .platform.icon {
       border-color: colors.$gray-800;
+
+      svg {
+        color: colors.$white;
+      }
     }
   }
 
   .share.link {
     border-color: colors.$gray-800;
+    background-image: linear-gradient(
+      90deg,
+      white calc(90% - 64px),
+      rgba(255, 255, 255, 0)
+    );
 
     .icon.button {
       background-color: colors.$black-800;
+      color: colors.$white;
     }
   }
 }

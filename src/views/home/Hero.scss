@@ -48,8 +48,9 @@
       }
 
       .access {
-        background-color: colors.$indigo-600;
-        color: colors.$base-white;
+        display: flex;
+        align-items: center;
+        gap: 8px;
       }
     }
   }

@@ -61,6 +61,14 @@ const logWantToMint = async (tokenId) => {
   return data
 }
 
+const mintingLevels = async () => {
+  const response = await fetch(origin + '/minting-levels/characters')
+
+  const data = await response.json()
+
+  return data
+}
+
 const NftApi = {
   knowTheCharacters,
   mostViewedNfts,
@@ -68,7 +76,8 @@ const NftApi = {
   regularNfts,
   getNftDetails,
   logView,
-  logWantToMint
+  logWantToMint,
+  mintingLevels
 }
 
 export { NftApi }
