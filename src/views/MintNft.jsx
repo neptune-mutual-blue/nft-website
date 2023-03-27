@@ -11,7 +11,7 @@ import { Progress } from '@/components/Progress/Progress'
 import { Tags } from '@/components/Tags/Tags'
 import { Icon } from '@/elements/Icon'
 
-const MintNft = ({ nftDetails, mintingLevelCharacters }) => {
+const MintNft = ({ nftDetails, premiumNfts }) => {
   const crumbs = [
     {
       link: '/',
@@ -108,7 +108,7 @@ const MintNft = ({ nftDetails, mintingLevelCharacters }) => {
       <div className='explore minting collection'>
         <h3>Explore Our Collection</h3>
         <div className='nft characters'>
-          {mintingLevelCharacters.slice(0, 6).map(char => <NftCardWithBlurEffect key={char.name} nft={char} />)}
+          {premiumNfts.slice(0, 6).map(nft => <NftCardWithBlurEffect key={nft.name} nft={nft} />)}
         </div>
       </div>
     </div>
