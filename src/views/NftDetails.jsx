@@ -2,13 +2,13 @@
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { Button } from '@/components/Button/Button'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
+import { LikeAndShare } from '@/components/LikeAndShare'
 import NftCardWithBlurEffect from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
 import NftImageWithExpand from '@/components/NftImageWithExpand'
 import { NftNickname } from '@/components/NftNickname'
 import { NftSiblingsAndStage } from '@/components/NftSiblingsAndStage'
 import { Tags } from '@/components/Tags/Tags'
 import { CustomTooltip } from '@/components/Tooltip/Tooltip'
-import { Icon } from '@/elements/Icon'
 import { useWeb3React } from '@web3-react/core'
 import { useRouter } from 'next/router'
 
@@ -76,16 +76,7 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
                 </div>
               </div>
 
-              <div className='like and share'>
-                <div className='like btn'>
-                  <Icon variant='heart' size='lg' />
-                  1,024
-                </div>
-                <div className='share btn'>
-                  <Icon variant='share-01' size='lg' />
-                  Share
-                </div>
-              </div>
+              <LikeAndShare nft={nftDetails} />
             </div>
           </div>
           <div className='more details'>

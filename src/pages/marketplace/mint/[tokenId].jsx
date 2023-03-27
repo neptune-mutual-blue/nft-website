@@ -2,7 +2,7 @@ import { NftApi } from '@/service/nft-api'
 import { MintNft } from '@/views/MintNft'
 
 export async function getServerSideProps (context) {
-  const [nftDetailsResponse] = await Promise.all([NftApi.getNftDetails(context.params.tokenId)])
+  const [nftDetailsResponse] = await Promise.all([NftApi.getNftDetails(context.params.tokenId), NftApi.logWantToMint(context.params.tokenId)])
 
   return {
     props: {

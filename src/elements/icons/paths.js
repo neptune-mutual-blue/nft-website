@@ -46,6 +46,9 @@ const paths = {
   'message-chat-circle': import(
     './variants/Communication/message-chat-circle.svg?raw'
   ),
+  email: import(
+    './variants/Communication/email.svg?raw'
+  ),
   'code-circle-03': import('./variants/Development/code-circle-03.svg?raw'),
   'check-circle-broken': import(
     './variants/General/check-circle-broken.svg?raw'

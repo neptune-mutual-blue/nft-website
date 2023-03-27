@@ -39,6 +39,10 @@
       padding: 32px;
       border: 1px solid colors.$gray-300;
 
+      .formatted.nickname {
+        margin-top: 8px;
+      }
+
       .character.name {
         margin-top: 32px;
         @include styles.display-sm;

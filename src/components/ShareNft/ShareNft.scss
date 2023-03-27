@@ -1,0 +1,95 @@
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.share.nft.modal {
+  width: 397px;
+
+  .details {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 16px;
+    align-items: center;
+
+    img {
+      border-radius: 6px;
+    }
+
+    .formatted.nickname {
+      @include styles.text-sm;
+    }
+
+    .family {
+      @include styles.text-xl;
+      @include weights.semibold;
+    }
+  }
+
+  .share.options {
+    margin: 46px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .share.platform {
+    @include styles.text-sm;
+    text-align: center;
+    outline-offset: 8px;
+    cursor: pointer;
+
+    &:hover {
+      .platform.icon {
+        background-color: colors.$gray-200;
+      }
+    }
+
+    .platform.icon {
+      padding: 20px;
+      border: 1px solid colors.$gray-300;
+      border-radius: 9px;
+      margin-bottom: 8px;
+    }
+  }
+
+  .share.link {
+    border: 1px solid colors.$gray-300;
+    border-radius: 8px;
+    padding: 10px 16px;
+    @include styles.text-sm;
+    @include weights.semibold;
+    overflow: hidden;
+    position: relative;
+
+    .icon.button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 10px;
+      background-color: colors.$white;
+      cursor: pointer;
+      outline-offset: -4px;
+    }
+  }
+}
+
+.dark .share.nft.modal {
+  .share.platform {
+    &:hover {
+      .platform.icon {
+        background-color: colors.$gray-900;
+      }
+    }
+
+    .platform.icon {
+      border-color: colors.$gray-800;
+    }
+  }
+
+  .share.link {
+    border-color: colors.$gray-800;
+
+    .icon.button {
+      background-color: colors.$black-800;
+    }
+  }
+}
