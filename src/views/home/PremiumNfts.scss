@@ -18,6 +18,7 @@
         width: 36px;
         height: 36px;
         backdrop-filter: blurs.$sm;
+        transform: translate(-4px, -4px);
 
         background-color: rgba(0, 0, 0, 0.9) !important;
         color: colors.$white !important;
@@ -34,6 +35,14 @@
           opacity: 50%;
         }
       }
+    }
+  }
+}
+
+.dark .premium.nfts {
+  .slider.container {
+    button {
+      background-color: colors.$gray-700 !important;
     }
   }
 }

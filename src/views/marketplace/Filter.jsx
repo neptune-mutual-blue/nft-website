@@ -9,9 +9,9 @@ const createToggleStates = (filters) => {
   }, {})
 }
 
-const Filter = ({ filters = [], setProperties }) => {
+const Filter = ({ filters = [], properties, setProperties }) => {
   const [toggles, setToggles] = useState(createToggleStates(filters))
-  const [selectedFilters, setSelectedFilters] = useState([])
+  const [selectedFilters, setSelectedFilters] = useState(properties)
   const [searchValue, setSearchValue] = useState('')
 
   const handleToggle = key => {
@@ -44,7 +44,7 @@ const Filter = ({ filters = [], setProperties }) => {
   }, [searchValue, filters])
 
   return (
-    <div className='marketplace filter container'>
+    <div className='marketplace filter container' id='view-nfts'>
       <div className='filter inner'>
         <h2>Properties</h2>
 
@@ -80,13 +80,6 @@ const Filter = ({ filters = [], setProperties }) => {
                         })
                         return (
                           <li className='option' key={idx}>
-                            {/* <input
-                              type='checkbox'
-                              id={`option-${value}`}
-                              checked={Boolean(checked)}
-                              onChange={() => handleFilterUpdate(filter.key, value)}
-                            />
-                            <label htmlFor={`option-${value}`}>{value}</label> */}
                             <Checkbox
                               label={value}
                               checked={Boolean(checked)}
