@@ -3,11 +3,10 @@ import { Modal } from '@/components/Modal/Modal'
 import { NftNickname } from '@/components/NftNickname'
 import { Icon } from '@/elements/Icon'
 import { copyToClipboard } from '@/utils/copy-to-clipboard'
-import { useRouter } from 'next/router'
 
 const ShareNft = (props) => {
   const { open, setOpen, children, nft } = props
-  const router = useRouter()
+
   return (
     <Modal
       visible={open} setVisible={setOpen}
