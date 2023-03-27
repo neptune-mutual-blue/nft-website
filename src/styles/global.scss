@@ -8,6 +8,10 @@
   @include utils.full-width-container;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html:not(.dark) {
   color-scheme: light-theme.$color-scheme;
   text-rendering: optimizeSpeed;

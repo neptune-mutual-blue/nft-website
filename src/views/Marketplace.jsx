@@ -1,14 +1,15 @@
 import { Hero } from '@/views/marketplace/Hero'
 import { MarketPlaceSection } from '@/views/marketplace/MarketplaceSection'
 
-const Marketplace = ({ initialData, filters }) => {
+const Marketplace = ({ data, filters, pageData }) => {
   return (
     <>
       <Hero />
 
       <MarketPlaceSection
-        initialData={initialData}
+        data={data}
         filters={filters}
+        pageData={pageData}
       />
 
     </>
