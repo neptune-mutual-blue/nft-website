@@ -1,0 +1,52 @@
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.mint.success.modal {
+  width: 720px;
+
+  .details {
+    text-align: center;
+
+    .congratulations {
+      color: colors.$success-600;
+      margin-bottom: 8px;
+      @include styles.text-md;
+      @include weights.semibold;
+    }
+
+    .title {
+      margin-bottom: 16px;
+      @include styles.display-xs;
+      @include weights.semibold;
+    }
+  }
+
+  .content {
+    width: 302px;
+    margin: auto;
+
+    .share.btn.group {
+      .share.options {
+        margin: 16px 0;
+      }
+    }
+
+    img {
+      width: 100%;
+      border-radius: 16px;
+    }
+
+    & > button:last-of-type {
+      margin-top: 32px;
+      margin-bottom: 8px;
+      width: 100%;
+    }
+  }
+}
+
+.dark .mint.success.modal {
+  .congratulations {
+    color: colors.$success-300;
+  }
+}

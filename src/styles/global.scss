@@ -125,6 +125,7 @@ button,
 @import "../components/NftCardWithBlurEffect/NftCardWithBlurEffect.scss";
 
 @import "../components/Modal/Modal.scss";
+@import "../components/ShareButtonGroup/ShareButtonGroup.scss";
 @import "../components/ShareNft/ShareNft.scss";
 
 @import "../components/ConnectWallet/ConnectWallet.scss";
@@ -139,3 +140,4 @@ button,
 @import "../views/MintNft.scss";
 @import "../views/mint-nft/MintingLevels.scss";
 @import "../views/mint-nft/Summary.scss";
+@import "../views/mint-nft/MintSuccessModal.scss";
