@@ -9,6 +9,7 @@ import { NftNickname } from '@/components/NftNickname'
 import { NftSiblingsAndStage } from '@/components/NftSiblingsAndStage'
 import { Tags } from '@/components/Tags/Tags'
 import { CustomTooltip } from '@/components/Tooltip/Tooltip'
+import { Icon } from '@/elements/Icon'
 import { useWeb3React } from '@web3-react/core'
 import { useRouter } from 'next/router'
 
@@ -42,7 +43,7 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
         </div>
 
         <div className='content grid'>
-          <NftImageWithExpand nft={nftDetails} />
+          <NftImageWithExpand nft={nftDetails} useCover />
           <div>
             <div className='mint'>
               {nftDetails.level && (
@@ -88,7 +89,7 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
             <div className='properties'>
               <h3>Properties</h3>
               <div className='table'>
-                <div className='row'>
+                <div className='row header'>
                   <div>Property</div>
                   <div>Value</div>
                 </div>
@@ -100,6 +101,38 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
                 </div>
               ))
             }
+              </div>
+            </div>
+
+            <div className='nft links'>
+              <h3>Details</h3>
+
+              <div className='links content'>
+                <a>
+                  <Icon variant='arbitrum-nft' />
+                  View on Arbiscan
+                  <Icon variant='arrow-right' />
+                </a>
+                <a href={nftDetails.image} target='_blank'>
+                  <Icon variant='eye' />
+                  Open Original
+                  <Icon variant='arrow-up-right' />
+                </a>
+              </div>
+            </div>
+
+            <div className='activities'>
+              <h3>Activities</h3>
+              <div className='table'>
+
+                <div className='row'>
+                  <div className='timestamp'>3 months ago</div>
+                  <div className='value'><div className='action'>Transferred to</div> 0x9550e6e02e00698d2f8...3416</div>
+                </div>
+                <div className='row'>
+                  <div className='timestamp'>A year ago</div>
+                  <div className='value'><div className='action'>Minted to</div> 0x9550e6e02e00698d2f8...3416</div>
+                </div>
               </div>
             </div>
 

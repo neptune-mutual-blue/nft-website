@@ -7,6 +7,7 @@ import { abbreviateAccount } from '@/utils/abbreviate-account'
 import { copyToClipboard } from '@/utils/copy-to-clipboard'
 import { useWeb3React } from '@web3-react/core'
 import { createRef, useState } from 'react'
+import { useHotkeys } from 'react-hotkeys-hook'
 
 const ConnectedDropdown = () => {
   const [open, setOpen] = useState(false)
@@ -19,16 +20,23 @@ const ConnectedDropdown = () => {
 
   useOnClickOutside(ref, () => setOpen(false))
 
+  useHotkeys('Alt+Shift+Q', (e) => {
+    e.preventDefault()
+    if (open) {
+      logout()
+    }
+  }, [open])
+
   return (
     <div className='wallet connected dropdown' ref={ref}>
-      <div
-        className='trigger' role='button' tabIndex={-1} onClick={() => {
+      <button
+        className='trigger' onClick={() => {
           setOpen(!open)
         }}
       >
         <div className='account'>{abbreviateAccount(account)}</div>
         <Icon variant='chevron-down' className={(open ? 'inverted' : '')} size='lg' />
-      </div>
+      </button>
 
       <div className={'dropdown content' + (open ? ' visible' : '')}>
         <div className='avatar and nickname'>
@@ -78,20 +86,22 @@ const ConnectedDropdown = () => {
           <div>$2,300.00</div>
         </div>
 
-        <div
-          className='logout' role='button' tabIndex={-1} onClick={() => {
+        <button
+          className='logout' onClick={() => {
             logout()
             setOpen(false)
           }}
         >
-          <Icon variant='log-out-01' size='md' />
-          <span className='text'>
-            Logout
-          </span>
+          <div className='text'>
+            <Icon variant='log-out-01' size='md' />
+            <span className='text'>
+              Logout
+            </span>
+          </div>
           <span className='shortcut'>
             ⌥⇧Q
           </span>
-        </div>
+        </button>
       </div>
     </div>
 

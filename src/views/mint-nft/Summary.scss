@@ -1,0 +1,60 @@
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.nft.minting.summary {
+  margin-top: -193px;
+  border: 1px solid colors.$gray-300;
+  border-radius: 12px;
+
+  .title {
+    padding: 20px 24px;
+    @include styles.display-xs;
+    @include weights.bold;
+    text-align: center;
+  }
+
+  .summary.table {
+    .row {
+      display: grid;
+      grid-template-columns: 117px 1fr 223px 223px;
+      padding-right: 0;
+      border-top: 1px solid colors.$gray-200;
+      @include styles.text-md;
+      @include weights.semibold;
+
+      & > div {
+        padding: 24px;
+      }
+
+      .tag {
+        @include styles.text-sm;
+        @include weights.bold;
+      }
+
+      &.header {
+        & > div {
+          padding: 10px 24px;
+        }
+      }
+
+      .value {
+        @include weights.regular;
+      }
+    }
+  }
+}
+
+.dark .nft.minting.summary {
+  border-color: colors.$gray-800;
+
+  .summary.table {
+    .row {
+      border-color: colors.$gray-800;
+
+      .value {
+        @include weights.regular;
+      }
+    }
+  }
+}

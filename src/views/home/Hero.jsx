@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { Button } from '@/components/Button/Button'
 import { Icon } from '@/elements/Icon'
 
 const Hero = () => {
@@ -14,9 +15,13 @@ const Hero = () => {
 
         <div className='buttons container'>
           <button className='view'>View Minting Levels</button>
-          <Link href='/marketplace' className='access button'>
-            <Icon variant='image-indent-left' size='md' />
-            <span>Access Marketplace</span>
+          <Link href='/marketplace'>
+            <Button>
+              <div className='access'>
+                <Icon variant='image-indent-left' size='md' />
+                Access Marketplace
+              </div>
+            </Button>
           </Link>
         </div>
       </div>

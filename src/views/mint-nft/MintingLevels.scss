@@ -1,0 +1,160 @@
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.nft.minting.levels {
+  padding: 48px 0;
+
+  .heading {
+    @include styles.display-xs;
+    @include weights.bold;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .categorization {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+
+    & > div {
+      border: 1px solid colors.$gray-300;
+      border-radius: 24px;
+
+      .info {
+        padding: 32px;
+        text-align: center;
+        border-bottom: 1px solid colors.$gray-200;
+
+        svg {
+          width: 56px;
+          margin: auto;
+        }
+
+        .title {
+          @include styles.text-xl;
+          @include weights.semibold;
+          margin: 8px 0;
+        }
+
+        .description {
+          @include styles.text-md;
+          text-align: center;
+        }
+      }
+
+      .characters {
+        padding: 32px 45px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+
+        .character {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          img {
+            width: 130px;
+            border-radius: 16px;
+            margin-bottom: 16px;
+          }
+
+          .name {
+            @include styles.text-md;
+            @include weights.semibold;
+            margin-top: 16px;
+            margin-bottom: 4px;
+          }
+
+          .stage {
+            @include styles.text-sm;
+            @include weights.medium;
+            color: colors.$gray-700;
+          }
+        }
+      }
+    }
+  }
+
+  .merging.box {
+    content: "";
+    width: 538px;
+    height: 225px;
+    margin: auto;
+    border: 1px solid colors.$gray-300;
+    border-radius: 0 0 16px 16px;
+    border-top: none;
+  }
+
+  .final.card {
+    transform: translateY(-193px);
+    border: 1px solid colors.$gray-300;
+    border-radius: 24px;
+    background-color: colors.$white;
+    padding: 32px;
+    width: max-content;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      width: 196px;
+      border-radius: 16px;
+      margin-bottom: 16px;
+    }
+
+    .name {
+      @include styles.text-md;
+      @include weights.semibold;
+      margin-top: 16px;
+    }
+  }
+
+  .img.wrapper {
+    position: relative;
+
+    .siblings {
+      position: absolute;
+      @include styles.text-sm;
+      @include weights.medium;
+      top: 8px;
+      right: 8px;
+      padding: 2px 10px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 12px;
+      color: colors.$white;
+      border: 1px solid colors.$gray-400;
+    }
+  }
+}
+
+.dark .nft.minting.levels {
+  .categorization {
+    & > div {
+      border-color: colors.$gray-800;
+
+      .info {
+        border-color: colors.$gray-800;
+      }
+
+      .characters {
+        .character {
+          .stage {
+            color: colors.$gray-400;
+          }
+        }
+      }
+    }
+  }
+
+  .merging.box {
+    border-color: colors.$gray-800;
+  }
+
+  .final.card {
+    border-color: colors.$gray-800;
+    background-color: colors.$black-900;
+  }
+}
