@@ -43,7 +43,28 @@ const aggregateFiltersData = (data) => {
   return sorted
 }
 
+const getMarketplaceFiltersHref = (nft) => {
+  const { name, level } = nft
+
+  const data = [{
+    key: 'Family',
+    value: name.replace(/(Diabolic|Epic|Legendary)\s/, '')
+  }]
+
+  if (level && level < 7) {
+    data.push({
+      key: 'Type',
+      value: level % 2 === 0 ? 'Evolution' : 'Selection'
+    })
+  }
+
+  const filters = encodeURIComponent(JSON.stringify(data))
+
+  return `/marketplace?filters=${filters}#view-nfts`
+}
+
 export {
   truncateAddress,
-  aggregateFiltersData
+  aggregateFiltersData,
+  getMarketplaceFiltersHref
 }

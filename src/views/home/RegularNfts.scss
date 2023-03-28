@@ -20,6 +20,7 @@
       @include styles.text-md;
       @include weights.semibold;
       margin-bottom: 4px;
+      color: colors.$gray-900;
     }
 
     .supporting.text {
@@ -63,6 +64,10 @@
 
 .dark .regular.nfts {
   .character.details {
+    .character.name {
+      color: colors.$base-white;
+    }
+
     .supporting.text {
       color: colors.$gray-300;
     }

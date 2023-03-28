@@ -1,5 +1,7 @@
 import { Button } from '@/components/Button/Button'
 import { useState } from 'react'
+import Link from 'next/link'
+import { getMarketplaceFiltersHref } from '@/utils/nft'
 
 const KnowTheCharacters = ({ charactersByPage }) => {
   const [page, setPage] = useState(1)
@@ -15,7 +17,11 @@ const KnowTheCharacters = ({ charactersByPage }) => {
             className={`character page${page === index + 1 ? '' : ' hidden'}`}
           >
             {characters.map((character) => (
-              <div key={character.name} className='character details'>
+              <Link
+                href={getMarketplaceFiltersHref(character)}
+                key={character.name}
+                className='character details'
+              >
                 <div>
                   <img src={character.thumbnail} alt={character.name} />
                 </div>
@@ -23,7 +29,7 @@ const KnowTheCharacters = ({ charactersByPage }) => {
                   <div className='character name'>{character.name}</div>
                   <div className='character description'>{character.description}</div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         ))
