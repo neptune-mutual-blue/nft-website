@@ -17,6 +17,12 @@
     margin: 58px 78px;
   }
 
+  &.only.minting.level {
+    .content.inset {
+      margin-top: 0;
+    }
+  }
+
   .hero {
     background-color: colors.$white;
     border: 1px solid colors.$gray-300;

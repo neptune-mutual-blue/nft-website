@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 const AnchorButton = (props) => {
   const {
     id,
@@ -15,7 +17,7 @@ const AnchorButton = (props) => {
   } = props
 
   return (
-    <a
+    <Link
       id={id}
       onClick={onClick}
       className={`ui ${(className || '').trim()} button`}
@@ -29,7 +31,7 @@ const AnchorButton = (props) => {
       rel={rel}
     >
       {children}
-    </a>
+    </Link>
   )
 }
 

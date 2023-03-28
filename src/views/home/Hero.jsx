@@ -14,7 +14,9 @@ const Hero = () => {
         </p>
 
         <div className='buttons container'>
-          <button className='view'>View Minting Levels</button>
+          <Link href='/marketplace/minting-levels'>
+            <button className='view'>View Minting Levels</button>
+          </Link>
           <Link href='/marketplace'>
             <Button>
               <div className='access'>
