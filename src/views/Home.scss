@@ -36,4 +36,25 @@
       }
     }
   }
+
+  &>.activities {
+    display: flex;
+    gap: 64px;
+
+    &>*:nth-child(1) {
+      width: 733px;
+      flex-shrink: 1;
+    }
+
+    &>*:nth-child(2) {
+      width: 419px;
+      flex-shrink: 1;
+    }
+
+    &>div:nth-child(2) {
+      &>*:not(:first-child) {
+        margin-top: 32px;
+      }
+    }
+  }
 }
