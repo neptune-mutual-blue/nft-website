@@ -15,6 +15,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    > ol {
+      margin: 0;
+    }
   }
 
   .content.grid {
@@ -182,10 +185,6 @@
 
       .blur.effect.character.details {
         width: 100%;
-
-        img {
-          height: auto;
-        }
       }
     }
   }

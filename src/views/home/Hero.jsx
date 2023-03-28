@@ -1,6 +1,7 @@
+import Link from 'next/link'
+
 import { Button } from '@/components/Button/Button'
 import { Icon } from '@/elements/Icon'
-import Link from 'next/link'
 
 const Hero = () => {
   return (

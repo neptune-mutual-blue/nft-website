@@ -20,13 +20,13 @@
         backdrop-filter: blurs.$sm;
         transform: translate(-4px, -4px);
 
-        background-color: rgba(0, 0, 0, 0.9) !important;
-        color: colors.$white !important;
-        border: none !important;
+        background-color: rgba(0, 0, 0, 0.9);
+        color: colors.$white;
+        border: none;
 
         &:not(:disabled):not([data-disabled]):hover {
-          background-color: colors.$gray-800 !important;
-          color: colors.$white !important;
+          background-color: colors.$gray-800;
+          color: colors.$white;
         }
 
         &:disabled,
@@ -42,7 +42,7 @@
 .dark .premium.nfts {
   .slider.container {
     button {
-      background-color: colors.$gray-700 !important;
+      background-color: colors.$gray-700;
     }
   }
 }
