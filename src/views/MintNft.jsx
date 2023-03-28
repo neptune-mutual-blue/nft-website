@@ -10,8 +10,10 @@ import { NftSiblingsAndStage } from '@/components/NftSiblingsAndStage'
 import { Progress } from '@/components/Progress/Progress'
 import { Tags } from '@/components/Tags/Tags'
 import { Icon } from '@/elements/Icon'
+import { MintingLevels } from '@/views/mint-nft/MintingLevels'
+import { Summary } from '@/views/mint-nft/Summary'
 
-const MintNft = ({ nftDetails, premiumNfts }) => {
+const MintNft = ({ nftDetails, mintingLevels, premiumNfts }) => {
   const crumbs = [
     {
       link: '/',
@@ -54,8 +56,8 @@ const MintNft = ({ nftDetails, premiumNfts }) => {
         <ConnectWallet />
       </div>
 
-      <section className='hero'>
-        <div className='minting level connected'>
+      <div className='content inset'>
+        <section className='hero'>
           {nftDetails.level && (
             <Tags
               tags={[
@@ -103,16 +105,19 @@ const MintNft = ({ nftDetails, premiumNfts }) => {
               <LikeAndShare nft={nftDetails} />
             </div>
           </div>
-        </div>
-      </section>
-      <div className='explore minting collection'>
-        <h3>Explore Our Collection</h3>
-        <div className='nft characters'>
-          {premiumNfts.slice(0, 6).map(nft => <NftCardWithBlurEffect key={nft.name} nft={nft} />)}
-        </div>
+
+          <div className='explore minting collection'>
+            <h3>Explore Our Collection</h3>
+            <div className='nft characters'>
+              {premiumNfts.slice(0, 6).map(nft => <NftCardWithBlurEffect key={nft.name} nft={nft} />)}
+            </div>
+          </div>
+        </section>
+
+        <MintingLevels mintingLevels={mintingLevels} />
+        <Summary />
       </div>
     </div>
-
   )
 }
 

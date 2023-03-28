@@ -5,7 +5,7 @@ const NftCardWithBlurEffect = (props) => {
   return (
     <div className={'blur effect character details' + (className ? ' ' + className : '')}>
       <div>
-        <img src={nft.image} alt={nft.name} />
+        <img src={nft.thumbnail} alt={nft.name} />
       </div>
       <div className='overlay'>
         <div>

@@ -4,6 +4,7 @@ const paths = {
   'arrow-right': import('./variants/Arrows/arrow-right.svg?raw'),
   'arrow-narrow-left': import('./variants/Arrows/arrow-narrow-left.svg?raw'),
   'arrow-narrow-right': import('./variants/Arrows/arrow-narrow-right.svg?raw'),
+  'arrow-up-right': import('./variants/Arrows/arrow-up-right.svg?raw'),
   'arrow-square-up-right': import(
     './variants/Arrows/arrow-square-up-right.svg?raw'
   ),
@@ -64,6 +65,9 @@ const paths = {
   ),
   ethereum: import('./custom/Brands/default/SvgEthereum.svg?raw'),
   arbitrum: import('./custom/Brands/default/SvgArbitrum.svg?raw'),
+  'arbitrum-nft': import('./custom/Brands/default/SvgArbitrumNft.svg?raw'),
+  guardian: import('./variants/Nft/guardian.svg?raw'),
+  beast: import('./variants/Nft/beast.svg?raw'),
   avalanche: import('./custom/Brands/default/SvgAvalanche.svg?raw'),
   bnbchain: import('./custom/Brands/default/SvgBNBChain.svg?raw'),
   polygon: import('./custom/Brands/default/SvgPolygon.svg?raw'),

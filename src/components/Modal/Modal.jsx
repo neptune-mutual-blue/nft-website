@@ -28,7 +28,6 @@ const Modal = (props) => {
             </div>
           )}
           {description && (
-
             <Dialog.Description className='DialogDescription'>
               {description}
             </Dialog.Description>
