@@ -11,6 +11,7 @@ import { Progress } from '@/components/Progress/Progress'
 import { Tags } from '@/components/Tags/Tags'
 import { Icon } from '@/elements/Icon'
 import { MintingLevels } from '@/views/mint-nft/MintingLevels'
+import { MintSuccessModal } from '@/views/mint-nft/MintSuccessModal'
 import { Summary } from '@/views/mint-nft/Summary'
 
 const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
@@ -80,11 +81,13 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
             <div>
               <NftImageWithExpand nft={nftDetails} />
 
-              <Button
-                type='button' size='xl' disabled onClick={() => {
-                }}
-              >Mint this NFT
-              </Button>
+              <MintSuccessModal nft={nftDetails}>
+                <Button
+                  type='button' size='xl' onClick={() => {
+                  }}
+                >Mint this NFT
+                </Button>
+              </MintSuccessModal>
               <div className='supporting text'>
                 {nftDetails.wantToMint} people want to mint this.
               </div>

@@ -1,0 +1,94 @@
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.share.btn.group {
+  .share.options {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .share.platform {
+    @include styles.text-sm;
+    text-align: center;
+    outline-offset: 8px;
+    cursor: pointer;
+
+    &:hover {
+      .platform.icon {
+        background-color: colors.$gray-200;
+      }
+    }
+
+    .platform.icon {
+      padding: 20px;
+      border: 1px solid colors.$gray-300;
+      border-radius: 9px;
+      margin-bottom: 8px;
+
+      svg {
+        color: colors.$gray-600;
+      }
+    }
+  }
+
+  .share.link {
+    border: 1px solid colors.$gray-300;
+    border-radius: 8px;
+    padding: 10px 16px;
+    @include styles.text-sm;
+    @include weights.semibold;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    background-image: linear-gradient(
+      90deg,
+      black calc(90% - 64px),
+      rgba(0, 0, 0, 0)
+    );
+    background-clip: text;
+    color: transparent;
+
+    .icon.button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 10px;
+      background-color: colors.$white;
+      cursor: pointer;
+      outline-offset: -4px;
+    }
+  }
+}
+
+.dark .share.btn.group {
+  .share.platform {
+    &:hover {
+      .platform.icon {
+        background-color: colors.$gray-900;
+      }
+    }
+
+    .platform.icon {
+      border-color: colors.$gray-800;
+
+      svg {
+        color: colors.$white;
+      }
+    }
+  }
+
+  .share.link {
+    border-color: colors.$gray-800;
+    background-image: linear-gradient(
+      90deg,
+      white calc(90% - 64px),
+      rgba(255, 255, 255, 0)
+    );
+
+    .icon.button {
+      background-color: colors.$black-800;
+      color: colors.$white;
+    }
+  }
+}

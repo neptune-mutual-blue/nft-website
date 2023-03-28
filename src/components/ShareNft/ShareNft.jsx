@@ -1,8 +1,6 @@
-import { IconButton } from '@/components/IconButton/IconButton'
 import { Modal } from '@/components/Modal/Modal'
 import { NftNickname } from '@/components/NftNickname'
-import { Icon } from '@/elements/Icon'
-import { copyToClipboard } from '@/utils/copy-to-clipboard'
+import { ShareButtonGroup } from '@/components/ShareButtonGroup/ShareButtonGroup'
 
 const ShareNft = (props) => {
   const { open, setOpen, children, nft } = props
@@ -23,47 +21,7 @@ const ShareNft = (props) => {
         </div>
       </div>
 
-      <div className='share options'>
-        <button className='share platform'>
-          <div className='platform icon'>
-            <Icon variant='twitter' />
-          </div>
-          <div>Twitter</div>
-        </button>
-        <button className='share platform'>
-          <div className='platform icon'>
-            <Icon variant='facebook' />
-          </div>
-          <div>Facebook</div>
-        </button>
-        <button className='share platform'>
-          <div className='platform icon'>
-            <Icon variant='telegram' />
-          </div>
-          <div>Telegram</div>
-        </button>
-        <button className='share platform'>
-          <div className='platform icon'>
-            <Icon variant='email' />
-          </div>
-          <div>E-mail</div>
-        </button>
-      </div>
-
-      <div className='share link'>
-        <div className='link text'>
-          {typeof window !== 'undefined' ? window.location.origin : ''}/marketplace/{nft.tokenId}/
-        </div>
-
-        <IconButton
-          noWrapper
-          showFeedback
-          size='lg' variant='copy-01' onClick={() => {
-            copyToClipboard(`${typeof window !== 'undefined' ? window.location.origin : ''}/marketplace/${nft.tokenId}/`)
-          }}
-        />
-
-      </div>
+      <ShareButtonGroup link={`${typeof window !== 'undefined' ? window.location.origin : ''}/marketplace/${nft.tokenId}/`} />
     </Modal>
   )
 }
