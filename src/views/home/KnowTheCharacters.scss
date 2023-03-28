@@ -54,7 +54,7 @@
     justify-content: space-between;
     align-items: center;
 
-    &>div {
+    & > div {
       @include weights.medium;
       @include styles.text-sm;
     }
@@ -103,8 +103,8 @@
     border: none;
 
     &:not(:disabled):not([data-disabled]):hover {
-      background-color: colors.$gray-700 !important;
-      color: colors.$white !important;
+      background-color: colors.$gray-700;
+      color: colors.$white;
     }
 
     &:disabled,

@@ -1,5 +1,6 @@
-import { Icon } from '@/elements/Icon'
 import Link from 'next/link'
+
+import { Icon } from '@/elements/Icon'
 
 const Breadcrumb = (props) => {
   const { className, items } = props
@@ -16,7 +17,7 @@ const Breadcrumb = (props) => {
           <li
             key={i}
             itemProp='itemListElement'
-            itemscope
+            itemScope
             itemtype='https://schema.org/ListItem'
           >
             <Link

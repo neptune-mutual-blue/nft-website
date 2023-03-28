@@ -43,15 +43,15 @@
     opacity: 0.5;
     cursor: pointer;
     transition: all 0.5s;
-    width: auto !important;
-    margin-top: 0 !important;
+    width: auto;
+    margin-top: 0;
 
     &:hover {
       opacity: 1;
     }
 
     svg {
-      color: colors.$gray-700 !important;
+      color: colors.$gray-700;
     }
   }
 }

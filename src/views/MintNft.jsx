@@ -117,7 +117,6 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
         </div>
       </div>
     </div>
-
   )
 }
 

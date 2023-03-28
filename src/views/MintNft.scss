@@ -45,7 +45,7 @@
       & > div:first-of-type {
         text-align: center;
 
-        button {
+        & > button {
           width: 100%;
           margin-top: 16px;
           margin-bottom: 8px;
@@ -79,7 +79,7 @@
             color: colors.$indigo-600;
 
             svg {
-              color: colors.$gray-400 !important;
+              color: colors.$gray-400;
             }
 
             & > div:first-of-type {
