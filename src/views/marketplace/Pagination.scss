@@ -24,9 +24,8 @@
       @include weights.semibold;
       color: colors.$gray-700;
 
-      &:disabled {
+      &.disabled {
         color: colors.$gray-500;
-        cursor: not-allowed;
       }
     }
   }
@@ -73,7 +72,7 @@
     .next.page {
       color: colors.$gray-25;
 
-      &:disabled {
+      &.disabled {
         color: colors.$gray-400;
       }
     }

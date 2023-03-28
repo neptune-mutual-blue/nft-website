@@ -63,8 +63,25 @@ const getMarketplaceFiltersHref = (nft) => {
   return `/marketplace?filters=${filters}#view-nfts`
 }
 
+const getMarketplaceUrlObject = (_page, _search, _filters) => {
+  let url = '/marketplace'
+
+  if (_page !== 1) url += `/page/${_page}`
+
+  const query = {}
+  if (_search) query.search = _search
+  if (_filters.length) query.filters = JSON.stringify(_filters)
+
+  return {
+    pathname: url,
+    query,
+    hash: 'view-nfts'
+  }
+}
+
 export {
   truncateAddress,
   aggregateFiltersData,
-  getMarketplaceFiltersHref
+  getMarketplaceFiltersHref,
+  getMarketplaceUrlObject
 }

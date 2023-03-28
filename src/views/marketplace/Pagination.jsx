@@ -1,22 +1,24 @@
 import { Icon } from '@/elements/Icon'
 import { getPagination } from '@/utils/pagination'
+import Link from 'next/link'
 
 const t = (x) => x
 
-const Pagination = ({ currentPage, totalPages, onChange }) => {
+const Pagination = ({ currentPage, totalPages, getHref }) => {
   const { previous, pages, next } = getPagination(totalPages, currentPage)
 
   return (
     <div className='ui pagination'>
       <div className='container'>
-        <button
-          className='previous page'
-          disabled={!previous}
-          onClick={() => onChange(previous)}
+        <Link
+          className={`previous page ${!previous && 'disabled pointer events none'}`}
+          href={getHref(previous)}
+          scroll={false}
+          tabIndex={!previous && '-1'}
         >
           <Icon variant='arrow-left' size='lg' />
           <span>{t('Previous')}</span>
-        </button>
+        </Link>
 
         <div className='page numbers'>
           {
@@ -24,15 +26,16 @@ const Pagination = ({ currentPage, totalPages, onChange }) => {
               pages.map((page, index) => {
                 return page
                   ? (
-                    <button
+                    <Link
                       key={index}
                       className={`button page ${
                       currentPage === page ? 'active' : ''
                     }`}
-                      onClick={() => onChange(page)}
+                      href={getHref(page)}
+                      scroll={false}
                     >
                       {page}
-                    </button>
+                    </Link>
                     )
                   : (
                     <span key={index} className='continues'> ... </span>
@@ -41,14 +44,15 @@ const Pagination = ({ currentPage, totalPages, onChange }) => {
           }
         </div>
 
-        <button
-          className='next page'
-          disabled={!next}
-          onClick={() => onChange(next)}
+        <Link
+          className={`next page ${!next && 'disabled pointer events none'}`}
+          href={getHref(next)}
+          scroll={false}
+          tabIndex={!next && '-1'}
         >
           <span>{t('Next')}</span>
           <Icon variant='arrow-right' size='lg' />
-        </button>
+        </Link>
       </div>
     </div>
   )
