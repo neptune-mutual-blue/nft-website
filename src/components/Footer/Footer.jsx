@@ -7,10 +7,14 @@ import NpmDarkLogo from '../../elements/npm/npm-logo-dark-mode.svg?raw'
 import NpmLightLogo from '../../elements/npm/npm-logo-light-mode.svg?raw'
 import { normalizeUrl } from '../../utils/url'
 import { getFooterData } from './data'
+import { useContext } from 'react'
+import { ThemeContext } from '@/contexts/ThemeContext'
 
 const { lists, socials } = getFooterData()
 
 const Footer = () => {
+  const themeContext = useContext(ThemeContext)
+
   return (
     <footer>
       <div className='inner container'>
@@ -35,9 +39,8 @@ const Footer = () => {
                               <a
                                 href={
                                 AppConstants.neptunemutualOrigin +
-                                normalizeUrl(link.href)
+                                normalizeUrl(link.href) + '?theme=' + (themeContext.dark ? 'dark' : 'light')
                               }
-                                target='_blank'
                                 rel='noreferrer'
                               >
                                 {link.text}
