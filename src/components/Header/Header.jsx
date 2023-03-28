@@ -1,4 +1,4 @@
-import ThemeSelector from '@/components/Header/ThemeSelector'
+import { ThemeSelector } from '@/components/Header/ThemeSelector'
 import Link from 'next/link'
 import NpmDarkLogo from '../../elements/npm/npm-logo-dark-mode.svg'
 import NpmLightLogo from '../../elements/npm/npm-logo-light-mode.svg'

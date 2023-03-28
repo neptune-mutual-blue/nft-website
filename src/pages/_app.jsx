@@ -1,3 +1,4 @@
+import { ThemeProvider } from '@/contexts/ThemeContext'
 import { BaseLayout } from '@/layouts/BaseLayout'
 import '@/styles/global.scss'
 
@@ -15,9 +16,11 @@ export default function App ({ Component, pageProps }) {
       `}
       </style>
 
-      <BaseLayout>
-        <Component {...pageProps} />
-      </BaseLayout>
+      <ThemeProvider>
+        <BaseLayout>
+          <Component {...pageProps} />
+        </BaseLayout>
+      </ThemeProvider>
     </>
   )
 }

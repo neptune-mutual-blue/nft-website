@@ -59,11 +59,11 @@ const MintingLevels = ({ mintingLevels }) => {
             <Icon variant='beast' />
             <div className='title'>Beasts</div>
             <div className='description'>
-              The Guardians are the protectors of DeFi. They are ancient beings who have sworn to defend the DeFi world against any threat and breaches.
+              The Beasts are fierce and formidable creatures that roam the wilds of the DeFi world. They are known for their strength, speed, and fearlessness.
             </div>
           </div>
           <div className='characters'>
-            {guardians.map(renderCharacter)}
+            {beasts.map(renderCharacter)}
           </div>
         </div>
       </div>
