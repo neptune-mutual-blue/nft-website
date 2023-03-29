@@ -27,7 +27,12 @@
     margin-bottom: 24px;
 
     a {
-      color: inherit;
+      color: colors.$indigo-600;
+      text-decoration: underline;
+
+      .dark & {
+        color: colors.$indigo-400;
+      }
     }
   }
 

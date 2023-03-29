@@ -156,7 +156,7 @@
       .heading.and.supporting.text {
         .heading.and.subheading {
           .heading:not(.sub) {
-            color: dark.$color;
+            color: colors.$base-white;
           }
 
           .sub.heading {

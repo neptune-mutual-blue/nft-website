@@ -1,4 +1,5 @@
 import {
+  useContext,
   useEffect,
   useState
 } from 'react'
@@ -9,6 +10,7 @@ import { Icon } from '@/elements/Icon'
 import { wallets } from '@/lib/connect-wallet/config/wallets'
 import useAuth from '@/lib/connect-wallet/hooks/useAuth'
 import { useWeb3React } from '@web3-react/core'
+import { ThemeContext } from '@/contexts/ThemeContext'
 
 const { Button } = require('@/components/Button/Button')
 
@@ -34,6 +36,8 @@ const ConnectWallet = () => {
     }
   }, [popupOpen, active, setPopupOpen])
 
+  const { dark } = useContext(ThemeContext)
+
   const onConnect = (id) => {
     setIsConnecting(true)
     const wallet = wallets.find((x) => x.id === id)
@@ -58,7 +62,7 @@ const ConnectWallet = () => {
           <Button onClick={handleWalletButtonClick} size='md'>Connect Wallet</Button>
     }
         description={
-          <>By connecting a wallet, you agree to Neptune Mutual <a href=''>Terms & Conditions</a> and acknowledge that you have read and understand the Neptune Mutual Protocol Disclaimer.</>
+          <>By connecting a wallet, you agree to Neptune Mutual <a target='_blank' href={'https://neptunemutual.com/policies/standard-terms-and-conditions/?theme=' + (dark ? 'dark' : 'light')}>Terms & Conditions</a> and acknowledge that you have read and understand the Neptune Mutual <a target='_blank' href={'https://neptunemutual.com/docs/usage/disclaimer/?theme=' + (dark ? 'dark' : 'light')}>Protocol Disclaimer</a>.</>
     }
         className='connect wallet modal'
         cross

@@ -26,7 +26,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
     },
     {
       link: '/marketplace/' + nftDetails.tokenId + '/',
-      name: nftDetails.family
+      name: nftDetails.name
     },
     {
       link: '#',

@@ -1,5 +1,6 @@
 
 import { HeaderSection } from '@/components/HeaderSection/HeaderSection'
+import { HeroImage } from '@/views/home/HeroImage'
 
 const Hero = () => {
   return (
@@ -28,16 +29,7 @@ const Hero = () => {
       />
 
       <div className='image container'>
-        <img
-          className='light only'
-          src='/assets/images/hero/nft-light.webp'
-          alt='hero image light'
-        />
-        <img
-          className='dark only'
-          src='/assets/images/hero/nft-dark.webp'
-          alt='hero image dark'
-        />
+        <HeroImage />
       </div>
     </div>
   )
