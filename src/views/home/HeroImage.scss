@@ -1,0 +1,41 @@
+.hero.image {
+  position: relative;
+  height: 523px;
+  overflow: hidden;
+
+  img {
+    position: absolute;
+    object-fit: contain;
+    object-position: center top;
+
+    &:nth-of-type(1) {
+      width: 563.66px;
+      height: 543.1px;
+      top: 194.3px;
+    }
+    &:nth-of-type(2) {
+      position: absolute;
+      left: 192px;
+      width: 658px;
+      height: 657px;
+      z-index: 2;
+    }
+
+    &:nth-of-type(3) {
+      position: absolute;
+      left: 674px;
+      width: 524px;
+      height: 525px;
+      top: 152px;
+    }
+  }
+
+  svg {
+    height: 471.83px;
+    width: 669.7px;
+    position: absolute;
+    z-index: 1;
+    top: 149px;
+    left: 203px;
+  }
+}

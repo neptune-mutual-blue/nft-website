@@ -5,58 +5,47 @@
 @use "../../design-system/shadows";
 
 .home.hero.container {
-  padding-top: 56px;
+  .ui.basic.hero.section {
+    background: transparent;
 
-  .titles.container {
-    text-align: center;
+    & > .container {
+      .content {
+        max-width: unset;
+        gap: 32px;
 
-    .title {
-      @include styles.display-xl;
-      @include weights.bold;
-    }
-
-    .intro {
-      @include styles.text-xl;
-      @include weights.regular;
-      color: colors.$gray-600;
-      margin-top: 12px;
-      max-width: 768px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .buttons.container {
-      margin-top: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-
-      button {
-        padding: 11px 20px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        @include styles.text-md;
-        @include weights.semibold;
+        .heading.and.supporting.text {
+          gap: 12px;
+          .heading.and.subheading .heading:not(.sub) {
+            @include styles.display-xl;
+            @include weights.bold;
+          }
+        }
       }
+    }
+  }
 
-      .view {
-        border: 1px solid colors.$gray-300;
-        color: colors.$gray-700;
-      }
+  .intro {
+    max-width: 768px;
+    margin: auto;
+  }
 
-      .access {
-        display: flex;
-        align-items: center;
-        gap: 8px;
+  .full.width.container {
+    padding: 56px 32px 96px;
+    padding-bottom: 0;
+
+    @media (max-width: 767px) {
+      padding: 46px 16px 64px;
+    }
+    > .content {
+      gap: 48px;
+      @media (max-width: 767px) {
+        gap: 32px;
       }
     }
   }
 
   .image.container {
-    margin-top: 12px;
+    margin-top: 8px;
 
     @media (max-width: 767px) {
       img {
@@ -68,19 +57,7 @@
 }
 
 .dark .home.hero.container {
-  .titles.container {
-    .title {
-      color: colors.$base-white;
-    }
-
-    .intro {
-      color: colors.$gray-25;
-    }
-
-    .buttons.container {
-      .view {
-        color: colors.$base-white;
-      }
-    }
+  .intro {
+    color: colors.$gray-25;
   }
 }

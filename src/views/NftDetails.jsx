@@ -25,7 +25,7 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
     },
     {
       link: '#',
-      name: nftDetails.family
+      name: nftDetails.name
     }
   ]
 
