@@ -145,17 +145,15 @@
       border-bottom: 1px solid colors.$gray-200;
       @include styles.text-md;
       @include weights.semibold;
+      color: colors.$gray-600;
 
       &.header {
         padding: 10px 24px;
       }
 
-      .timestamp {
-        color: colors.$gray-600;
-      }
-
       .value {
         @include weights.regular;
+        color: colors.$gray-900;
 
         .action {
           display: inline;
@@ -226,9 +224,10 @@
 
     .row {
       border-bottom-color: colors.$gray-800;
+      color: colors.$gray-200;
 
-      .timestamp {
-        color: colors.$gray-200;
+      .value {
+        color: colors.$base-white;
       }
     }
   }

@@ -45,7 +45,7 @@
   }
 
   .image.container {
-    margin-top: 12px;
+    margin-top: 8px;
 
     @media (max-width: 767px) {
       img {
@@ -57,19 +57,7 @@
 }
 
 .dark .home.hero.container {
-  .titles.container {
-    .title {
-      color: colors.$base-white;
-    }
-
-    .intro {
-      color: colors.$gray-25;
-    }
-
-    .buttons.container {
-      .view {
-        color: colors.$base-white;
-      }
-    }
+  .intro {
+    color: colors.$gray-25;
   }
 }

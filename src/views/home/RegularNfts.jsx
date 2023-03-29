@@ -4,7 +4,7 @@ const RegularNfts = ({ regularNfts }) => {
   return (
     <div className='regular nfts'>
       <h2>Regular NFTs</h2>
-      <Slider gap={24}>
+      <Slider gap={16}>
         {
         regularNfts.map((character) => {
           return (
