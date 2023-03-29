@@ -17,7 +17,7 @@ html:not(.dark) {
   text-rendering: optimizeSpeed;
 
   body {
-    background-color: light-theme.$primary-background-color;
+    background-color: colors.$base-white;
     color: light-theme.$color;
   }
 
