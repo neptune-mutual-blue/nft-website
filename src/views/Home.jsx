@@ -1,5 +1,5 @@
 import { Hero } from '@/views/home/Hero'
-import { KnowTheCharacters } from '@/views/home/KnowTheCharacters'
+// import { KnowTheCharacters } from '@/views/home/KnowTheCharacters'
 import { MostViewedNfts } from '@/views/home/MostViewedNfts'
 import { PremiumNfts } from '@/views/home/PremiumNfts'
 import { RegularNfts } from '@/views/home/RegularNfts'
@@ -9,9 +9,9 @@ const Home = ({ ssg }) => {
     <div className='home page'>
       <Hero />
 
-      <section className='dashboard'>
+      {/* <section className='dashboard'>
         <KnowTheCharacters charactersByPage={ssg.charactersByPage} />
-      </section>
+      </section> */}
 
       <section className='nft showcase'>
         <h2>Premium NFTs</h2>
