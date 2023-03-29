@@ -1,0 +1,68 @@
+@use "../design-system//utils";
+@use "../design-system/colors";
+@use "../design-system/theme/light";
+@use "../design-system/theme/dark";
+@use "../design-system/blurs";
+
+.video.modal.container {
+  z-index: 1000;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blurs.$xl;
+  border-radius: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 128px;
+
+  @media (max-width: 1023px) {
+    padding: 0 12px;
+  }
+
+  .panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    iframe {
+      width: 2000px;
+      max-height: 90vh;
+      max-width: 85%;
+      aspect-ratio: 16 / 9;
+
+      @media (max-width: 767px) {
+        max-width: 95vw;
+      }
+    }
+
+    .title,
+    .description {
+      @include utils.sr-only;
+    }
+  }
+
+  button.video.modal.close {
+    padding: 6px;
+    color: colors.$white;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
+
+    span {
+      @include utils.sr-only;
+    }
+  }
+
+  &[data-open="false"] {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+}

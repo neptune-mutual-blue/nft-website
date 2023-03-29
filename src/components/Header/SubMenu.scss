@@ -1,0 +1,103 @@
+@use "../../design-system/utils";
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+@use "../../design-system/theme/light";
+@use "../../design-system/theme/dark";
+@use "../../design-system/shadows";
+
+.sub.menu.container {
+  position: fixed;
+  top: var(--header-height);
+  left: 0px;
+  max-height: 80vh;
+  z-index: 1;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: light.$primary-background-color;
+  border-top: 1px solid colors.$gray-100;
+  box-shadow: shadows.$lg;
+  border-bottom: 1px solid colors.$gray-100;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+
+  @media (max-width: 1023px) {
+    position: relative;
+    top: 0;
+    border-top: none !important;
+    max-height: none;
+    overflow: visible;
+    padding-top: 16px;
+  }
+
+  .left.space {
+    flex: 1;
+    background-color: light.$primary-background-color;
+  }
+
+  .right.space {
+    flex: 1;
+    background-color: colors.$gray-50;
+  }
+
+  .content {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+
+    @media (max-width: 1023px) {
+      gap: 24px;
+      flex-direction: column;
+    }
+  }
+
+  .content .non.video.sections {
+    padding: 32px;
+    display: flex;
+    gap: 24px;
+    flex: 2;
+    background-color: light.$primary-background-color;
+
+    @media (max-width: 1023px) {
+      flex-direction: column;
+      padding: 0;
+    }
+  }
+
+  .content .video.sections {
+    padding: 32px;
+    padding-left: 20px;
+    background-color: colors.$gray-50;
+    flex: 1;
+    min-width: 560px;
+
+    @media (max-width: 1023px) {
+      padding: 32px 0;
+      min-width: 200px;
+    }
+  }
+
+  &[data-open="false"] {
+    display: none;
+  }
+}
+
+.dark .sub.menu.container {
+  background-color: colors.$black;
+  border-top: 1px solid colors.$gray-800;
+  box-shadow: shadows.$shadow-2xl;
+  border-bottom-color: colors.$gray-800;
+
+  .right.space,
+  .content .video.sections {
+    background-color: dark.$primary-background-color;
+  }
+
+  .left.space,
+  .content .non.video.sections {
+    background-color: dark.$primary-background-color;
+  }
+}

@@ -1,0 +1,129 @@
+@use "../../design-system/utils";
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+@use "../../design-system/theme/light";
+@use "../../design-system/theme/dark";
+
+header nav {
+  display: flex;
+
+  @media (max-width: 1023px) {
+    width: 100%;
+
+    ul {
+      width: 100%;
+      flex-direction: column;
+    }
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    @media (max-width: 1023px) {
+      gap: 8px;
+    }
+  }
+
+  ul li > a,
+  ul li > button {
+    display: flex;
+    align-items: center;
+    margin-top: -12px;
+    margin-bottom: -12px;
+    padding: 12px 16px;
+    gap: 16px;
+    color: colors.$gray-600;
+    border-radius: 8px;
+    cursor: pointer;
+
+    @include styles.text-md;
+    @include weights.semibold;
+
+    &:hover {
+      color: light.$color;
+      text-decoration: none;
+    }
+
+    @media (max-width: 1023px) {
+      color: light.$color;
+      margin: 0;
+      border-radius: 0;
+      width: 100%;
+      justify-content: space-between;
+      @include styles.text-md;
+      @include weights.semibold;
+
+      &:hover {
+        background-color: colors.$primary-600;
+        color: colors.$white;
+
+        h3 {
+          color: colors.$white;
+        }
+
+        p {
+          color: colors.$gray-50;
+        }
+      }
+    }
+  }
+
+  ul li > button {
+    @media (max-width: 1023px) {
+      &:hover {
+        color: light.$color;
+        background-color: colors.$gray-50;
+      }
+    }
+  }
+
+  ul li > button[data-open="false"] > i[data-state="opened"],
+  ul li > button[data-open="true"] > i[data-state="closed"] {
+    display: none;
+  }
+
+  ul li > a {
+    &.active {
+      color: light.$color;
+    }
+  }
+}
+
+.dark header nav {
+  ul li > a,
+  ul li > button {
+    color: colors.$gray-400;
+
+    &:hover {
+      color: dark.$color;
+    }
+
+    @media (max-width: 1023px) {
+      color: dark.$color;
+    }
+  }
+
+  ul li > a {
+    &.active {
+      color: dark.$color;
+    }
+
+    svg {
+      color: colors.$primary-500;
+    }
+  }
+
+  ul li > button {
+    @media (max-width: 1023px) {
+      &:hover {
+        color: dark.$color;
+        background-color: colors.$gray-700;
+      }
+    }
+  }
+}

@@ -1,8 +1,10 @@
-import { NftApi } from '@/service/nft-api'
-import { Home } from '@/views/Home'
+import { useEffect } from 'react'
+
 import Head from 'next/head'
 import Script from 'next/script'
-import { useEffect } from 'react'
+
+import { NftApi } from '@/service/nft-api'
+import { Home } from '@/views/Home'
 
 export async function getStaticProps () {
   const [
@@ -67,6 +69,12 @@ export default function HomePage ({ ssg }) {
       <Home ssg={ssg} />
       {/* eslint-disable-next-line */}
       <Script strategy='beforeInteractive' src='/scripts/slider.js' />
+      {/* eslint-disable-next-line */}
+      <Script strategy='beforeInteractive' src='/scripts/hamburger.js' />
+      {/* eslint-disable-next-line */}
+      <Script strategy='beforeInteractive' src='/scripts/mega-menu.js' />
+      {/* eslint-disable-next-line */}
+      <Script strategy='beforeInteractive' src='/scripts/video.js' />
     </>
   )
 }
