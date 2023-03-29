@@ -16,7 +16,7 @@ const HeroImage = () => {
         </g>
         <defs>
           <filter id='filter0_f_5846_499070' x='0.129944' y='0.129944' width='941.439' height='743.572' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'>
-            <feFlood flood-opacity='0' result='BackgroundImageFix' />
+            <feFlood floodOpacity='0' result='BackgroundImageFix' />
             <feBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape' />
             <feGaussianBlur stdDeviation='67.935' result='effect1_foregroundBlur_5846_499070' />
           </filter>
