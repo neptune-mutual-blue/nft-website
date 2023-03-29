@@ -17,7 +17,7 @@ const Hero = () => {
         }}
         primary={{
           text: 'View Minting Levels',
-          href: '/',
+          href: '/marketplace/minting-levels',
           size: 'xl'
         }}
         subheading={
