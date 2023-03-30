@@ -15,7 +15,6 @@
     "@radix-ui/react-tooltip": "^1.0.5",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
-    "cheerio": "^1.0.0-rc.12",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "eslint-config-standard": "16.0.3",
