@@ -9,7 +9,7 @@ header {
   width: 100%;
   position: fixed;
   border-bottom: 1px solid colors.$gray-200;
-  background-color: light.$primary-background-color;
+  background-color: colors.$base-white;
   z-index: 999;
 
   .inner.container {
@@ -56,9 +56,10 @@ header {
     .nav.with.language.and.theme {
       justify-content: space-between;
       flex: 1;
-      background-color: light.$primary-background-color;
 
       @media (max-width: 1023px) {
+        background-color: light.$primary-background-color;
+
         & > *:nth-child(1) {
           order: 2;
         }
@@ -119,13 +120,10 @@ header {
   background-color: colors.$black;
 
   .inner.container {
-    .nav.with.language.and.theme {
-      background-color: colors.$black;
-    }
-
     @media (max-width: 1023px) {
       .nav.with.language.and.theme {
         border-top: 1px solid colors.$gray-800;
+        background-color: colors.$black;
       }
 
       .language.and.theme.only {

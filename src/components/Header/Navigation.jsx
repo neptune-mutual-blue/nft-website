@@ -14,7 +14,7 @@ const Navigation = ({ data }) => {
       data.map(({ title, href }) => {
         return href
           ? (
-            <li>
+            <li key={title}>
               <a
                 href={
                 AppConstants.neptunemutualOrigin +
@@ -27,7 +27,7 @@ const Navigation = ({ data }) => {
             </li>
             )
           : (
-            <li>
+            <li key={title}>
               <button className='display resources mega menu' data-open='false'>
                 <span>{title}</span>
                 <i data-state='closed'>
