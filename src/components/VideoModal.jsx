@@ -14,7 +14,7 @@ const VideoModal = () => {
         <iframe
           frameBorder='0'
           allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-          allowFullscreen
+          allowFullScreen
           title='Embedded youtube'
           className='video modal iframe'
         />

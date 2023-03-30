@@ -34,6 +34,7 @@
       max-height: 90vh;
       max-width: 85%;
       aspect-ratio: 16 / 9;
+      border-radius: 12px;
 
       @media (max-width: 767px) {
         max-width: 95vw;

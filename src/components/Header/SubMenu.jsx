@@ -8,10 +8,10 @@ const SubMenu = ({ data, videos }) => {
         data
           .filter((nav) => nav.children)
           .map(
-            ({ children }) => {
+            ({ children }, key) => {
               return (
                 children && (
-                  <div className='sub menu container' data-open='false'>
+                  <div key={key} className='sub menu container' data-open='false'>
                     <div className='left space' />
 
                     <div className='content'>
