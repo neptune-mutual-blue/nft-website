@@ -1,0 +1,71 @@
+@use "../../design-system/utils";
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+@use "../../design-system/theme/light";
+@use "../../design-system/theme/dark";
+@use "../../design-system/shadows";
+
+.hamburger.button.container {
+  display: none;
+  padding: 8px;
+  border-radius: 8px;
+  color: colors.$gray-700;
+
+  span {
+    @include utils.sr-only;
+  }
+
+  @media (max-width: 1023px) {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &:hover {
+    color: colors.$gray-700;
+    background-color: colors.$gray-50;
+  }
+
+  &:focus,
+  &:active,
+  &:focus-visible {
+    background-color: colors.$white;
+
+    outline: none;
+    box-shadow: shadows.$xs, 0px 0px 0px 4px colors.$primary-100;
+  }
+
+  &[data-open="true"] {
+    color: colors.$gray-500;
+  }
+
+  i[data-icon] svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  &[data-open="false"] i[data-icon="close"] {
+    display: none;
+  }
+
+  &[data-open="true"] i[data-icon="menu"] {
+    display: none;
+  }
+}
+
+.dark .hamburger.button.container {
+  color: colors.$gray-100;
+
+  &:hover {
+    color: colors.$white;
+    background-color: colors.$gray-700;
+  }
+
+  &:focus,
+  &:active,
+  &:focus-visible {
+    background-color: colors.$gray-600;
+    box-shadow: shadows.$xs, 0px 0px 0px 4px colors.$primary-900;
+  }
+}
