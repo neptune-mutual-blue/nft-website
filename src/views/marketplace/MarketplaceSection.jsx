@@ -1,6 +1,7 @@
 import { NftCard } from '@/components/NftCard/NftCard'
 import { useDebounce } from '@/hooks/useDebounce'
 import { imageOrigin } from '@/services/marketplace-api'
+import { getMarketplaceUrlObject } from '@/utils/nft'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Filter } from './Filter'
@@ -19,19 +20,9 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
   const updateUrlPath = useCallback((_page, _search, _filters) => {
     if (initial.current) return
 
-    let url = '/marketplace'
+    const urlObject = getMarketplaceUrlObject(_page, _search, _filters)
 
-    if (_page !== 1) url += `/page/${_page}`
-
-    const query = {}
-    if (_search) query.search = _search
-    if (_filters.length) query.filters = JSON.stringify(_filters)
-
-    router.push({
-      pathname: url,
-      query,
-      hash: 'view-nfts'
-    }, undefined, { scroll: false })
+    router.push(urlObject, undefined, { scroll: false })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -58,10 +49,6 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
 
   const handleInputChange = (e) => {
     setSearchValue(e.target.value)
-  }
-
-  const handlePageChange = (page) => {
-    updateUrlPath(page, searchValue, properties)
   }
 
   return (
@@ -101,7 +88,7 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
           <Pagination
             currentPage={curentPage}
             totalPages={totalPages}
-            onChange={handlePageChange}
+            getHref={page => page ? getMarketplaceUrlObject(page, searchValue, properties) : '#'}
           />
         </div>
       </div>

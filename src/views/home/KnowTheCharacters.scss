@@ -36,6 +36,7 @@
       }
 
       .character.name {
+        color: colors.$gray-900;
         @include weights.semibold;
         @include styles.text-lg;
       }
@@ -90,6 +91,10 @@
 
   .character.page {
     .character.details {
+      .character.name {
+        color: colors.$base-white;
+      }
+
       .character.description {
         color: colors.$gray-300;
       }
