@@ -17,7 +17,7 @@ const LikeAndShare = ({ nft }) => {
     <div className='like and share'>
       <button className={`like btn ${isLike ? 'liked' : ''}`} onClick={onHandleLike}>
         <Icon variant='heart' size='lg' />
-        {likeCount}
+        {likeCount.toLocaleString()}
       </button>
       <ShareNft open={showSharePopup} setOpen={setShowSharePopup} nft={nft}>
         <button
