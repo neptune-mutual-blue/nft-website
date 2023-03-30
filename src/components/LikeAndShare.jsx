@@ -1,14 +1,23 @@
+import { useState } from 'react'
+
 import { ShareNft } from '@/components/ShareNft/ShareNft'
 import { Icon } from '@/elements/Icon'
-import { useState } from 'react'
 
 const LikeAndShare = ({ nft }) => {
   const [showSharePopup, setShowSharePopup] = useState(false)
+  const [likeCount, setLikeCount] = useState(1024)
+  const [isLike, setIsLike] = useState(false)
+
+  const onHandleLike = () => {
+    setLikeCount(isLike ? likeCount - 1 : likeCount + 1)
+    setIsLike(!isLike)
+  }
+
   return (
     <div className='like and share'>
-      <button className='like btn'>
+      <button className={`like btn ${isLike ? 'liked' : ''}`} onClick={onHandleLike}>
         <Icon variant='heart' size='lg' />
-        1,024
+        {likeCount}
       </button>
       <ShareNft open={showSharePopup} setOpen={setShowSharePopup} nft={nft}>
         <button
