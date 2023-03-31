@@ -40,10 +40,10 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
       <Progress percent={percent} />
       <div>
         <div className='remaining'>
-          <div>${remaining} remaining
+          <div className='info'>${remaining} remaining
             <Icon variant='help-cirlce' size='sm' />
           </div>
-          <div>{percent}%</div>
+          <div className='percent'>{percent}%</div>
         </div>
       </div>
     </div>
