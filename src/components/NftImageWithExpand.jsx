@@ -1,6 +1,8 @@
-import { Icon } from '@/elements/Icon'
 import { useState } from 'react'
+
 import { useHotkeys } from 'react-hotkeys-hook'
+
+import { Icon } from '@/elements/Icon'
 
 const NftImageWithExpand = ({ nft, useCover }) => {
   const [expanded, setExpanded] = useState(false)
@@ -10,7 +12,7 @@ const NftImageWithExpand = ({ nft, useCover }) => {
   }, [expanded])
 
   return (
-    <div className='nft image with expand'>
+    <div className={`nft image with expand ${!useCover ? 'thumbnail' : ''}`}>
       <div
         className={'image wrapper' + (expanded ? ' expanded' : '')} onClick={() => {
           if (expanded) {
