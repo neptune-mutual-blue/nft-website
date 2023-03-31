@@ -24,7 +24,6 @@
   }
 
   .hero {
-    background-color: colors.$white;
     border: 1px solid colors.$gray-300;
     padding: 32px;
     border-radius: 24px;
@@ -48,14 +47,16 @@
       grid-template-columns: 280px 1fr;
       gap: 35px;
 
-      & > div:first-of-type {
-        text-align: center;
+      .button {
+        width: 100%;
+        margin-top: 16px;
+        margin-bottom: 8px;
+      }
 
-        & > button {
-          width: 100%;
-          margin-top: 16px;
-          margin-bottom: 8px;
-        }
+      .supporting.text {
+        @include styles.text-sm;
+        color: colors.$gray-600;
+        text-align: center;
       }
 
       .milestones {
@@ -88,7 +89,7 @@
               color: colors.$gray-400;
             }
 
-            & > div:first-of-type {
+            .info {
               display: flex;
               align-items: center;
               gap: 4px;
@@ -129,9 +130,12 @@
 
 .dark .mint.nft.page {
   .hero {
-    background-color: colors.$black-800;
     border-color: colors.$gray-800;
     .image.and.milestones {
+      .supporting.text {
+        color: colors.$gray-200;
+      }
+
       .milestones {
         .progress.info {
           .remaining {

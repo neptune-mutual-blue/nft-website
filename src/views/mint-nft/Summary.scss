@@ -17,7 +17,7 @@
   .summary.table {
     .row {
       display: grid;
-      grid-template-columns: 117px 1fr 223px 223px;
+      grid-template-columns: 120px 1fr 223px 223px;
       padding-right: 0;
       border-top: 1px solid colors.$gray-200;
       @include styles.text-md;
