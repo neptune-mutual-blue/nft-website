@@ -1,8 +1,10 @@
-import { Icon } from '@/elements/Icon'
 import { useState } from 'react'
+
 import { useHotkeys } from 'react-hotkeys-hook'
 
-const NftImageWithExpand = ({ nft, useCover }) => {
+import { Icon } from '@/elements/Icon'
+
+const NftImageWithExpand = ({ nft, isCover }) => {
   const [expanded, setExpanded] = useState(false)
 
   useHotkeys('esc', () => {
@@ -10,7 +12,7 @@ const NftImageWithExpand = ({ nft, useCover }) => {
   }, [expanded])
 
   return (
-    <div className='nft image with expand'>
+    <div className={`nft image with expand ${!isCover ? 'thumbnail' : ''}`}>
       <div
         className={'image wrapper' + (expanded ? ' expanded' : '')} onClick={() => {
           if (expanded) {
@@ -25,7 +27,7 @@ const NftImageWithExpand = ({ nft, useCover }) => {
       </div>
 
       <img
-        src={useCover ? nft.cover : nft.thumbnail} alt={nft.name}
+        src={isCover ? nft.cover : nft.thumbnail} alt={nft.name}
       />
       <button
         className='fullscreen icon' role='button' tabIndex={0} onClick={() => {

@@ -1,9 +1,11 @@
+import { useRouter } from 'next/router'
 
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { Button } from '@/components/Button/Button'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
 import { LikeAndShare } from '@/components/LikeAndShare'
-import NftCardWithBlurEffect from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
+import NftCardWithBlurEffect
+  from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
 import NftImageWithExpand from '@/components/NftImageWithExpand'
 import { NftNickname } from '@/components/NftNickname'
 import { NftSiblingsAndStage } from '@/components/NftSiblingsAndStage'
@@ -11,7 +13,6 @@ import { Tags } from '@/components/Tags/Tags'
 import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import { Icon } from '@/elements/Icon'
 import { useWeb3React } from '@web3-react/core'
-import { useRouter } from 'next/router'
 
 const NftDetails = ({ nftDetails, premiumNfts }) => {
   const crumbs = [
@@ -43,7 +44,7 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
         </div>
 
         <div className='content grid'>
-          <NftImageWithExpand nft={nftDetails} useCover />
+          <NftImageWithExpand nft={nftDetails} isCover />
           <div>
             <div className='mint'>
               {nftDetails.level && (

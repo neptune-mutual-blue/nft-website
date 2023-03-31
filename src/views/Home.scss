@@ -37,22 +37,20 @@
     }
   }
 
-  &>.activities {
+  & > .activities {
     display: flex;
     gap: 64px;
 
-    &>*:nth-child(1) {
+    .activities.container {
       width: 733px;
       flex-shrink: 1;
     }
 
-    &>*:nth-child(2) {
+    .leaderboard.achievements.container {
       width: 419px;
       flex-shrink: 1;
-    }
 
-    &>div:nth-child(2) {
-      &>*:not(:first-child) {
+      & > *:not(:first-child) {
         margin-top: 32px;
       }
     }
