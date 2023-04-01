@@ -17,7 +17,7 @@ const BaseLayout = ({ children }) => {
     if (connectorName) {
       login(connectorName)
     }
-  }, [])
+  }, [login])
 
   return (
     <div className='base layout'>
