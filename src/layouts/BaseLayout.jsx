@@ -2,20 +2,29 @@ import { useRouter } from 'next/router'
 
 import { Footer } from '@/components/Footer/Footer'
 import { Header } from '@/components/Header/Header'
-import { getLibrary } from '@/lib/connect-wallet/web3'
-import { Web3ReactProvider } from '@web3-react/core'
+import useAuth from '@/lib/connect-wallet/hooks/useAuth'
+import { useEffect } from 'react'
+import { LocalStorageKeys } from '@/config/localstorage'
 
 const BaseLayout = ({ children }) => {
   const router = useRouter()
 
+  const { login } = useAuth()
+
+  useEffect(() => {
+    const connectorName = localStorage.getItem(LocalStorageKeys.CONNECTOR_NAME)
+
+    if (connectorName) {
+      login(connectorName)
+    }
+  }, [])
+
   return (
     <div className='base layout'>
-      <Web3ReactProvider getLibrary={getLibrary}>
-        <Header headerStyle={router.pathname === '/marketplace' ? 'colored' : null} />
-        <div className='header gap' />
-        {children}
-        <Footer />
-      </Web3ReactProvider>
+      <Header headerStyle={router.pathname === '/marketplace' ? 'colored' : null} />
+      <div className='header gap' />
+      {children}
+      <Footer />
     </div>
   )
 }
