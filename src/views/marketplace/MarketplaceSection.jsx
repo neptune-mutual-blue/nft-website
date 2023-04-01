@@ -1,7 +1,7 @@
 import { NftCard } from '@/components/NftCard/NftCard'
 import { useDebounce } from '@/hooks/useDebounce'
 import { imageOrigin } from '@/services/marketplace-api'
-import { getMarketplaceUrlObject } from '@/utils/nft'
+import { getMarketplaceUrl } from '@/utils/nft'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Filter } from './Filter'
@@ -20,7 +20,7 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
   const updateUrlPath = useCallback((_page, _search, _filters) => {
     if (initial.current) return
 
-    const urlObject = getMarketplaceUrlObject(_page, _search, _filters)
+    const urlObject = getMarketplaceUrl(_page, _search, _filters)
 
     router.push(urlObject, undefined, { scroll: false })
 
@@ -88,7 +88,7 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
           <Pagination
             currentPage={curentPage}
             totalPages={totalPages}
-            getHref={page => page ? getMarketplaceUrlObject(page, searchValue, properties) : '#'}
+            getHref={page => page ? getMarketplaceUrl(page, searchValue, properties) : '#'}
           />
         </div>
       </div>

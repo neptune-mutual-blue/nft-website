@@ -7,11 +7,11 @@
 @use "../../design-system/theme/dark";
 
 .marketplace.filter.container {
-  padding-right: 16px;
   border-right: 1px solid colors.$gray-200;
   height: 100%;
 
   .filter.inner {
+    padding-right: 16px;
     position: sticky;
     top: var(--header-height);
     overflow-y: auto;
@@ -81,7 +81,7 @@
           overflow: hidden;
           visibility: hidden;
           max-height: 0;
-          transition: all .25s;
+          transition: all 0.25s;
 
           ul {
             list-style: none;
@@ -185,7 +185,7 @@
         &.active {
           button {
             background-color: colors.$gray-800;
-            box-shadow: 0px 0px 0px 4px #1C2842;
+            box-shadow: 0px 0px 0px 4px #1c2842;
           }
         }
       }
