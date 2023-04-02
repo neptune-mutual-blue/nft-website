@@ -10,15 +10,18 @@ const RegularNfts = ({ regularNfts }) => {
         {
         regularNfts.map((character) => {
           return (
-            <Link key={character.name} href={getMarketplaceFiltersHref(character)}>
-              <div className='character details with slider'>
+            <div
+              key={character.name}
+              className='character details with slider'
+            >
+              <Link href={getMarketplaceFiltersHref(character)}>
                 <div>
                   <img src={character.thumbnail} alt={character.name} />
                 </div>
                 <div className='character name'>{character.name}</div>
                 <div className='supporting text'>{character.siblings} siblings</div>
-              </div>
-            </Link>
+              </Link>
+            </div>
           )
         })
       }

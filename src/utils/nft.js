@@ -58,30 +58,45 @@ const getMarketplaceFiltersHref = (nft) => {
     })
   }
 
-  const filters = encodeURIComponent(JSON.stringify(data))
-
-  return `/marketplace?filters=${filters}#view-nfts`
+  return getMarketplaceUrl(1, '', data) + '#view-nfts'
 }
 
-const getMarketplaceUrlObject = (_page, _search, _filters) => {
+const getFiltersFromQueryString = (query) => {
+  const searchParams = new URLSearchParams(query)
+
+  const filters = []
+
+  for (const [key, value] of searchParams.entries()) {
+    if (key !== 'search') {
+      filters.push({ key, value })
+    }
+  }
+
+  return filters
+}
+
+const getMarketplaceUrl = (_page, _search, _filters) => {
   let url = '/marketplace'
 
   if (_page !== 1) url += `/page/${_page}`
 
-  const query = {}
-  if (_search) query.search = _search
-  if (_filters.length) query.filters = JSON.stringify(_filters)
+  const searchParams = new URLSearchParams()
 
-  return {
-    pathname: url,
-    query,
-    hash: 'view-nfts'
+  if (_search) {
+    searchParams.append('search', _search)
   }
+
+  for (const filter of _filters) {
+    searchParams.append(filter.key, filter.value)
+  }
+
+  return url + '?' + searchParams
 }
 
 export {
   truncateAddress,
   aggregateFiltersData,
   getMarketplaceFiltersHref,
-  getMarketplaceUrlObject
+  getMarketplaceUrl,
+  getFiltersFromQueryString
 }

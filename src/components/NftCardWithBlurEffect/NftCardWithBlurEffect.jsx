@@ -1,20 +1,27 @@
+import { getMarketplaceFiltersHref } from '@/utils/nft'
+import Link from 'next/link'
 
 const NftCardWithBlurEffect = (props) => {
   const { nft, className } = props
 
   return (
     <div className={'blur effect character details' + (className ? ' ' + className : '')}>
-      <div>
-        <img src={nft.thumbnail} alt={nft.name} />
-      </div>
-      <div className='overlay'>
+      <Link
+        key={nft.name}
+        href={getMarketplaceFiltersHref(nft)}
+      >
         <div>
-          <div>{nft.name}</div>
-          <div className='supporting text'>
-            {nft.siblings} siblings
+          <img src={nft.thumbnail} alt={nft.name} />
+        </div>
+        <div className='overlay'>
+          <div>
+            <div>{nft.name}</div>
+            <div className='supporting text'>
+              {nft.siblings} siblings
+            </div>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   )
 }
