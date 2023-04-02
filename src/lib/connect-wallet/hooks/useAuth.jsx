@@ -1,3 +1,4 @@
+import { LocalStorageKeys } from '@/config/localstorage'
 import { useWeb3React } from '@web3-react/core'
 import { useCallback, useEffect } from 'react'
 import { getConnectorByName } from '../utils/connectors'
@@ -34,13 +35,16 @@ const useAuth = (notify = console.log) => {
   }, [connector])
 
   const login = useCallback(
-    (connectorName) =>
-      activateConnector(connectorName, activate, notify),
+    (connectorName) => {
+      activateConnector(connectorName, activate, notify)
+      localStorage.setItem(LocalStorageKeys.CONNECTOR_NAME, connectorName)
+    },
     [activate, notify]
   )
 
   const logout = useCallback(() => {
     deactivate()
+    localStorage.removeItem(LocalStorageKeys.CONNECTOR_NAME)
   }, [deactivate])
 
   return { logout, login }
