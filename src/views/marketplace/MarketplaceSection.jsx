@@ -73,7 +73,7 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
               {
                 data.map((nft, i) => (
                   <NftCard
-                    key={i}
+                    key={nft.tokenId}
                     name={nft.nickname}
                     nftId={nft.tokenId}
                     views={nft.views}
