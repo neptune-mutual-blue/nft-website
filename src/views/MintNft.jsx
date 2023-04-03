@@ -78,7 +78,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
           <NftSiblingsAndStage nft={nftDetails} />
 
           <div className='image and milestones'>
-            <div>
+            <div className='image expand wrapper'>
               <NftImageWithExpand nft={nftDetails} />
 
               <MintSuccessModal nft={nftDetails}>

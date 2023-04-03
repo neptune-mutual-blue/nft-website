@@ -10,11 +10,21 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     padding-top: 56px;
+
+    @media (max-width: 767px) {
+      gap: 24px;
+      padding-top: 24px;
+    }
   }
 
   .content.inset {
     margin: 58px 78px;
+
+    @media (max-width: 767px) {
+      margin: 16px 0 32px;
+    }
   }
 
   &.only.minting.level {
@@ -28,6 +38,10 @@
     padding: 32px;
     border-radius: 24px;
 
+    @media (max-width: 767px) {
+      padding: 24px;
+    }
+
     .formatted.nickname {
       margin-top: 8px;
     }
@@ -36,10 +50,19 @@
       @include weights.semibold;
       margin-top: 32px;
       margin-bottom: 16px;
+
+      @media (max-width: 767px) {
+        margin-top: 16px;
+        @include styles.display-xs;
+      }
     }
 
     .siblings.and.stage {
       margin-bottom: 40px;
+
+      @media (max-width: 767px) {
+        margin: 0 0 24px;
+      }
     }
 
     .image.and.milestones {
@@ -47,10 +70,21 @@
       grid-template-columns: 280px 1fr;
       gap: 35px;
 
+      @media (max-width: 767px) {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 24px;
+        position: relative;
+      }
+
       .button {
         width: 100%;
         margin-top: 16px;
         margin-bottom: 8px;
+
+        @media (max-width: 767px) {
+          margin-top: 24px;
+        }
       }
 
       .supporting.text {
@@ -59,8 +93,18 @@
         text-align: center;
       }
 
+      .image.expand.wrapper {
+        @media (max-width: 767px) {
+          padding: 0 0 60px;
+        }
+      }
+
       .milestones {
         padding: 4px 0;
+
+        @media (max-width: 767px) {
+          padding: 0;
+        }
 
         h3 {
           @include styles.text-lg;
@@ -70,6 +114,12 @@
 
         .progress.info {
           margin-bottom: 24px;
+
+          @media (max-width: 767px) {
+            &:nth-of-type(2) {
+              margin: 0;
+            }
+          }
 
           .title {
             @include styles.text-sm;
@@ -100,6 +150,13 @@
         .like.and.share {
           padding-top: 16px;
           border-top: 1px solid colors.$gray-300;
+
+          @media (max-width: 767px) {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+          }
         }
       }
     }
@@ -110,6 +167,11 @@
       @include styles.display-sm;
       @include weights.bold;
       margin-bottom: 24px;
+
+      @media (max-width: 767px) {
+        @include styles.text-lg;
+        @include weights.semibold;
+      }
     }
 
     .nft.characters {

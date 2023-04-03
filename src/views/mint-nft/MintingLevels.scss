@@ -5,17 +5,31 @@
 .nft.minting.levels {
   padding: 48px 0;
 
+  @media (max-width: 767px) {
+    padding: 32px 0;
+  }
+
   .heading {
     @include styles.display-xs;
     @include weights.bold;
     text-align: center;
     margin-bottom: 32px;
+
+    @media (max-width: 767px) {
+      @include styles.text-lg;
+      margin-bottom: 16px;
+    }
   }
 
   .categorization {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 32px;
+
+    @media (max-width: 767px) {
+      display: flex;
+      flex-direction: column;
+    }
 
     & > div {
       border: 1px solid colors.$gray-300;
@@ -49,6 +63,10 @@
         grid-template-columns: 1fr 1fr;
         gap: 32px;
 
+        @media (max-width: 767px) {
+          padding: 16px;
+        }
+
         .character {
           display: flex;
           flex-direction: column;
@@ -59,6 +77,7 @@
             width: 130px;
             border-radius: 16px;
             margin-bottom: 16px;
+            display: block;
           }
 
           .name {
@@ -66,6 +85,10 @@
             @include weights.semibold;
             margin-top: 16px;
             margin-bottom: 4px;
+
+            @media (max-width: 767px) {
+              margin-top: 6px;
+            }
           }
 
           .stage {
@@ -86,6 +109,10 @@
     border: 1px solid colors.$gray-300;
     border-radius: 0 0 16px 16px;
     border-top: none;
+
+    @media (max-width: 767px) {
+      display: none;
+    }
   }
 
   .final.card {
@@ -99,16 +126,32 @@
     flex-direction: column;
     align-items: center;
 
+    @media (max-width: 767px) {
+      transform: none;
+      width: auto;
+      margin-top: 32px;
+      padding: 16px;
+    }
+
     img {
       width: 196px;
       border-radius: 16px;
       margin-bottom: 16px;
+      display: block;
+
+      @media (max-width: 767px) {
+        width: 100%;
+      }
     }
 
     .name {
       @include styles.text-md;
       @include weights.semibold;
       margin-top: 16px;
+
+      @media (max-width: 767px) {
+        margin-top: 6px;
+      }
     }
   }
 
