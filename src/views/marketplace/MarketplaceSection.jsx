@@ -71,9 +71,9 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
             />
             <div className='nft grid'>
               {
-                data.map((nft, i) => (
+                data.map((nft) => (
                   <NftCard
-                    key={i}
+                    key={nft.tokenId}
                     name={nft.nickname}
                     nftId={nft.tokenId}
                     views={nft.views}
