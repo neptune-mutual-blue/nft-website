@@ -3,30 +3,42 @@
   height: 523px;
   overflow: hidden;
 
+  &::before {
+    content: "";
+    position: absolute;
+    width: 559.7px;
+    height: 521.83px;
+    left: 307px;
+    bottom: -146px;
+    background: rgba(255, 255, 255, 0.6);
+    filter: blur(67.935px);
+    z-index: 1;
+  }
+
   img {
     position: absolute;
     object-fit: contain;
     object-position: center top;
+    bottom: 0;
 
     &:nth-of-type(1) {
-      width: 563.66px;
-      height: 543.1px;
-      top: 194.3px;
+      width: 563px;
+      height: 324px;
+      left: 20px;
     }
     &:nth-of-type(2) {
       position: absolute;
-      left: 192px;
+      left: 206px;
       width: 658px;
-      height: 657px;
+      height: 523px;
       z-index: 2;
     }
 
     &:nth-of-type(3) {
       position: absolute;
-      left: 674px;
+      right: 6px;
       width: 524px;
-      height: 525px;
-      top: 152px;
+      height: 405px;
     }
   }
 
@@ -37,5 +49,11 @@
     z-index: 1;
     top: 149px;
     left: 203px;
+  }
+}
+
+.dark .hero.image {
+  &::before {
+    background: #000000;
   }
 }

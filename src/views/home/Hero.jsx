@@ -1,4 +1,3 @@
-
 import { HeaderSection } from '@/components/HeaderSection/HeaderSection'
 import { HeroImage } from '@/views/home/HeroImage'
 
@@ -29,7 +28,9 @@ const Hero = () => {
       />
 
       <div className='image container'>
-        <HeroImage />
+        <div className='full width container'>
+          <HeroImage />
+        </div>
       </div>
     </div>
   )

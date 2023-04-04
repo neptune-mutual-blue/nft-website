@@ -9,34 +9,36 @@ import { RegularNfts } from '@/views/home/RegularNfts'
 
 const Home = ({ ssg }) => {
   return (
-    <div className='home page'>
+    <>
       <Hero />
+      <div className='home page'>
 
-      {/* <section className='dashboard'>
-        <KnowTheCharacters charactersByPage={ssg.charactersByPage} />
-      </section> */}
+        {/* <section className='dashboard'>
+          <KnowTheCharacters charactersByPage={ssg.charactersByPage} />
+        </section> */}
 
-      <section className='nft showcase'>
-        <h2>Premium NFTs</h2>
+        <section className='nft showcase'>
+          <h2>Premium NFTs</h2>
 
-        <div className='content'>
-          <div>
-            <PremiumNfts premiumNfts={ssg.premiumNfts} />
-            <RegularNfts regularNfts={ssg.regularNfts} />
+          <div className='content'>
+            <div>
+              <PremiumNfts premiumNfts={ssg.premiumNfts} />
+              <RegularNfts regularNfts={ssg.regularNfts} />
+            </div>
+            <div><MostViewedNfts mostViewedNfts={ssg.mostViewedNfts} /></div>
           </div>
-          <div><MostViewedNfts mostViewedNfts={ssg.mostViewedNfts} /></div>
-        </div>
-      </section>
+        </section>
 
-      {/* <section className='activities'>
-        <Activities />
+        {/* <section className='activities'>
+          <Activities />
 
-        <div className='leaderboard achievements'>
-          <Leaderboard />
-          <Achievements />
-        </div>
-      </section> */}
-    </div>
+          <div className='leaderboard achievements'>
+            <Leaderboard />
+            <Achievements />
+          </div>
+        </section> */}
+      </div>
+    </>
   )
 }
 
