@@ -69,12 +69,6 @@ export default function HomePage ({ ssg }) {
       <Home ssg={ssg} />
       {/* eslint-disable-next-line */}
       <Script strategy='beforeInteractive' src='/scripts/slider.js' />
-      {/* eslint-disable-next-line */}
-      <Script strategy='beforeInteractive' src='/scripts/hamburger.js' />
-      {/* eslint-disable-next-line */}
-      <Script strategy='beforeInteractive' src='/scripts/mega-menu.js' />
-      {/* eslint-disable-next-line */}
-      <Script strategy='beforeInteractive' src='/scripts/video.js' />
     </>
   )
 }

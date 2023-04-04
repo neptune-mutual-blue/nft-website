@@ -7,14 +7,27 @@
   border: 1px solid colors.$gray-300;
   border-radius: 12px;
 
+  @media (max-width: 767px) {
+    margin-top: 0;
+  }
+
   .title {
     padding: 20px 24px;
     @include styles.display-xs;
     @include weights.bold;
     text-align: center;
+
+    @media (max-width: 767px) {
+      @include styles.text-lg;
+      text-align: left;
+    }
   }
 
   .summary.table {
+    @media (max-width: 767px) {
+      overflow-x: auto;
+    }
+
     .row {
       display: grid;
       grid-template-columns: 120px 1fr 223px 223px;
@@ -23,8 +36,17 @@
       @include styles.text-md;
       @include weights.semibold;
 
+      @media (max-width: 767px) {
+        grid-template-columns: 120px 350px 180px 180px;
+        border-top: none;
+      }
+
       & > div {
         padding: 24px;
+
+        @media (max-width: 767px) {
+          border-top: 1px solid colors.$gray-200;
+        }
       }
 
       .tag {
@@ -51,6 +73,12 @@
   .summary.table {
     .row {
       border-color: colors.$gray-800;
+
+      & > div {
+        @media (max-width: 767px) {
+          border-color: colors.$gray-800;
+        }
+      }
 
       .value {
         @include weights.regular;

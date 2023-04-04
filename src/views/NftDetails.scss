@@ -9,14 +9,29 @@
   section {
     padding: 96px 0;
     padding-top: 56px;
+
+    @media (max-width: 767px) {
+      padding-top: 24px;
+    }
   }
 
   .breadcrumb.and.connect.wallet {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     > ol {
       margin: 0;
+    }
+
+    @media (max-width: 767px) {
+      gap: 24px;
+    }
+
+    @media (max-width: 575px) {
+      .ui.primary.button {
+        width: 100%;
+      }
     }
   }
 
@@ -24,12 +39,15 @@
     margin-top: 32px;
     display: grid;
     grid-template-columns: 1fr 464px;
+    grid-template-rows: auto;
     grid-column-gap: 32px;
     grid-row-gap: 24px;
 
     @media (max-width: 767px) {
-      padding: 16px;
-      grid-template-columns: 1fr;
+      margin-top: 16px;
+      grid-row-gap: 16px;
+      display: flex;
+      flex-direction: column;
     }
 
     .mint {
@@ -39,17 +57,30 @@
 
       .formatted.nickname {
         margin-top: 8px;
+
+        @media (max-width: 767px) {
+          margin-top: 0;
+        }
       }
 
       .character.name {
         margin-top: 32px;
         @include styles.display-sm;
         @include weights.semibold;
+
+        @media (max-width: 767px) {
+          margin-top: 16px;
+          @include styles.display-xs;
+        }
       }
 
       .siblings.and.stage {
         margin-top: 32px;
         margin-bottom: 56px;
+
+        @media (max-width: 767px) {
+          margin: 16px 0 24px;
+        }
       }
 
       .minting.btn {
@@ -72,11 +103,19 @@
           color: colors.$gray-600;
           @include styles.text-sm;
         }
+
+        @media (max-width: 767px) {
+          margin-bottom: 24px;
+        }
       }
 
       .like.and.share {
         padding-top: 32px;
         border-top: 1px solid colors.$gray-300;
+      }
+
+      @media (max-width: 767px) {
+        padding: 24px;
       }
     }
 
@@ -84,6 +123,11 @@
       h3 {
         @include styles.display-xs;
         @include weights.bold;
+
+        @media (max-width: 767px) {
+          @include styles.text-lg;
+          @include weights.semibold;
+        }
       }
 
       .description {
@@ -95,6 +139,10 @@
           @include styles.text-xl;
           padding: 8px 0;
           color: colors.$gray-700;
+
+          @media (max-width: 767px) {
+            @include styles.text-md;
+          }
         }
       }
     }
@@ -138,27 +186,50 @@
     margin-top: 16px;
 
     .row {
-      display: grid;
-      grid-template-columns: 142px 1fr;
-      padding: 24px;
-      padding-right: 0;
+      display: flex;
+      align-items: center;
+      padding: 24px 0;
       border-bottom: 1px solid colors.$gray-200;
       @include styles.text-md;
       @include weights.semibold;
       color: colors.$gray-600;
 
+      &:last-child {
+        border-bottom: none;
+      }
+
       &.header {
-        padding: 10px 24px;
+        padding: 10px 0;
+
+        .value {
+          @include weights.semibold;
+          color: colors.$gray-600;
+        }
+      }
+
+      .type {
+        padding: 0 24px;
+        width: 141px;
+
+        &.timestamp {
+          width: 155px;
+        }
       }
 
       .value {
         @include weights.regular;
         color: colors.$gray-900;
+        padding: 0 24px;
+        flex: 1;
 
         .action {
           display: inline;
           @include weights.semibold;
         }
+      }
+
+      @media (max-width: 767px) {
+        padding: 16px 0;
       }
     }
   }
@@ -170,6 +241,11 @@
       @include styles.display-xs;
       @include weights.bold;
       margin-bottom: 24px;
+
+      @media (max-width: 767px) {
+        @include styles.text-lg;
+        @include weights.semibold;
+      }
     }
 
     .nft.characters {
@@ -184,6 +260,10 @@
       .blur.effect.character.details {
         width: 100%;
       }
+    }
+
+    @media (max-width: 767px) {
+      margin-top: 32px;
     }
   }
 }

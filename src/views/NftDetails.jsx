@@ -12,6 +12,7 @@ import { NftSiblingsAndStage } from '@/components/NftSiblingsAndStage'
 import { Tags } from '@/components/Tags/Tags'
 import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import { Icon } from '@/elements/Icon'
+import { abbreviateAccount } from '@/utils/abbreviate-account'
 import { useWeb3React } from '@web3-react/core'
 
 const NftDetails = ({ nftDetails, premiumNfts }) => {
@@ -91,13 +92,13 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
               <h3>Properties</h3>
               <div className='table'>
                 <div className='row header'>
-                  <div>Property</div>
-                  <div>Value</div>
+                  <div className='type'>Property</div>
+                  <div className='value'>Value</div>
                 </div>
                 {
               nftDetails.attributes.map((attr) => (
                 <div className='row' key={attr.traitType}>
-                  <div>{attr.traitType}</div>
+                  <div className='type'>{attr.traitType}</div>
                   <div className='value'>{attr.value}</div>
                 </div>
               ))
@@ -127,12 +128,12 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
               <div className='table'>
 
                 <div className='row'>
-                  <div className='timestamp'>3 months ago</div>
-                  <div className='value'><div className='action'>Transferred to</div> 0x9550e6e02e00698d2f8...3416</div>
+                  <div className='type timestamp'>3 months ago</div>
+                  <div className='value'><div className='action'>Transferred to</div> <span className='address'>{abbreviateAccount('0x9550e6e02e00698d2f8...3416')}</span></div>
                 </div>
                 <div className='row'>
-                  <div className='timestamp'>A year ago</div>
-                  <div className='value'><div className='action'>Minted to</div> 0x9550e6e02e00698d2f8...3416</div>
+                  <div className='type timestamp'>A year ago</div>
+                  <div className='value'><div className='action'>Minted to</div> <span className='address'>{abbreviateAccount('0x9550e6e02e00698d2f8...3416')}</span></div>
                 </div>
               </div>
             </div>
