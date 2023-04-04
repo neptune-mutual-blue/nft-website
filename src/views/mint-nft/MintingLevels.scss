@@ -40,6 +40,10 @@
         text-align: center;
         border-bottom: 1px solid colors.$gray-200;
 
+        @media (max-width: 767px) {
+          padding: 31px;
+        }
+
         svg {
           width: 56px;
           margin: auto;
@@ -49,6 +53,10 @@
           @include styles.text-xl;
           @include weights.semibold;
           margin: 8px 0;
+
+          @media (max-width: 767px) {
+            @include styles.text-lg;
+          }
         }
 
         .description {

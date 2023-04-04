@@ -78,6 +78,12 @@
         margin-top: 32px;
         margin-bottom: 56px;
 
+        .tags.container {
+          .tag {
+            @include weights.medium;
+          }
+        }
+
         @media (max-width: 767px) {
           margin: 16px 0 24px;
         }
@@ -225,6 +231,10 @@
         .action {
           display: inline;
           @include weights.semibold;
+
+          @media (max-width: 767px) {
+            display: block;
+          }
         }
       }
 
