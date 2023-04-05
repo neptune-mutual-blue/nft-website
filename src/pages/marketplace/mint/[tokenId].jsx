@@ -1,7 +1,7 @@
 import { NftApi } from '@/service/nft-api'
 import { MintNft } from '@/views/MintNft'
 
-export async function getServerSideProps (context) {
+export async function getStaticProps (context) {
   const [nftDetailsResponse, premiumNftsResponse, mintingLevelResponse] = await Promise.all([NftApi.getNftDetails(context.params.tokenId), NftApi.premiumNfts(), NftApi.mintingLevels(), NftApi.logWantToMint(context.params.tokenId)])
 
   return {
@@ -9,8 +9,13 @@ export async function getServerSideProps (context) {
       nftDetails: nftDetailsResponse.data[0],
       premiumNfts: premiumNftsResponse.data,
       mintingLevels: mintingLevelResponse.data
-    }
+    },
+    revalidate: 60 * 60 // one hour
   }
+}
+
+export async function getStaticPaths () {
+  return { paths: [], fallback: 'blocking' }
 }
 
 const MintNftPage = ({ nftDetails, premiumNfts, mintingLevels }) => {

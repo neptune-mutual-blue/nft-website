@@ -4,7 +4,7 @@ import { NftApi } from '@/service/nft-api'
 import { MintingLevels } from '@/views/mint-nft/MintingLevels'
 import { Summary } from '@/views/mint-nft/Summary'
 
-export async function getServerSideProps () {
+export async function getStaticProps () {
   const [premiumNftsResponse, mintingLevelResponse] = await Promise.all([NftApi.premiumNfts(), NftApi.mintingLevels()])
 
   return {

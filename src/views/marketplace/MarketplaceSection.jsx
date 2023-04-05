@@ -1,9 +1,11 @@
 import { NftCard } from '@/components/NftCard/NftCard'
+import { LoaderContext } from '@/contexts/LoaderContext'
 import { useDebounce } from '@/hooks/useDebounce'
 import { imageOrigin } from '@/services/marketplace-api'
 import { getMarketplaceUrl } from '@/utils/nft'
-import { useRouter } from 'next/router'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { NftPlaceholder } from '@/views/marketplace/NftPlaceholder'
+import { Router, useRouter } from 'next/router'
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Filter } from './Filter'
 import { Pagination } from './Pagination'
 
@@ -51,6 +53,36 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
     setSearchValue(e.target.value)
   }
 
+  const { loading } = useContext(LoaderContext)
+
+  const [isNavigating, setIsNavigating] = useState(false)
+
+  useEffect(() => {
+    if (loading && !initial.current) {
+      inputRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [loading])
+
+  useEffect(() => {
+    const handleRouteChangeStart = (url) => {
+      const urlParts = url.split('/')
+
+      const lastPart = urlParts[urlParts.length - 1]
+
+      if (url === '/' || (urlParts.length === 3 && (!isNaN(lastPart) || lastPart === 'minting-levels'))) {
+        setIsNavigating(true)
+      } else {
+        setIsNavigating(false)
+      }
+    }
+
+    Router.events.on('routeChangeStart', handleRouteChangeStart)
+
+    return () => {
+      Router.events.off('routeChangeStart', handleRouteChangeStart)
+    }
+  }, [])
+
   return (
     <div className='marketplace search container'>
       <div className='inner container'>
@@ -70,7 +102,11 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
               ref={inputRef}
             />
             <div className='nft grid'>
-              {
+              {loading && !isNavigating &&
+                Array.from({ length: 9 }).map((_x, i) => (
+                  <NftPlaceholder key={i} />
+                ))}
+              {(!loading || isNavigating) &&
                 data.map((nft) => (
                   <NftCard
                     key={nft.tokenId}
@@ -80,8 +116,7 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
                     count={nft.siblings}
                     image={`${imageOrigin}/thumbnails/${nft.tokenId}.webp`}
                   />
-                ))
-              }
+                ))}
             </div>
           </div>
 

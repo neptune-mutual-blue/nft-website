@@ -61,6 +61,18 @@ const getMarketplaceFiltersHref = (nft) => {
   return getMarketplaceUrl(1, '', data) + '#view-nfts'
 }
 
+// Capitalize first letter of a string
+function capitalizeFirstLetter (str) {
+  if (!str) return ''
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+// Decapitalize first letter of a string
+function decapitalizeFirstLetter (str) {
+  if (!str) return ''
+  return str.charAt(0).toLowerCase() + str.slice(1)
+}
+
 const getFiltersFromQueryString = (query) => {
   const searchParams = new URLSearchParams(query)
 
@@ -68,7 +80,7 @@ const getFiltersFromQueryString = (query) => {
 
   for (const [key, value] of searchParams.entries()) {
     if (key !== 'search') {
-      filters.push({ key, value })
+      filters.push({ key: capitalizeFirstLetter(key), value })
     }
   }
 
@@ -87,10 +99,10 @@ const getMarketplaceUrl = (_page, _search, _filters) => {
   }
 
   for (const filter of _filters) {
-    searchParams.append(filter.key, filter.value)
+    searchParams.append(decapitalizeFirstLetter(filter.key), filter.value)
   }
 
-  return url + '?' + searchParams
+  return url + (Array.from(searchParams.keys()).length > 0 ? '?' + searchParams : '')
 }
 
 export {
