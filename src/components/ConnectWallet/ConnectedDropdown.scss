@@ -10,7 +10,6 @@
     padding: 10px 16px;
     border: 1px solid colors.$gray-300;
     border-radius: 8px;
-    background-color: colors.$white;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -18,6 +17,7 @@
     .account {
       @include weights.bold;
       @include styles.text-md;
+      color: colors.$gray-700;
     }
 
     @media (max-width: 767px) {
@@ -127,6 +127,10 @@
   .trigger {
     border: 1px solid colors.$gray-800;
     background-color: colors.$black-800;
+
+    .account {
+      color: colors.$base-white;
+    }
   }
 
   .dropdown.content {
