@@ -5,6 +5,32 @@
 @use "../../design-system/shadows";
 
 .home.hero.container {
+  position: relative;
+  overflow: hidden;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 508px;
+    height: 508px;
+    mix-blend-mode: normal;
+    filter: blur(120px);
+    bottom: -130px;
+  }
+
+  &::before {
+    right: 100%;
+    margin: 0 -254px 0 0;
+    background: rgba(231, 218, 255, 0.3);
+  }
+
+  &::after {
+    left: 100%;
+    margin: 0 0 0 -392px;
+    background: rgba(255, 217, 205, 0.3);
+  }
+
   .ui.basic.hero.section {
     background: transparent;
 
@@ -45,7 +71,9 @@
   }
 
   .image.container {
-    margin-top: 8px;
+    .full.width.container {
+      padding-top: 52px;
+    }
 
     @media (max-width: 767px) {
       img {
@@ -57,6 +85,22 @@
 }
 
 .dark .home.hero.container {
+  &::before,
+  &::after {
+    top: 100%;
+    bottom: auto;
+    opacity: 0.2;
+    margin-top: -120px;
+  }
+
+  &::before {
+    margin-right: -361px;
+  }
+
+  &::after {
+    margin-left: -345px;
+  }
+
   .intro {
     color: colors.$gray-25;
   }

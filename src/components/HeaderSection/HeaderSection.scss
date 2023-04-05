@@ -74,6 +74,14 @@
         @media (max-width: 424px) {
           flex-direction: column;
         }
+
+        .button {
+          padding: 11px 20px;
+
+          &.secondary.gray {
+            border-color: colors.$gray-300;
+          }
+        }
       }
     }
   }

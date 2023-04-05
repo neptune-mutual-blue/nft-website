@@ -1,5 +1,31 @@
 const videoData = [
   {
+    id: '64072b77d059a10bd2ae66e9',
+    title: 'Benefits of Arbitrum and Ethereum Scaling',
+    slug: 'what-is-arbitrum-~-benefits-on-this-layer-2-scaling-solution-for-ethereum',
+    type: 'youtube',
+    category: 'explainer',
+    videoId: 'S_Up-UCrm1Y',
+    sort: 1001,
+    length: 214,
+    thumbnail: {
+      id: '640729ddd059a10bd2ae666b',
+      filename: 'arbitrum-powerful-layer2-solution.webp',
+      mimeType: 'image/webp',
+      filesize: 111456,
+      width: 2560,
+      height: 1440,
+      createdAt: '2023-03-07T12:11:09.051Z',
+      updatedAt: '2023-03-07T12:11:09.051Z',
+      url: '/media/arbitrum-powerful-layer2-solution.webp'
+    },
+    html: '<p>Discover Arbitrum and why it is a powerful Ethereum Layer 2.</p>',
+    _status: 'published',
+    createdAt: '2023-03-07T12:17:59.289Z',
+    updatedAt: '2023-03-07T15:08:22.038Z',
+    htmlAsText: 'Discover Arbitrum and why it is a powerful Ethereum Layer 2.'
+  },
+  {
     id: '639b0b7a29a6254e0c663683',
     title: 'How to Purchase Cover Policy?',
     slug: 'how-to-purchase-cover-policy',
@@ -112,44 +138,6 @@ const videoData = [
     sort: 2000,
     html: '<p>지금 <a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbE9ubUhZbUxkRXB6dDIxd0dhSUxLLVdObGVZQXxBQ3Jtc0trWEl5b2dBeEpJa1FpNmpYZnJ6cnh6VjViTkpuLUhsTXFJaFdlQzk4eHJmYm5oQkJjbFdqaU1GbmNpVVRPbUt0anhleVU4dFJqNXM3OHZUMGotS2stVWtPS0xwOGtUZkN4ZUdEZHc1QnBISEFwQnZxcw&amp;q=https%3A%2F%2Fneptunemutual.com%2F%EC%9D%84&amp;v=K-n83VM2fqM" rel="noopener noreferrer nofollow" target="_blank" data-type="external">https://neptunemutual.com/을</a> 방문하여 파라메트릭 보장와 디지털 자산을 보호하는 방법에 대해 자세히 알아보세요.\n\n크립토의 빠르게 진화하는 특성은 탐험하기에 보람 있고 도전적인 산업입니다. 상대적으로 새로운 시장이기 때문에 특히 신뢰할 수 있는 안전망이 없으면 뛰어들 수 있는 위험한 시장이기도 합니다. 블록체인에 투자했다면 해킹 과 오용으로부터 자신을 보호하는 것이 중요합니다. 크립토 시장 위험으로부터 디지털 자산을 보호하여 <a href="https://www.youtube.com/hashtag/neptunemutual%EC%97%90%EC%84%9C" rel="noopener noreferrer nofollow" target="_blank" data-type="external">#NeptuneMutual에서</a> 보장을 구매하세요.</p>',
     htmlAsText: '지금 https://neptunemutual.com/을 방문하여 파라메트릭 보장와 디지털 자산을 보호하는 방법에 대해 자세히 알아보세요.\n\n크립토의 빠르게 진화하는 특성은 탐험하기에 보람 있고 도전적인 산업입니다. 상대적으로 새로운 시장이기 때문에 특히 신뢰할 수 있는 안전망이 없으면 뛰어들 수 있는 위험한 시장이기도 합니다. 블록체인에 투자했다면 해킹 과 오용으로부터 자신을 보호하는 것이 중요합니다. 크립토 시장 위험으로부터 디지털 자산을 보호하여 #NeptuneMutual에서 보장을 구매하세요.'
-  },
-  {
-    id: '639395ed0e1033cf72b3a3bb',
-    updatedAt: '2022-12-15T12:13:31.790Z',
-    createdAt: '2022-11-28T10:50:52.330Z',
-    title: 'Neptune Mutual: 降低您在加密市场的风险',
-    slug: 'neptune-mutual-jiang-di-nin-zai-jia-mi-shi-chang-de-feng-xian',
-    type: 'youtube',
-    category: 'explainer',
-    videoId: 'szeLAbTbNZw',
-    length: 100,
-    thumbnail: {
-      id: '639390b78d8faa8807d8ed14',
-      alt: 'Neptune Mutual Explainer Video (Chinese)',
-      description: 'Neptune Mutual Explainer Video (Chinese)',
-      identifier: 'neptune-mutual-explainer-video-chinese',
-      filename: 'neptune-mutual-explainer-video-chinese.webp',
-      mimeType: 'image/webp',
-      filesize: 31374,
-      width: 1280,
-      height: 720,
-      createdAt: '2022-12-09T19:47:03.887Z',
-      updatedAt: '2022-12-09T19:47:03.887Z',
-      caption: [
-        {
-          children: [
-            {
-              text: ''
-            }
-          ]
-        }
-      ],
-      url: '/media/neptune-mutual-explainer-video-chinese.webp'
-    },
-    _status: 'published',
-    sort: 900,
-    html: '<p>加密市场瞬息万变，为投资者带来超额回报，但也带来了很多挑战。作为一种新兴资产类别，投资加密资产仍伴随着相当的高风险，尤其是缺乏可靠的安全保障。如果您已经投资了区块链，那么了解如何保护您的资产免于各种黑客和安全漏洞的风险至关重要。您可以通过在<a href="https://www.youtube.com/hashtag/neptunemutual%E5%B9%B3%E5%8F%B0%E4%B8%8A%E8%B4%AD%E4%B9%B0%E4%BF%9D%E9%9A%9C%E6%9D%A5%E4%BF%9D%E6%8A%A4%E6%82%A8%E7%9A%84%E9%93%BE%E4%B8%8A%E8%B5%84%E4%BA%A7%E7%9A%84%E5%AE%89%E5%85%A8" rel="noopener noreferrer nofollow" target="_blank" data-type="external">#NeptuneMutual平台上购买保障来保护您的链上资产的安全</a>。</p>',
-    htmlAsText: '加密市场瞬息万变，为投资者带来超额回报，但也带来了很多挑战。作为一种新兴资产类别，投资加密资产仍伴随着相当的高风险，尤其是缺乏可靠的安全保障。如果您已经投资了区块链，那么了解如何保护您的资产免于各种黑客和安全漏洞的风险至关重要。您可以通过在#NeptuneMutual平台上购买保障来保护您的链上资产的安全。'
   }
 ]
 
