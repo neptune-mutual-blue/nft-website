@@ -1,9 +1,18 @@
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react'
+
+import { useRouter } from 'next/router'
+
 import { NftCard } from '@/components/NftCard/NftCard'
 import { useDebounce } from '@/hooks/useDebounce'
 import { imageOrigin } from '@/services/marketplace-api'
 import { getMarketplaceUrl } from '@/utils/nft'
-import { useRouter } from 'next/router'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+
 import { Filter } from './Filter'
 import { Pagination } from './Pagination'
 
@@ -63,7 +72,7 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
         <div className='right'>
           <div>
             <input
-              placeholder='Search'
+              placeholder='Search Marketplace'
               className='search input'
               value={searchValue}
               onChange={handleInputChange}

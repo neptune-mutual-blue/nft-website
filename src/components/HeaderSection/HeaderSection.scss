@@ -34,7 +34,11 @@
         .heading.and.subheading {
           display: flex;
           flex-direction: column;
-          gap: 12px;
+          gap: 16px;
+
+          @media (max-width: 767px) {
+            gap: 12px;
+          }
 
           .heading:not(.sub) {
             color: light.$color;
@@ -50,10 +54,6 @@
             color: colors.$primary-700;
             @include styles.text-md;
             @include weights.semibold;
-
-            @media (max-width: 767px) {
-              @include styles.text-sm;
-            }
           }
         }
 
@@ -73,6 +73,7 @@
 
         @media (max-width: 424px) {
           flex-direction: column;
+          gap: 12px;
         }
 
         .button {
@@ -106,6 +107,10 @@
 
   .actions {
     justify-content: center;
+
+    @media (max-width: 767px) {
+      justify-content: start;
+    }
   }
 
   .heading.and.supporting.text {

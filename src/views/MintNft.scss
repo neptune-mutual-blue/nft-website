@@ -176,11 +176,12 @@
 
     .nft.characters {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(6, minmax(0, calc(20% - 1px)));
       gap: 12.8px;
 
       @media (max-width: 767px) {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(6, minmax(40%, 1fr));
+        overflow-x: auto;
       }
 
       .blur.effect.character.details {
