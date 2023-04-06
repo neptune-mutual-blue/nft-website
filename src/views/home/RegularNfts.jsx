@@ -1,3 +1,4 @@
+import CountUp from '@/components/CountUp/CountUp'
 import { Slider } from '@/components/Slider/Slider'
 import { getMarketplaceFiltersHref } from '@/utils/nft'
 import Link from 'next/link'
@@ -19,7 +20,7 @@ const RegularNfts = ({ regularNfts }) => {
                   <img src={character.thumbnail} alt={character.name} />
                 </div>
                 <div className='character name'>{character.name}</div>
-                <div className='supporting text'>{character.siblings} siblings</div>
+                <div className='supporting text'><CountUp number={character.siblings} localized={false} /> siblings</div>
               </Link>
             </div>
           )

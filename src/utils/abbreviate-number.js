@@ -36,7 +36,9 @@ const abbreviateNumber = (input) => {
 
   return {
     short: `${sign}${result}${symbol}`,
-    long: number.toLocaleString('en-US', { maximumFractionDigits: 2 })
+    long: number.toLocaleString('en-US', { maximumFractionDigits: 2 }),
+    symbol,
+    result
   }
 }
 
