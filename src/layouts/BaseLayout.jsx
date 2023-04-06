@@ -1,14 +1,18 @@
+import {
+  useContext,
+  useEffect
+} from 'react'
+
 import { useRouter } from 'next/router'
 
 import { Footer } from '@/components/Footer/Footer'
-import { Header } from '@/components/Header/Header'
-import useAuth from '@/lib/connect-wallet/hooks/useAuth'
-import { useContext, useEffect } from 'react'
-import { LocalStorageKeys } from '@/config/localstorage'
+import Header from '@/components/Header/Header'
 import { PageLoader } from '@/components/PageLoader/PageLoader'
+import { LocalStorageKeys } from '@/config/localstorage'
 import { LoaderContext } from '@/contexts/LoaderContext'
+import useAuth from '@/lib/connect-wallet/hooks/useAuth'
 
-const BaseLayout = ({ children }) => {
+const BaseLayout = ({ children, videos }) => {
   const router = useRouter()
 
   const { login } = useAuth()
@@ -28,7 +32,7 @@ const BaseLayout = ({ children }) => {
       {loading && (
         <PageLoader />
       )}
-      <Header headerStyle={router.pathname === '/marketplace' ? 'colored' : null} />
+      <Header headerStyle={router.pathname === '/marketplace' ? 'colored' : null} videos={videos} />
       <div className='header gap' />
       {children}
       <Footer />

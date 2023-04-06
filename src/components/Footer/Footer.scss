@@ -139,15 +139,18 @@ footer {
     }
 
     h3 {
-      color: colors.$gray-900;
-      @include styles.text-xl;
+      color: colors.$gray-400;
+      @include styles.text-lg;
       @include weights.bold;
+      text-transform: uppercase;
     }
 
     p {
-      color: colors.$gray-600;
+      color: colors.$gray-400;
       margin-top: 8px;
-      @include styles.text-md;
+      @include styles.text-xs;
+      @include weights.semibold;
+      text-transform: uppercase;
     }
   }
 
