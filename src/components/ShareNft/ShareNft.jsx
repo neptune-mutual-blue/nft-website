@@ -14,7 +14,7 @@ const ShareNft = (props) => {
       className='share nft modal'
     >
       <div className='details'>
-        <img src={nft.image} alt={nft.nickname} />
+        <img src={nft.thumbnail} alt={nft.nickname} />
         <div className='nickname and family'>
           <NftNickname nft={nft} />
           <div className='family'>{nft.family}</div>

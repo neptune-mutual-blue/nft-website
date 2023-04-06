@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { ShareNft } from '@/components/ShareNft/ShareNft'
 import { Icon } from '@/elements/Icon'
+import CountUp from '@/components/CountUp/CountUp'
 
 const LikeAndShare = ({ nft }) => {
   const [showSharePopup, setShowSharePopup] = useState(false)
@@ -17,7 +18,7 @@ const LikeAndShare = ({ nft }) => {
     <div className='like and share'>
       <button className={`like btn ${isLike ? 'liked' : ''}`} onClick={onHandleLike}>
         <Icon variant='heart' size='lg' />
-        {likeCount.toLocaleString()}
+        <CountUp number={likeCount} localized />
       </button>
       <ShareNft open={showSharePopup} setOpen={setShowSharePopup} nft={nft}>
         <button
