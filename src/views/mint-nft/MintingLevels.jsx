@@ -1,3 +1,4 @@
+import CountUp from '@/components/CountUp/CountUp'
 import { Tags } from '@/components/Tags/Tags'
 import { Icon } from '@/elements/Icon'
 
@@ -14,7 +15,7 @@ const MintingLevels = ({ mintingLevels }) => {
       <div className='character'>
         <div className='img wrapper'>
           <img src={character.thumbnail} alt={character.name} />
-          <div className='siblings'>{character.siblings}</div>
+          <div className='siblings'><CountUp number={character.siblings} /></div>
         </div>
         <Tags
           tags={[
@@ -70,9 +71,10 @@ const MintingLevels = ({ mintingLevels }) => {
       <div className='merging box' />
       <div className='final card'>
         <div className='img wrapper'>
-          <img src={level7Character.thumbnail} alt='' srcset='' />
+          <img src={level7Character.thumbnail} alt='' srcSet='' />
           <div className='siblings'>
-            {level7Character.siblings}
+            <CountUp number={level7Character.siblings} />
+
           </div>
         </div>
         <Tags

@@ -1,6 +1,7 @@
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { Button } from '@/components/Button/Button'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
+import CountUp from '@/components/CountUp/CountUp'
 import { LikeAndShare } from '@/components/LikeAndShare'
 import NftCardWithBlurEffect
   from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
@@ -40,10 +41,10 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
       <Progress percent={percent} />
       <div>
         <div className='remaining'>
-          <div className='info'>${remaining} remaining
+          <div className='info'>$ <CountUp number={remaining} /> remaining
             <Icon variant='help-cirlce' size='sm' />
           </div>
-          <div className='percent'>{percent}%</div>
+          <div className='percent'><CountUp number={percent} />%</div>
         </div>
       </div>
     </div>
@@ -89,7 +90,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
                 </Button>
               </MintSuccessModal>
               <div className='supporting text'>
-                {nftDetails.wantToMint} people want to mint this.
+                <CountUp number={nftDetails.wantToMint} /> people want to mint this.
               </div>
             </div>
 

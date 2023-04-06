@@ -14,6 +14,7 @@ import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import { Icon } from '@/elements/Icon'
 import { abbreviateAccount } from '@/utils/abbreviate-account'
 import { useWeb3React } from '@web3-react/core'
+import CountUp from '@/components/CountUp/CountUp'
 
 const NftDetails = ({ nftDetails, premiumNfts }) => {
   const crumbs = [
@@ -75,7 +76,7 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
                   </div>
                 </CustomTooltip>
                 <div className='supporting text'>
-                  {nftDetails.wantToMint} people want to mint this.
+                  <CountUp number={nftDetails.wantToMint} /> people want to mint this.
                 </div>
               </div>
 

@@ -1,9 +1,10 @@
+import CountUp from '@/components/CountUp/CountUp'
 import { Tags } from '@/components/Tags/Tags'
 
 const NftSiblingsAndStage = ({ nft }) => {
   return (
     <div className='siblings and stage'>
-      <div>{nft.siblings} siblings</div>
+      <div><CountUp number={nft.siblings} /> siblings</div>
       <div>
         <Tags
           tags={[
