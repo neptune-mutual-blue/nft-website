@@ -9,11 +9,13 @@
 .nft.marketplace.hero.container {
   .full.width.container {
     padding: 56px 32px 96px;
+
     @media (max-width: 767px) {
-      padding: 46px 16px 64px;
+      padding: 24px 16px 56px;
     }
     > .content {
       gap: 48px;
+
       @media (max-width: 767px) {
         gap: 32px;
       }
@@ -28,8 +30,7 @@
       .sub.heading {
         .button {
           display: inline-flex;
-          padding-left: 0;
-          padding-right: 0;
+          padding: 0;
           color: colors.$primary-700;
         }
       }
@@ -48,7 +49,8 @@
     .button {
       padding: 11px 20px;
     }
-    @media (max-width: 767px) {
+
+    @media (max-width: 424px) {
       flex-direction: column;
     }
   }

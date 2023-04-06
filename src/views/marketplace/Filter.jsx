@@ -1,6 +1,10 @@
+import {
+  useMemo,
+  useState
+} from 'react'
+
 import { Checkbox } from '@/components/Checkbox/Checkbox'
 import { Icon } from '@/elements/Icon'
-import { useMemo, useState } from 'react'
 
 const createToggleStates = (filters) => {
   return filters.reduce((acc, curr) => {
@@ -44,7 +48,7 @@ const Filter = ({ filters = [], properties, setProperties }) => {
   }, [searchValue, filters])
 
   return (
-    <div className='marketplace filter container' id='view-nfts'>
+    <div className='marketplace filter container' id='view-nfts' data-open='false'>
       <div className='filter inner'>
         <h2>Properties</h2>
 

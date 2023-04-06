@@ -10,11 +10,20 @@
   background-color: colors.$base-white;
   padding: 96px 0;
 
+  @media (max-width: 767px) {
+    padding-top: 40px;
+  }
+
   .inner.container {
     @include utils.full-width-container;
     display: grid;
     column-gap: 40px;
     grid-template-columns: auto 1fr;
+
+    @media (max-width: 767px) {
+      display: flex;
+      flex-direction: column;
+    }
 
     .right {
       display: flex;
@@ -36,16 +45,23 @@
         margin-top: 48px;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        row-gap: 48px;
+        row-gap: 40px;
         column-gap: 26px;
-        place-items: center;
 
         @media (max-width: 1280px) {
           grid-template-columns: repeat(2, 1fr);
         }
+
+        @media (max-width: 767px) {
+          margin-top: 32px;
+          row-gap: 32px;
+        }
+
+        @media (max-width: 425px) {
+          grid-template-columns: repeat(1, 1fr);
+        }
       }
     }
-
   }
 }
 
@@ -57,7 +73,6 @@
       input.search {
         border: 1px solid colors.$gray-700;
         background-color: dark.$primary-background-color;
-        ;
       }
     }
   }
