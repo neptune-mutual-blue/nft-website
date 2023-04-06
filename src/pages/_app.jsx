@@ -7,6 +7,7 @@ import { ThemeProvider } from '@/contexts/ThemeContext'
 import { BaseLayout } from '@/layouts/BaseLayout'
 import { getLibrary } from '@/lib/connect-wallet/web3'
 import { Web3ReactProvider } from '@web3-react/core'
+import { LoaderProvider } from '@/contexts/LoaderContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,11 +22,13 @@ export default function App ({ Component, pageProps }) {
       </style>
 
       <Web3ReactProvider getLibrary={getLibrary}>
-        <ThemeProvider>
-          <BaseLayout>
-            <Component {...pageProps} />
-          </BaseLayout>
-        </ThemeProvider>
+        <LoaderProvider>
+          <ThemeProvider>
+            <BaseLayout>
+              <Component {...pageProps} />
+            </BaseLayout>
+          </ThemeProvider>
+        </LoaderProvider>
       </Web3ReactProvider>
 
       {/* eslint-disable-next-line */}

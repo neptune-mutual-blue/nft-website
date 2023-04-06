@@ -6,8 +6,8 @@ const Breadcrumb = (props) => {
   const { className, items } = props
   return (
     <ol
-      itemscope
-      itemtype='https://schema.org/BreadcrumbList'
+      itemScope
+      itemType='https://schema.org/BreadcrumbList'
       className={`breadcrumb trail ${className || ''}`.trim()}
     >
       {
@@ -18,7 +18,7 @@ const Breadcrumb = (props) => {
             key={i}
             itemProp='itemListElement'
             itemScope
-            itemtype='https://schema.org/ListItem'
+            itemType='https://schema.org/ListItem'
           >
             <Link
               itemProp='item'

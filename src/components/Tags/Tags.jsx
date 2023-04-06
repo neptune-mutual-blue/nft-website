@@ -12,7 +12,7 @@ const Tags = (props) => {
       {all?.map((tag) => {
         return tag.href
           ? (
-            <a className='tag' data-color={tag.color} href={tag.href}>
+            <a className='tag' key={tag.name} data-color={tag.color} href={tag.href}>
               {tag.icon && (
                 <Icon variant={tag.icon.toLowerCase()} size={tag.size || size} />
               )}
