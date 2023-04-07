@@ -18,6 +18,11 @@
     filter: blur(67.935px);
     z-index: 1;
 
+    @media (max-width: 1024px) {
+      left: 50%;
+      margin-left: -290px;
+    }
+
     @media (max-width: 767px) {
       width: 308px;
       height: 217px;
@@ -38,6 +43,11 @@
       height: 324px;
       left: 20px;
 
+      @media (max-width: 1024px) {
+        left: 50%;
+        margin-left: -545px;
+      }
+
       @media (max-width: 767px) {
         width: 260px;
         height: 150px;
@@ -52,6 +62,11 @@
       height: 523px;
       z-index: 2;
 
+      @media (max-width: 1024px) {
+        left: 50%;
+        margin-left: -360px;
+      }
+
       @media (max-width: 767px) {
         width: 303px;
         height: 241px;
@@ -65,6 +80,11 @@
       right: 6px;
       width: 524px;
       height: 405px;
+
+      @media (max-width: 1024px) {
+        right: 50%;
+        margin-right: -640px;
+      }
 
       @media (max-width: 767px) {
         width: 241px;
