@@ -19,7 +19,7 @@ export async function getStaticProps (context) {
     props: {
       nftDetails: nftDetailsResponse.data[0],
       premiumNfts: premiumNftsResponse.data,
-      videos: videoResponse.docs
+      videos: videoResponse
     },
     revalidate: 60 * 60 // one hour
   }

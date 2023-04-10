@@ -13,7 +13,7 @@ export async function getServerSideProps (context) {
       data,
       marketplaceFilters,
       pageData,
-      videos: videoData.docs
+      videos: videoData
     }
   }
 }
