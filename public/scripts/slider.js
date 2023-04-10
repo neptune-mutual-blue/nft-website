@@ -99,34 +99,38 @@ const initializeSlider = () => {
           scroll({ offset, state, elements, positions, gap })
         }
 
+        const width = window.innerWidth
+
         if (!elements.buttonContainer) {
           if (!swipeOnly) {
             return
           }
         }
 
-        elements.sliderContainer.style.setProperty('overflow', 'hidden')
-        elements.sliderContainer.classList.remove('extra', 'padding')
-        elements.buttonContainer && elements.buttonContainer.classList.remove('hidden')
+        if (width > 768) {
+          elements.sliderContainer.style.setProperty('overflow', 'hidden')
+          elements.sliderContainer.classList.remove('extra', 'padding')
+          elements.buttonContainer && elements.buttonContainer.classList.remove('hidden')
 
-        elements.buttons.previous && (elements.buttons.previous.onclick = () => scrollSlider(positions.offset()))
-        elements.buttons.next && (elements.buttons.next.onclick = () => scrollSlider(positions.offset() * -1))
+          elements.buttons.previous && (elements.buttons.previous.onclick = () => scrollSlider(positions.offset()))
+          elements.buttons.next && (elements.buttons.next.onclick = () => scrollSlider(positions.offset() * -1))
 
-        elements.sliderContainer.addEventListener('touchstart', (e) => {
-          state.touchstartX = e.changedTouches[0].screenX
-        }, { passive: true })
+          elements.sliderContainer.addEventListener('touchstart', (e) => {
+            state.touchstartX = e.changedTouches[0].screenX
+          }, { passive: true })
 
-        elements.sliderContainer.addEventListener('touchend', (e) => {
-          state.touchendX = e.changedTouches[0].screenX
+          elements.sliderContainer.addEventListener('touchend', (e) => {
+            state.touchendX = e.changedTouches[0].screenX
 
-          if ((state.touchendX + MIN_THRESHOLD) < state.touchstartX) {
-            scrollSlider(positions.offset() * -1)
-          }
+            if ((state.touchendX + MIN_THRESHOLD) < state.touchstartX) {
+              scrollSlider(positions.offset() * -1)
+            }
 
-          if (state.touchendX > (state.touchstartX + MIN_THRESHOLD)) {
-            scrollSlider(positions.offset())
-          }
-        }, { passive: true })
+            if (state.touchendX > (state.touchstartX + MIN_THRESHOLD)) {
+              scrollSlider(positions.offset())
+            }
+          }, { passive: true })
+        }
       }
     }
   }

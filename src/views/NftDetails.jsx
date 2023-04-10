@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { Button } from '@/components/Button/Button'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
+import CountUp from '@/components/CountUp/CountUp'
 import { LikeAndShare } from '@/components/LikeAndShare'
 import NftCardWithBlurEffect
   from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
@@ -14,7 +15,6 @@ import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import { Icon } from '@/elements/Icon'
 import { abbreviateAccount } from '@/utils/abbreviate-account'
 import { useWeb3React } from '@web3-react/core'
-import CountUp from '@/components/CountUp/CountUp'
 
 const NftDetails = ({ nftDetails, premiumNfts }) => {
   const crumbs = [
