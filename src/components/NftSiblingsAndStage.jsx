@@ -5,18 +5,19 @@ const NftSiblingsAndStage = ({ nft }) => {
   return (
     <div className='siblings and stage'>
       <div><CountUp number={nft.siblings} /> siblings</div>
-      <div>
-        <Tags
-          tags={[
-            {
-              id: '1',
-              slug: '1',
-              text: nft.stage,
-              color: 'nft-stage'
-            }
-          ]}
-        />
-      </div>
+      {nft.stage !== null &&
+        <div>
+          <Tags
+            tags={[
+              {
+                id: '1',
+                slug: '1',
+                text: nft.stage,
+                color: 'nft-stage'
+              }
+            ]}
+          />
+        </div>}
     </div>
   )
 }

@@ -43,12 +43,9 @@ export default function App ({ Component, pageProps }) {
         </LoaderProvider>
       </Web3ReactProvider>
 
-      {/* eslint-disable-next-line */}
-      <Script strategy='beforeInteractive' src='/scripts/hamburger.js' />
-      {/* eslint-disable-next-line */}
-      <Script strategy='beforeInteractive' src='/scripts/mega-menu.js' />
-      {/* eslint-disable-next-line */}
-      <Script strategy='beforeInteractive' src='/scripts/video.js' />
+      <Script strategy='lazyOnload' src='/scripts/hamburger.js' />
+      <Script strategy='lazyOnload' src='/scripts/mega-menu.js' />
+      <Script strategy='lazyOnload' src='/scripts/video.js' />
     </>
   )
 }
