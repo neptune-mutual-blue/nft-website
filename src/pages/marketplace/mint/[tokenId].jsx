@@ -20,7 +20,7 @@ export async function getStaticProps (context) {
       nftDetails: nftDetailsResponse.data[0],
       premiumNfts: premiumNftsResponse.data,
       mintingLevels: mintingLevelResponse.data,
-      videos: videoResponse.docs.slice(0, 4)
+      videos: videoResponse
     },
     revalidate: 60 * 60 // one hour
   }

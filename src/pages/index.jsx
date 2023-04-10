@@ -47,7 +47,7 @@ export async function getStaticProps () {
         regularNfts: regularNftsResponse.data,
         premiumNfts: premiumNftsResponse.data
       },
-      videos: videoResponse.docs.slice(0, 4)
+      videos: videoResponse
     },
     revalidate: 60 * 60 // one hour
   }
