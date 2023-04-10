@@ -13,7 +13,7 @@ export async function getServerSideProps (context) {
       data,
       marketplaceFilters,
       pageData,
-      videos: videoData.docs
+      videos: videoData.docs.slice(0, 4)
     }
   }
 }
