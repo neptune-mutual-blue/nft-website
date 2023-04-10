@@ -15,6 +15,8 @@ const megaMenu = () => {
 
   document.addEventListener('click', (e) => {
     const button = document.querySelector('nav button[data-open="true"]')
+    const subMenu = document.querySelector('.sub.menu.container')
+
     if (!button) return
 
     const width = window.innerWidth
