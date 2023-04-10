@@ -10,12 +10,6 @@
   border-right: 1px solid colors.$gray-200;
   height: 100%;
 
-  &[data-open="false"] {
-    @media (max-width: 767px) {
-      display: none;
-    }
-  }
-
   .filter.inner {
     padding-right: 16px;
     position: sticky;

@@ -1,17 +1,31 @@
 import '@/styles/global.scss'
 
+import { useEffect } from 'react'
+
 import { Inter } from 'next/font/google'
+import { useRouter } from 'next/router'
 import Script from 'next/script'
 
+import { LoaderProvider } from '@/contexts/LoaderContext'
 import { ThemeProvider } from '@/contexts/ThemeContext'
-import { BaseLayout } from '@/layouts/BaseLayout'
 import { getLibrary } from '@/lib/connect-wallet/web3'
 import { Web3ReactProvider } from '@web3-react/core'
-import { LoaderProvider } from '@/contexts/LoaderContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function App ({ Component, pageProps }) {
+  const router = useRouter()
+
+  const initialize = () => {
+    window?.hamburger?.()
+    window?.megaMenu?.()
+    window?.video?.()
+  }
+
+  useEffect(() => {
+    initialize()
+  }, [router.pathname])
+
   return (
     <>
       <style jsx global>{`
@@ -24,9 +38,7 @@ export default function App ({ Component, pageProps }) {
       <Web3ReactProvider getLibrary={getLibrary}>
         <LoaderProvider>
           <ThemeProvider>
-            <BaseLayout>
-              <Component {...pageProps} />
-            </BaseLayout>
+            <Component {...pageProps} />
           </ThemeProvider>
         </LoaderProvider>
       </Web3ReactProvider>

@@ -30,6 +30,10 @@
       flex-direction: column;
       justify-content: space-between;
 
+      @media (max-width: 767px) {
+        margin-top: 32px;
+      }
+
       input.search {
         padding: 10px 14px;
         @include styles.text-md;

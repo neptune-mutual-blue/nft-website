@@ -1,15 +1,25 @@
-import { NftApi } from '@/service/nft-api'
-import { NftDetails } from '@/views/NftDetails'
+import {
+  useCallback,
+  useEffect,
+  useRef
+} from 'react'
+
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useRef } from 'react'
+
+import Seo from '@/components/Seo/Seo'
+import { BaseLayout } from '@/layouts/BaseLayout'
+import { NftApi } from '@/service/nft-api'
+import { resourcesVideoData } from '@/service/video-api'
+import { NftDetails } from '@/views/NftDetails'
 
 export async function getStaticProps (context) {
-  const [nftDetailsResponse, premiumNftsResponse] = await Promise.all([NftApi.getNftDetails(context.params.tokenId), NftApi.premiumNfts()])
+  const [nftDetailsResponse, premiumNftsResponse, videoResponse] = await Promise.all([NftApi.getNftDetails(context.params.tokenId), NftApi.premiumNfts(), resourcesVideoData()])
 
   return {
     props: {
       nftDetails: nftDetailsResponse.data[0],
-      premiumNfts: premiumNftsResponse.data
+      premiumNfts: premiumNftsResponse.data,
+      videos: videoResponse.docs
     },
     revalidate: 60 * 60 // one hour
   }
@@ -19,7 +29,7 @@ export async function getStaticPaths () {
   return { paths: [], fallback: 'blocking' }
 }
 
-const NftDetailsPage = ({ nftDetails, premiumNfts }) => {
+const NftDetailsPage = ({ nftDetails, premiumNfts, videos }) => {
   const router = useRouter()
 
   const logViewExecuted = useRef(false)
@@ -47,7 +57,13 @@ const NftDetailsPage = ({ nftDetails, premiumNfts }) => {
   }
 
   return (
-    <NftDetails nftDetails={nftDetails} premiumNfts={premiumNfts} />
+    <>
+      <Seo title={`${nftDetails?.name} / Neptune Mutual`} ogImage='/assets/images/meta/nft-detail.png' ogImageAlt={`Neptune Mutual NFT ${nftDetails?.name}`} />
+
+      <BaseLayout videos={videos}>
+        <NftDetails nftDetails={nftDetails} premiumNfts={premiumNfts} />
+      </BaseLayout>
+    </>
   )
 }
 

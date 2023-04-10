@@ -12,7 +12,7 @@ const MintingLevels = ({ mintingLevels }) => {
 
   const renderCharacter = (character) => {
     return (
-      <div className='character'>
+      <div key={`${character.name}_${character.role}_${character.level}`} className='character'>
         <div className='img wrapper'>
           <img src={character.thumbnail} alt={character.name} />
           <div className='siblings'><CountUp number={character.siblings} /></div>

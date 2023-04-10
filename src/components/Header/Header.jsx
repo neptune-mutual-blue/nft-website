@@ -4,19 +4,18 @@ import HamburgerButton from '@/components/Header/HamburgerButton'
 import Navigation from '@/components/Header/Navigation'
 import SubMenu from '@/components/Header/SubMenu'
 import { ThemeSelector } from '@/components/Header/ThemeSelector'
-import { videoData } from '@/components/Header/videoData'
 import VideoModal from '@/components/VideoModal'
 import { data } from '@/utils/nav'
 
 import NpmDarkLogo from '../../elements/npm/npm-logo-dark-mode.svg'
 import NpmLightLogo from '../../elements/npm/npm-logo-light-mode.svg'
 
-const updatedVideos = videoData.map((video) => ({
-  ...video,
-  thumbnail: { ...video.thumbnail, url: '' }
-}))
+const Header = ({ headerStyle, videos }) => {
+  const updatedVideos = videos && videos.map((video) => ({
+    ...video,
+    thumbnail: { ...video.thumbnail, url: '' }
+  }))
 
-const Header = ({ headerStyle }) => {
   return (
     <>
       <VideoModal />
@@ -52,4 +51,4 @@ const Header = ({ headerStyle }) => {
   )
 }
 
-export { Header }
+export default Header
