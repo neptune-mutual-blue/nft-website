@@ -5,7 +5,7 @@
 .nft.minting.levels {
   padding: 48px 0;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     padding: 32px 0;
   }
 
@@ -15,9 +15,13 @@
     text-align: center;
     margin-bottom: 32px;
 
-    @media (max-width: 767px) {
+    @media (max-width: 1024px) {
       @include styles.text-lg;
       margin-bottom: 16px;
+    }
+
+    @media (max-width: 767px) {
+      @include styles.text-lg;
     }
   }
 
@@ -26,7 +30,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 32px;
 
-    @media (max-width: 767px) {
+    @media (max-width: 1024px) {
       display: flex;
       flex-direction: column;
     }
@@ -40,8 +44,12 @@
         text-align: center;
         border-bottom: 1px solid colors.$gray-200;
 
-        @media (max-width: 767px) {
+        @media (max-width: 1024px) {
           padding: 31px;
+        }
+
+        @media (max-width: 280px) {
+          padding: 16px;
         }
 
         svg {
@@ -53,6 +61,10 @@
           @include styles.text-xl;
           @include weights.semibold;
           margin: 8px 0;
+
+          @media (max-width: 1024px) {
+            @include styles.text-md;
+          }
 
           @media (max-width: 767px) {
             @include styles.text-lg;
@@ -75,6 +87,11 @@
           padding: 16px;
         }
 
+        @media (max-width: 280px) {
+          display: flex;
+          flex-direction: column;
+        }
+
         .character {
           display: flex;
           flex-direction: column;
@@ -86,6 +103,10 @@
             border-radius: 16px;
             margin-bottom: 16px;
             display: block;
+
+            @media (max-width: 280px) {
+              width: 100%;
+            }
           }
 
           .name {
@@ -118,7 +139,7 @@
     border-radius: 0 0 16px 16px;
     border-top: none;
 
-    @media (max-width: 767px) {
+    @media (max-width: 1024px) {
       display: none;
     }
   }
@@ -135,7 +156,7 @@
     align-items: center;
     background: colors.$base-white;
 
-    @media (max-width: 767px) {
+    @media (max-width: 1024px) {
       transform: none;
       width: auto;
       margin-top: 32px;
@@ -147,6 +168,10 @@
       border-radius: 16px;
       margin-bottom: 16px;
       display: block;
+
+      @media (max-width: 1024px) {
+        width: 315px;
+      }
 
       @media (max-width: 767px) {
         width: 100%;

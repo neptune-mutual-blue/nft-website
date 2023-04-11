@@ -7,7 +7,7 @@
   border: 1px solid colors.$gray-300;
   border-radius: 12px;
 
-  @media (max-width: 767px) {
+  @media (max-width: 1024px) {
     margin-top: 0;
   }
 
@@ -17,14 +17,14 @@
     @include weights.bold;
     text-align: center;
 
-    @media (max-width: 767px) {
+    @media (max-width: 1024px) {
       @include styles.text-lg;
       text-align: left;
     }
   }
 
   .summary.table {
-    @media (max-width: 767px) {
+    @media (max-width: 1023px) {
       overflow-x: auto;
     }
 
@@ -36,7 +36,7 @@
       @include styles.text-md;
       @include weights.semibold;
 
-      @media (max-width: 767px) {
+      @media (max-width: 1023px) {
         grid-template-columns: 120px 350px 180px 180px;
         border-top: none;
       }
@@ -44,7 +44,7 @@
       & > div {
         padding: 24px;
 
-        @media (max-width: 767px) {
+        @media (max-width: 1023px) {
           border-top: 1px solid colors.$gray-200;
         }
       }

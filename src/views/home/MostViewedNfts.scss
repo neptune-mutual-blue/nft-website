@@ -9,9 +9,17 @@
   background-color: colors.$gray-50;
   border-radius: 16px;
 
+  @media (max-width: 280px) {
+    padding: 16px;
+  }
+
   h3 {
     @include styles.text-lg;
     margin-bottom: 24px;
+
+    @media (max-width: 280px) {
+      text-align: center;
+    }
   }
 
   a {
@@ -24,10 +32,19 @@
       padding-bottom: 25.5px;
       border-bottom: 1px solid colors.$gray-200;
 
+      @media (max-width: 280px) {
+        align-items: flex-start;
+      }
+
       img {
         width: 72px;
         height: 72px;
         border-radius: 50%;
+
+        @media (max-width: 280px) {
+          width: 44px;
+          height: 44px;
+        }
       }
 
       .character.name {
@@ -57,7 +74,6 @@
       }
     }
   }
-
 }
 
 .dark .most.viewed.nfts {

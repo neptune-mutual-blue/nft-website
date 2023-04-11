@@ -7,6 +7,10 @@
 
   section {
     padding: 96px 0;
+
+    @media (max-width: 1024px) {
+      padding: 56px 0;
+    }
   }
 
   .dashboard {
@@ -31,7 +35,7 @@
       grid-template-columns: minmax(0, 1fr) 438px;
       gap: 32px;
 
-      @media (max-width: 767px) {
+      @media (max-width: 1024px) {
         grid-template-columns: minmax(0, 1fr);
       }
     }

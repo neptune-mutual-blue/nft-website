@@ -107,7 +107,9 @@ const initializeSlider = () => {
           }
         }
 
-        if (width > 768) {
+        console.log(width)
+
+        if (width >= 768) {
           elements.sliderContainer.style.setProperty('overflow', 'hidden')
           elements.sliderContainer.classList.remove('extra', 'padding')
           elements.buttonContainer && elements.buttonContainer.classList.remove('hidden')

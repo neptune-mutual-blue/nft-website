@@ -5,9 +5,18 @@
   border-radius: 24px;
   overflow: hidden;
 
+  @media (min-width: 768px) and (max-width: 1024px) {
+    max-width: 512px;
+    margin: 0 auto;
+  }
+
   &.thumbnail {
     height: 280px;
     background: colors.$gray-100;
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+      height: 266px;
+    }
   }
 
   .image.wrapper {
@@ -30,7 +39,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: colors.$base-white;
+        background-color: colors.$black;
       }
 
       img {
@@ -39,6 +48,11 @@
         margin: auto;
         display: block;
         border-radius: 24px;
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+          height: auto;
+          border-radius: 0;
+        }
 
         @media (max-width: 767px) {
           height: auto;
@@ -91,13 +105,5 @@
 .dark .nft.image.with.expand {
   &.thumbnail {
     background: colors.$gray-900;
-  }
-
-  .image.wrapper {
-    &.expanded {
-      @media (max-width: 767px) {
-        background-color: rgb(0, 0, 0);
-      }
-    }
   }
 }
