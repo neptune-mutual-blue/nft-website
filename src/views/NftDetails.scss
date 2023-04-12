@@ -13,6 +13,10 @@
     @media (max-width: 767px) {
       padding-top: 24px;
     }
+
+    @media (max-width: 280px) {
+      padding-bottom: 32px;
+    }
   }
 
   .breadcrumb.and.connect.wallet {
@@ -43,11 +47,16 @@
     grid-column-gap: 32px;
     grid-row-gap: 24px;
 
+    @media (max-width: 1024px) {
+      margin-top: 32px;
+      grid-row-gap: 24px;
+      display: flex;
+      flex-direction: column;
+    }
+
     @media (max-width: 767px) {
       margin-top: 16px;
       grid-row-gap: 16px;
-      display: flex;
-      flex-direction: column;
     }
 
     .mint {
@@ -58,7 +67,7 @@
       .formatted.nickname {
         margin-top: 8px;
 
-        @media (max-width: 767px) {
+        @media (max-width: 1024px) {
           margin-top: 0;
         }
       }
@@ -68,8 +77,12 @@
         @include styles.display-sm;
         @include weights.semibold;
 
-        @media (max-width: 767px) {
+        @media (max-width: 1024px) {
           margin-top: 16px;
+          @include styles.display-xs;
+        }
+
+        @media (max-width: 767px) {
           @include styles.display-xs;
         }
       }
@@ -84,7 +97,7 @@
           }
         }
 
-        @media (max-width: 767px) {
+        @media (max-width: 1024px) {
           margin: 16px 0 24px;
         }
       }
@@ -110,7 +123,7 @@
           @include styles.text-sm;
         }
 
-        @media (max-width: 767px) {
+        @media (max-width: 1024px) {
           margin-bottom: 24px;
         }
       }
@@ -122,6 +135,10 @@
 
       @media (max-width: 767px) {
         padding: 24px;
+      }
+
+      @media (max-width: 280px) {
+        padding: 16px;
       }
     }
 
@@ -200,6 +217,11 @@
       @include weights.semibold;
       color: colors.$gray-600;
 
+      @media (max-width: 280px) {
+        flex-direction: column;
+        align-items: self-start;
+      }
+
       &:last-child {
         border-bottom: none;
       }
@@ -211,11 +233,20 @@
           @include weights.semibold;
           color: colors.$gray-600;
         }
+
+        @media (max-width: 280px) {
+          flex-direction: row;
+        }
       }
 
       .type {
         padding: 0 24px;
         width: 141px;
+
+        @media (max-width: 280px) {
+          padding: 0 16px;
+          margin-bottom: 5px;
+        }
 
         &.timestamp {
           width: 155px;
@@ -227,6 +258,10 @@
         color: colors.$gray-900;
         padding: 0 24px;
         flex: 1;
+
+        @media (max-width: 280px) {
+          padding: 0 16px;
+        }
 
         .action {
           display: inline;

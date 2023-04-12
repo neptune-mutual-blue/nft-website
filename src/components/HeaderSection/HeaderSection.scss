@@ -79,6 +79,10 @@
         .button {
           padding: 11px 20px;
 
+          @media (max-width: 480px) {
+            @include styles.text-sm;
+          }
+
           &.secondary.gray {
             border-color: colors.$gray-300;
           }

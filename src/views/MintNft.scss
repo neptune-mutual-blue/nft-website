@@ -13,14 +13,26 @@
     flex-wrap: wrap;
     padding-top: 56px;
 
+    @media (min-width: 768px) and (max-width: 1024px) {
+      flex-wrap: nowrap;
+    }
+
     @media (max-width: 767px) {
       gap: 24px;
       padding-top: 24px;
+    }
+
+    .ui.primary.button {
+      width: 140px;
     }
   }
 
   .content.inset {
     margin: 58px 0;
+
+    @media (max-width: 1024px) {
+      margin-top: 32px;
+    }
 
     @media (max-width: 767px) {
       margin: 16px 0 32px;
@@ -42,16 +54,25 @@
       padding: 24px;
     }
 
+    @media (max-width: 280px) {
+      padding: 16px;
+    }
+
     .formatted.nickname {
       margin-top: 8px;
+
+      @media (max-width: 1024px) {
+        margin-top: 0px;
+      }
     }
+
     .character.name {
       @include styles.display-sm;
       @include weights.semibold;
       margin-top: 32px;
       margin-bottom: 16px;
 
-      @media (max-width: 767px) {
+      @media (max-width: 1024px) {
         margin-top: 16px;
         @include styles.display-xs;
       }
@@ -69,6 +90,10 @@
       display: grid;
       grid-template-columns: 280px 1fr;
       gap: 35px;
+
+      @media (min-width: 768px) and (max-width: 1024px) {
+        grid-template-columns: 266px 1fr;
+      }
 
       @media (max-width: 767px) {
         display: flex;
@@ -174,14 +199,26 @@
       }
     }
 
+    @media (max-width: 280px) {
+      margin-bottom: 32px;
+    }
+
     .nft.characters {
       display: grid;
       grid-template-columns: repeat(6, minmax(0, calc(20% - 1px)));
       gap: 12.8px;
 
+      @media (max-width: 1024px) {
+        grid-template-columns: repeat(6, minmax(25%, 1fr));
+        overflow-x: auto;
+      }
+
       @media (max-width: 767px) {
         grid-template-columns: repeat(6, minmax(40%, 1fr));
-        overflow-x: auto;
+      }
+
+      @media (max-width: 280px) {
+        grid-template-columns: repeat(6, minmax(47%, 1fr));
       }
 
       .blur.effect.character.details {
