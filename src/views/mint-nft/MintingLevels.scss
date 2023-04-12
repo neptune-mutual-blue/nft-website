@@ -83,6 +83,11 @@
         grid-template-columns: 1fr 1fr;
         gap: 32px;
 
+        @media (max-width: 768px) and (max-width: 1024px) {
+          padding-left: 204px;
+          padding-right: 204px;
+        }
+
         @media (max-width: 767px) {
           padding: 16px;
         }
