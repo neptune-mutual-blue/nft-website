@@ -9,7 +9,6 @@ import { resourcesVideoData } from '@/service/video-api'
 import { Home } from '@/views/Home'
 
 export async function getStaticProps (context) {
-  console.log(context)
   const [
     knowTheCharactersResponse,
     mostViewedNftsResponse,

@@ -51,17 +51,11 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
 
   const requirements = mintingLevelRequirements[nftDetails.level]
 
-  console.log('REQ:', requirements)
-  console.log('CUR:', currentProgress)
-
   const liquidityRemaining = nftDetails.level ? (requirements.liquidity - currentProgress.totalLiquidityAdded).toFixed(2) : 0
   const policyPurchaseRemaining = nftDetails.level ? (requirements.policyPurchase - currentProgress.totalPolicyPurchased).toFixed(2) : 0
 
   const liquidityPercent = nftDetails.level ? currentProgress.totalLiquidityAdded > requirements.liquidity ? '100' : ((currentProgress.totalLiquidityAdded / requirements.liquidity) * 100).toFixed(2) : 0
   const policyPurchasePercent = nftDetails.level ? currentProgress.totalPolicyPurchased > requirements.policyPurchase ? '100' : ((currentProgress.totalPolicyPurchased / requirements.policyPurchase) * 100).toFixed(2) : 0
-
-  console.log(liquidityRemaining)
-  console.log(policyPurchaseRemaining)
 
   const buildProgress = ({ title, percent, remaining }) => (
     <div className='progress info'>
