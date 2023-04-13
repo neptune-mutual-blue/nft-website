@@ -58,7 +58,13 @@ const NftDetailsPage = ({ nftDetails, premiumNfts, videos }) => {
 
   return (
     <>
-      <Seo title={`${nftDetails?.name} / Neptune Mutual`} ogImage='/assets/images/meta/nft-detail.png' ogImageAlt={`Neptune Mutual NFT ${nftDetails?.name}`} />
+      <Seo
+        ogURL={'/marketplace/' + nftDetails.tokenId + '/'}
+        title={`${nftDetails?.name} / Neptune Mutual`}
+        ogImage='/assets/images/meta/nft-detail.png'
+        ogImageAlt={`Neptune Mutual NFT ${nftDetails?.name}`}
+        description='Get to know the description, properties, and activities of varied digital collectibles. Mint Neptune Mutual NFTs with ease and share them with the world.'
+      />
 
       <BaseLayout videos={videos}>
         <NftDetails nftDetails={nftDetails} premiumNfts={premiumNfts} />

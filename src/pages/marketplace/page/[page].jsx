@@ -21,7 +21,13 @@ export async function getServerSideProps (context) {
 export default function MarketplacePage (props) {
   return (
     <>
-      <Seo title='NFT Marketplace / Neptune Mutual' ogImage='/assets/images/meta/marketplace.png' ogImageAlt='Neptune Mutual NFT Marketplace' />
+      <Seo
+        ogURL={'/marketplace/page/' + props.data[0].pageNumber + '/'}
+        title='NFT Marketplace / Neptune Mutual'
+        ogImage='/assets/images/meta/marketplace.png'
+        ogImageAlt='Neptune Mutual NFT Marketplace'
+        description='Mint your set of NFTs on our NFT marketplace. Unlock new levels, and grab a wide selection of digital assets. Participate, and join our vibrant NFT community.'
+      />
 
       <BaseLayout videos={props.videos}>
         <Marketplace

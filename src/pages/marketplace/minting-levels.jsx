@@ -43,7 +43,13 @@ const MintingLevelsPage = ({ premiumNfts, mintingLevels, videos }) => {
 
   return (
     <>
-      <Seo title='NFT Minting Levels / Neptune Mutual' ogImage='/assets/images/meta/minting-level.png' ogImageAlt='Neptune Mutual NFT Minting Level' />
+      <Seo
+        ogURL='/marketplace/minting-levels/'
+        title='NFT Minting Levels / Neptune Mutual'
+        ogImage='/assets/images/meta/minting-level.png'
+        ogImageAlt='Neptune Mutual NFT Minting Level'
+        description='Dive deeper to get the insights relating to multiple levels with our view-level page. Make informed decisions to maximize the value of your NFT investments.'
+      />
 
       <BaseLayout videos={videos}>
         <div className='mint nft page only minting level'>

@@ -59,7 +59,13 @@ const MintNftPage = ({ nftDetails, premiumNfts, mintingLevels, videos }) => {
 
   return (
     <>
-      <Seo title={`${nftDetails?.name} / Neptune Mutual`} ogImage='/assets/images/meta/nft-detail.png' ogImageAlt={`Neptune Mutual NFT ${nftDetails?.name}`} />
+      <Seo
+        ogURL={'/marketplace/' + nftDetails.tokenId + '/'}
+        title='NFT Minting Levels / Neptune Mutual'
+        ogImage='/assets/images/meta/nft-detail.png'
+        ogImageAlt={`Neptune Mutual NFT ${nftDetails?.name}`}
+        description='Dive deeper to get the insights relating to multiple levels with our view-level page. Make informed decisions to maximize the value of your NFT investments.'
+      />
 
       <BaseLayout videos={videos}>
         <MintNft nftDetails={nftDetails} premiumNfts={premiumNfts} mintingLevels={mintingLevels} />

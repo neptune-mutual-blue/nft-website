@@ -1,5 +1,6 @@
+import { useState } from 'react'
+
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
-import { Button } from '@/components/Button/Button'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
 import CountUp from '@/components/CountUp/CountUp'
 import { LikeAndShare } from '@/components/LikeAndShare'
@@ -10,10 +11,18 @@ import { NftNickname } from '@/components/NftNickname'
 import { NftSiblingsAndStage } from '@/components/NftSiblingsAndStage'
 import { Progress } from '@/components/Progress/Progress'
 import { Tags } from '@/components/Tags/Tags'
+import { CustomTooltip } from '@/components/Tooltip/Tooltip'
+import { mintingLevelRequirements } from '@/config/minting-levels'
+import { AppConstants } from '@/constants/AppConstants'
 import { Icon } from '@/elements/Icon'
+import { weiToToken } from '@/utils/currencyHelpers'
 import { MintingLevels } from '@/views/mint-nft/MintingLevels'
-import { MintSuccessModal } from '@/views/mint-nft/MintSuccessModal'
 import { Summary } from '@/views/mint-nft/Summary'
+
+const userProgress = {
+  totalPolicyPurchased: 80000000,
+  totalLiquidityAdded: 2500000000
+}
 
 const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
   const crumbs = [
@@ -35,14 +44,50 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
     }
   ]
 
+  const [currentProgress] = useState({
+    totalLiquidityAdded: weiToToken(userProgress.totalLiquidityAdded, AppConstants.FALLBACK_LIQUIDITY_TOKEN_DECIMALS),
+    totalPolicyPurchased: weiToToken(userProgress.totalPolicyPurchased, AppConstants.FALLBACK_LIQUIDITY_TOKEN_DECIMALS)
+  })
+
+  const requirements = mintingLevelRequirements[nftDetails.level]
+
+  console.log('REQ:', requirements)
+  console.log('CUR:', currentProgress)
+
+  const liquidityRemaining = nftDetails.level ? (requirements.liquidity - currentProgress.totalLiquidityAdded).toFixed(2) : 0
+  const policyPurchaseRemaining = nftDetails.level ? (requirements.policyPurchase - currentProgress.totalPolicyPurchased).toFixed(2) : 0
+
+  const liquidityPercent = nftDetails.level ? currentProgress.totalLiquidityAdded > requirements.liquidity ? '100' : ((currentProgress.totalLiquidityAdded / requirements.liquidity) * 100).toFixed(2) : 0
+  const policyPurchasePercent = nftDetails.level ? currentProgress.totalPolicyPurchased > requirements.policyPurchase ? '100' : ((currentProgress.totalPolicyPurchased / requirements.policyPurchase) * 100).toFixed(2) : 0
+
+  console.log(liquidityRemaining)
+  console.log(policyPurchaseRemaining)
+
   const buildProgress = ({ title, percent, remaining }) => (
     <div className='progress info'>
       <div className='title'>{title}</div>
       <Progress percent={percent} />
       <div>
         <div className='remaining'>
-          <div className='info'>$ <CountUp number={remaining} /> remaining
-            <Icon variant='help-cirlce' size='sm' />
+          <div className='info'><CountUp number={remaining} symbol='$' localized prefix /> remaining
+            <CustomTooltip text={
+              <div className='progress tooltip'>
+                <div className='label'>Required:</div>
+                <div className='value'>$5000</div>
+                <br />
+                <div className='label'>Your Policy Purchase:</div>
+                <div className='value'>$3451</div>
+                <br />
+                <div className='label'>Required:</div>
+                <div className='value'>$1549</div>
+              </div>
+            }
+            >
+              <div role='button' tabIndex={0}>
+                <Icon variant='help-cirlce' size='sm' />
+              </div>
+            </CustomTooltip>
+
           </div>
           <div className='percent'><CountUp number={percent} />%</div>
         </div>
@@ -51,7 +96,6 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
   )
 
   return (
-
     <div className='mint nft page'>
       <div className='breadcrumb and connect wallet'>
         <Breadcrumb items={crumbs} />
@@ -82,14 +126,16 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
             <div className='image expand wrapper'>
               <NftImageWithExpand nft={nftDetails} />
 
-              <MintSuccessModal nft={nftDetails}>
+              {/* <MintSuccessModal nft={nftDetails}>
                 <Button
                   type='button' size='xl' onClick={() => {
                   }}
                 >Mint this NFT
                 </Button>
-              </MintSuccessModal>
-              <div className='supporting text'>
+              </MintSuccessModal> */}
+
+              {/* Remove the style below when enabling the above button */}
+              <div className='supporting text' style={{ marginTop: '16px' }}>
                 <CountUp number={nftDetails.wantToMint} /> people want to mint this.
               </div>
             </div>
@@ -98,13 +144,13 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
               <h3>Your Milestones</h3>
               {buildProgress({
                 title: 'Policy Purchase',
-                percent: '80',
-                remaining: '1549'
+                percent: policyPurchasePercent,
+                remaining: policyPurchaseRemaining
               })}
               {buildProgress({
                 title: 'Added Liquidity',
-                percent: '92',
-                remaining: '200'
+                percent: liquidityPercent,
+                remaining: liquidityRemaining
               })}
               <LikeAndShare nft={nftDetails} />
             </div>
