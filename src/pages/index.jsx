@@ -8,7 +8,7 @@ import { NftApi } from '@/service/nft-api'
 import { resourcesVideoData } from '@/service/video-api'
 import { Home } from '@/views/Home'
 
-export async function getStaticProps (context) {
+export async function getStaticProps () {
   const [
     knowTheCharactersResponse,
     mostViewedNftsResponse,
