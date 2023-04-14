@@ -13,7 +13,7 @@ const getReadableCounterValue = ({ localized, val, number }) => {
   const value = val < number ? isTargetInteger ? Math.floor(val) : val.toFixed(2) : val
 
   if (localized) {
-    return value.toLocaleString('en-US')
+    return parseFloat(value).toLocaleString('en-US')
   } else {
     return value
   }

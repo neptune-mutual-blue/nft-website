@@ -4,7 +4,7 @@ import { Tags } from '@/components/Tags/Tags'
 const NftSiblingsAndStage = ({ nft }) => {
   return (
     <div className='siblings and stage'>
-      <div><CountUp number={nft.siblings} /> siblings</div>
+      <div><CountUp localized number={nft.siblings} /> siblings</div>
       {nft.stage !== null &&
         <div>
           <Tags

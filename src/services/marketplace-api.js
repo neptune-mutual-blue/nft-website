@@ -1,7 +1,8 @@
+import { AppConstants } from '@/constants/AppConstants'
 import { aggregateFiltersData } from '@/utils/nft'
 
-const imageOrigin = process.env.NEXT_PUBLIC_NFT_IMAGE_ORIGIN
-const apiOrigin = process.env.NEXT_PUBLIC_NFT_API_ORIGIN
+const imageOrigin = AppConstants.nftImageOrigin
+const apiOrigin = AppConstants.nftApiBaseURL
 
 const DEFAULT_PAGE_SIZE = 25
 
@@ -65,9 +66,4 @@ const getMarketplaceFilters = async () => {
   }
 }
 
-export {
-  searchMarketplace,
-  getMarketplaceFilters,
-  apiOrigin,
-  imageOrigin
-}
+export { apiOrigin, getMarketplaceFilters, imageOrigin, searchMarketplace }

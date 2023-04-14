@@ -1,14 +1,13 @@
-import Link from 'next/link'
+import { useContext } from 'react'
 
 import { AppConstants } from '@/constants/AppConstants'
+import { ThemeContext } from '@/contexts/ThemeContext'
 import { Icon } from '@/elements/Icon'
 
 import NpmDarkLogo from '../../elements/npm/npm-logo-dark-mode.svg?raw'
 import NpmLightLogo from '../../elements/npm/npm-logo-light-mode.svg?raw'
 import { normalizeUrl } from '../../utils/url'
 import { getFooterData } from './data'
-import { useContext } from 'react'
-import { ThemeContext } from '@/contexts/ThemeContext'
 
 const { lists, socials } = getFooterData()
 
@@ -19,11 +18,11 @@ const Footer = () => {
     <footer>
       <div className='inner container'>
         <div className='nav container'>
-          <Link className='logo' href='/'>
+          <a className='logo' href={AppConstants.neptunemutualOrigin + '/?theme=' + (themeContext.dark ? 'dark' : 'light')}>
             <span className='sr-only'>Neptune Mutual</span>
             <span className='light only'><NpmLightLogo /></span>
             <span className='dark only'><NpmDarkLogo /></span>
-          </Link>
+          </a>
 
           <nav>
             {lists.map((list) => {

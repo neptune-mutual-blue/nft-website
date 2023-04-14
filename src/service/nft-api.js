@@ -1,5 +1,6 @@
+import { AppConstants } from '@/constants/AppConstants'
 
-const origin = process.env.NEXT_PUBLIC_NFT_API_ORIGIN || 'https://nft-api.neptunemutual.net'
+const origin = AppConstants.nftApiBaseURL
 
 const knowTheCharacters = async () => {
   const response = await fetch(origin + '/home/know-the-characters')

@@ -8,21 +8,23 @@ Sitemap can be build ahead of time for NFT portal.
 
 import fs from 'fs/promises'
 
+import { AppConstants } from '@/constants/AppConstants.js'
+import { getFullUrl } from '@/utils/get-full-url.js'
+
 import { serialize } from './src/lib/serialize.js'
 import { NftApi } from './src/service/nft-api.js'
 
-const domainName = process.env.NEXT_PUBLIC_DOMAIN_NAME ||
-'https://nft.neptunemutual.com'
+const domainName = AppConstants.domainName
 
 const urls = [
   {
-    loc: domainName + '/'
+    loc: getFullUrl(domainName, false)
   },
   {
-    loc: domainName + '/marketplace/'
+    loc: getFullUrl(domainName + '/marketplace', false)
   },
   {
-    loc: domainName + '/marketplace/minting-levels/'
+    loc: getFullUrl(domainName + '/marketplace/minting-levels', false)
   }
 ]
 
@@ -32,9 +34,9 @@ const main = async () => {
   for (const character of response.data) {
     for (let i = 0; i < character.siblings; i++) {
       urls.push({
-        loc: domainName + `/marketplace/${(character.startIndex + i + 1)}/`
+        loc: getFullUrl(domainName + `/marketplace/${(character.startIndex + i + 1)}`, false)
       }, {
-        loc: domainName + `/marketplace/mint/${(character.startIndex + i + 1)}/`
+        loc: getFullUrl(domainName + `/marketplace/mint/${(character.startIndex + i + 1)}`, false)
       })
     }
   }

@@ -51,13 +51,13 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
 
   const requirements = mintingLevelRequirements[nftDetails.level]
 
-  const liquidityRemaining = nftDetails.level ? (requirements.liquidity - currentProgress.totalLiquidityAdded).toFixed(2) : 0
-  const policyPurchaseRemaining = nftDetails.level ? (requirements.policyPurchase - currentProgress.totalPolicyPurchased).toFixed(2) : 0
+  const liquidityRemaining = parseFloat(nftDetails.level ? (requirements.liquidity - currentProgress.totalLiquidityAdded).toFixed(2) : 0)
+  const policyPurchaseRemaining = parseFloat(nftDetails.level ? (requirements.policyPurchase - currentProgress.totalPolicyPurchased).toFixed(2) : 0)
 
   const liquidityPercent = nftDetails.level ? currentProgress.totalLiquidityAdded > requirements.liquidity ? '100' : ((currentProgress.totalLiquidityAdded / requirements.liquidity) * 100).toFixed(2) : 0
   const policyPurchasePercent = nftDetails.level ? currentProgress.totalPolicyPurchased > requirements.policyPurchase ? '100' : ((currentProgress.totalPolicyPurchased / requirements.policyPurchase) * 100).toFixed(2) : 0
 
-  const buildProgress = ({ title, percent, remaining }) => (
+  const buildProgress = ({ title, percent, remaining, required, current }) => (
     <div className='progress info'>
       <div className='title'>{title}</div>
       <Progress percent={percent} />
@@ -67,13 +67,13 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
             <CustomTooltip text={
               <div className='progress tooltip'>
                 <div className='label'>Required:</div>
-                <div className='value'>$5000</div>
+                <div className='value'>${required.toLocaleString('en-US')}</div>
                 <br />
                 <div className='label'>Your Policy Purchase:</div>
-                <div className='value'>$3451</div>
+                <div className='value'>${current.toLocaleString('en-US')}</div>
                 <br />
-                <div className='label'>Required:</div>
-                <div className='value'>$1549</div>
+                <div className='label'>Remaining:</div>
+                <div className='value'>${remaining.toLocaleString('en-US')}</div>
               </div>
             }
             >
@@ -130,7 +130,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
 
               {/* Remove the style below when enabling the above button */}
               <div className='supporting text' style={{ marginTop: '16px' }}>
-                <CountUp number={nftDetails.wantToMint} /> people want to mint this.
+                <CountUp localized number={nftDetails.wantToMint} /> people want to mint this.
               </div>
             </div>
 
@@ -138,11 +138,15 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
               <h3>Your Milestones</h3>
               {buildProgress({
                 title: 'Policy Purchase',
+                required: requirements.policyPurchase,
+                current: currentProgress.totalPolicyPurchased,
                 percent: policyPurchasePercent,
                 remaining: policyPurchaseRemaining
               })}
               {buildProgress({
                 title: 'Added Liquidity',
+                required: requirements.liquidity,
+                current: currentProgress.totalLiquidityAdded,
                 percent: liquidityPercent,
                 remaining: liquidityRemaining
               })}
