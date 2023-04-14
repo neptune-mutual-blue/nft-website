@@ -1,5 +1,7 @@
 @use "../../design-system/colors";
 @use "../../design-system/shadows";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
 
 .TooltipContent {
   border-radius: 4px;
@@ -73,5 +75,18 @@
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+.progress.tooltip {
+  min-width: 147px;
+
+  .label,
+  .value {
+    @include styles.text-xs;
+  }
+
+  .value {
+    @include weights.semibold;
   }
 }

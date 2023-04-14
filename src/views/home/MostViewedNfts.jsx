@@ -1,7 +1,8 @@
+import Link from 'next/link'
+
 import CountUp from '@/components/CountUp/CountUp'
 import { abbreviateNumber } from '@/utils/abbreviate-number'
 import { getMarketplaceFiltersHref } from '@/utils/nft'
-import Link from 'next/link'
 
 const MostViewedNfts = ({ mostViewedNfts }) => {
   return (

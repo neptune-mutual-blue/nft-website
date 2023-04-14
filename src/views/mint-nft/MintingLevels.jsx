@@ -15,7 +15,7 @@ const MintingLevels = ({ mintingLevels }) => {
       <div key={`${character.name}_${character.role}_${character.level}`} className='character'>
         <div className='img wrapper'>
           <img src={character.thumbnail} alt={character.name} />
-          <div className='siblings'><CountUp number={character.siblings} /></div>
+          <div className='siblings'><CountUp localized number={character.siblings} /></div>
         </div>
         <Tags
           tags={[
@@ -73,7 +73,7 @@ const MintingLevels = ({ mintingLevels }) => {
         <div className='img wrapper'>
           <img src={level7Character.thumbnail} alt='' srcSet='' />
           <div className='siblings'>
-            <CountUp number={level7Character.siblings} />
+            <CountUp localized number={level7Character.siblings} />
 
           </div>
         </div>

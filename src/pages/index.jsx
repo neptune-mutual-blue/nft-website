@@ -64,7 +64,13 @@ export default function HomePage ({ ssg, videos }) {
 
   return (
     <>
-      <Seo title='Neptune Mutual NFT' ogImage='/assets/images/meta/home.png' ogImageAlt='Neptune Mutual NFT Home' />
+      <Seo
+        ogURL='/'
+        title='Neptune Mutual NFT'
+        ogImage='/assets/images/meta/home.png'
+        ogImageAlt='Neptune Mutual NFT Home'
+        description='Explore the realm of Neptune Mutual NFTs. Grab this unique set of digital collectibles. Join the NFT revolution today by participating in our cover ecosystem!'
+      />
 
       <BaseLayout videos={videos}>
         <Home ssg={ssg} />

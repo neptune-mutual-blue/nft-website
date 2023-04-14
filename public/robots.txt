@@ -1,0 +1,17 @@
+sitemap: https://nft.neptunemutual.com/sitemap.xml
+Sitemap: https://nft.neptunemutual.com/sitemap.xml
+
+User-agent: rogerbot
+Crawl-delay: 10
+
+User-agent: AhrefsBot
+Crawl-delay: 10
+Disallow: /assets/*
+Disallow: /scripts/*
+Allow: /
+Allow: /marketplace/*
+Allow: /marketplace/mint/*
+
+
+User-agent: *
+Allow: /

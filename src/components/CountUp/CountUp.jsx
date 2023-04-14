@@ -1,5 +1,11 @@
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react'
+
 import { linspace } from '@/utils/linspace'
-import { useEffect, useMemo, useRef, useState } from 'react'
 
 const getReadableCounterValue = ({ localized, val, number }) => {
   const isTargetInteger = number % 1 === 0
@@ -7,13 +13,13 @@ const getReadableCounterValue = ({ localized, val, number }) => {
   const value = val < number ? isTargetInteger ? Math.floor(val) : val.toFixed(2) : val
 
   if (localized) {
-    return value.toLocaleString('en-US')
+    return parseFloat(value).toLocaleString('en-US')
   } else {
     return value
   }
 }
 
-const CountUp = ({ number, symbol, localized = false }) => {
+const CountUp = ({ number, symbol, prefix = false, localized = false }) => {
   const [val, setVal] = useState(0)
 
   const countRef = useRef()
@@ -56,7 +62,7 @@ const CountUp = ({ number, symbol, localized = false }) => {
   const counterValue = getReadableCounterValue({ localized, val, number })
 
   return (
-    <span ref={countRef}>{counterValue}{symbol}</span>
+    <span ref={countRef}>{prefix && symbol}{counterValue}{!prefix && symbol}</span>
   )
 }
 
