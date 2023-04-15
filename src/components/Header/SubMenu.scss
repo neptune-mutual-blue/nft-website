@@ -33,7 +33,7 @@
 
   .left.space {
     flex: 1;
-    background-color: light.$primary-background-color;
+    background-color: colors.$base-white;
   }
 
   .right.space {
@@ -59,7 +59,7 @@
     display: flex;
     gap: 24px;
     flex: 2;
-    background-color: light.$primary-background-color;
+    background-color: colors.$base-white;
 
     @media (max-width: 1023px) {
       flex-direction: column;

@@ -14,7 +14,9 @@ import {
 
 import { NftCard } from '@/components/NftCard/NftCard'
 import { LoaderContext } from '@/contexts/LoaderContext'
+import { Icon } from '@/elements/Icon'
 import { useDebounce } from '@/hooks/useDebounce'
+import { useMobileFilter } from '@/hooks/useMobileFilter'
 import { imageOrigin } from '@/services/marketplace-api'
 import { getMarketplaceUrl } from '@/utils/nft'
 import { NftPlaceholder } from '@/views/marketplace/NftPlaceholder'
@@ -31,6 +33,7 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
   const router = useRouter()
 
   const debouncedSearchValue = useDebounce(searchValue, 500)
+  const { showFilter, onFilterOpen, onFilterClose } = useMobileFilter()
 
   const updateUrlPath = useCallback((_page, _search, _filters) => {
     if (initial.current) return
@@ -99,21 +102,32 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
   return (
     <div className='marketplace search container'>
       <div className='inner container'>
+        <div className='filter overlay' data-open={showFilter ? 'true' : 'false'} />
         <Filter
           setProperties={setProperties}
           properties={properties}
           filters={filters}
+          showFilter={showFilter}
+          onFilterClose={onFilterClose}
         />
 
         <div className='right'>
           <div>
-            <input
-              placeholder='Search Marketplace'
-              className='search input'
-              value={searchValue}
-              onChange={handleInputChange}
-              ref={inputRef}
-            />
+            <div className='filter marketplace'>
+              <input
+                placeholder='Search Marketplace'
+                className='search input'
+                value={searchValue}
+                onChange={handleInputChange}
+                ref={inputRef}
+              />
+              <button className='button' onClick={() => onFilterOpen()}>
+                <span>Properties</span>
+                <i data-icon='filter-lines'>
+                  <Icon variant='filter-lines' />
+                </i>
+              </button>
+            </div>
             <div className='nft grid'>
               {loading && !isNavigating &&
                 Array.from({ length: 9 }).map((_x, i) => (
