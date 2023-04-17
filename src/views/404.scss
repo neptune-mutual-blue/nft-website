@@ -1,0 +1,79 @@
+@use "../design-system/utils";
+@use "../design-system/colors";
+@use "../design-system/typography/styles";
+@use "../design-system/typography/weights";
+
+.pagenotfound.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  gap: 32px;
+  height: calc(100vh - var(--header-height));
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("../../public/assets/images/404/nft_error_bg.webp") no-repeat center top;
+    background-size: 100% 100%;
+    z-index: -1;
+  }
+
+  .inner.container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 16px;
+
+    h1 {
+      @include styles.display-xl;
+
+      @media (max-width: 767px) {
+        @include styles.display-md;
+      }
+    }
+
+    h2 {
+      @include styles.text-md;
+      @include weights.semibold;
+      color: colors.$primary-600;
+    }
+
+    p {
+      @include styles.text-xl;
+      @include weights.regular;
+
+      @media (max-width: 767px) {
+        @include styles.text-lg;
+      }
+    }
+  }
+
+  .ui.primary.button {
+    display: inline-flex;
+  }
+}
+
+.dark .pagenotfound.page {
+  &::before {
+    background: url("../../public/assets/images/404/nft_error_bg_dark.webp") no-repeat center top;
+    background-size: 100% 100%;
+    mix-blend-mode: overlay;
+  }
+
+  .inner.container {
+    h2 {
+      color: colors.$primary-300;
+    }
+
+    p {
+      color: colors.$gray-25;
+    }
+  }
+}

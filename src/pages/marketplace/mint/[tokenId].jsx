@@ -13,16 +13,28 @@ import { resourcesVideoData } from '@/service/video-api'
 import { MintNft } from '@/views/MintNft'
 
 export async function getStaticProps (context) {
-  const [nftDetailsResponse, premiumNftsResponse, mintingLevelResponse, videoResponse] = await Promise.all([NftApi.getNftDetails(context.params.tokenId), NftApi.premiumNfts(), NftApi.mintingLevels(), resourcesVideoData()])
+  try {
+    const [nftDetailsResponse, premiumNftsResponse, mintingLevelResponse, videoResponse] = await Promise.all([NftApi.getNftDetails(context.params.tokenId), NftApi.premiumNfts(), NftApi.mintingLevels(), resourcesVideoData()])
 
-  return {
-    props: {
-      nftDetails: nftDetailsResponse.data[0],
-      premiumNfts: premiumNftsResponse.data,
-      mintingLevels: mintingLevelResponse.data,
-      videos: videoResponse
-    },
-    revalidate: 60 * 60 // one hour
+    if (nftDetailsResponse.data.length === 0) {
+      return {
+        notFound: true
+      }
+    }
+
+    return {
+      props: {
+        nftDetails: nftDetailsResponse.data[0],
+        premiumNfts: premiumNftsResponse.data,
+        mintingLevels: mintingLevelResponse.data,
+        videos: videoResponse
+      },
+      revalidate: 60 * 60 // one hour
+    }
+  } catch (error) {
+    return {
+      notFound: true
+    }
   }
 }
 
@@ -52,6 +64,10 @@ const MintNftPage = ({ nftDetails, premiumNfts, mintingLevels, videos }) => {
   useEffect(() => {
     logWantToMint()
   }, [logWantToMint])
+
+  // if (router.isFallback || !nftDetails) {
+  //   return console.log('Page Not Found')
+  // }
 
   if (!nftDetails) {
     return <></>

@@ -67,7 +67,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
             <CustomTooltip text={
               <div className='progress tooltip'>
                 <div className='label'>Required:</div>
-                <div className='value'>${required.toLocaleString('en-US')}</div>
+                <div className='value'>${required?.toLocaleString('en-US')}</div>
                 <br />
                 <div className='label'>Your Policy Purchase:</div>
                 <div className='value'>${current.toLocaleString('en-US')}</div>
@@ -138,14 +138,14 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
               <h3>Your Milestones</h3>
               {buildProgress({
                 title: 'Policy Purchase',
-                required: requirements.policyPurchase,
+                required: requirements?.policyPurchase,
                 current: currentProgress.totalPolicyPurchased,
                 percent: policyPurchasePercent,
                 remaining: policyPurchaseRemaining
               })}
               {buildProgress({
                 title: 'Added Liquidity',
-                required: requirements.liquidity,
+                required: requirements?.liquidity,
                 current: currentProgress.totalLiquidityAdded,
                 percent: liquidityPercent,
                 remaining: liquidityRemaining

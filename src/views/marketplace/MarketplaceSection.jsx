@@ -134,17 +134,25 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
                   <NftPlaceholder key={i} />
                 ))}
               {(!loading || isNavigating) &&
-                data.map((nft) => (
-                  <NftCard
-                    key={nft.tokenId}
-                    name={nft.nickname}
-                    nftId={nft.tokenId}
-                    views={nft.views}
-                    count={nft.siblings}
-                    image={`${imageOrigin}/thumbnails/${nft.tokenId}.webp`}
-                  />
-                ))}
+                 data.map((nft) => (
+                   <NftCard
+                     key={nft.tokenId}
+                     name={nft.nickname}
+                     nftId={nft.tokenId}
+                     views={nft.views}
+                     count={nft.siblings}
+                     image={`${imageOrigin}/thumbnails/${nft.tokenId}.webp`}
+                   />
+                 ))}
             </div>
+
+            {!loading && !isNavigating && data.length === 0 &&
+              <div className='noresult found'>
+                <div className='content'>
+                  <h2>No Results Found</h2>
+                  <p>Adjust your filters and try again.</p>
+                </div>
+              </div>}
           </div>
 
           <Pagination
