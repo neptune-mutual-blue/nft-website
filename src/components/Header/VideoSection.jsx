@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 
 import { AppConstants } from '@/constants/AppConstants'
 import { Icon } from '@/elements/Icon'
+import { trimText } from '@/utils/helpers'
 import { normalizeUrl } from '@/utils/url'
 
 const VideoSection = ({ section, videos }) => {
@@ -32,7 +33,7 @@ const VideoSection = ({ section, videos }) => {
                   <h3 className='video title'>{video.title}</h3>
                   <p
                     className='video supporting text'
-                  >{video.htmlAsText.length > 80 ? `${video.htmlAsText.slice(0, 80)}...` : video.htmlAsText}
+                  >{trimText(video.htmlAsText, 80)}
                   </p>
                 </div>
               </button>
