@@ -1,6 +1,6 @@
 import {
-  createRef,
   useMemo,
+  useRef,
   useState
 } from 'react'
 
@@ -21,7 +21,7 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
   const [selectedFilters, setSelectedFilters] = useState(properties)
   const [searchValue, setSearchValue] = useState('')
 
-  const ref = createRef()
+  const ref = useRef()
 
   useOnClickOutside(ref, () => onFilterClose())
 
