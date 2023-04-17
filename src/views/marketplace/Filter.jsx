@@ -1,10 +1,13 @@
 import {
   useMemo,
+  useRef,
   useState
 } from 'react'
 
+import { Button } from '@/components/Button/Button'
 import { Checkbox } from '@/components/Checkbox/Checkbox'
 import { Icon } from '@/elements/Icon'
+import { useOnClickOutside } from '@/hooks/useOnOutsideClick'
 
 const createToggleStates = (filters) => {
   return filters.reduce((acc, curr) => {
@@ -13,10 +16,14 @@ const createToggleStates = (filters) => {
   }, {})
 }
 
-const Filter = ({ filters = [], properties, setProperties }) => {
+const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterClose }) => {
   const [toggles, setToggles] = useState(createToggleStates(filters))
   const [selectedFilters, setSelectedFilters] = useState(properties)
   const [searchValue, setSearchValue] = useState('')
+
+  const ref = useRef()
+
+  useOnClickOutside(ref, () => onFilterClose())
 
   const handleToggle = key => {
     setToggles(_toggles => ({ ..._toggles, [key]: !_toggles[key] }))
@@ -31,7 +38,13 @@ const Filter = ({ filters = [], properties, setProperties }) => {
       _selectedFilters.push({ key, value })
     }
     setSelectedFilters([..._selectedFilters])
+    if (!showFilter) setProperties([..._selectedFilters])
+  }
+
+  const applyFilterUpdate = () => {
+    const _selectedFilters = selectedFilters
     setProperties([..._selectedFilters])
+    onFilterClose()
   }
 
   const handleSearch = (e) => {
@@ -48,10 +61,16 @@ const Filter = ({ filters = [], properties, setProperties }) => {
   }, [searchValue, filters])
 
   return (
-    <div className='marketplace filter container' id='view-nfts' data-open='false'>
+    <div ref={ref} className='marketplace filter container' id='view-nfts' data-open={showFilter ? 'true' : 'false'}>
       <div className='filter inner'>
-        <h2>Properties</h2>
-
+        <div className='filter heading'>
+          <h2>Properties</h2>
+          <button className='button' onClick={() => onFilterClose()}>
+            <i data-icon='x'>
+              <Icon variant='x' />
+            </i>
+          </button>
+        </div>
         <div className='input container'>
           <Icon variant='search-lg' />
           <input
@@ -99,6 +118,8 @@ const Filter = ({ filters = [], properties, setProperties }) => {
             ))
           }
         </div>
+
+        {showFilter && <Button type='button' size='xl' onClick={() => applyFilterUpdate()}>Apply Filter</Button>}
       </div>
     </div>
   )

@@ -32,7 +32,7 @@ const VideoSection = ({ section, videos }) => {
                   <h3 className='video title'>{video.title}</h3>
                   <p
                     className='video supporting text'
-                  >{`${video.htmlAsText.slice(0, 80)}...`}
+                  >{video.htmlAsText.length > 80 ? `${video.htmlAsText.slice(0, 80)}...` : video.htmlAsText}
                   </p>
                 </div>
               </button>
