@@ -5,15 +5,27 @@ import { getSSRData } from '@/utils/ssr'
 import { Marketplace } from '@/views/Marketplace'
 
 export async function getServerSideProps (context) {
-  const { data, marketplaceFilters, pageData } = await getSSRData(context)
-  const videoData = await resourcesVideoData()
+  try {
+    const { data, marketplaceFilters, pageData } = await getSSRData(context)
+    const videoData = await resourcesVideoData()
 
-  return {
-    props: {
-      data,
-      marketplaceFilters,
-      pageData,
-      videos: videoData
+    if (data.length === 0) {
+      return {
+        notFound: true
+      }
+    }
+
+    return {
+      props: {
+        data,
+        marketplaceFilters,
+        pageData,
+        videos: videoData
+      }
+    }
+  } catch (error) {
+    return {
+      notFound: true
     }
   }
 }
