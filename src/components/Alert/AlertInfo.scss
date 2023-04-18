@@ -1,0 +1,21 @@
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.alert {
+  display: flex;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: colors.$base-white;
+  align-items: center;
+  gap: 4px;
+
+  span {
+    @include styles.text-md;
+    @include weights.regular;
+  }
+
+  &.default {
+    background: colors.$gray-900;
+  }
+}

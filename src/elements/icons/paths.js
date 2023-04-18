@@ -20,6 +20,7 @@ const paths = {
   'trash-01': import('./variants/General/trash-01.svg?raw'),
   'help-cirlce': import('./variants/General/help-circle.svg?raw'),
   'share-01': import('./variants/General/share-01.svg?raw'),
+  'info-circle': import('./variants/General/info-circle.svg?raw'),
   eye: import('./variants/General/eye.svg?raw'),
   heart: import('./variants/General/heart.svg?raw'),
   minus: import('./variants/General/minus.svg?raw'),
