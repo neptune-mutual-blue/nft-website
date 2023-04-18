@@ -8,12 +8,14 @@ import { useWeb3React } from '@web3-react/core'
 
 const LikeAndShare = ({ nft }) => {
   const [showSharePopup, setShowSharePopup] = useState(false)
-  const [likeCount, setLikeCount] = useState(1024)
+  const [likeCount, setLikeCount] = useState(nft.likes ? Number(nft.likes) : 0)
   const [isLike, setIsLike] = useState(false)
 
   const { library, account } = useWeb3React()
 
   useEffect(() => {
+    if (!account) return
+
     (async function () {
       const liked = await isNftLiked({ account, tokenId: nft?.tokenId })
       setIsLike(liked)
@@ -21,15 +23,12 @@ const LikeAndShare = ({ nft }) => {
   }, [nft, account])
 
   const onHandleLike = async () => {
-    setLikeCount(isLike ? likeCount - 1 : likeCount + 1)
-
-    const message = 'Like/UnLike Neptune Mutual NFT'
     likeOrDislikeNft({
       account,
       library,
       tokenId: nft.tokenId,
-      signingMessage: message,
-      onSuccess: () => {
+      onSuccess: (updatedLikeCount) => {
+        setLikeCount(Number(updatedLikeCount))
         setIsLike(prev => !prev)
       }
     })

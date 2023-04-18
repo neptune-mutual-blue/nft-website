@@ -3,7 +3,7 @@ import { AppConstants } from '@/constants/AppConstants'
 const { signMessage } = require('@/utils/sign-message')
 
 const getNftLikeDislikeUrl = (tokenId, account) => {
-  return AppConstants.nftApiBaseURL + '/log/like/:tokenId/:account'
+  return AppConstants.nftApiBaseURL + '/insights/log/like/:tokenId/:account'
     .replace(':tokenId', tokenId)
     .replace(':account', account)
 }
@@ -18,13 +18,13 @@ const likeOrDislikeNft = async ({
   account,
   tokenId,
   library,
-  signingMessage,
   onSuccess = () => {},
   onError = e => e
 }) => {
   if (!account) return
 
   try {
+    const signingMessage = 'Like/UnLike Neptune Mutual NFT'
     const signature = await signMessage(library, signingMessage)
 
     const url = getNftLikeDislikeUrl(tokenId, account)
@@ -40,7 +40,9 @@ const likeOrDislikeNft = async ({
     })
 
     if (res.ok) {
-      if (onSuccess) onSuccess()
+      const data = await res.json()
+      const updatedLikeCount = data?.data[0].logLike
+      if (onSuccess) onSuccess(updatedLikeCount)
       return
     }
 
@@ -51,7 +53,7 @@ const likeOrDislikeNft = async ({
 }
 
 const isNftLiked = async ({ account, tokenId }) => {
-  if (!tokenId || !account) return false
+  if (!tokenId) return false
 
   const url = getIsNftLikedUrl(tokenId, account)
 
