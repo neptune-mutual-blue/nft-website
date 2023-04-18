@@ -1,5 +1,4 @@
-import { useState } from 'react'
-
+import AlertInfo from '@/components/Alert/AlertInfo'
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
 import CountUp from '@/components/CountUp/CountUp'
@@ -13,18 +12,12 @@ import { Progress } from '@/components/Progress/Progress'
 import { Tags } from '@/components/Tags/Tags'
 import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import { mintingLevelRequirements } from '@/config/minting-levels'
-import { AppConstants } from '@/constants/AppConstants'
 import { Icon } from '@/elements/Icon'
-import { weiToToken } from '@/utils/currencyHelpers'
 import { MintingLevels } from '@/views/mint-nft/MintingLevels'
 import { Summary } from '@/views/mint-nft/Summary'
+import { useWeb3React } from '@web3-react/core'
 
-const userProgress = {
-  totalPolicyPurchased: 80000000,
-  totalLiquidityAdded: 2500000000
-}
-
-const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
+const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress }) => {
   const crumbs = [
     {
       link: '/',
@@ -44,10 +37,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
     }
   ]
 
-  const [currentProgress] = useState({
-    totalLiquidityAdded: weiToToken(userProgress.totalLiquidityAdded, AppConstants.FALLBACK_LIQUIDITY_TOKEN_DECIMALS),
-    totalPolicyPurchased: weiToToken(userProgress.totalPolicyPurchased, AppConstants.FALLBACK_LIQUIDITY_TOKEN_DECIMALS)
-  })
+  const { account } = useWeb3React()
 
   const requirements = mintingLevelRequirements[nftDetails.level]
 
@@ -67,7 +57,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
             <CustomTooltip text={
               <div className='progress tooltip'>
                 <div className='label'>Required:</div>
-                <div className='value'>${required.toLocaleString('en-US')}</div>
+                <div className='value'>${required?.toLocaleString('en-US')}</div>
                 <br />
                 <div className='label'>Your Policy Purchase:</div>
                 <div className='value'>${current.toLocaleString('en-US')}</div>
@@ -90,81 +80,88 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels }) => {
   )
 
   return (
-    <div className='mint nft page'>
-      <div className='breadcrumb and connect wallet'>
-        <Breadcrumb items={crumbs} />
-        <ConnectWallet />
-      </div>
+    <>
+      <div className='mint nft page'>
+        <div className='breadcrumb and connect wallet'>
+          <Breadcrumb items={crumbs} />
+          <ConnectWallet />
+        </div>
 
-      <div className='content inset'>
-        <section className='hero'>
-          {nftDetails.level && (
-            <Tags
-              tags={[
-                {
-                  id: '1',
-                  slug: '1',
-                  text: `Level ${nftDetails.level}`,
-                  color: 'level' + nftDetails.level
-                }
-              ]}
-            />
-          )}
-          <NftNickname nft={nftDetails} />
+        <div className='content inset' data-connect={account ? 'true' : 'false'}>
+          <section className='hero'>
+            {nftDetails.level && (
+              <Tags
+                tags={[
+                  {
+                    id: '1',
+                    slug: '1',
+                    text: `Level ${nftDetails.level}`,
+                    color: 'level' + nftDetails.level
+                  }
+                ]}
+              />
+            )}
+            <NftNickname nft={nftDetails} />
 
-          <div className='character name'>Mint {nftDetails.name} for Free</div>
+            <div className='character name'>Mint {nftDetails.name} for Free</div>
 
-          <NftSiblingsAndStage nft={nftDetails} />
+            <NftSiblingsAndStage nft={nftDetails} />
 
-          <div className='image and milestones'>
-            <div className='image expand wrapper'>
-              <NftImageWithExpand nft={nftDetails} />
+            <div className='image and milestones'>
+              <div className='image expand wrapper'>
+                <NftImageWithExpand nft={nftDetails} />
 
-              {/* <MintSuccessModal nft={nftDetails}>
-                <Button
-                  type='button' size='xl' onClick={() => {
-                  }}
-                >Mint this NFT
-                </Button>
-              </MintSuccessModal> */}
+                {/* <MintSuccessModal nft={nftDetails}>
+                  <Button
+                    type='button' size='xl' onClick={() => {
+                    }}
+                  >Mint this NFT
+                  </Button>
+                </MintSuccessModal> */}
 
-              {/* Remove the style below when enabling the above button */}
-              <div className='supporting text' style={{ marginTop: '16px' }}>
-                <CountUp localized number={nftDetails.wantToMint} /> people want to mint this.
+                {/* Remove the style below when enabling the above button */}
+                <div className='supporting text' style={{ marginTop: '16px' }}>
+                  <CountUp localized number={nftDetails.wantToMint} /> people want to mint this.
+                </div>
+              </div>
+
+              <div className='milestones'>
+                <h3>Your Milestones</h3>
+                {buildProgress({
+                  title: 'Policy Purchase',
+                  required: requirements?.policyPurchase,
+                  current: currentProgress.totalPolicyPurchased,
+                  percent: policyPurchasePercent,
+                  remaining: policyPurchaseRemaining
+                })}
+                {buildProgress({
+                  title: 'Added Liquidity',
+                  required: requirements?.liquidity,
+                  current: currentProgress.totalLiquidityAdded,
+                  percent: liquidityPercent,
+                  remaining: liquidityRemaining
+                })}
+                <LikeAndShare nft={nftDetails} />
               </div>
             </div>
+          </section>
 
-            <div className='milestones'>
-              <h3>Your Milestones</h3>
-              {buildProgress({
-                title: 'Policy Purchase',
-                required: requirements.policyPurchase,
-                current: currentProgress.totalPolicyPurchased,
-                percent: policyPurchasePercent,
-                remaining: policyPurchaseRemaining
-              })}
-              {buildProgress({
-                title: 'Added Liquidity',
-                required: requirements.liquidity,
-                current: currentProgress.totalLiquidityAdded,
-                percent: liquidityPercent,
-                remaining: liquidityRemaining
-              })}
-              <LikeAndShare nft={nftDetails} />
-            </div>
+          <MintingLevels mintingLevels={mintingLevels} />
+          <Summary />
+        </div>
+        <div className='explore minting collection'>
+          <h3>Explore Our Collection</h3>
+          <div className='nft characters'>
+            {premiumNfts.slice(0, 6).map(nft => <NftCardWithBlurEffect key={nft.name} nft={nft} />)}
           </div>
-        </section>
-
-        <MintingLevels mintingLevels={mintingLevels} />
-        <Summary />
-      </div>
-      <div className='explore minting collection'>
-        <h3>Explore Our Collection</h3>
-        <div className='nft characters'>
-          {premiumNfts.slice(0, 6).map(nft => <NftCardWithBlurEffect key={nft.name} nft={nft} />)}
         </div>
       </div>
-    </div>
+
+      {!account &&
+        <div className='info box'>
+          <AlertInfo />
+        </div>}
+    </>
   )
 }
 

@@ -35,7 +35,7 @@ const BaseLayout = ({ children, videos }) => {
       <Header headerStyle={router.pathname === '/marketplace' ? 'colored' : null} videos={videos} />
       <div className='header gap' />
       {children}
-      <Footer />
+      {router.pathname !== '/404' && <Footer />}
     </div>
   )
 }

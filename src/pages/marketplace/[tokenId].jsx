@@ -13,15 +13,27 @@ import { resourcesVideoData } from '@/service/video-api'
 import { NftDetails } from '@/views/NftDetails'
 
 export async function getStaticProps (context) {
-  const [nftDetailsResponse, premiumNftsResponse, videoResponse] = await Promise.all([NftApi.getNftDetails(context.params.tokenId), NftApi.premiumNfts(), resourcesVideoData()])
+  try {
+    const [nftDetailsResponse, premiumNftsResponse, videoResponse] = await Promise.all([NftApi.getNftDetails(context.params.tokenId), NftApi.premiumNfts(), resourcesVideoData()])
 
-  return {
-    props: {
-      nftDetails: nftDetailsResponse.data[0],
-      premiumNfts: premiumNftsResponse.data,
-      videos: videoResponse
-    },
-    revalidate: 60 * 60 // one hour
+    if (nftDetailsResponse.data.length === 0) {
+      return {
+        notFound: true
+      }
+    }
+
+    return {
+      props: {
+        nftDetails: nftDetailsResponse.data[0],
+        premiumNfts: premiumNftsResponse.data,
+        videos: videoResponse
+      },
+      revalidate: 60 * 60 // one hour
+    }
+  } catch (error) {
+    return {
+      notFound: true
+    }
   }
 }
 

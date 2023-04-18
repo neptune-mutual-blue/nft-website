@@ -70,6 +70,14 @@ const mintingLevels = async () => {
   return data
 }
 
+const mintingLevelsMilestone = async (address) => {
+  const response = await fetch(origin + '/minting-levels/milestones/' + address)
+
+  const data = await response.json()
+
+  return data
+}
+
 const NftApi = {
   knowTheCharacters,
   mostViewedNfts,
@@ -78,7 +86,8 @@ const NftApi = {
   getNftDetails,
   logView,
   logWantToMint,
-  mintingLevels
+  mintingLevels,
+  mintingLevelsMilestone
 }
 
 export { NftApi }

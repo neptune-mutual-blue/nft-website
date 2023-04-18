@@ -109,6 +109,78 @@
           grid-template-columns: repeat(1, 1fr);
         }
       }
+
+      .noresult.found {
+        height: 364px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 16px;
+        position: relative;
+        overflow: hidden;
+        padding: 16px;
+
+        @media (max-width: 767px) {
+          height: 275px;
+        }
+
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 50%;
+          width: 312px;
+          margin-left: -156px;
+
+          @media (max-width: 767px) {
+            width: 200px;
+            margin-left: -100px;
+          }
+        }
+
+        &::before {
+          top: -32px;
+          height: 166px;
+          background: url("../../../public/assets/images/marketplace/upper-symbol.webp") no-repeat center top;
+          background-size: 100%;
+
+          @media (max-width: 767px) {
+            top: -20px;
+            height: 108px;
+          }
+        }
+
+        &::after {
+          top: auto;
+          bottom: -42px;
+          height: 194px;
+          background: url("../../../public/assets/images/marketplace/lower-symbol.webp") no-repeat center top;
+          background-size: 100%;
+
+          @media (max-width: 767px) {
+            height: 125px;
+            bottom: -25px;
+          }
+        }
+
+        .content {
+          display: flex;
+          flex-direction: column;
+
+          h2 {
+            @include styles.text-xl;
+            @include weights.semibold;
+          }
+
+          p {
+            @include styles.text-md;
+            @include weights.regular;
+          }
+        }
+      }
     }
   }
 }
@@ -140,6 +212,10 @@
             color: colors.$gray-100;
           }
         }
+      }
+
+      .noresult.found {
+        background: rgba(255, 255, 255, 0.05);
       }
     }
   }

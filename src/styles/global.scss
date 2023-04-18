@@ -122,6 +122,7 @@ button,
 @import "../components/Button/LinkColorButton.scss";
 @import "../components/Progress/Progress.scss";
 @import "../components/IconButton/IconButton.scss";
+@import "../components/Alert/AlertInfo.scss";
 
 @import "../components/NftImageWithExpand.scss";
 @import "../components/NftNickname.scss";
@@ -144,6 +145,7 @@ button,
 //Pages
 @import "../pages/index.scss";
 @import "../pages/marketplace/index.scss";
+@import "../pages/404.scss";
 @import "../views/NftDetails.scss";
 @import "../views/MintNft.scss";
 @import "../views/mint-nft/MintingLevels.scss";

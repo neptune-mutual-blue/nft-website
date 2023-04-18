@@ -61,6 +61,10 @@ const CountUp = ({ number, symbol, prefix = false, localized = false }) => {
 
   const counterValue = getReadableCounterValue({ localized, val, number })
 
+  if (number <= 0) {
+    return <span ref={countRef}>{prefix && symbol}{localized ? number.toLocaleString('en-US') : number}{!prefix && symbol}</span>
+  }
+
   return (
     <span ref={countRef}>{prefix && symbol}{counterValue}{!prefix && symbol}</span>
   )
