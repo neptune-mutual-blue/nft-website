@@ -7,7 +7,7 @@
   align-items: center;
   color: colors.$gray-700;
 
-  & > button {
+  &>button {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -22,6 +22,10 @@
           stroke: colors.$primary-600;
         }
       }
+    }
+
+    &:disabled {
+      cursor: not-allowed;
     }
   }
 }

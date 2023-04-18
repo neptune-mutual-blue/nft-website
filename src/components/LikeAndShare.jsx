@@ -1,22 +1,47 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { ShareNft } from '@/components/ShareNft/ShareNft'
 import { Icon } from '@/elements/Icon'
 import CountUp from '@/components/CountUp/CountUp'
+import { isNftLiked, likeOrDislikeNft } from '@/utils/like-nft'
+import { useWeb3React } from '@web3-react/core'
 
 const LikeAndShare = ({ nft }) => {
   const [showSharePopup, setShowSharePopup] = useState(false)
   const [likeCount, setLikeCount] = useState(1024)
   const [isLike, setIsLike] = useState(false)
 
-  const onHandleLike = () => {
+  const { library, account } = useWeb3React()
+
+  useEffect(() => {
+    (async function () {
+      const liked = await isNftLiked({ account, tokenId: nft?.tokenId })
+      setIsLike(liked)
+    })()
+  }, [nft, account])
+
+  const onHandleLike = async () => {
     setLikeCount(isLike ? likeCount - 1 : likeCount + 1)
-    setIsLike(!isLike)
+
+    const message = 'Like/UnLike Neptune Mutual NFT'
+    likeOrDislikeNft({
+      account,
+      library,
+      tokenId: nft.tokenId,
+      signingMessage: message,
+      onSuccess: () => {
+        setIsLike(prev => !prev)
+      }
+    })
   }
 
   return (
     <div className='like and share'>
-      <button className={`like btn ${isLike ? 'liked' : ''}`} onClick={onHandleLike}>
+      <button
+        className={`like btn ${isLike ? 'liked' : ''}`}
+        disabled={!account}
+        onClick={onHandleLike}
+      >
         <Icon variant='heart' size='lg' />
         <CountUp number={likeCount} localized />
       </button>
