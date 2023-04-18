@@ -86,7 +86,7 @@ const MintNftPage = ({ nftDetails, premiumNfts, mintingLevels, videos }) => {
       })
     }
 
-    fetchMilestones()
+    if (account) fetchMilestones()
   }, [account])
 
   if (!nftDetails) {
