@@ -42,7 +42,8 @@ const Footer = () => {
                                   : AppConstants.neptunemutualOrigin +
                                 normalizeUrl(link.href) + '?theme=' + (themeContext.dark ? 'dark' : 'light')
                               }
-                                rel='noreferrer'
+                                target={!link.isNPM ? '_blank' : undefined}
+                                rel={!link.isNPM ? 'noreferrer' : undefined}
                               >
                                 {link.text}
                               </a>
