@@ -1,6 +1,5 @@
 import Link from 'next/link'
 
-import CountUp from '@/components/CountUp/CountUp'
 import { Icon } from '@/elements/Icon'
 
 const NftCard = ({ name, views, count, nftId, image }) => {
@@ -23,7 +22,7 @@ const NftCard = ({ name, views, count, nftId, image }) => {
             <div className='nft insight'>
               <span className='sr-only'>Views</span>
               <Icon variant='eye' size='sm' />
-              <span><CountUp localized number={views} /></span>
+              <span>{views}</span>
             </div>
             <div className='nft insight'>
               <span className='sr-only'>Count</span>

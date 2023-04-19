@@ -1,7 +1,6 @@
 import AlertInfo from '@/components/Alert/AlertInfo'
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
-import CountUp from '@/components/CountUp/CountUp'
 import { LikeAndShare } from '@/components/LikeAndShare'
 import NftCardWithBlurEffect
   from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
@@ -53,7 +52,8 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress }) =>
       <Progress percent={percent} />
       <div>
         <div className='remaining'>
-          <div className='info'><CountUp number={remaining} symbol='$' localized prefix /> remaining
+          <div className='info'>
+            <span>${remaining} remaining</span>
             <CustomTooltip text={
               <div className='progress tooltip'>
                 <div className='label'>Required:</div>
@@ -73,7 +73,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress }) =>
             </CustomTooltip>
 
           </div>
-          <div className='percent'><CountUp number={percent} />%</div>
+          <div className='percent'>{percent}%</div>
         </div>
       </div>
     </div>
@@ -121,7 +121,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress }) =>
 
                 {/* Remove the style below when enabling the above button */}
                 <div className='supporting text' style={{ marginTop: '16px' }}>
-                  <CountUp localized number={nftDetails.wantToMint} /> people want to mint this.
+                  {nftDetails.wantToMint} people want to mint this.
                 </div>
               </div>
 
