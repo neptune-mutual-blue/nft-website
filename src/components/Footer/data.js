@@ -51,39 +51,44 @@ const getFooterData = () => {
         {
           href: '/marketplace',
           text: 'Marketplace',
+          isNPM: true,
           isExternal: true,
           badge: 'New!',
           badgeColor: 'success'
         },
-        { href: '/blog/', text: 'Blog', isExternal: true },
-        { href: '/pressroom/', text: 'Press Room', isExternal: true },
-        { href: '/ecosystem/', text: 'Ecosystem', isExternal: true },
-        { href: '/docs/', text: 'Documentation', isExternal: true },
-        { href: '/web3-tools/', text: 'Web3 Tools', isExternal: true },
+        { href: 'https://community.neptunemutual.com/', text: 'Community Forum', isNPM: false, isExternal: true },
+        { href: '/blog/', text: 'Blog', isNPM: true, isExternal: true },
+        { href: '/pressroom/', text: 'Press Room', isNPM: true, isExternal: true },
+        { href: '/ecosystem/', text: 'Ecosystem', isNPM: true, isExternal: true },
+        { href: '/docs/', text: 'Documentation', isNPM: true, isExternal: true },
+        { href: '/web3-tools/', text: 'Web3 Tools', isNPM: true, isExternal: true },
         {
-          href: '/hack-database/',
-          text: 'Blockchain Hack Database',
-          isExternal: true
+          href: '/',
+          text: 'NFT Portal',
+          isNPM: false,
+          isExternal: false
         }
       ]
     },
     {
       title: 'Company',
       links: [
-        { href: '/about/', text: 'About us', isExternal: true },
+        { href: '/about/', text: 'About us', isNPM: true, isExternal: true },
         {
           href: '/grants-and-bounties/',
           text: 'Grants and Bounties',
+          isNPM: true,
           isExternal: true
         },
         {
           href: '/careers/',
           text: 'Careers',
+          isNPM: true,
           isExternal: true,
           badge: "We're Hiring!"
         },
-        { href: '/security/', text: 'Security', isExternal: true },
-        { href: '/contact/', text: 'Contact', isExternal: true }
+        { href: '/security/', text: 'Security', isNPM: true, isExternal: true },
+        { href: '/contact/', text: 'Contact', isNPM: true, isExternal: true }
       ]
     },
     {
@@ -92,21 +97,25 @@ const getFooterData = () => {
         {
           href: '/policies/risk-factors/',
           text: 'Risk Factors',
+          isNPM: true,
           isExternal: true
         },
         {
           href: '/policies/terms-of-use/',
           text: 'Terms of Use',
+          isNPM: true,
           isExternal: true
         },
         {
           href: '/policies/privacy-policy/',
           text: 'Privacy Policy',
+          isNPM: true,
           isExternal: true
         },
         {
           href: '/policies/standard-terms-and-conditions/',
           text: 'Standard Terms and Conditions',
+          isNPM: true,
           isExternal: true
         }
       ]

@@ -37,7 +37,9 @@ const Footer = () => {
                             ? (
                               <a
                                 href={
-                                AppConstants.neptunemutualOrigin +
+                                !link.isNPM
+                                  ? link.href
+                                  : AppConstants.neptunemutualOrigin +
                                 normalizeUrl(link.href) + '?theme=' + (themeContext.dark ? 'dark' : 'light')
                               }
                                 rel='noreferrer'
@@ -48,7 +50,9 @@ const Footer = () => {
                             : (
                               <a
                                 href={
-                                AppConstants.neptunemutualOrigin +
+                                  !link.isNPM
+                                    ? normalizeUrl(link.href)
+                                    : AppConstants.neptunemutualOrigin +
                                 normalizeUrl(link.href)
                               }
                               >

@@ -21,7 +21,9 @@ const Section = ({ section }) => {
             }
               className='item container'
               href={
-                AppConstants.neptunemutualOrigin +
+                !link.isNPM
+                  ? normalizeUrl(link.href)
+                  : AppConstants.neptunemutualOrigin +
                 normalizeUrl(link.href) + '?theme=' + (themeContext.dark ? 'dark' : 'light')
               }
               target={link.isExternal ? '_blank' : null}
