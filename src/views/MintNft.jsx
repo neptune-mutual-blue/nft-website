@@ -1,7 +1,6 @@
 import AlertInfo from '@/components/Alert/AlertInfo'
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
-import CountUp from '@/components/CountUp/CountUp'
 import { LikeAndShare } from '@/components/LikeAndShare'
 import NftCardWithBlurEffect
   from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
@@ -13,6 +12,8 @@ import { Tags } from '@/components/Tags/Tags'
 import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import { mintingLevelRequirements } from '@/config/minting-levels'
 import { Icon } from '@/elements/Icon'
+import { formatDollar } from '@/utils/currencyHelpers.js'
+import { formatPercent } from '@/utils/percent'
 import { MintingLevels } from '@/views/mint-nft/MintingLevels'
 import { Summary } from '@/views/mint-nft/Summary'
 import { useWeb3React } from '@web3-react/core'
@@ -53,17 +54,21 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress }) =>
       <Progress percent={percent} />
       <div>
         <div className='remaining'>
-          <div className='info'><CountUp number={remaining} symbol='$' localized prefix /> remaining
+          <div className='info'>
+            <span>{formatDollar(remaining)} remaining</span>
             <CustomTooltip text={
               <div className='progress tooltip'>
-                <div className='label'>Required:</div>
-                <div className='value'>${required?.toLocaleString('en-US')}</div>
-                <br />
+                {required &&
+                  <>
+                    <div className='label'>Required:</div>
+                    <div className='value'>{formatDollar(required)}</div>
+                    <br />
+                  </>}
                 <div className='label'>Your Policy Purchase:</div>
-                <div className='value'>${current.toLocaleString('en-US')}</div>
+                <div className='value'>{formatDollar(current)}</div>
                 <br />
                 <div className='label'>Remaining:</div>
-                <div className='value'>${remaining.toLocaleString('en-US')}</div>
+                <div className='value'>{formatDollar(remaining)}</div>
               </div>
             }
             >
@@ -73,7 +78,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress }) =>
             </CustomTooltip>
 
           </div>
-          <div className='percent'><CountUp number={percent} />%</div>
+          <div className='percent'>{formatPercent(percent)}</div>
         </div>
       </div>
     </div>
@@ -121,7 +126,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress }) =>
 
                 {/* Remove the style below when enabling the above button */}
                 <div className='supporting text' style={{ marginTop: '16px' }}>
-                  <CountUp localized number={nftDetails.wantToMint} /> people want to mint this.
+                  {nftDetails.wantToMint} people want to mint this.
                 </div>
               </div>
 

@@ -7,7 +7,7 @@ function PremiumNfts ({ premiumNfts }) {
     <div className='premium nfts'>
       <Slider gap={16}>
         {
-        premiumNfts.map((character) => {
+        premiumNfts.sort((obj1, obj2) => obj1.siblings - obj2.siblings).map((character) => {
           return (
             <NftCardWithBlurEffect
               key={character.name}
