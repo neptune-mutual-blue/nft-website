@@ -7,7 +7,7 @@ const HeroImage = () => {
 
   return (
     <div className='hero image'>
-      <img alt='' src={`/assets/images/hero/${dark ? 'hero-dark' : 'hero'}.webp`} />
+      <img alt='' src={`/assets/images/hero/${dark ? 'hero-dark' : 'hero-light'}.webp`} />
     </div>
 
   )

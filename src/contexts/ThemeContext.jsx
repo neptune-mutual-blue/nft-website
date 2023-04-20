@@ -1,4 +1,11 @@
-import { createContext, useEffect, useRef, useState } from 'react'
+import {
+  createContext,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
+
+import { useRouter } from 'next/router'
 
 const getTheme = () => {
   if (typeof window === 'undefined') {
@@ -34,6 +41,8 @@ const ThemeContext = createContext()
 export function ThemeProvider ({ children }) {
   const [dark, setDark] = useState(false)
 
+  const router = useRouter()
+
   const initial = useRef(true)
 
   const setInitialTheme = () => {
@@ -61,6 +70,20 @@ export function ThemeProvider ({ children }) {
       document.documentElement.classList.remove('dark')
     }
   }, [dark])
+
+  useEffect(() => {
+    const theme = localStorage.getItem('theme')
+
+    const linksWithThemes = document.querySelectorAll('a[data-include-theme]')
+
+    linksWithThemes.forEach(link => {
+      if (link.href.includes('?theme=')) {
+        link.href = link.href.replace(/\?theme=[dark|light]+/g, '') + '?theme=' + theme
+      } else {
+        link.href = link.href + '?theme=' + theme
+      }
+    })
+  }, [dark, router.pathname])
 
   return (
     <ThemeContext.Provider

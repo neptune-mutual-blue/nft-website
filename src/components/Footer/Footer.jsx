@@ -1,5 +1,7 @@
 import { useContext } from 'react'
 
+import Link from 'next/link'
+
 import { AppConstants } from '@/constants/AppConstants'
 import { ThemeContext } from '@/contexts/ThemeContext'
 import { Icon } from '@/elements/Icon'
@@ -37,28 +39,23 @@ const Footer = () => {
                             ? (
                               <a
                                 href={
-                                !link.isNPM
-                                  ? link.href
-                                  : AppConstants.neptunemutualOrigin +
-                                normalizeUrl(link.href) + '?theme=' + (themeContext.dark ? 'dark' : 'light')
+                                normalizeUrl(link.href)
                               }
-                                target={!link.isNPM ? '_blank' : undefined}
-                                rel={!link.isNPM ? 'noreferrer' : undefined}
+                                target='_blank'
+                                rel='noreferrer'
+                                data-include-theme={link.includeTheme ? true : null}
                               >
                                 {link.text}
                               </a>
                               )
                             : (
-                              <a
+                              <Link
                                 href={
-                                  !link.isNPM
-                                    ? normalizeUrl(link.href)
-                                    : AppConstants.neptunemutualOrigin +
                                 normalizeUrl(link.href)
                               }
                               >
                                 {link.text}
-                              </a>
+                              </Link>
                               )}
 
                           {link.badge && (
