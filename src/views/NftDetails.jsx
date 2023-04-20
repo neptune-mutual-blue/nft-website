@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { Button } from '@/components/Button/Button'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
-import CountUp from '@/components/CountUp/CountUp'
 import { LikeAndShare } from '@/components/LikeAndShare'
 import NftCardWithBlurEffect
   from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
@@ -76,7 +75,7 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
                   </div>
                 </CustomTooltip>
                 <div className='supporting text'>
-                  <CountUp number={nftDetails.wantToMint} /> people want to mint this.
+                  {nftDetails.wantToMint} people want to mint this.
                 </div>
               </div>
 

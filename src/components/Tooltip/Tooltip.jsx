@@ -5,7 +5,7 @@ const CustomTooltip = (props) => {
   return disabled
     ? children
     : (
-      <Tooltip.Provider>
+      <Tooltip.Provider delayDuration={50}>
         <Tooltip.Root>
           <Tooltip.Trigger asChild>
             {children}

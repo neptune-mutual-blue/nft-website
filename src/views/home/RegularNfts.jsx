@@ -1,6 +1,5 @@
 import Link from 'next/link'
 
-import CountUp from '@/components/CountUp/CountUp'
 import { Slider } from '@/components/Slider/Slider'
 import { getMarketplaceFiltersHref } from '@/utils/nft'
 
@@ -10,7 +9,7 @@ const RegularNfts = ({ regularNfts }) => {
       <h2>Regular NFTs</h2>
       <Slider gap={16}>
         {
-        regularNfts.map((character) => {
+        regularNfts.sort((obj1, obj2) => obj1.siblings - obj2.siblings).map((character) => {
           return (
             <div
               key={character.name}
@@ -21,7 +20,7 @@ const RegularNfts = ({ regularNfts }) => {
                   <img src={character.thumbnail} alt={character.name} />
                 </div>
                 <div className='character name'>{character.name}</div>
-                <div className='supporting text'><CountUp number={character.siblings} localized /> siblings</div>
+                <div className='supporting text'>{character.siblings} siblings</div>
               </Link>
             </div>
           )

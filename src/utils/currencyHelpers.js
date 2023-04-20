@@ -3,19 +3,19 @@ import { AppConstants } from '@/constants/AppConstants'
 const weiToToken = (x, decimals = 18) =>
   parseInt(x.toString()) / 10 ** decimals
 
-const formatTokenLong = (x, symbol, token = false) => {
+const formatTokenLong = (x, symbol, token = false, maxFractionDigits = 6) => {
   if (!token) {
     const formatter = new Intl.NumberFormat(AppConstants.PREFERRED_LOCALE, {
       style: 'currency',
       currency: symbol,
-      maximumFractionDigits: 6
+      maximumFractionDigits: maxFractionDigits
     })
     return formatter.format(x) + ''
   }
 
   return (
     Number(x).toLocaleString(AppConstants.PREFERRED_LOCALE, {
-      minimumFractionDigits: 6
+      minimumFractionDigits: maxFractionDigits
     }) +
     ' ' +
     symbol
@@ -113,4 +113,8 @@ const formatLiquidityToken = (
   symbol = AppConstants.FALLBACK_LIQUIDITY_TOKEN_SYMBOL
 ) => formatToken(amount, decimals, symbol, symbol !== 'USD')
 
-export { formatLiquidityToken, formatNpmToken, weiToToken }
+const formatDollar = (
+  amount
+) => formatTokenLong(amount, 'USD', false, 2)
+
+export { formatDollar, formatLiquidityToken, formatNpmToken, weiToToken }

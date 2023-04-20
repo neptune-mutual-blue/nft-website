@@ -1,6 +1,5 @@
 import Link from 'next/link'
 
-import CountUp from '@/components/CountUp/CountUp'
 import { abbreviateNumber } from '@/utils/abbreviate-number'
 import { getMarketplaceFiltersHref } from '@/utils/nft'
 
@@ -24,7 +23,7 @@ const MostViewedNfts = ({ mostViewedNfts }) => {
                 <div className='character viewed'>
                   Viewed{' '}
                   <span data-tooltip={views.long} data-flow='left'>
-                    <CountUp number={views.result} symbol={views.symbol} />
+                    {views.result}{views.symbol}
                   </span>{' '}
                   times
                 </div>
