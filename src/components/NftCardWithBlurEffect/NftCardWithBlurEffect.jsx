@@ -1,5 +1,7 @@
-import { getMarketplaceFiltersHref } from '@/utils/nft'
 import Link from 'next/link'
+
+import { formatText } from '@/utils/helpers'
+import { getMarketplaceFiltersHref } from '@/utils/nft'
 
 const NftCardWithBlurEffect = (props) => {
   const { nft, className } = props
@@ -11,11 +13,11 @@ const NftCardWithBlurEffect = (props) => {
         href={getMarketplaceFiltersHref(nft)}
       >
         <div>
-          <img src={nft.thumbnail} alt={nft.name} />
+          <img src={nft.thumbnail} aria-labelledby={formatText(nft.name)} alt='' />
         </div>
         <div className='overlay'>
           <div>
-            <div>{nft.name}</div>
+            <div id={formatText(nft.name)}>{nft.name}</div>
             <div className='supporting text'>
               {nft.siblings} siblings
             </div>

@@ -1,10 +1,11 @@
-import { Tags } from '@/components/Tags/Tags'
 import React from 'react'
+
+import { Tags } from '@/components/Tags/Tags'
 
 export const Summary = () => {
   return (
     <div className='nft minting summary'>
-      <div className='title'>Summary</div>
+      <h2 className='title'>Summary</h2>
       <div className='summary table'>
         <div className='row header'>
           <div>Level</div>

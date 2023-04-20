@@ -10,3 +10,12 @@ export const trimText = (text, length) => {
 
   return checkLength ? `${text.slice(0, length)}...` : text
 }
+
+/**
+ * Function will convert text to lowercase and join with '-' hyphen
+ * @param {string} text - Text to convert
+ * @returns string
+ */
+export const formatText = (text) => {
+  return text.toLowerCase().split(' ').join('-')
+}

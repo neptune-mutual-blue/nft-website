@@ -114,12 +114,15 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
         <div className='right'>
           <div>
             <div className='filter marketplace'>
+              <label htmlFor='marketplace' className='label-hidden'>Search Marketplace</label>
               <input
+                id='marketplace'
                 placeholder='Search Marketplace'
                 className='search input'
                 value={searchValue}
                 onChange={handleInputChange}
                 ref={inputRef}
+                aria-label='Search Marketplace'
               />
               <button className='button' onClick={() => onFilterOpen()}>
                 <span>Properties</span>

@@ -25,6 +25,7 @@ const NftImageWithExpand = ({ nft, isCover }) => {
             setExpanded(!expanded)
           }}
         >
+          <span className='label-hidden'>Expand Image</span>
           <Icon variant='expand-01' size='lg' />
         </button>
 
@@ -41,6 +42,7 @@ const NftImageWithExpand = ({ nft, isCover }) => {
           setExpanded(!expanded)
         }}
       >
+        <span className='label-hidden'>Expand Image</span>
         <Icon variant='expand-01' size='lg' />
       </button>
     </div>

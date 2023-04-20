@@ -144,7 +144,8 @@
         &::before {
           top: -32px;
           height: 166px;
-          background: url("../../../public/assets/images/marketplace/upper-symbol.webp") no-repeat center top;
+          background: url("../../../public/assets/images/marketplace/upper-symbol.webp")
+            no-repeat center top;
           background-size: 100%;
 
           @media (max-width: 767px) {
@@ -157,7 +158,8 @@
           top: auto;
           bottom: -42px;
           height: 194px;
-          background: url("../../../public/assets/images/marketplace/lower-symbol.webp") no-repeat center top;
+          background: url("../../../public/assets/images/marketplace/lower-symbol.webp")
+            no-repeat center top;
           background-size: 100%;
 
           @media (max-width: 767px) {

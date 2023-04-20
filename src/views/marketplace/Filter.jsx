@@ -66,6 +66,7 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
         <div className='filter heading'>
           <h2>Properties</h2>
           <button className='button' onClick={() => onFilterClose()}>
+            <span className='label-hidden'>Close Filter</span>
             <i data-icon='x'>
               <Icon variant='x' />
             </i>
@@ -73,11 +74,14 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
         </div>
         <div className='input container'>
           <Icon variant='search-lg' />
+          <label htmlFor='properties' className='label-hidden'>Properties</label>
           <input
+            id='properties'
             className='search'
             placeholder='Search by Properties'
             value={searchValue}
             onChange={handleSearch}
+            aria-label='Search Properties'
           />
         </div>
 
