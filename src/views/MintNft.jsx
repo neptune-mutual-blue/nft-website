@@ -12,6 +12,8 @@ import { Tags } from '@/components/Tags/Tags'
 import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import { mintingLevelRequirements } from '@/config/minting-levels'
 import { Icon } from '@/elements/Icon'
+import { formatDollar } from '@/utils/currencyHelpers.js'
+import { formatPercent } from '@/utils/percent'
 import { MintingLevels } from '@/views/mint-nft/MintingLevels'
 import { Summary } from '@/views/mint-nft/Summary'
 import { useWeb3React } from '@web3-react/core'
@@ -53,17 +55,20 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress }) =>
       <div>
         <div className='remaining'>
           <div className='info'>
-            <span>${remaining} remaining</span>
+            <span>{formatDollar(remaining)} remaining</span>
             <CustomTooltip text={
               <div className='progress tooltip'>
-                <div className='label'>Required:</div>
-                <div className='value'>${required?.toLocaleString('en-US')}</div>
-                <br />
+                {required &&
+                  <>
+                    <div className='label'>Required:</div>
+                    <div className='value'>{formatDollar(required)}</div>
+                    <br />
+                  </>}
                 <div className='label'>Your Policy Purchase:</div>
-                <div className='value'>${current.toLocaleString('en-US')}</div>
+                <div className='value'>{formatDollar(current)}</div>
                 <br />
                 <div className='label'>Remaining:</div>
-                <div className='value'>${remaining.toLocaleString('en-US')}</div>
+                <div className='value'>{formatDollar(remaining)}</div>
               </div>
             }
             >
@@ -73,7 +78,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress }) =>
             </CustomTooltip>
 
           </div>
-          <div className='percent'>{percent}%</div>
+          <div className='percent'>{formatPercent(percent)}</div>
         </div>
       </div>
     </div>
