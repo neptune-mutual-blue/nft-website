@@ -1,5 +1,6 @@
 import { Tags } from '@/components/Tags/Tags'
 import { Icon } from '@/elements/Icon'
+import { formatText } from '@/utils/helpers'
 
 const MintingLevels = ({ mintingLevels }) => {
   const guardians = mintingLevels.filter(character => character.role === 'Guardian' && character.level !== 7)
@@ -13,7 +14,7 @@ const MintingLevels = ({ mintingLevels }) => {
     return (
       <div key={`${character.name}_${character.role}_${character.level}`} className='character'>
         <div className='img wrapper'>
-          <img src={character.thumbnail} alt={character.name} />
+          <img src={character.thumbnail} aria-labelledby={formatText(character.name)} alt='' />
           <div className='siblings'>{character.siblings}</div>
         </div>
         <Tags
@@ -26,7 +27,7 @@ const MintingLevels = ({ mintingLevels }) => {
             }
           ]}
         />
-        <div className='name'>
+        <div id={formatText(character.name)} className='name'>
           {character.name}
         </div>
         <div className='stage'>
@@ -39,7 +40,7 @@ const MintingLevels = ({ mintingLevels }) => {
   return (
     <div className='nft minting levels'>
 
-      <div className='heading'>Minting Levels</div>
+      <h1 className='heading'>Minting Levels</h1>
 
       <div className='categorization'>
         <div>
@@ -70,7 +71,7 @@ const MintingLevels = ({ mintingLevels }) => {
       <div className='merging box' />
       <div className='final card'>
         <div className='img wrapper'>
-          <img src={level7Character.thumbnail} alt='' srcSet='' />
+          <img src={level7Character.thumbnail} aria-labelledby={formatText(level7Character.name)} alt='' />
           <div className='siblings'>
             {level7Character.siblings}
           </div>
@@ -85,7 +86,7 @@ const MintingLevels = ({ mintingLevels }) => {
             }
           ]}
         />
-        <div className='name'>{level7Character.name}</div>
+        <div id={formatText(level7Character.name)} className='name'>{level7Character.name}</div>
       </div>
     </div>
   )

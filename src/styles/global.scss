@@ -97,6 +97,10 @@ button,
   overflow-y: hidden;
 }
 
+.label-hidden {
+  display: none;
+}
+
 @import "../components/Header/Header.scss";
 @import "../components/Header/ThemeSelector.scss";
 @import "../components/Header/Navigation.scss";

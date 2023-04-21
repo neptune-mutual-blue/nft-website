@@ -143,7 +143,8 @@
     }
 
     .more.details {
-      h3 {
+      h3,
+      h2 {
         @include styles.display-xs;
         @include weights.bold;
 
@@ -154,7 +155,7 @@
       }
 
       .description {
-        h3 {
+        h2 {
           margin-bottom: 5px;
         }
 

@@ -61,7 +61,7 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
                 />
               )}
               <NftNickname nft={nftDetails} />
-              <div className='character name'>{nftDetails.name}</div>
+              <h1 className='character name'>{nftDetails.name}</h1>
               <NftSiblingsAndStage nft={nftDetails} />
               <div className='minting btn'>
                 <CustomTooltip text='Connect Your Wallet' disabled={active}>
@@ -84,7 +84,7 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
           </div>
           <div className='more details'>
             <div className='description'>
-              <h3>Description</h3>
+              <h2>Description</h2>
               <div className='text'>{nftDetails.description}</div>
             </div>
 

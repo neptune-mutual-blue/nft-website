@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { abbreviateNumber } from '@/utils/abbreviate-number'
+import { formatText } from '@/utils/helpers'
 import { getMarketplaceFiltersHref } from '@/utils/nft'
 
 const MostViewedNfts = ({ mostViewedNfts }) => {
@@ -15,10 +16,10 @@ const MostViewedNfts = ({ mostViewedNfts }) => {
           <Link key={character.name} href={getMarketplaceFiltersHref(character)}>
             <div className='character details'>
               <div>
-                <img src={character.thumbnail} alt={character.name} />
+                <img src={character.thumbnail} aria-labelledby={formatText(character.name)} alt='' />
               </div>
               <div>
-                <div className='character name'>{character.name}</div>
+                <div id={formatText(character.name)} className='character name'>{character.name}</div>
                 <div className='character description'>{character.description}</div>
                 <div className='character viewed'>
                   Viewed{' '}
