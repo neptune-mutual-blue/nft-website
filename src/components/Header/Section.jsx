@@ -19,7 +19,6 @@ const Section = ({ section }) => {
                 href={normalizeUrl(link.href)}
                 target='_blank'
                 rel='noreferrer'
-                data-include-theme={link.includeTheme ? true : undefined}
               >
                 {link.icon && <Icon size='md' variant={link.icon} />}
                 <div>

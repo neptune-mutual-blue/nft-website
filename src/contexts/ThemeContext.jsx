@@ -7,6 +7,8 @@ import {
 
 import { useRouter } from 'next/router'
 
+const themeableDomains = ['https://neptunemutual.com', 'https://explorer.neptunemutual.net', 'https://nft.neptunemutual.com']
+
 const getTheme = () => {
   if (typeof window === 'undefined') {
     return
@@ -74,13 +76,17 @@ export function ThemeProvider ({ children }) {
   useEffect(() => {
     const theme = localStorage.getItem('theme')
 
-    const linksWithThemes = document.querySelectorAll('a[data-include-theme]')
+    const linksWithThemes = document.querySelectorAll('a')
 
     linksWithThemes.forEach(link => {
-      if (link.href.includes('?theme=')) {
-        link.href = link.href.replace(/\?theme=[dark|light]+/g, '') + '?theme=' + theme
-      } else {
-        link.href = link.href + '?theme=' + theme
+      const checkThemeable = themeableDomains.some(domain => link.href.includes(domain))
+
+      if (checkThemeable) {
+        if (link.href.includes('?theme=')) {
+          link.href = link.href.replace(/\?theme=[dark|light]+/g, '') + '?theme=' + theme
+        } else {
+          link.href = link.href + '?theme=' + theme
+        }
       }
     })
   }, [dark, router.pathname])

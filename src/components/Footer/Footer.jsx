@@ -1,9 +1,6 @@
-import { useContext } from 'react'
-
 import Link from 'next/link'
 
 import { AppConstants } from '@/constants/AppConstants'
-import { ThemeContext } from '@/contexts/ThemeContext'
 import { Icon } from '@/elements/Icon'
 
 import NpmDarkLogo from '../../elements/npm/npm-logo-dark-mode.svg?raw'
@@ -14,13 +11,11 @@ import { getFooterData } from './data'
 const { lists, socials } = getFooterData()
 
 const Footer = () => {
-  const themeContext = useContext(ThemeContext)
-
   return (
     <footer>
       <div className='inner container'>
         <div className='nav container'>
-          <a className='logo' href={AppConstants.neptunemutualOrigin + '/?theme=' + (themeContext.dark ? 'dark' : 'light')}>
+          <a className='logo' href={AppConstants.neptunemutualOrigin}>
             <span className='sr-only'>Neptune Mutual</span>
             <span className='light only'><NpmLightLogo /></span>
             <span className='dark only'><NpmDarkLogo /></span>
@@ -43,7 +38,6 @@ const Footer = () => {
                               }
                                 target='_blank'
                                 rel='noreferrer'
-                                data-include-theme={link.includeTheme ? true : null}
                               >
                                 {link.text}
                               </a>

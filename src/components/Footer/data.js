@@ -55,17 +55,40 @@ const getFooterData = () => {
         {
           href: `${npmURL}/marketplace`,
           text: 'Marketplace',
-          includeTheme: true,
           isExternal: true,
           badge: 'New!',
           badgeColor: 'success'
         },
-        { href: 'https://community.neptunemutual.com/', text: 'Community Forums', isExternal: true },
-        { href: `${npmURL}/blog/`, text: 'Blog', includeTheme: true, isExternal: true },
-        { href: `${npmURL}/pressroom/`, text: 'Press Room', includeTheme: true, isExternal: true },
-        { href: `${npmURL}/ecosystem/`, text: 'Ecosystem', includeTheme: true, isExternal: true },
-        { href: `${npmURL}/docs/`, text: 'Documentation', includeTheme: true, isExternal: true },
-        { href: `${npmURL}/web3-tools/`, text: 'Web3 Tools', includeTheme: true, isExternal: true },
+        {
+          href: 'https://community.neptunemutual.com/',
+          text: 'Community Forums',
+          isExternal: true
+        },
+        {
+          href: `${npmURL}/blog/`,
+          text: 'Blog',
+          isExternal: true
+        },
+        {
+          href: `${npmURL}/pressroom/`,
+          text: 'Press Room',
+          isExternal: true
+        },
+        {
+          href: `${npmURL}/ecosystem/`,
+          text: 'Ecosystem',
+          isExternal: true
+        },
+        {
+          href: `${npmURL}/docs/`,
+          text: 'Documentation',
+          isExternal: true
+        },
+        {
+          href: `${npmURL}/web3-tools/`,
+          text: 'Web3 Tools',
+          isExternal: true
+        },
         {
           href: '/',
           text: 'NFT Portal',
@@ -76,22 +99,32 @@ const getFooterData = () => {
     {
       title: 'Company',
       links: [
-        { href: `${npmURL}/about/`, text: 'About us', includeTheme: true, isExternal: true },
+        {
+          href: `${npmURL}/about/`,
+          text: 'About us',
+          isExternal: true
+        },
         {
           href: `${npmURL}/grants-and-bounties/`,
           text: 'Grants and Bounties',
-          includeTheme: true,
           isExternal: true
         },
         {
           href: `${npmURL}/careers/`,
           text: 'Careers',
-          includeTheme: true,
           isExternal: true,
           badge: "We're Hiring!"
         },
-        { href: `${npmURL}/security/`, text: 'Security', includeTheme: true, isExternal: true },
-        { href: `${npmURL}/contact/`, text: 'Contact', includeTheme: true, isExternal: true }
+        {
+          href: `${npmURL}/security/`,
+          text: 'Security',
+          isExternal: true
+        },
+        {
+          href: `${npmURL}/contact/`,
+          text: 'Contact',
+          isExternal: true
+        }
       ]
     },
     {
@@ -100,25 +133,21 @@ const getFooterData = () => {
         {
           href: `${npmURL}/policies/risk-factors/`,
           text: 'Risk Factors',
-          includeTheme: true,
           isExternal: true
         },
         {
           href: `${npmURL}/policies/terms-of-use/`,
           text: 'Terms of Use',
-          includeTheme: true,
           isExternal: true
         },
         {
           href: `${npmURL}/policies/privacy-policy/`,
           text: 'Privacy Policy',
-          includeTheme: true,
           isExternal: true
         },
         {
           href: `${npmURL}/policies/standard-terms-and-conditions/`,
           text: 'Standard Terms and Conditions',
-          includeTheme: true,
           isExternal: true
         }
       ]

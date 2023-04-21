@@ -1,12 +1,9 @@
-import { useContext } from 'react'
-
 import HamburgerButton from '@/components/Header/HamburgerButton'
 import Navigation from '@/components/Header/Navigation'
 import SubMenu from '@/components/Header/SubMenu'
 import { ThemeSelector } from '@/components/Header/ThemeSelector'
 import VideoModal from '@/components/VideoModal'
 import { AppConstants } from '@/constants/AppConstants'
-import { ThemeContext } from '@/contexts/ThemeContext'
 import { data } from '@/utils/nav'
 
 import NpmDarkLogo from '../../elements/npm/npm-logo-dark-mode.svg'
@@ -18,15 +15,13 @@ const Header = ({ headerStyle, videos }) => {
     thumbnail: { ...video.thumbnail, url: '' }
   }))
 
-  const { dark } = useContext(ThemeContext)
-
   return (
     <>
       <VideoModal />
       <header data-style={headerStyle}>
         <div className='inner container'>
           <div className='logo and rest'>
-            <a className='logo' href={AppConstants.neptunemutualOrigin + '/?theme=' + (dark ? 'dark' : 'light')}>
+            <a className='logo' href={AppConstants.neptunemutualOrigin}>
               <span className='sr-only'>Neptune Mutual</span>
               <span className='light only'><NpmLightLogo /></span>
               <span className='dark only'><NpmDarkLogo /></span>

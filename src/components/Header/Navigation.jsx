@@ -2,12 +2,11 @@ import { Icon } from '@/elements/Icon'
 import { normalizeUrl } from '@/utils/url'
 
 const Navigation = ({ data }) => {
-  // const themeContext = useContext(ThemeContext)
   return (
     <nav>
       <ul>
         {
-      data.map(({ title, href, includeTheme }) => {
+      data.map(({ title, href }) => {
         return href
           ? (
             <li key={title}>
@@ -17,7 +16,6 @@ const Navigation = ({ data }) => {
               }
                 target='_blank'
                 rel='noreferrer'
-                data-include-theme={includeTheme ? true : null}
               >
                 {title}
               </a>
