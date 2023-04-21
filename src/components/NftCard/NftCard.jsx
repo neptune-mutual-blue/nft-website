@@ -1,18 +1,17 @@
 import Link from 'next/link'
 
 import { Icon } from '@/elements/Icon'
-import { formatText } from '@/utils/helpers'
 
 const NftCard = ({ name, views, count, nftId, image }) => {
   return (
     <Link className='nft card container' href={`/marketplace/${nftId}`}>
       <div className='image container'>
-        <img src={image} loading='lazy' aria-labelledby={formatText(name)} alt='' />
+        <img src={image} loading='lazy' aria-labelledby={nftId} alt='' />
       </div>
 
       <div className='contents'>
         <div className='title container'>
-          <h3 id={formatText(name)}>{name}</h3>
+          <h3 id={nftId}>{name}</h3>
         </div>
 
         <div className='info container'>

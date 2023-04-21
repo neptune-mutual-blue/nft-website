@@ -71,7 +71,7 @@ const MintingLevels = ({ mintingLevels }) => {
       <div className='merging box' />
       <div className='final card'>
         <div className='img wrapper'>
-          <img src={level7Character.thumbnail} aria-labelledby={formatText(level7Character.name)} alt='' srcSet='' />
+          <img src={level7Character.thumbnail} aria-labelledby={formatText(level7Character.name)} alt='' />
           <div className='siblings'>
             {level7Character.siblings}
           </div>
