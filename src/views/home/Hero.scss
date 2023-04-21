@@ -117,11 +117,7 @@
 
   .image.container {
     .full.width.container {
-      padding-top: 52px;
-
-      @media (max-width: 1024px) {
-        padding-top: 48px;
-      }
+      padding: 0;
     }
   }
 }

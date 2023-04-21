@@ -26,6 +26,7 @@ const paths = {
   minus: import('./variants/General/minus.svg?raw'),
   check: import('./variants/General/check.svg?raw'),
   x: import('./variants/General/x.svg?raw'),
+  clapperboard: import('./variants/General/clapperboard.svg?raw'),
 
   // Arrow Icons
   'arrow-left': import('./variants/Arrows/arrow-left.svg?raw'),

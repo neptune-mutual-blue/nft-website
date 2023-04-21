@@ -1,3 +1,7 @@
+import { AppConstants } from '@/constants/AppConstants'
+
+const npmURL = AppConstants.neptunemutualOrigin
+
 const socials = [
   {
     icon: 'twitter',
@@ -49,63 +53,100 @@ const getFooterData = () => {
       title: 'Resources',
       links: [
         {
-          href: '/marketplace',
+          href: `${npmURL}/marketplace`,
           text: 'Marketplace',
           isExternal: true,
           badge: 'New!',
           badgeColor: 'success'
         },
-        { href: '/blog/', text: 'Blog', isExternal: true },
-        { href: '/pressroom/', text: 'Press Room', isExternal: true },
-        { href: '/ecosystem/', text: 'Ecosystem', isExternal: true },
-        { href: '/docs/', text: 'Documentation', isExternal: true },
-        { href: '/web3-tools/', text: 'Web3 Tools', isExternal: true },
         {
-          href: '/hack-database/',
-          text: 'Blockchain Hack Database',
+          href: 'https://community.neptunemutual.com/',
+          text: 'Community Forums',
           isExternal: true
+        },
+        {
+          href: `${npmURL}/blog/`,
+          text: 'Blog',
+          isExternal: true
+        },
+        {
+          href: `${npmURL}/pressroom/`,
+          text: 'Press Room',
+          isExternal: true
+        },
+        {
+          href: `${npmURL}/ecosystem/`,
+          text: 'Ecosystem',
+          isExternal: true
+        },
+        {
+          href: `${npmURL}/docs/`,
+          text: 'Documentation',
+          isExternal: true
+        },
+        {
+          href: `${npmURL}/web3-tools/`,
+          text: 'Web3 Tools',
+          isExternal: true
+        },
+        {
+          href: '/',
+          text: 'NFT Portal',
+          isExternal: false
         }
       ]
     },
     {
       title: 'Company',
       links: [
-        { href: '/about/', text: 'About us', isExternal: true },
         {
-          href: '/grants-and-bounties/',
+          href: `${npmURL}/about/`,
+          text: 'About us',
+          isExternal: true
+        },
+        {
+          href: `${npmURL}/grants-and-bounties/`,
           text: 'Grants and Bounties',
           isExternal: true
         },
         {
-          href: '/careers/',
+          href: `${npmURL}/careers/`,
           text: 'Careers',
           isExternal: true,
           badge: "We're Hiring!"
         },
-        { href: '/security/', text: 'Security', isExternal: true },
-        { href: '/contact/', text: 'Contact', isExternal: true }
+        {
+          href: `${npmURL}/security/`,
+          text: 'Security',
+          isExternal: true
+        },
+        {
+          href: `${npmURL}/contact/`,
+          text: 'Contact',
+          isExternal: true
+        }
       ]
     },
     {
       title: 'Policies',
       links: [
         {
-          href: '/policies/risk-factors/',
+          href: `${npmURL}/policies/risk-factors/`,
           text: 'Risk Factors',
           isExternal: true
         },
         {
-          href: '/policies/terms-of-use/',
+          href: `${npmURL}/policies/terms-of-use/`,
           text: 'Terms of Use',
           isExternal: true
         },
         {
-          href: '/policies/privacy-policy/',
+          href: `${npmURL}/policies/privacy-policy/`,
           text: 'Privacy Policy',
           isExternal: true
         },
         {
-          href: '/policies/standard-terms-and-conditions/',
+          href: `${npmURL}/policies/standard-terms-and-conditions/`,
           text: 'Standard Terms and Conditions',
           isExternal: true
         }

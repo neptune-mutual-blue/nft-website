@@ -1,12 +1,7 @@
-import { useContext } from 'react'
-
-import { AppConstants } from '@/constants/AppConstants'
-import { ThemeContext } from '@/contexts/ThemeContext'
 import { Icon } from '@/elements/Icon'
 import { normalizeUrl } from '@/utils/url'
 
 const Navigation = ({ data }) => {
-  const themeContext = useContext(ThemeContext)
   return (
     <nav>
       <ul>
@@ -17,9 +12,9 @@ const Navigation = ({ data }) => {
             <li key={title}>
               <a
                 href={
-                AppConstants.neptunemutualOrigin +
-                normalizeUrl(href) + '?theme=' + (themeContext.dark ? 'dark' : 'light')
+                normalizeUrl(href)
               }
+                target='_blank'
                 rel='noreferrer'
               >
                 {title}

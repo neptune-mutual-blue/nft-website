@@ -89,14 +89,6 @@ const MintNftPage = ({ nftDetails, premiumNfts, mintingLevels, videos }) => {
     if (account) fetchMilestones()
   }, [account])
 
-  useEffect(() => {
-    if (!account) {
-      document.querySelector('body').style.overflow = 'hidden'
-    } else {
-      document.querySelector('body').style.overflow = 'auto'
-    }
-  }, [account])
-
   if (!nftDetails) {
     return <></>
   }
