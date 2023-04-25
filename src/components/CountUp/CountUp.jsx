@@ -5,6 +5,7 @@ import {
   useState
 } from 'react'
 
+import { localizeValue } from '@/utils/currencyHelpers'
 import { linspace } from '@/utils/linspace'
 
 const getReadableCounterValue = ({ localized, val, number }) => {
@@ -13,7 +14,7 @@ const getReadableCounterValue = ({ localized, val, number }) => {
   const value = val < number ? isTargetInteger ? Math.floor(val) : val.toFixed(2) : val
 
   if (localized) {
-    return parseFloat(value).toLocaleString('en-US')
+    return localizeValue(value)
   } else {
     return value
   }
@@ -62,7 +63,7 @@ const CountUp = ({ number, symbol, prefix = false, localized = false }) => {
   const counterValue = getReadableCounterValue({ localized, val, number })
 
   if (number <= 0) {
-    return <span ref={countRef}>{prefix && symbol}{localized ? number.toLocaleString('en-US') : number}{!prefix && symbol}</span>
+    return <span ref={countRef}>{prefix && symbol}{localized ? localizeValue(number) : number}{!prefix && symbol}</span>
   }
 
   return (

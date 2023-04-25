@@ -63,7 +63,10 @@ const abbreviateNumber = (input) => {
 
   return {
     abbreviation: `${sign}${result}`,
-    symbol
+    short: `${sign}${result}${symbol}`,
+    long: number.toLocaleString('en-US', { maximumFractionDigits: 2 }),
+    symbol,
+    result
   }
 }
 
@@ -101,6 +104,8 @@ const formatToken = (
   }
 }
 
+const localizeValue = (value) => (typeof value !== 'number' ? parseFloat(value) : value).toLocaleString(AppConstants.PREFERRED_LOCALE)
+
 const formatNpmToken = (
   amount,
   decimals = AppConstants.NPM_TOKEN_DECIMALS,
@@ -117,4 +122,11 @@ const formatDollar = (
   amount
 ) => formatTokenLong(amount, 'USD', false, 2)
 
-export { formatDollar, formatLiquidityToken, formatNpmToken, weiToToken }
+export {
+  abbreviateNumber,
+  formatDollar,
+  formatLiquidityToken,
+  formatNpmToken,
+  localizeValue,
+  weiToToken
+}
