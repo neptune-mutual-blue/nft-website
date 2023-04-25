@@ -1,10 +1,11 @@
 /* eslint-disable no-prototype-builtins */
 // Forked from: https://github.com/Uniswap/web3-react/blob/v6/packages/injected-connector/src/index.ts
 
-import { AbstractConnector } from '@web3-react/abstract-connector'
 import warning from 'tiny-warning'
 
-const getCoinbaseWalletProvider = () => {
+import { AbstractConnector } from '@web3-react/abstract-connector'
+
+export const getCoinbaseWalletProvider = () => {
   if (typeof window === 'undefined' || !window || !window.ethereum) {
     return undefined
   }

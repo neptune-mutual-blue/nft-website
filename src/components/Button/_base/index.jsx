@@ -9,7 +9,7 @@ const VanillaButton = (props) => {
 
   return (
     <UntypedElement {...props}>
-      {iconLeading && <Icon variant={iconLeading} />}
+      {iconLeading && <Icon variant={iconVariant} />}
 
       <span
         className={`content${icon === 'only' ? ' hidden' : ''}`}
@@ -18,11 +18,9 @@ const VanillaButton = (props) => {
         {children}
       </span>
 
-      {
-      (iconTrailing || iconVariant) && (
-        <Icon variant={iconTrailing || iconVariant} />
-      )
-    }
+      {iconTrailing && (
+        <Icon variant={iconVariant} />
+      )}
     </UntypedElement>
   )
 }
