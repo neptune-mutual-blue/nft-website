@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { abbreviateNumber } from '@/utils/abbreviate-number'
+import { abbreviateNumber } from '@/utils/currencyHelpers'
 import { formatText } from '@/utils/helpers'
 import { getMarketplaceFiltersHref } from '@/utils/nft'
 
@@ -24,7 +24,7 @@ const MostViewedNfts = ({ mostViewedNfts }) => {
                 <div className='character viewed'>
                   Viewed{' '}
                   <span data-tooltip={views.long} data-flow='left'>
-                    {views.result}{views.symbol}
+                    {views.short}
                   </span>{' '}
                   times
                 </div>
