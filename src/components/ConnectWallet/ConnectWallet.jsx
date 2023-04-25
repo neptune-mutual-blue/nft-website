@@ -6,11 +6,11 @@ import {
 
 import { ConnectedDropdown } from '@/components/ConnectWallet/ConnectedDropdown'
 import { Modal } from '@/components/Modal/Modal'
+import { ThemeContext } from '@/contexts/ThemeContext'
 import { Icon } from '@/elements/Icon'
 import { wallets } from '@/lib/connect-wallet/config/wallets'
 import useAuth from '@/lib/connect-wallet/hooks/useAuth'
 import { useWeb3React } from '@web3-react/core'
-import { ThemeContext } from '@/contexts/ThemeContext'
 
 const { Button } = require('@/components/Button/Button')
 
@@ -59,7 +59,7 @@ const ConnectWallet = () => {
         }
         visible={popupOpen} setVisible={setPopupOpen}
         trigger={
-          <Button onClick={handleWalletButtonClick} size='md'>Connect Wallet</Button>
+          <Button onClick={handleWalletButtonClick} iconVariant='wallet-04' iconLeading size='md'>Connect Wallet</Button>
     }
         description={
           <>By connecting a wallet, you agree to Neptune Mutual <a target='_blank' href={'https://neptunemutual.com/policies/standard-terms-and-conditions/?theme=' + (dark ? 'dark' : 'light')}>Terms & Conditions</a> and acknowledge that you have read and understand the Neptune Mutual <a target='_blank' href={'https://neptunemutual.com/docs/usage/disclaimer/?theme=' + (dark ? 'dark' : 'light')}>Protocol Disclaimer</a>.</>
@@ -67,13 +67,27 @@ const ConnectWallet = () => {
         className='connect wallet modal'
         cross
       >
-        {wallets.map(wallet => (
-          <Button key={wallet.id} variant='secondary-gray' size='lg' onClick={() => onConnect(wallet.id)} disabled={isConnecting}>
-            <span className='light only'><Icon variant={wallet.iconVariant} size='sm' /></span>
-            <span className='dark only'><Icon variant={wallet.iconVariantDark} size='sm' /></span>
-            Open {wallet.name}
-          </Button>
-        ))}
+        {wallets.map(wallet => wallet.isAvailable() || !wallet.downloadURL
+          ? (
+            <Button key={wallet.id} variant='secondary-gray' size='lg' onClick={() => onConnect(wallet.id)} disabled={isConnecting}>
+              <span className='light only'><Icon variant={wallet.iconVariant} size='sm' /></span>
+              <span className='dark only'><Icon variant={wallet.iconVariantDark} size='sm' /></span>
+              Open {wallet.name}
+            </Button>
+            )
+          : (
+            <a
+              key={wallet.id} href={wallet.downloadURL()}
+              target='_blank'
+              rel='noreferrer noopener nofollow'
+            >
+              <Button key={wallet.id} variant='secondary-gray' size='lg' disabled={isConnecting}>
+                <span className='light only'><Icon variant={wallet.iconVariant} size='sm' /></span>
+                <span className='dark only'><Icon variant={wallet.iconVariantDark} size='sm' /></span>
+                Install {wallet.name}
+              </Button>
+            </a>
+            ))}
       </Modal>
 
       )
