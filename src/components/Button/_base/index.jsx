@@ -3,13 +3,13 @@ const { BaseButton } = require('@/components/Button/_base/_button')
 const { Icon } = require('@/elements/Icon')
 
 const VanillaButton = (props) => {
-  const { type, icon, iconOnlyMobile, iconVariant, iconLeading, iconTrailing, children } = props
+  const { type, icon, iconOnlyMobile, iconLeading, iconTrailing, children } = props
 
   const UntypedElement = type === 'anchor' ? AnchorButton : BaseButton
 
   return (
     <UntypedElement {...props}>
-      {iconLeading && <Icon variant={iconVariant} />}
+      {iconLeading && <Icon variant={iconLeading} />}
 
       <span
         className={`content${icon === 'only' ? ' hidden' : ''}`}
@@ -19,7 +19,7 @@ const VanillaButton = (props) => {
       </span>
 
       {iconTrailing && (
-        <Icon variant={iconVariant} />
+        <Icon variant={iconTrailing} />
       )}
     </UntypedElement>
   )
