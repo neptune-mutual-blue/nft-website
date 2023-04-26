@@ -14,7 +14,7 @@
   background-color: colors.$white;
   border-radius: 16px;
   border: 1px solid colors.$gray-300;
-  padding: 32px;
+  padding: 24px;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -32,6 +32,18 @@
     .title {
       @include styles.text-lg;
       @include weights.semibold;
+    }
+
+    .IconButton {
+      svg {
+        height: 24px;
+        width: 24px;
+        color: colors.$gray-500;
+
+        .dark & {
+          color: colors.$base-white;
+        }
+      }
     }
   }
 }
