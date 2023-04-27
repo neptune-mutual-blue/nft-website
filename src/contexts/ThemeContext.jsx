@@ -81,7 +81,7 @@ export function ThemeProvider ({ children }) {
     linksWithThemes.forEach(link => {
       const checkThemeable = themeableDomains.some(domain => link.href.includes(domain))
 
-      if (checkThemeable && !link.href.includes(themeableDomains[0])) {
+      if (checkThemeable && !link.href.includes(themeableDomains['https://nft.neptunemutual.com'])) {
         if (link.href.includes('?theme=')) {
           link.href = link.href.replace(/\?theme=[dark|light|null]+/g, '') + '?theme=' + theme
         } else {
