@@ -1,4 +1,5 @@
 @use "../../design-system/colors";
+@use "../../design-system/typography/styles";
 
 .connect.wallet.modal {
   width: 397px;
@@ -13,7 +14,12 @@
     width: max-content;
     border-radius: 50%;
     box-shadow: 0 0 0 8px colors.$primary-50;
-    margin-bottom: 12px;
+    margin-bottom: 22px;
+
+    svg {
+      height: 24px;
+      width: 24px;
+    }
 
     .dark & {
       color: colors.$white;
@@ -24,14 +30,24 @@
 
   .DialogDescription {
     margin-top: 4px;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
+    color: colors.$gray-600;
+    @include styles.text-sm;
+
+    .dark & {
+      color: colors.$gray-25;
+    }
 
     a {
-      color: colors.$indigo-600;
+      color: colors.$gray-600;
       text-decoration: underline;
 
       .dark & {
-        color: colors.$indigo-400;
+        color: colors.$gray-25;
+      }
+
+      &:hover {
+        color: colors.$primary-600;
       }
     }
   }
@@ -39,12 +55,26 @@
   .ui.secondary.gray.button {
     width: 100%;
     margin-top: 12px;
-    justify-content: flex-start;
+    justify-content: center;
+
+    &:disabled {
+      opacity: 0.5;
+    }
+
+    .dark & {
+      background-color: colors.$black-800;
+      border-color: colors.$gray-800;
+      color: colors.$base-white;
+    }
 
     .content {
       display: flex;
       align-items: center;
       gap: 8px;
+
+      .dark & {
+        color: colors.$gray-25;
+      }
     }
 
     .light.only {

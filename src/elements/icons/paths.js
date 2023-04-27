@@ -146,6 +146,7 @@ const paths = {
   'gnosis-wallet': import('./custom/Brands/default/SvgGnosisWallet.svg?raw'),
   'wallet-connect': import('./custom/Brands/default/SvgWalletConnect.svg?raw'),
   'metamask-dark': import('./custom/Brands/dark/SvgMetamaskDark.svg?raw'),
+  'coinbase-dark': import('./custom/Brands/dark/SvgCoinbaseDark.svg?raw'),
   'okx-wallet-dark': import('./custom/Brands/dark/SvgOkxWalletDark.svg?raw'),
   'gnosis-wallet-dark': import(
     './custom/Brands/dark/SvgGnosisWalletDark.svg?raw'
