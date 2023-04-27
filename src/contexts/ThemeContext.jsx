@@ -83,7 +83,7 @@ export function ThemeProvider ({ children }) {
 
       if (checkThemeable && !link.href.includes(themeableDomains[0])) {
         if (link.href.includes('?theme=')) {
-          link.href = link.href.replace(/\?theme=[dark|light]+/g, '') + '?theme=' + theme
+          link.href = link.href.replace(/\?theme=[dark|light|null]+/g, '') + '?theme=' + theme
         } else {
           link.href = link.href + '?theme=' + theme
         }
