@@ -71,7 +71,7 @@ const mintingLevels = async () => {
 }
 
 const mintingLevelsMilestone = async (address) => {
-  const response = await fetch(origin + '/minting-levels/milestones/' + address)
+  const response = await fetch(origin + '/minting-levels/milestones/' + address.toLowerCase())
 
   const data = await response.json()
 

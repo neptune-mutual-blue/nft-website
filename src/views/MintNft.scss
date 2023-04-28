@@ -23,12 +23,15 @@
     }
 
     .ui.primary.button {
-      width: 140px;
+      @media (max-width: 575px) {
+        width: 100%;
+      }
     }
   }
 
   .content.inset {
-    margin: 58px 0;
+    margin-top: 58px;
+    margin-bottom: 96px;
 
     &[data-connect="false"] {
       position: relative;
@@ -203,7 +206,7 @@
     }
   }
   .explore.minting.collection {
-    margin-bottom: 96px;
+    margin-top: 58px;
     h3 {
       @include styles.display-sm;
       @include weights.bold;
