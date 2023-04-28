@@ -1,13 +1,22 @@
+import {
+  createRef,
+  useCallback,
+  useEffect,
+  useState
+} from 'react'
+
+import { useHotkeys } from 'react-hotkeys-hook'
+
 import { IconButton } from '@/components/IconButton/IconButton'
 import { Tags } from '@/components/Tags/Tags'
 import { Icon } from '@/elements/Icon'
 import { useOnClickOutside } from '@/hooks/useOnOutsideClick'
 import useAuth from '@/lib/connect-wallet/hooks/useAuth'
+import { NftApi } from '@/service/nft-api'
 import { abbreviateAccount } from '@/utils/abbreviate-account'
 import { copyToClipboard } from '@/utils/copy-to-clipboard'
+import { formatDollar } from '@/utils/currencyHelpers'
 import { useWeb3React } from '@web3-react/core'
-import { createRef, useState } from 'react'
-import { useHotkeys } from 'react-hotkeys-hook'
 
 const ConnectedDropdown = () => {
   const [open, setOpen] = useState(false)
@@ -26,6 +35,25 @@ const ConnectedDropdown = () => {
       logout()
     }
   }, [open])
+
+  const [milestones, setMilestones] = useState({ totalPolicyPurchased: '0', totalLiquidityAdded: '0' })
+
+  const getMilestones = useCallback(async () => {
+    if (!account) return
+
+    try {
+      const response = await NftApi.mintingLevelsMilestone(account)
+      if ((response.data ?? []).length > 0) {
+        setMilestones(response.data[0])
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }, [account])
+
+  useEffect(() => {
+    getMilestones()
+  }, [getMilestones])
 
   return (
     <div className='wallet connected dropdown' ref={ref}>
@@ -78,12 +106,12 @@ const ConnectedDropdown = () => {
 
         <div className='info'>
           <div className='key'>Purchase Policy</div>
-          <div>$3,451.00</div>
+          <div>{formatDollar(milestones.totalPolicyPurchased)}</div>
         </div>
 
         <div className='info'>
           <div className='key'>Added Liquidity</div>
-          <div>$2,300.00</div>
+          <div>{formatDollar(milestones.totalLiquidityAdded)}</div>
         </div>
 
         <button
