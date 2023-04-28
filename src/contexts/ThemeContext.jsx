@@ -7,7 +7,11 @@ import {
 
 import { useRouter } from 'next/router'
 
-const themeableDomains = ['https://nft.neptunemutual.com', 'https://neptunemutual.com', 'https://explorer.neptunemutual.net']
+const themeableDomains = {
+  nft: 'https://nft.neptunemutual.com',
+  npm: 'https://neptunemutual.com',
+  explorer: 'https://explorer.neptunemutual.net'
+}
 
 const getTheme = () => {
   if (typeof window === 'undefined') {
@@ -79,9 +83,9 @@ export function ThemeProvider ({ children }) {
     const linksWithThemes = document.querySelectorAll('a')
 
     linksWithThemes.forEach(link => {
-      const checkThemeable = themeableDomains.some(domain => link.href.includes(domain))
+      const checkThemeable = Object.values(themeableDomains).some(domain => link.href.includes(domain))
 
-      if (checkThemeable && !link.href.includes(themeableDomains['https://nft.neptunemutual.com'])) {
+      if (checkThemeable && !link.href.includes(themeableDomains.nft)) {
         if (link.href.includes('?theme=')) {
           link.href = link.href.replace(/\?theme=[dark|light|null]+/g, '') + '?theme=' + theme
         } else {
