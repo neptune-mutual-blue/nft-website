@@ -7,7 +7,48 @@ import {
 
 import { useRouter } from 'next/router'
 
-const themeableDomains = ['https://nft.neptunemutual.com', 'https://neptunemutual.com', 'https://explorer.neptunemutual.net']
+const getValidThemeValue = (value) => {
+  if (['dark', 'light'].includes(value)) {
+    return value
+  }
+
+  return undefined
+}
+
+const isValidUrl = (href) => {
+  try {
+    // eslint-disable-next-line no-new
+    new URL(href) // Throws error for relative urls
+    return true
+  } catch (error) { }
+  return false
+}
+
+const supportsTheme = (href) => {
+  if (!isValidUrl(href)) {
+    return false
+  }
+
+  const hostsWithSameHeader = ['nft.neptunemutual.com', 'neptunemutual.com', 'explorer.neptunemutual.net']
+
+  const url = new URL(href)
+
+  if (!hostsWithSameHeader.includes(url.host)) {
+    return false
+  }
+
+  return true
+}
+
+const addTheme = (href, theme) => {
+  if (!supportsTheme(href) || !theme) {
+    return href
+  }
+
+  const url = new URL(href)
+  url.searchParams.set('theme', theme)
+  return url.href
+}
 
 const getTheme = () => {
   if (typeof window === 'undefined') {
@@ -15,20 +56,18 @@ const getTheme = () => {
   }
 
   // Look for URL search param `theme` for first source of truth
-  const urlSearch = window.location.search
+  const url = new URL(window.location)
 
-  if (urlSearch) {
-    const params = new URLSearchParams(urlSearch.slice(1))
+  const themeFromURL = getValidThemeValue(url.searchParams.get('theme'))
 
-    if (params.has('theme') && ['dark', 'light'].includes(params.get('theme'))) {
-      return params.get('theme')
-    }
+  if (themeFromURL) {
+    return themeFromURL
   }
 
-  const theme = window.localStorage.getItem('theme')
+  const themeFromLocalStorage = getValidThemeValue(window.localStorage.getItem('theme'))
 
-  if (theme) {
-    return theme
+  if (themeFromLocalStorage) {
+    return themeFromLocalStorage
   }
 
   const prefersDarkMode =
@@ -38,39 +77,37 @@ const getTheme = () => {
   return prefersDarkMode ? 'dark' : 'light'
 }
 
+const cleanUrl = () => {
+  console.log(window.location.href)
+  const url = new URL(window.location)
+  url.searchParams.delete('theme') // remove theme
+
+  console.log(url.href)
+  window.history.pushState({}, undefined, url)
+}
+
 const ThemeContext = createContext()
 
 export function ThemeProvider ({ children }) {
-  const [dark, setDark] = useState(false)
-
-  const router = useRouter()
-
+  const [dark, setDark] = useState(() => getTheme() === 'dark')
   const initial = useRef(true)
 
-  const setInitialTheme = () => {
-    setDark(getTheme() === 'dark')
-
-    // This doesn't account for theme being a middle parameter in the URL Search Param. Please use only as first or last param.
-    const search = window.location.search.replace(/&?theme=[dark|light]+&?/g, '').trim()
-
-    const newURL = window.location.pathname + (search.length <= 1 ? '' : search)
-
-    window.history.pushState({}, undefined, newURL)
-  }
+  const router = useRouter()
 
   useEffect(() => {
     if (initial.current) {
       initial.current = false
-      setInitialTheme()
-    } else {
-      localStorage.setItem('theme', dark ? 'dark' : 'light')
+      cleanUrl()
     }
 
     if (dark) {
+      localStorage.setItem('theme', 'dark')
       document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
+      return
     }
+
+    localStorage.setItem('theme', 'light')
+    document.documentElement.classList.remove('dark')
   }, [dark])
 
   useEffect(() => {
@@ -79,15 +116,7 @@ export function ThemeProvider ({ children }) {
     const linksWithThemes = document.querySelectorAll('a')
 
     linksWithThemes.forEach(link => {
-      const checkThemeable = themeableDomains.some(domain => link.href.includes(domain))
-
-      if (checkThemeable && !link.href.includes(themeableDomains[0])) {
-        if (link.href.includes('?theme=')) {
-          link.href = link.href.replace(/\?theme=[dark|light]+/g, '') + '?theme=' + theme
-        } else {
-          link.href = link.href + '?theme=' + theme
-        }
-      }
+      link.href = addTheme(link.href, getValidThemeValue(theme))
     })
   }, [dark, router.pathname])
 
