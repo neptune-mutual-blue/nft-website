@@ -78,11 +78,9 @@ const getTheme = () => {
 }
 
 const cleanUrl = () => {
-  console.log(window.location.href)
   const url = new URL(window.location)
   url.searchParams.delete('theme') // remove theme
 
-  console.log(url.href)
   window.history.pushState({}, undefined, url)
 }
 
