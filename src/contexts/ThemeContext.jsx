@@ -1,7 +1,6 @@
 import {
   createContext,
   useEffect,
-  useRef,
   useState
 } from 'react'
 
@@ -24,8 +23,14 @@ const isValidUrl = (href) => {
   return false
 }
 
+const isSameHost = (href) => {
+  const url = new URL(href)
+  const currentUrl = new URL(window.location)
+  return url.host === currentUrl.host
+}
+
 const supportsTheme = (href) => {
-  if (!isValidUrl(href)) {
+  if (!isValidUrl(href) || isSameHost(href)) {
     return false
   }
 
@@ -41,7 +46,7 @@ const supportsTheme = (href) => {
 }
 
 const addTheme = (href, theme) => {
-  if (!supportsTheme(href) || !theme) {
+  if (!theme) {
     return href
   }
 
@@ -87,17 +92,16 @@ const cleanUrl = () => {
 const ThemeContext = createContext()
 
 export function ThemeProvider ({ children }) {
-  const [dark, setDark] = useState(() => getTheme() === 'dark')
-  const initial = useRef(true)
+  const [dark, setDark] = useState(false)
 
   const router = useRouter()
 
   useEffect(() => {
-    if (initial.current) {
-      initial.current = false
-      cleanUrl()
-    }
+    setDark(getTheme() === 'dark')
+    cleanUrl()
+  }, [])
 
+  useEffect(() => {
     if (dark) {
       localStorage.setItem('theme', 'dark')
       document.documentElement.classList.add('dark')
@@ -114,7 +118,9 @@ export function ThemeProvider ({ children }) {
     const linksWithThemes = document.querySelectorAll('a')
 
     linksWithThemes.forEach(link => {
-      link.href = addTheme(link.href, getValidThemeValue(theme))
+      if (supportsTheme(link.href)) {
+        link.href = addTheme(link.href, getValidThemeValue(theme))
+      }
     })
   }, [dark, router.pathname])
 

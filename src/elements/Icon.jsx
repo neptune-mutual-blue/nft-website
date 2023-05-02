@@ -4,24 +4,17 @@ import { paths } from './icons/paths'
 const Icon = ({ variant, size }) => {
   const [component, setComponent] = useState(null)
 
-  const setHTML = async () => {
-    let html = null
-
-    if (variant !== undefined) {
-      html = await paths[variant].then((x) => x.default)
-
-      setComponent(html)
-    }
-  }
-
   useEffect(() => {
-    setHTML()
-    // eslint-disable-next-line
-  }, [])
+    if (variant && paths[variant]) {
+      paths[variant]
+        .then((x) => x.default)
+        .then(x => setComponent(x))
+    }
+  }, [variant])
 
   return (
     <i data-size={size}>
-      {component}
+      {component || null}
     </i>
   )
 }
