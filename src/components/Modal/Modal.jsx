@@ -2,12 +2,19 @@ import { Icon } from '@/elements/Icon'
 import * as Dialog from '@radix-ui/react-dialog'
 
 const Modal = (props) => {
-  const { cross, children, visible, setVisible, title, description, trigger, className } = props
+  const { cross, children, visible, setVisible, title, description, trigger, className, disableChildrenAsChild } = props
   return (
     <Dialog.Root open={visible} onOpenChange={setVisible}>
-      <Dialog.Trigger asChild>
-        {trigger}
-      </Dialog.Trigger>
+      {disableChildrenAsChild && (
+        <>
+          {trigger}
+        </>
+      )}
+      {!disableChildrenAsChild && (
+        <Dialog.Trigger asChild={!disableChildrenAsChild}>
+          {trigger}
+        </Dialog.Trigger>
+      )}
       <Dialog.Portal>
         <Dialog.Overlay className='DialogOverlay' />
         <Dialog.Content className={'DialogContent' + (className ? ' ' + className : '')}>

@@ -107,8 +107,9 @@
 
     .image.and.milestones {
       display: grid;
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: 400px 1fr;
       gap: 35px;
+      align-items: center;
 
       @media (min-width: 768px) and (max-width: 1024px) {
         grid-template-columns: 266px 1fr;
@@ -122,8 +123,8 @@
       }
 
       .button {
-        width: 100%;
-        margin-top: 16px;
+        width: 260px;
+        margin-top: 32px;
         margin-bottom: 8px;
 
         @media (max-width: 767px) {
@@ -134,7 +135,7 @@
       .supporting.text {
         @include styles.text-sm;
         color: colors.$gray-600;
-        text-align: center;
+        margin-bottom: 24px;
       }
 
       .image.expand.wrapper {
@@ -154,6 +155,33 @@
           @include styles.text-lg;
           @include weights.semibold;
           margin-bottom: 16px;
+
+          span {
+            color: colors.$indigo-600;
+          }
+        }
+
+        .next.level.requirements {
+          display: flex;
+          @include styles.text-sm;
+          @include weights.semibold;
+          color: colors.$indigo-600;
+          margin-top: 8px;
+          margin-bottom: 16px;
+        }
+
+        .label.and.value {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 4px;
+          margin-bottom: 8px;
+          @include styles.text-sm;
+          @include weights.regular;
+
+          .value {
+            @include weights.semibold;
+          }
         }
 
         .progress.info {
@@ -271,11 +299,16 @@
       }
 
       .milestones {
-        .progress.info {
-          .remaining {
-            color: colors.$primary-300;
+        h3 {
+          span {
+            color: colors.$indigo-300;
           }
         }
+
+        .next.level.requirements {
+          color: colors.$indigo-300;
+        }
+
         .like.and.share {
           border-color: colors.$gray-800;
         }

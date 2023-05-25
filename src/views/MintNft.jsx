@@ -1,6 +1,13 @@
+import {
+  useContext,
+  useState
+} from 'react'
+
 import AlertInfo from '@/components/Alert/AlertInfo'
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
+import { Button } from '@/components/Button/Button'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
+import { EvmErrorModal } from '@/components/EvmError/EvmErrorModal'
 import { LikeAndShare } from '@/components/LikeAndShare'
 import NftCardWithBlurEffect
   from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
@@ -9,16 +16,21 @@ import { NftNickname } from '@/components/NftNickname'
 import { NftSiblingsAndStage } from '@/components/NftSiblingsAndStage'
 import { Progress } from '@/components/Progress/Progress'
 import { Tags } from '@/components/Tags/Tags'
-import { CustomTooltip } from '@/components/Tooltip/Tooltip'
+import { ToastContext } from '@/components/Toast/Toast'
 import { mintingLevelRequirements } from '@/config/minting-levels'
-import { Icon } from '@/elements/Icon'
+import { AppConstants } from '@/constants/AppConstants'
+import {
+  ContractAbis,
+  ContractAddresses,
+  useContractCall
+} from '@/hooks/useContractCall'
 import { formatDollar } from '@/utils/currencyHelpers.js'
-import { formatPercent } from '@/utils/percent'
 import { MintingLevels } from '@/views/mint-nft/MintingLevels'
+import { MintSuccessModal } from '@/views/mint-nft/MintSuccessModal'
 import { Summary } from '@/views/mint-nft/Summary'
 import { useWeb3React } from '@web3-react/core'
 
-const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress }) => {
+const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, activePolicies }) => {
   const crumbs = [
     {
       link: '/',
@@ -40,49 +52,53 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress }) =>
 
   const { account } = useWeb3React()
 
-  const requirements = mintingLevelRequirements[nftDetails.level]
+  // const liquidityRemaining = parseFloat(nftDetails.level ? (requirements.liquidity - currentProgress.totalLiquidityAdded).toFixed(2) : 0)
+  // const policyPurchaseRemaining = parseFloat(nftDetails.level ? (requirements.policyPurchase - currentProgress.totalPolicyPurchased).toFixed(2) : 0)
 
-  const liquidityRemaining = parseFloat(nftDetails.level ? (requirements.liquidity - currentProgress.totalLiquidityAdded).toFixed(2) : 0)
-  const policyPurchaseRemaining = parseFloat(nftDetails.level ? (requirements.policyPurchase - currentProgress.totalPolicyPurchased).toFixed(2) : 0)
+  // const liquidityPercent = nftDetails.level ? currentProgress.totalLiquidityAdded > requirements.liquidity ? '100' : ((currentProgress.totalLiquidityAdded / requirements.liquidity) * 100).toFixed(2) : 0
+  // const policyPurchasePercent = nftDetails.level ? currentProgress.totalPolicyPurchased > requirements.policyPurchase ? '100' : ((currentProgress.totalPolicyPurchased / requirements.policyPurchase) * 100).toFixed(2) : 0
 
-  const liquidityPercent = nftDetails.level ? currentProgress.totalLiquidityAdded > requirements.liquidity ? '100' : ((currentProgress.totalLiquidityAdded / requirements.liquidity) * 100).toFixed(2) : 0
-  const policyPurchasePercent = nftDetails.level ? currentProgress.totalPolicyPurchased > requirements.policyPurchase ? '100' : ((currentProgress.totalPolicyPurchased / requirements.policyPurchase) * 100).toFixed(2) : 0
+  const points = currentProgress.totalLiquidityAdded * AppConstants.LIQUIDITY_POINTS_PER_DOLLAR + currentProgress.totalPolicyPurchased * AppConstants.POLICY_POINTS_PER_DOLLAR
+  const requirements = mintingLevelRequirements[!nftDetails.level ? 0 : nftDetails.level]
 
-  const buildProgress = ({ title, percent, remaining, required, current }) => (
-    <div className='progress info'>
-      <div className='title'>{title}</div>
-      <Progress percent={percent} />
-      <div>
-        <div className='remaining'>
-          <div className='info'>
-            <span>{formatDollar(remaining)} remaining</span>
-            <CustomTooltip text={
-              <div className='progress tooltip'>
-                {required &&
-                  <>
-                    <div className='label'>Required:</div>
-                    <div className='value'>{formatDollar(required)}</div>
-                    <br />
-                  </>}
-                <div className='label'>Your Policy Purchase:</div>
-                <div className='value'>{formatDollar(current)}</div>
-                <br />
-                <div className='label'>Remaining:</div>
-                <div className='value'>{formatDollar(remaining)}</div>
-              </div>
-            }
-            >
-              <div role='button' tabIndex={0}>
-                <Icon variant='help-cirlce' size='sm' />
-              </div>
-            </CustomTooltip>
+  const pointsRemaining = requirements.points - points
 
-          </div>
-          <div className='percent'>{formatPercent(percent)}</div>
-        </div>
-      </div>
-    </div>
-  )
+  const [showMintSuccessful, setShowMintSuccessful] = useState(false)
+  const [error, setError] = useState('')
+
+  const { callMethod: callPolicyProof, isReady: policyProofReady } = useContractCall({ abi: ContractAbis.POLICY_PROOF_MINTER, address: ContractAddresses.POLICY_PROOF_MINTER })
+
+  const [minting, setMinting] = useState(false)
+  const { showToast, setOpen } = useContext(ToastContext)
+
+  const mint = async (unsafe = false) => {
+    setError('')
+    if (policyProofReady && nftDetails.stage === 'Soulbound') {
+      setMinting(true)
+
+      showToast({
+        title: 'Minting...',
+        description: 'Minting Your NFT...'
+      })
+
+      const response = await callPolicyProof('mint', [activePolicies[0].cxToken, nftDetails.tokenId], unsafe)
+
+      setOpen(false)
+
+      if (response && response.errorType === 'gasEstimation') {
+        setError(response?.error ?? 'Unknown Error')
+      } else if (!response || response.error) {
+        showToast({
+          title: 'Error',
+          description: response?.error ?? 'Unknown Error'
+        })
+      } else if (response) {
+        setShowMintSuccessful(true)
+      }
+
+      setMinting(false)
+    }
+  }
 
   return (
     <>
@@ -116,37 +132,39 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress }) =>
               <div className='image expand wrapper'>
                 <NftImageWithExpand nft={nftDetails} />
 
-                {/* <MintSuccessModal nft={nftDetails}>
+              </div>
+
+              <div className='milestones'>
+
+                <h3>Current Points: <span>{points} pts</span></h3>
+
+                <Progress percent={(points / requirements.points) * 100} />
+
+                <div className='next level requirements'>
+                  {pointsRemaining} pts until next level
+                </div>
+
+                <div className='label and value'>
+                  <div className='label'>Policy Purchase:</div>
+                  <div className='value'>{formatDollar(currentProgress.totalPolicyPurchased)}</div>
+                </div>
+                <div className='label and value'>
+                  <div className='label'>Added Liquidity:</div>
+                  <div className='value'>{formatDollar(currentProgress.totalLiquidityAdded)}</div>
+                </div>
+                <MintSuccessModal open={showMintSuccessful} setOpen={setShowMintSuccessful} nft={nftDetails}>
                   <Button
-                    type='button' size='xl' onClick={() => {
-                    }}
+                    type='button' disabled={minting || (activePolicies.length <= 0) || points <= requirements.points || !account} size='xl' onClick={() => mint()}
                   >Mint this NFT
                   </Button>
-                </MintSuccessModal> */}
+                </MintSuccessModal>
 
                 {/* Remove the style below when enabling the above button */}
                 <div className='supporting text' style={{ marginTop: '16px' }}>
                   {nftDetails.wantToMint} people want to mint this.
                 </div>
-              </div>
-
-              <div className='milestones'>
-                <h3>Your Milestones</h3>
-                {buildProgress({
-                  title: 'Policy Purchase',
-                  required: requirements?.policyPurchase,
-                  current: currentProgress.totalPolicyPurchased,
-                  percent: policyPurchasePercent,
-                  remaining: policyPurchaseRemaining
-                })}
-                {buildProgress({
-                  title: 'Added Liquidity',
-                  required: requirements?.liquidity,
-                  current: currentProgress.totalLiquidityAdded,
-                  percent: liquidityPercent,
-                  remaining: liquidityRemaining
-                })}
                 <LikeAndShare nft={nftDetails} />
+
               </div>
             </div>
           </section>
@@ -161,6 +179,16 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress }) =>
           </div>
         </div>
       </div>
+
+      <EvmErrorModal
+        open={error !== ''} setOpen={() => {
+          setError('')
+        }}
+        onOK={() => {
+          mint(true)
+        }}
+        error={error}
+      />
 
       {!account &&
         <div className='info box'>

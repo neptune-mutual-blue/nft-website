@@ -1,6 +1,8 @@
 import { Button } from '@/components/Button/Button'
 import { Modal } from '@/components/Modal/Modal'
-import { ShareButtonGroup } from '@/components/ShareButtonGroup/ShareButtonGroup'
+import {
+  ShareButtonGroup
+} from '@/components/ShareButtonGroup/ShareButtonGroup'
 
 const MintSuccessModal = (props) => {
   const { open, setOpen, children, nft } = props
@@ -8,9 +10,10 @@ const MintSuccessModal = (props) => {
   return (
     <Modal
       visible={open} setVisible={setOpen}
+      disableChildrenAsChild
       trigger={
         children
-    }
+      }
       className='mint success modal'
     >
       <div className='details'>

@@ -1,4 +1,7 @@
-import { useEffect, useState } from 'react'
+import {
+  useEffect,
+  useState
+} from 'react'
 
 const Progress = ({ percent }) => {
   const [val, setVal] = useState(0)
@@ -12,7 +15,7 @@ const Progress = ({ percent }) => {
   useEffect(() => {
     animate()
     // eslint-disable-next-line
-  }, [])
+  }, [percent])
 
   return (
     <div className='progress bar'>

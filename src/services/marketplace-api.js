@@ -13,7 +13,7 @@ const searchMarketplace = async (
   pageSize = DEFAULT_PAGE_SIZE
 ) => {
   const origin = apiOrigin
-  const url = origin + '/marketplace/search'
+  const url = origin + '/marketplace/' + AppConstants.NETWORK + '/search'
   const body = JSON.stringify({
     search: searchQuery,
     properties,
@@ -44,7 +44,7 @@ const searchMarketplace = async (
 }
 
 const getMarketplaceFilters = async () => {
-  const url = apiOrigin + '/marketplace/properties'
+  const url = apiOrigin + '/marketplace/' + AppConstants.NETWORK + '/properties'
 
   try {
     const res = await fetch(url)

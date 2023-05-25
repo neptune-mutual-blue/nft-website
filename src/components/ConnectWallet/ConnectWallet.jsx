@@ -6,11 +6,15 @@ import {
 
 import { ConnectedDropdown } from '@/components/ConnectWallet/ConnectedDropdown'
 import { Modal } from '@/components/Modal/Modal'
+import { ToastContext } from '@/components/Toast/Toast'
 import { ThemeContext } from '@/contexts/ThemeContext'
 import { Icon } from '@/elements/Icon'
 import { wallets } from '@/lib/connect-wallet/config/wallets'
 import useAuth from '@/lib/connect-wallet/hooks/useAuth'
-import { useWeb3React } from '@web3-react/core'
+import {
+  UnsupportedChainIdError,
+  useWeb3React
+} from '@web3-react/core'
 
 const { Button } = require('@/components/Button/Button')
 
@@ -22,6 +26,8 @@ const ConnectWallet = () => {
   const [isConnecting, setIsConnecting] = useState(false)
 
   const { active } = useWeb3React()
+
+  const { showToast } = useContext(ToastContext)
 
   const handleWalletButtonClick = () => {
     logout()
@@ -42,7 +48,21 @@ const ConnectWallet = () => {
     setIsConnecting(true)
     const wallet = wallets.find((x) => x.id === id)
     const connectorName = wallet.connectorName
-    login(connectorName)
+
+    try {
+      login(connectorName, (error) => {
+        if (error instanceof UnsupportedChainIdError) {
+          showToast({
+            title: 'Error',
+            description: error.message
+          })
+          setPopupOpen(false)
+          logout()
+        }
+      })
+    } catch (err) {
+      setPopupOpen(false)
+    }
   }
 
   return active

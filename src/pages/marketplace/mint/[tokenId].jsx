@@ -8,11 +8,10 @@ import {
 import { useRouter } from 'next/router'
 
 import Seo from '@/components/Seo/Seo'
-import { AppConstants } from '@/constants/AppConstants'
 import { BaseLayout } from '@/layouts/BaseLayout'
 import { NftApi } from '@/service/nft-api'
+import { NpmApi } from '@/service/npm-api'
 import { resourcesVideoData } from '@/service/video-api'
-import { weiToToken } from '@/utils/currencyHelpers'
 import { MintNft } from '@/views/MintNft'
 import { useWeb3React } from '@web3-react/core'
 
@@ -49,7 +48,7 @@ export async function getStaticPaths () {
 const MintNftPage = ({ nftDetails, premiumNfts, mintingLevels, videos }) => {
   const router = useRouter()
 
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
 
   const logWantToMintExecuted = useRef(false)
 
@@ -76,17 +75,26 @@ const MintNftPage = ({ nftDetails, premiumNfts, mintingLevels, videos }) => {
     logWantToMint()
   }, [logWantToMint])
 
-  useEffect(() => {
-    const fetchMilestones = async () => {
-      const data = await NftApi.mintingLevelsMilestone(account)
+  const [activePolicies, setActivePolicies] = useState([])
 
-      setUserProgress({
-        totalLiquidityAdded: weiToToken(data.data[0].totalLiquidityAdded, AppConstants.FALLBACK_LIQUIDITY_TOKEN_DECIMALS),
-        totalPolicyPurchased: weiToToken(data.data[0].totalPolicyPurchased, AppConstants.FALLBACK_LIQUIDITY_TOKEN_DECIMALS)
-      })
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setActivePolicies([])
+
+        const [data, activePolicies] = await Promise.all([NftApi.mintingLevelsMilestone(account), NpmApi.getActivePolicies(chainId, account)])
+        setUserProgress({
+          totalLiquidityAdded: parseFloat(data.data[0].totalLiquidityAdded),
+          totalPolicyPurchased: parseFloat(data.data[0].totalPolicyPurchased)
+        })
+
+        setActivePolicies(activePolicies.data)
+      } catch (err) {
+        console.error(err)
+      }
     }
 
-    if (account) fetchMilestones()
+    if (account) fetchData()
   }, [account])
 
   if (!nftDetails) {
@@ -104,7 +112,7 @@ const MintNftPage = ({ nftDetails, premiumNfts, mintingLevels, videos }) => {
       />
 
       <BaseLayout videos={videos}>
-        <MintNft nftDetails={nftDetails} premiumNfts={premiumNfts} mintingLevels={mintingLevels} currentProgress={userProgress} />
+        <MintNft activePolicies={activePolicies} nftDetails={nftDetails} premiumNfts={premiumNfts} mintingLevels={mintingLevels} currentProgress={userProgress} />
       </BaseLayout>
     </>
   )

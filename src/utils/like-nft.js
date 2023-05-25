@@ -3,13 +3,13 @@ import { AppConstants } from '@/constants/AppConstants'
 const { signMessage } = require('@/utils/sign-message')
 
 const getNftLikeDislikeUrl = (tokenId, account) => {
-  return AppConstants.nftApiBaseURL + '/insights/log/like/:tokenId/:account'
+  return AppConstants.nftApiBaseURL + '/insights/' + AppConstants.NETWORK + '/log/like/:tokenId/:account'
     .replace(':tokenId', tokenId)
     .replace(':account', account)
 }
 
 const getIsNftLikedUrl = (tokenId, account) => {
-  return AppConstants.nftApiBaseURL + '/insights/like/:tokenId/:account'
+  return AppConstants.nftApiBaseURL + '/insights/' + AppConstants.NETWORK + '/like/:tokenId/:account'
     .replace(':tokenId', tokenId)
     .replace(':account', account)
 }
@@ -70,4 +70,4 @@ const isNftLiked = async ({ account, tokenId }) => {
   return false
 }
 
-export { likeOrDislikeNft, getNftLikeDislikeUrl, isNftLiked, getIsNftLikedUrl }
+export { getIsNftLikedUrl, getNftLikeDislikeUrl, isNftLiked, likeOrDislikeNft }

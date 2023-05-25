@@ -1,0 +1,76 @@
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.evm.error.modal {
+  width: 42rem;
+
+  .details {
+    text-align: left;
+
+    .title {
+      margin-bottom: 16px;
+      @include styles.display-xs;
+      @include weights.semibold;
+    }
+  }
+
+  .content {
+    margin: auto;
+
+    .error {
+      color: colors.$error-600;
+      margin-top: 24px;
+    }
+
+    .actions {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid colors.$gray-200;
+
+      .ui.primary.button {
+        background-color: colors.$error-600;
+        border-color: colors.$error-600;
+
+        &:hover {
+          background-color: colors.$error-700 !important;
+          border-color: colors.$error-700;
+        }
+      }
+
+      .warning {
+        @include styles.text-md;
+        margin-bottom: 16px;
+      }
+
+      .buttons {
+        display: flex;
+        gap: 16px;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+      }
+    }
+
+    img {
+      width: 100%;
+      border-radius: 16px;
+    }
+
+    & > button:last-of-type {
+      margin-top: 32px;
+      width: 100%;
+    }
+  }
+}
+
+.dark .evm.error.modal {
+  .content {
+    .error {
+      color: colors.$error-300;
+    }
+
+    .actions {
+      border-color: colors.$gray-800;
+    }
+  }
+}
