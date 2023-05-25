@@ -6,6 +6,7 @@ import { Inter } from 'next/font/google'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
 
+import { ToastProvider } from '@/components/Toast/Toast'
 import { LoaderProvider } from '@/contexts/LoaderContext'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { getLibrary } from '@/lib/connect-wallet/web3'
@@ -36,11 +37,14 @@ export default function App ({ Component, pageProps }) {
       </style>
 
       <Web3ReactProvider getLibrary={getLibrary}>
-        <LoaderProvider>
-          <ThemeProvider>
-            <Component {...pageProps} />
-          </ThemeProvider>
-        </LoaderProvider>
+        <ToastProvider>
+          <LoaderProvider>
+            <ThemeProvider>
+              <Component {...pageProps} />
+            </ThemeProvider>
+          </LoaderProvider>
+        </ToastProvider>
+
       </Web3ReactProvider>
 
       <Script strategy='lazyOnload' src='/scripts/hamburger.js' />
