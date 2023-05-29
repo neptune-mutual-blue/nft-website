@@ -91,7 +91,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
       } else if (response) {
         setShowMintSuccessful(true)
       }
-    } else if (nftDetails.level) {
+    } else if (merkleProofReady && nftDetails.level) {
       // Merkle Proof
       const response = await callMerkleProof('mint', ['0x0000000000000000000000000000000000000000000000000000000000000000', nftDetails.level, formatBytes32String(nftDetails.name), 1, nftDetails.tokenId], unsafe)
 
