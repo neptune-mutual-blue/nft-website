@@ -168,6 +168,12 @@
           color: colors.$indigo-600;
           margin-top: 8px;
           margin-bottom: 16px;
+          align-items: center;
+          gap: 6px;
+
+          svg {
+            color: colors.$gray-400;
+          }
         }
 
         .label.and.value {

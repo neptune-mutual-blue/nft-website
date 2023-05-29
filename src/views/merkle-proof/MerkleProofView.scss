@@ -1,0 +1,148 @@
+@use "../../design-system/utils";
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.merkle.proof.view {
+  @include utils.full-width-container;
+
+  .breadcrumb.and.connect.wallet {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-top: 56px;
+    margin-bottom: 48px;
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+      flex-wrap: nowrap;
+    }
+
+    @media (max-width: 767px) {
+      gap: 24px;
+      padding-top: 24px;
+    }
+
+    .ui.primary.button {
+      @media (max-width: 575px) {
+        width: 100%;
+      }
+    }
+  }
+
+  .table {
+    padding: 20px 0;
+    border: 1px solid colors.$gray-300;
+    border-radius: 12px;
+    margin-bottom: 48px;
+    padding-bottom: 0;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      padding: 0 24px;
+
+      .title.and.indicator {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        h1 {
+          @include styles.display-xs;
+          @include weights.bold;
+        }
+
+        .indicator {
+          display: flex;
+          gap: 5px;
+          align-items: center;
+          border-radius: 16px;
+          border: 1px solid colors.$error-600;
+          color: colors.$error-700;
+          padding: 2px 8px;
+          @include styles.text-xs;
+          @include weights.semibold;
+
+          .dot {
+            height: 6px;
+            width: 6px;
+            border-radius: 50%;
+            background-color: colors.$error-600;
+          }
+        }
+      }
+    }
+
+    .last.updated {
+      @include styles.text-sm;
+      @include weights.semibold;
+      color: colors.$gray-400;
+      margin-top: 8px;
+      padding: 0 24px;
+      margin-bottom: 20px;
+    }
+
+    .content {
+      @media (max-width: 1400px) {
+        overflow-x: auto;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 497px 199px 199px 199px 122px;
+        @include styles.text-md;
+        @include weights.semibold;
+
+        & > div {
+          border-top: 1px solid colors.$gray-200;
+          white-space: nowrap;
+          padding: 24px;
+          @include styles.text-sm;
+
+          &.address {
+            @include weights.regular;
+          }
+
+          &.view-proof button {
+            color: colors.$indigo-600;
+            @include styles.text-sm;
+            @include weights.semibold;
+          }
+
+          &.points {
+            color: colors.$success-600;
+          }
+        }
+
+        &.heading {
+          & > div {
+            padding: 10px 24px;
+            @include styles.text-md;
+          }
+        }
+
+        .value {
+          @include weights.regular;
+        }
+      }
+    }
+  }
+
+  .proof {
+    margin-bottom: 96px;
+
+    .root {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+      @include styles.text-md;
+
+      .label {
+        @include weights.semibold;
+      }
+    }
+  }
+}

@@ -19,7 +19,7 @@ const EvmErrorModal = (props) => {
       <div className='content'>
         <p>We attempted to submit your transaction but ran into an unexpected error. The smart contract sent the following error message:</p>
 
-        <div className='error'>{error}</div>
+        <pre className='error'>{error}</pre>
 
         <div className='actions'>
           <div className='warning'>

@@ -225,7 +225,7 @@
         ],
         "indexed": false,
         "internalType": "struct IMerkleProofMinter.Boundary[]",
-        "name": "boundries",
+        "name": "boundaries",
         "type": "tuple[]"
       }
     ],
@@ -306,6 +306,31 @@
       }
     ],
     "name": "Paused",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "level",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "persona",
+        "type": "uint8"
+      }
+    ],
+    "name": "PersonaSet",
     "type": "event"
   },
   {
@@ -841,14 +866,9 @@
   {
     "inputs": [
       {
-        "internalType": "uint8",
-        "name": "level",
-        "type": "uint8"
-      },
-      {
-        "internalType": "uint8",
-        "name": "persona",
-        "type": "uint8"
+        "internalType": "uint8[3]",
+        "name": "personas",
+        "type": "uint8[3]"
       }
     ],
     "name": "setMyPersona",
