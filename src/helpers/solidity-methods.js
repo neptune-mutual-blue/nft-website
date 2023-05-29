@@ -7,8 +7,11 @@ BigNumber.config({
 
 const GAS_MARGIN_MULTIPLIER = 1.5
 
-const getErrorMessage = (_error) => {
+const getErrorMessage = (_error, iface, prefix) => {
+  let errorMessage = 'Something went wrong'
+
   try {
+    console.error(_error)
     const error = _error.error || _error
     if (!error || !error.message) {
       return 'Unexpected Error Occurred'
@@ -17,17 +20,31 @@ const getErrorMessage = (_error) => {
     if (error?.reason) return error.reason
 
     if (error?.data?.message) {
-      return error.data.message.trim().replace('execution reverted: ', '')
+      errorMessage = error.data.message.trim().replace('execution reverted: ', '')
     } else if (error?.data?.originalError?.message) {
-      return error.data.originalError.message
+      errorMessage = error.data.originalError.message
         .trim()
         .replace('execution reverted: ', '')
     }
 
-    return error.message.trim().replace('MetaMask Tx Signature: ', '')
+    errorMessage = error.message.trim().replace('MetaMask Tx Signature: ', '')
+
+    if (error?.data?.data) {
+      const parsedError = iface.parseError(error.data.data)
+      errorMessage = `
+      ${errorMessage}
+
+      Parsed Error:
+      Name: ${parsedError.name}
+      Signature: ${parsedError.signature}
+      Args: ${parsedError.args}
+      `
+    }
   } catch (error) {
-    return 'Something went wrong'
+    console.error(error)
   }
+
+  return (prefix + errorMessage).replace(/\s\s+/g, '\n')
 }
 
 const calculateGasMargin = (value) => {

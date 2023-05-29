@@ -5,6 +5,7 @@ import {
 
 import { AppConstants } from '@/constants/AppConstants'
 import { getContract } from '@/helpers/getContract'
+import { Interface } from '@ethersproject/abi'
 import { useWeb3React } from '@web3-react/core'
 
 import merkleProofMinterABI from '../abis/IMerkleProofMinter.json'
@@ -20,8 +21,8 @@ export const ContractAbis = {
 }
 
 export const ContractAddresses = {
-  POLICY_PROOF_MINTER: '0xE1aBC8041C0966854F73fd9e1450414E5A6C1a87',
-  MERKLE_PROOF_MINTER: '0xe659af2671793e00878f2ab7c52757609cecf14c'
+  POLICY_PROOF_MINTER: '0x71F46Cb7401206a5a603a5bcE5b43372e1204bD8',
+  MERKLE_PROOF_MINTER: '0xd328822B75aEe344b240B7355Db5aF11e1541db6'
 }
 
 export const useContractCall = ({ abi, address }) => {
@@ -46,6 +47,8 @@ export const useContractCall = ({ abi, address }) => {
   async function callMethod (methodName, args = [], skipGasEstimation = false) {
     if (!contract || !methodName) return
 
+    const iface = new Interface(abi)
+
     let methodArgs = [...args]
     let estimatedGas = null
     try {
@@ -59,11 +62,14 @@ export const useContractCall = ({ abi, address }) => {
         const res = await contract[methodName](...methodArgs)
         return Array.isArray(res) ? Array.from(res) : [res]
       } catch (error) {
-        return { error: `Error in calling ${methodName} function: ${getErrorMessage(error)}` }
+        return {
+          error: getErrorMessage(error, iface, `Error in calling ${methodName} function:`
+          )
+        }
       }
     } catch (e) {
       console.log(`Could not estimate gas for ${methodName}(${methodArgs})`)
-      return { error: `Could not estimate gas for ${methodName}(${methodArgs}): ${getErrorMessage(e)}`, errorType: 'gasEstimation' }
+      return { error: getErrorMessage(e, iface, `Could not estimate gas for ${methodName}(${methodArgs}):`), errorType: 'gasEstimation' }
     }
   }
 

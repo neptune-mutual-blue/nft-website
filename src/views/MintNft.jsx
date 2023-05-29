@@ -19,6 +19,7 @@ import { Tags } from '@/components/Tags/Tags'
 import { ToastContext } from '@/components/Toast/Toast'
 import { mintingLevelRequirements } from '@/config/minting-levels'
 import { AppConstants } from '@/constants/AppConstants'
+import { Icon } from '@/elements/Icon'
 import {
   ContractAbis,
   ContractAddresses,
@@ -28,6 +29,7 @@ import { formatDollar } from '@/utils/currencyHelpers.js'
 import { MintingLevels } from '@/views/mint-nft/MintingLevels'
 import { MintSuccessModal } from '@/views/mint-nft/MintSuccessModal'
 import { Summary } from '@/views/mint-nft/Summary'
+import { formatBytes32String } from '@ethersproject/strings'
 import { useWeb3React } from '@web3-react/core'
 
 const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, activePolicies }) => {
@@ -52,12 +54,6 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
 
   const { account } = useWeb3React()
 
-  // const liquidityRemaining = parseFloat(nftDetails.level ? (requirements.liquidity - currentProgress.totalLiquidityAdded).toFixed(2) : 0)
-  // const policyPurchaseRemaining = parseFloat(nftDetails.level ? (requirements.policyPurchase - currentProgress.totalPolicyPurchased).toFixed(2) : 0)
-
-  // const liquidityPercent = nftDetails.level ? currentProgress.totalLiquidityAdded > requirements.liquidity ? '100' : ((currentProgress.totalLiquidityAdded / requirements.liquidity) * 100).toFixed(2) : 0
-  // const policyPurchasePercent = nftDetails.level ? currentProgress.totalPolicyPurchased > requirements.policyPurchase ? '100' : ((currentProgress.totalPolicyPurchased / requirements.policyPurchase) * 100).toFixed(2) : 0
-
   const points = currentProgress.totalLiquidityAdded * AppConstants.LIQUIDITY_POINTS_PER_DOLLAR + currentProgress.totalPolicyPurchased * AppConstants.POLICY_POINTS_PER_DOLLAR
   const requirements = mintingLevelRequirements[!nftDetails.level ? 0 : nftDetails.level]
 
@@ -67,23 +63,23 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
   const [error, setError] = useState('')
 
   const { callMethod: callPolicyProof, isReady: policyProofReady } = useContractCall({ abi: ContractAbis.POLICY_PROOF_MINTER, address: ContractAddresses.POLICY_PROOF_MINTER })
+  const { callMethod: callMerkleProof, isReady: merkleProofReady } = useContractCall({ abi: ContractAbis.MERKLE_PROOF_MINTER, address: ContractAddresses.MERKLE_PROOF_MINTER })
 
   const [minting, setMinting] = useState(false)
-  const { showToast, setOpen } = useContext(ToastContext)
+  const { showToast, setOpen: setToastOpen } = useContext(ToastContext)
 
   const mint = async (unsafe = false) => {
     setError('')
-    if (policyProofReady && nftDetails.stage === 'Soulbound') {
-      setMinting(true)
+    setMinting(true)
+    showToast({
+      title: 'Minting...',
+      description: 'Minting Your NFT...'
+    })
 
-      showToast({
-        title: 'Minting...',
-        description: 'Minting Your NFT...'
-      })
+    if (policyProofReady && nftDetails.stage === 'Soulbound') {
+      // Proof of Policy
 
       const response = await callPolicyProof('mint', [activePolicies[0].cxToken, nftDetails.tokenId], unsafe)
-
-      setOpen(false)
 
       if (response && response.errorType === 'gasEstimation') {
         setError(response?.error ?? 'Unknown Error')
@@ -95,9 +91,24 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
       } else if (response) {
         setShowMintSuccessful(true)
       }
+    } else if (merkleProofReady && nftDetails.level) {
+      // Merkle Proof
+      const response = await callMerkleProof('mint', ['0x0000000000000000000000000000000000000000000000000000000000000000', nftDetails.level, formatBytes32String(nftDetails.name), 1, nftDetails.tokenId], unsafe)
 
-      setMinting(false)
+      if (response && response.errorType === 'gasEstimation') {
+        setError(response?.error ?? 'Unknown Error')
+      } else if (!response || response.error) {
+        showToast({
+          title: 'Error',
+          description: response?.error ?? 'Unknown Error'
+        })
+      } else if (response) {
+        setShowMintSuccessful(true)
+      }
     }
+
+    setToastOpen(false)
+    setMinting(false)
   }
 
   return (
@@ -140,9 +151,17 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
 
                 <Progress percent={(points / requirements.points) * 100} />
 
-                <div className='next level requirements'>
-                  {pointsRemaining} pts until next level
-                </div>
+                {pointsRemaining > 0 && (
+                  <div className='next level requirements'>
+                    <div>
+                      {pointsRemaining} pts until next level
+                    </div>
+
+                    <button role='button'>
+                      <Icon variant='help-cirlce' size='sm' />
+                    </button>
+                  </div>
+                )}
 
                 <div className='label and value'>
                   <div className='label'>Policy Purchase:</div>

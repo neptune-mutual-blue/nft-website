@@ -5,6 +5,10 @@
 .evm.error.modal {
   width: 42rem;
 
+  pre {
+    white-space: pre-wrap;
+  }
+
   .details {
     text-align: left;
 
@@ -32,7 +36,9 @@
         background-color: colors.$error-600;
         border-color: colors.$error-600;
 
-        &:hover {
+        &:hover,
+        &:focus,
+        &:active {
           background-color: colors.$error-700 !important;
           border-color: colors.$error-700;
         }

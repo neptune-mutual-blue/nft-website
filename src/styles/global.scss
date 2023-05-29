@@ -127,6 +127,7 @@ button,
 @import "../components/Progress/Progress.scss";
 @import "../components/IconButton/IconButton.scss";
 @import "../components/Alert/AlertInfo.scss";
+@import "../components/Switch/Switch.scss";
 
 @import "../components/NftImageWithExpand.scss";
 @import "../components/NftNickname.scss";
@@ -157,3 +158,4 @@ button,
 @import "../views/mint-nft/MintingLevels.scss";
 @import "../views/mint-nft/Summary.scss";
 @import "../views/mint-nft/MintSuccessModal.scss";
+@import "../views/merkle-proof/MerkleProofView.scss";
