@@ -17,6 +17,7 @@ import { NftSiblingsAndStage } from '@/components/NftSiblingsAndStage'
 import { Progress } from '@/components/Progress/Progress'
 import { Tags } from '@/components/Tags/Tags'
 import { ToastContext } from '@/components/Toast/Toast'
+import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import { mintingLevelRequirements } from '@/config/minting-levels'
 import { AppConstants } from '@/constants/AppConstants'
 import { Icon } from '@/elements/Icon'
@@ -157,9 +158,11 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
                       {pointsRemaining} pts until next level
                     </div>
 
-                    <button role='button'>
-                      <Icon variant='help-cirlce' size='sm' />
-                    </button>
+                    <CustomTooltip text={`Points Required: ${requirements.points}`}>
+                      <button role='button'>
+                        <Icon variant='help-cirlce' size='sm' />
+                      </button>
+                    </CustomTooltip>
                   </div>
                 )}
 

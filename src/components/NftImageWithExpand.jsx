@@ -1,15 +1,14 @@
 import { useState } from 'react'
 
-import { useHotkeys } from 'react-hotkeys-hook'
-
 import { Icon } from '@/elements/Icon'
+import useOnEscape from '@/hooks/useOnEscape'
 
 const NftImageWithExpand = ({ nft, isCover }) => {
   const [expanded, setExpanded] = useState(false)
 
-  useHotkeys('esc', () => {
+  useOnEscape(() => {
     setExpanded(false)
-  }, [expanded])
+  })
 
   return (
     <div className={`nft image with expand ${!isCover ? 'thumbnail' : ''}`}>

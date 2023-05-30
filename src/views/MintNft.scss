@@ -161,12 +161,15 @@
           }
         }
 
+        .progress.bar {
+          margin-bottom: 8px;
+        }
+
         .next.level.requirements {
           display: flex;
           @include styles.text-sm;
           @include weights.semibold;
           color: colors.$indigo-600;
-          margin-top: 8px;
           margin-bottom: 16px;
           align-items: center;
           gap: 6px;

@@ -3,6 +3,8 @@
 @use "../../design-system/typography/styles";
 @use "../../design-system/typography/weights";
 
+@import "./RowPlaceholder.scss";
+
 .merkle.proof.view {
   @include utils.full-width-container;
 

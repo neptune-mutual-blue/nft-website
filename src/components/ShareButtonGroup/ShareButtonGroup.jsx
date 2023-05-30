@@ -2,28 +2,40 @@ import { IconButton } from '@/components/IconButton/IconButton'
 import { Icon } from '@/elements/Icon'
 import { copyToClipboard } from '@/utils/copy-to-clipboard'
 
-const ShareButtonGroup = ({ link }) => {
+const getTwitterShareLink = (link, content) => {
+  return `https://twitter.com/intent/tweet?text=${encodeURIComponent(content)}&url=${encodeURIComponent(link)}`
+}
+
+const getTelegramShareLink = (link, content) => {
+  return `https://t.me/share/url?text=${encodeURIComponent(content)}&url=${encodeURIComponent(link)}`
+}
+
+const getFacebookShareLink = (link) => {
+  return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link)}`
+}
+
+const ShareButtonGroup = ({ link, content }) => {
   return (
     <div className='share btn group'>
       <div className='share options'>
-        <button className='share platform'>
+        <a href={getTwitterShareLink(link, content)} target='_blank' className='share platform'>
           <div className='platform icon'>
             <Icon variant='twitter' />
           </div>
           <div>Twitter</div>
-        </button>
-        <button className='share platform'>
+        </a>
+        <a href={getFacebookShareLink(link)} target='_blank' className='share platform'>
           <div className='platform icon'>
             <Icon variant='facebook' />
           </div>
           <div>Facebook</div>
-        </button>
-        <button className='share platform'>
+        </a>
+        <a href={getTelegramShareLink(link, content)} target='_blank' className='share platform'>
           <div className='platform icon'>
             <Icon variant='telegram' />
           </div>
           <div>Telegram</div>
-        </button>
+        </a>
         <button className='share platform'>
           <div className='platform icon'>
             <Icon variant='email' />

@@ -62,13 +62,14 @@ export const useContractCall = ({ abi, address }) => {
         const res = await contract[methodName](...methodArgs)
         return Array.isArray(res) ? Array.from(res) : [res]
       } catch (error) {
+        console.error(getErrorMessage(error, iface, `Error in calling ${methodName} function:`))
         return {
           error: getErrorMessage(error, iface, `Error in calling ${methodName} function:`
           )
         }
       }
     } catch (e) {
-      console.log(`Could not estimate gas for ${methodName}(${methodArgs})`)
+      console.error(getErrorMessage(e, iface, `Could not estimate gas for ${methodName}(${methodArgs}):`))
       return { error: getErrorMessage(e, iface, `Could not estimate gas for ${methodName}(${methodArgs}):`), errorType: 'gasEstimation' }
     }
   }

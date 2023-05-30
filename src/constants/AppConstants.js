@@ -9,6 +9,7 @@ const AppConstants = {
   nftImageOrigin: getFullUrl(process.env.NEXT_PUBLIC_NFT_IMAGE_ORIGIN || 'https://nft.neptunemutual.net', false),
   FALLBACK_LIQUIDITY_TOKEN_DECIMALS: 6,
   NPM_TOKEN_DECIMALS: 18,
+  SITEID: process.env.NEXT_PUBLIC_SITEID || '',
   NPM_TOKEN_SYMBOL: 'NPM',
   POD_TOKEN_SYMBOL: 'POD',
   FALLBACK_LIQUIDITY_TOKEN_SYMBOL: 'USD',

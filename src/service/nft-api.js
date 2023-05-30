@@ -78,6 +78,28 @@ const mintingLevelsMilestone = async (address) => {
   return data
 }
 
+const getMerkleTree = async (live = false) => {
+  const response = await fetch(origin + '/merkle/' + AppConstants.NETWORK + '/tree' + (live ? '/live' : ''))
+
+  const data = await response.json()
+
+  return data
+}
+
+const setMerkleProof = async (body) => {
+  const requestOptions = {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  }
+
+  const response = await fetch(origin + '/merkle/' + AppConstants.NETWORK + '/proof', requestOptions)
+
+  const data = await response.json()
+
+  return data
+}
+
 const NftApi = {
   knowTheCharacters,
   mostViewedNfts,
@@ -87,7 +109,9 @@ const NftApi = {
   logView,
   logWantToMint,
   mintingLevels,
-  mintingLevelsMilestone
+  mintingLevelsMilestone,
+  getMerkleTree,
+  setMerkleProof
 }
 
 export { NftApi }
