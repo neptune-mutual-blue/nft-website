@@ -82,19 +82,19 @@ const MerkleProofView = () => {
 
   const { account } = useWeb3React()
 
+  const { isReady, callMethod } = useContractCall({ abi: ContractAbis.MERKLE_PROOF_MINTER, address: ContractAddresses.MERKLE_PROOF_MINTER })
+
   useEffect(() => {
     getMerkleTrees()
     // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
-    if (account) {
+    if (isReady && account) {
       checkRole()
     }
     // eslint-disable-next-line
-  }, [account])
-
-  const { isReady, callMethod } = useContractCall({ abi: ContractAbis.MERKLE_PROOF_MINTER, address: ContractAddresses.MERKLE_PROOF_MINTER })
+  }, [account, isReady])
 
   const [busy, setBusy] = useState(false)
 
@@ -121,7 +121,7 @@ const MerkleProofView = () => {
       let txHash = localStorage.getItem('MERKLE_ROOT_TX_HASH') || ''
 
       if (!txHash) {
-        const tx = await callMethod('setMerkleRoot', [merkleRoot])
+        const tx = await callMethod('setMerkleRoot', [merkleRootLive])
 
         if (tx.length > 0 && tx[0].hash) {
           txHash = tx[0].hash
@@ -139,7 +139,7 @@ const MerkleProofView = () => {
       if (!ipfsHash || !uuid) {
         uuid = uuidv4()
 
-        const response = await NpmApi.uploadMerkleDataIpfs(merkleTree.map(row => ({ ...row, id: uuid })))
+        const response = await NpmApi.uploadMerkleDataIpfs(merkleTreeLive.map(row => ({ ...row, id: uuid })))
 
         ipfsHash = response.data.hash
 
@@ -235,14 +235,14 @@ const MerkleProofView = () => {
 
       <div className='proof'>
         <div className='root'>
-          <div className='label'>Stale Merkle Proof:</div>
+          <div className='label'>Latest Merkle Proof:</div>
           <div className='value'>{merkleRoot}</div>
         </div>
         <div className='root'>
-          <div className='label'>Current Merkle Proof:</div>
+          <div className='label'>Live Merkle Proof:</div>
           <div className='value'>{merkleRootLive}</div>
         </div>
-        {showLiveData && showUpdateRootButton && merkleRoot !== merkleRootLive && (
+        {showUpdateRootButton && (
           <Button size='xl' disabled={busy} onClick={updateMerkleRoot}>Set Merkle Root</Button>
         )}
       </div>
