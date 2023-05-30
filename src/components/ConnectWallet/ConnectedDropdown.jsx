@@ -5,11 +5,12 @@ import {
   useState
 } from 'react'
 
-import { useHotkeys } from 'react-hotkeys-hook'
-
 import { IconButton } from '@/components/IconButton/IconButton'
 import { Tags } from '@/components/Tags/Tags'
+import { mintingLevelRequirements } from '@/config/minting-levels'
+import { AppConstants } from '@/constants/AppConstants'
 import { Icon } from '@/elements/Icon'
+import useOnEscape from '@/hooks/useOnEscape'
 import { useOnClickOutside } from '@/hooks/useOnOutsideClick'
 import useAuth from '@/lib/connect-wallet/hooks/useAuth'
 import { NftApi } from '@/service/nft-api'
@@ -29,14 +30,17 @@ const ConnectedDropdown = () => {
 
   useOnClickOutside(ref, () => setOpen(false))
 
-  useHotkeys('Alt+Shift+Q', (e) => {
-    e.preventDefault()
-    if (open) {
-      logout()
-    }
-  }, [open])
+  useOnEscape(() => {
+    setOpen(false)
+  })
 
   const [milestones, setMilestones] = useState({ totalPolicyPurchased: '0', totalLiquidityAdded: '0' })
+
+  const points = milestones.totalLiquidityAdded * AppConstants.LIQUIDITY_POINTS_PER_DOLLAR + milestones.totalPolicyPurchased * AppConstants.POLICY_POINTS_PER_DOLLAR
+
+  const eligibleLevels = Object.entries(mintingLevelRequirements).filter(([key, value]) => value.points < points)
+
+  const level = eligibleLevels.length > 0 ? eligibleLevels[eligibleLevels.length - 1][0] : 0
 
   const getMilestones = useCallback(async () => {
     if (!account) return
@@ -77,20 +81,21 @@ const ConnectedDropdown = () => {
 
         </div>
         <div className='level and account'>
-          <div className='level'>
-            <div>
-
-              <Tags
-                tags={[
-                  {
-                    id: '1',
-                    slug: '1',
-                    text: 'L1',
-                    color: 'level1'
-                  }
-                ]}
-              />
-            </div>
+          <div className={`level${level === 0 ? ' hidden' : ''}`}>
+            {level !== 0 && (
+              <div>
+                <Tags
+                  tags={[
+                    {
+                      id: '1',
+                      slug: '1',
+                      text: 'L' + level,
+                      color: 'level' + level
+                    }
+                  ]}
+                />
+              </div>
+            )}
             <div>
               {abbreviateAccount(account)}
             </div>
@@ -102,6 +107,11 @@ const ConnectedDropdown = () => {
               />
             </div>
           </div>
+        </div>
+
+        <div className='info'>
+          <div className='key'>Current Points</div>
+          <div>{points} pts</div>
         </div>
 
         <div className='info'>
@@ -126,9 +136,7 @@ const ConnectedDropdown = () => {
               Logout
             </span>
           </div>
-          <span className='shortcut'>
-            ⌥⇧Q
-          </span>
+
         </button>
       </div>
     </div>

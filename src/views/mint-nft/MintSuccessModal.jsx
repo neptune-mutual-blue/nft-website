@@ -7,6 +7,8 @@ import {
 const MintSuccessModal = (props) => {
   const { open, setOpen, children, nft } = props
 
+  const shareContent = `I have successfully minted ${nft.family} (${nft.nickname}) #${nft.tokenId}) NFT from Neptune Mutual.`
+
   return (
     <Modal
       visible={open} setVisible={setOpen}
@@ -28,7 +30,7 @@ const MintSuccessModal = (props) => {
 
       <div className='content'>
         <img src={nft.thumbnail} alt={nft.nickname} />
-        <ShareButtonGroup link={`${typeof window !== 'undefined' ? window.location.origin : ''}/marketplace/${nft.tokenId}/`} />
+        <ShareButtonGroup content={shareContent} link={`${typeof window !== 'undefined' ? window.location.origin : ''}/marketplace/${nft.tokenId}/`} />
         <Button size='xl'>Explore other Collection</Button>
       </div>
 

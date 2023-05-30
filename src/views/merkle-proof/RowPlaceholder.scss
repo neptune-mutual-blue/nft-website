@@ -1,0 +1,55 @@
+@use "../../design-system/colors";
+
+@keyframes nft-shimmer {
+  0% {
+    background-position: -468px 0;
+  }
+
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+.merkle-row.placeholder {
+  height: 48px;
+  width: calc(100% - 24px);
+  margin: 12px;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    border-radius: 8px;
+    background: colors.$gray-100;
+    background-image: linear-gradient(
+      to right,
+      colors.$gray-100 0%,
+      colors.$gray-25 20%,
+      colors.$gray-100 40%,
+      colors.$gray-100 100%
+    );
+    background-repeat: no-repeat;
+    background-size: 800px;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: nft-shimmer;
+    animation-timing-function: linear;
+
+    .dark & {
+      background: colors.$gray-600;
+      background-image: linear-gradient(
+        to right,
+        colors.$gray-600 0%,
+        colors.$gray-700 20%,
+        colors.$gray-600 40%,
+        colors.$gray-600 100%
+      );
+    }
+  }
+}

@@ -8,10 +8,13 @@ import NftCardWithBlurEffect
   from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
 import NftImageWithExpand from '@/components/NftImageWithExpand'
 import { NftNickname } from '@/components/NftNickname'
+import NftOwner from '@/components/NftOwner'
 import { NftSiblingsAndStage } from '@/components/NftSiblingsAndStage'
+import Skeleton from '@/components/Skeleton'
 import { Tags } from '@/components/Tags/Tags'
 import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import { Icon } from '@/elements/Icon'
+import useTokenOwner from '@/hooks/data/useTokenOwner'
 import { abbreviateAccount } from '@/utils/abbreviate-account'
 import { useWeb3React } from '@web3-react/core'
 
@@ -34,6 +37,8 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
   const { active } = useWeb3React()
 
   const router = useRouter()
+
+  const { owner, loading: ownerLoading } = useTokenOwner(nftDetails.tokenId)
 
   return (
 
@@ -63,21 +68,28 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
               <NftNickname nft={nftDetails} />
               <h1 className='character name'>{nftDetails.name}</h1>
               <NftSiblingsAndStage nft={nftDetails} />
-              <div className='minting btn'>
-                <CustomTooltip text='Connect Your Wallet' disabled={active}>
-                  <div>
-                    <Button
-                      type='button' size='xl' disabled={!active} onClick={() => {
-                        router.push('/marketplace/mint/' + nftDetails.tokenId)
-                      }}
-                    >I Want This for Free
-                    </Button>
+              {ownerLoading && <Skeleton style={{ height: '64px', marginBottom: '64px' }} />}
+              {!ownerLoading && !owner && (
+                <div className='minting btn'>
+                  <CustomTooltip text='Connect Your Wallet' disabled={active}>
+                    <div>
+                      <Button
+                        type='button' size='xl' disabled={!active} onClick={() => {
+                          router.push('/marketplace/mint/' + nftDetails.tokenId)
+                        }}
+                      >I Want This for Free
+                      </Button>
+                    </div>
+                  </CustomTooltip>
+                  <div className='supporting text'>
+                    {nftDetails.wantToMint} people want to mint this.
                   </div>
-                </CustomTooltip>
-                <div className='supporting text'>
-                  {nftDetails.wantToMint} people want to mint this.
                 </div>
-              </div>
+              )}
+
+              {owner && (
+                <NftOwner owner={owner} />
+              )}
 
               <LikeAndShare nft={nftDetails} />
             </div>

@@ -9,10 +9,11 @@
   }
 
   .share.platform {
-    @include styles.text-sm;
+    @include styles.text-xs;
     text-align: center;
     outline-offset: 8px;
     cursor: pointer;
+    color: unset;
 
     &:hover {
       .platform.icon {

@@ -1,5 +1,6 @@
 import {
   useContext,
+  useRef,
   useState
 } from 'react'
 
@@ -13,19 +14,27 @@ import NftCardWithBlurEffect
   from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
 import NftImageWithExpand from '@/components/NftImageWithExpand'
 import { NftNickname } from '@/components/NftNickname'
+import NftOwner from '@/components/NftOwner'
 import { NftSiblingsAndStage } from '@/components/NftSiblingsAndStage'
 import { Progress } from '@/components/Progress/Progress'
+import Skeleton from '@/components/Skeleton'
 import { Tags } from '@/components/Tags/Tags'
 import { ToastContext } from '@/components/Toast/Toast'
+import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import { mintingLevelRequirements } from '@/config/minting-levels'
 import { AppConstants } from '@/constants/AppConstants'
 import { Icon } from '@/elements/Icon'
+import useBoundToken from '@/hooks/data/useBoundToken'
+import useMerkleLeaf from '@/hooks/data/useMerkleLeaf'
+import useTokenOwner from '@/hooks/data/useTokenOwner'
 import {
   ContractAbis,
   ContractAddresses,
   useContractCall
 } from '@/hooks/useContractCall'
+import { NftApi } from '@/service/nft-api'
 import { formatDollar } from '@/utils/currencyHelpers.js'
+import { getMerkleProof } from '@/utils/merkle/tree'
 import { MintingLevels } from '@/views/mint-nft/MintingLevels'
 import { MintSuccessModal } from '@/views/mint-nft/MintSuccessModal'
 import { Summary } from '@/views/mint-nft/Summary'
@@ -52,9 +61,12 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
     }
   ]
 
+  const nftPersona = nftDetails.role === 'Beast' ? 2 : 1
+
   const { account } = useWeb3React()
 
-  const points = currentProgress.totalLiquidityAdded * AppConstants.LIQUIDITY_POINTS_PER_DOLLAR + currentProgress.totalPolicyPurchased * AppConstants.POLICY_POINTS_PER_DOLLAR
+  const points = !nftDetails.level ? activePolicies.length > 0 ? 1 : 0 : currentProgress.totalLiquidityAdded * AppConstants.LIQUIDITY_POINTS_PER_DOLLAR + currentProgress.totalPolicyPurchased * AppConstants.POLICY_POINTS_PER_DOLLAR
+
   const requirements = mintingLevelRequirements[!nftDetails.level ? 0 : nftDetails.level]
 
   const pointsRemaining = requirements.points - points
@@ -65,8 +77,16 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
   const { callMethod: callPolicyProof, isReady: policyProofReady } = useContractCall({ abi: ContractAbis.POLICY_PROOF_MINTER, address: ContractAddresses.POLICY_PROOF_MINTER })
   const { callMethod: callMerkleProof, isReady: merkleProofReady } = useContractCall({ abi: ContractAbis.MERKLE_PROOF_MINTER, address: ContractAddresses.MERKLE_PROOF_MINTER })
 
+  const { owner, loading: ownerLoading, setOwner } = useTokenOwner(nftDetails.tokenId)
+
+  const { boundToken } = useBoundToken(account)
+
   const [minting, setMinting] = useState(false)
   const { showToast, setOpen: setToastOpen } = useContext(ToastContext)
+
+  const { merkleLeaf } = useMerkleLeaf(account)
+
+  const merkleTree = useRef()
 
   const mint = async (unsafe = false) => {
     setError('')
@@ -89,11 +109,28 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
           description: response?.error ?? 'Unknown Error'
         })
       } else if (response) {
+        setOwner(account)
         setShowMintSuccessful(true)
       }
     } else if (merkleProofReady && nftDetails.level) {
       // Merkle Proof
-      const response = await callMerkleProof('mint', ['0x0000000000000000000000000000000000000000000000000000000000000000', nftDetails.level, formatBytes32String(nftDetails.name), 1, nftDetails.tokenId], unsafe)
+
+      // Build Proof
+      if (!merkleTree.current) {
+        try {
+          const response = await NftApi.getMerkleTree()
+
+          merkleTree.current = response.data
+        } catch (err) {
+          console.error(err)
+        }
+      }
+
+      // [account, level, family, persona]
+      const proof = getMerkleProof(merkleTree.current, [account, nftDetails.level, nftDetails.family, nftPersona])
+
+      // Call Contract
+      const response = await callMerkleProof('mint', [proof, boundToken, nftDetails.level, formatBytes32String(nftDetails.family), nftPersona, parseInt(nftDetails.tokenId)], unsafe)
 
       if (response && response.errorType === 'gasEstimation') {
         setError(response?.error ?? 'Unknown Error')
@@ -103,6 +140,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
           description: response?.error ?? 'Unknown Error'
         })
       } else if (response) {
+        setOwner(account)
         setShowMintSuccessful(true)
       }
     }
@@ -110,6 +148,46 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
     setToastOpen(false)
     setMinting(false)
   }
+
+  const getButtonDisabledReason = () => {
+    if (!account) {
+      return 'Connect Your Wallet First!'
+    }
+
+    if (minting) {
+      return 'Minting in progress.'
+    }
+
+    if (!nftDetails.level && activePolicies.length <= 0) {
+      return 'You must have an active policy to mint a soulbound NFT.'
+    }
+
+    if (points < requirements.points) {
+      return 'You need to get required points to unlock this NFT.'
+    }
+
+    if (nftDetails.level) {
+      if (!boundToken) {
+        return 'You need to mint a soulbound NFT to start minting other NFTs.'
+      }
+
+      if (!merkleLeaf || (merkleLeaf.level < nftDetails.level)) {
+        return 'You need to mint other lower level NFTs to unlock this NFT.'
+      }
+
+      if (!merkleLeaf.persona || !merkleLeaf.family) {
+        return 'You need to set you persona first before minting this NFT.'
+      }
+
+      if (merkleLeaf.persona !== nftPersona) {
+        return `You have selected ${merkleLeaf.persona === 1 ? 'Guardian' : 'Beast'} as your persona, so you cannot mint ${nftDetails.family}.`
+      }
+    }
+
+    return ''
+  }
+
+  const disabledReason = getButtonDisabledReason()
 
   return (
     <>
@@ -147,7 +225,8 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
 
               <div className='milestones'>
 
-                <h3>Current Points: <span>{points} pts</span></h3>
+                <h3>Current Points: <span>{points} pts</span>
+                </h3>
 
                 <Progress percent={(points / requirements.points) * 100} />
 
@@ -157,9 +236,13 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
                       {pointsRemaining} pts until next level
                     </div>
 
-                    <button role='button'>
-                      <Icon variant='help-cirlce' size='sm' />
-                    </button>
+                    <CustomTooltip text={`Points Required: ${requirements.points}`}>
+                      <button
+                        role='button'
+                      >
+                        <Icon variant='help-cirlce' size='sm' />
+                      </button>
+                    </CustomTooltip>
                   </div>
                 )}
 
@@ -172,16 +255,28 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
                   <div className='value'>{formatDollar(currentProgress.totalLiquidityAdded)}</div>
                 </div>
                 <MintSuccessModal open={showMintSuccessful} setOpen={setShowMintSuccessful} nft={nftDetails}>
-                  <Button
-                    type='button' disabled={minting || (activePolicies.length <= 0) || points <= requirements.points || !account} size='xl' onClick={() => mint()}
-                  >Mint this NFT
-                  </Button>
+                  {ownerLoading && <Skeleton style={{ height: '64px', marginTop: '16px', marginBottom: '64px' }} />}
+                  {!ownerLoading && !owner && (
+                    <CustomTooltip text={disabledReason} disabled={disabledReason.length === 0}>
+                      <div className='tooltip assist'>
+                        <Button
+                          type='button' disabled={disabledReason.length > 0} size='xl' onClick={() => mint()}
+                        >Mint this NFT
+                        </Button>
+                      </div>
+                    </CustomTooltip>
+                  )}
                 </MintSuccessModal>
+                {!ownerLoading && !owner && (
+                  <div className='supporting text' style={{ marginTop: '16px' }}>
+                    {nftDetails.wantToMint} people want to mint this.
+                  </div>
+                )}
 
-                {/* Remove the style below when enabling the above button */}
-                <div className='supporting text' style={{ marginTop: '16px' }}>
-                  {nftDetails.wantToMint} people want to mint this.
-                </div>
+                {owner && (
+                  <NftOwner owner={owner} />
+                )}
+
                 <LikeAndShare nft={nftDetails} />
 
               </div>

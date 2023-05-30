@@ -1,8 +1,28 @@
 @use "../../design-system/colors";
 @use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
 
 .connect.wallet.modal {
   width: 397px;
+
+  .connecting.wallet {
+    text-align: center;
+    padding: 24px 0;
+
+    .connecting.icon {
+      margin-bottom: 16px;
+    }
+
+    .connector.name {
+      margin-bottom: 4px;
+      @include styles.text-lg;
+      @include weights.semibold;
+    }
+
+    .connecting.description {
+      @include styles.text-sm;
+    }
+  }
 
   .wallet.icon {
     display: flex;

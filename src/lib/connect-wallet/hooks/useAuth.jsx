@@ -4,6 +4,8 @@ import {
 } from 'react'
 
 import { LocalStorageKeys } from '@/config/localstorage'
+import { getProviderByName } from '@/lib/connect-wallet/utils/providers'
+import { setupNetwork } from '@/lib/connect-wallet/utils/switch-network'
 import {
   UnsupportedChainIdError,
   useWeb3React
@@ -15,7 +17,7 @@ const activateConnector = async (
   connectorName,
   activate,
   notify,
-  errorCallback
+  errorCallback 
 ) => {
   const connector = await getConnectorByName(connectorName)
 
@@ -40,7 +42,7 @@ const activateConnector = async (
 }
 
 const useAuth = (notify = console.log) => {
-  const { activate, deactivate, connector } = useWeb3React()
+  const { activate, deactivate, connector, library } = useWeb3React()
 
   useEffect(() => {
     if (!connector) {
@@ -54,8 +56,17 @@ const useAuth = (notify = console.log) => {
   }, [connector])
 
   const login = useCallback(
-    (connectorName, errorCallback) => {
-      activateConnector(connectorName, activate, notify, (error) => {
+    (connectorName, errorCallback = () => {}) => {
+      activateConnector(connectorName, activate, notify, async (error) => {
+        if (error instanceof UnsupportedChainIdError) {
+          logout();
+          try {
+            await setupNetwork(getProviderByName(connectorName))
+            login(connectorName)
+          } catch(err){
+            console.error(err)
+          }
+        }
         errorCallback(error);
       })
       localStorage.setItem(LocalStorageKeys.CONNECTOR_NAME, connectorName)

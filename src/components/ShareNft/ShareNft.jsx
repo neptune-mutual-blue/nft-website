@@ -1,9 +1,13 @@
 import { Modal } from '@/components/Modal/Modal'
 import { NftNickname } from '@/components/NftNickname'
-import { ShareButtonGroup } from '@/components/ShareButtonGroup/ShareButtonGroup'
+import {
+  ShareButtonGroup
+} from '@/components/ShareButtonGroup/ShareButtonGroup'
 
 const ShareNft = (props) => {
   const { open, setOpen, children, nft } = props
+
+  const shareContent = `Check out ${nft.family} (${nft.nickname}) #${nft.tokenId}) NFT from Neptune Mutual.`
 
   return (
     <Modal
@@ -21,7 +25,7 @@ const ShareNft = (props) => {
         </div>
       </div>
 
-      <ShareButtonGroup link={`${typeof window !== 'undefined' ? window.location.origin : ''}/marketplace/${nft.tokenId}/`} />
+      <ShareButtonGroup content={shareContent} link={`${typeof window !== 'undefined' ? window.location.origin : ''}/marketplace/${nft.tokenId}/`} />
     </Modal>
   )
 }

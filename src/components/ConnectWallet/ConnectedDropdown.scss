@@ -71,6 +71,10 @@
         grid-template-columns: 38px 1fr auto;
         gap: 12px;
         align-items: center;
+
+        &.hidden {
+          grid-template-columns: 1fr auto;
+        }
       }
     }
 

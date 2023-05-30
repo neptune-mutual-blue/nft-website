@@ -6,6 +6,17 @@
 .mint.nft.page {
   @include utils.full-width-container;
 
+  .merkle.proof.link {
+    margin-top: 16px;
+    @include styles.text-md;
+    @include weights.semibold;
+    text-align: right;
+
+    a {
+      color: colors.$gray-400;
+    }
+  }
+
   .breadcrumb.and.connect.wallet {
     display: flex;
     align-items: center;
@@ -122,13 +133,17 @@
         position: relative;
       }
 
-      .button {
-        width: 260px;
+      .tooltip.assist {
         margin-top: 32px;
         margin-bottom: 8px;
+        display: inline-flex;
 
-        @media (max-width: 767px) {
-          margin-top: 24px;
+        .button {
+          width: 260px;
+
+          @media (max-width: 767px) {
+            margin-top: 24px;
+          }
         }
       }
 
@@ -161,12 +176,15 @@
           }
         }
 
+        .progress.bar {
+          margin-bottom: 8px;
+        }
+
         .next.level.requirements {
           display: flex;
           @include styles.text-sm;
           @include weights.semibold;
           color: colors.$indigo-600;
-          margin-top: 8px;
           margin-bottom: 16px;
           align-items: center;
           gap: 6px;
