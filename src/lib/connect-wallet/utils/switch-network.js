@@ -18,7 +18,6 @@ export const chains = {
   }
 }
 
-
 export const addChain = async (provider) => {
   const networkId = AppConstants.NETWORK;
 

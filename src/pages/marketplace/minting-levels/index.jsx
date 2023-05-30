@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import NftCardWithBlurEffect
   from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
@@ -61,6 +63,11 @@ const MintingLevelsPage = ({ premiumNfts, mintingLevels, videos }) => {
 
             <MintingLevels mintingLevels={mintingLevels} />
             <Summary />
+            <div className='merkle proof link'>
+              <Link href='/marketplace/minting-levels/merkle-proof'>
+                Merkle Proof
+              </Link>
+            </div>
           </div>
           <div className='explore minting collection'>
             <h3>Explore Our Collection</h3>

@@ -9,6 +9,7 @@ import { Interface } from '@ethersproject/abi'
 import { useWeb3React } from '@web3-react/core'
 
 import merkleProofMinterABI from '../abis/IMerkleProofMinter.json'
+import neptuneLegendsABI from '../abis/INeptuneLegends.json'
 import policyProofMinterABI from '../abis/IPolicyProofMinter.json'
 import {
   calculateGasMargin,
@@ -17,12 +18,14 @@ import {
 
 export const ContractAbis = {
   POLICY_PROOF_MINTER: policyProofMinterABI,
-  MERKLE_PROOF_MINTER: merkleProofMinterABI
+  MERKLE_PROOF_MINTER: merkleProofMinterABI,
+  NEPTUNE_LEGENDS: neptuneLegendsABI
 }
 
 export const ContractAddresses = {
-  POLICY_PROOF_MINTER: '0x71F46Cb7401206a5a603a5bcE5b43372e1204bD8',
-  MERKLE_PROOF_MINTER: '0xd328822B75aEe344b240B7355Db5aF11e1541db6'
+  POLICY_PROOF_MINTER: '0xbF7176F75B73DF752F52f429AF853A5f7edBb1FA',
+  MERKLE_PROOF_MINTER: '0x0866f9927d94a5D7072E91DcF77E407099170Bf5',
+  NEPTUNE_LEGENDS: '0xd673f97cA6DC3f807E0EAA9d0271b165C2A6d657'
 }
 
 export const useContractCall = ({ abi, address }) => {
@@ -58,7 +61,6 @@ export const useContractCall = ({ abi, address }) => {
 
       try {
         methodArgs = [...args, { gasLimit: skipGasEstimation ? AppConstants.DEFAULT_GAS_LIMIT : calculateGasMargin(estimatedGas) }]
-
         const res = await contract[methodName](...methodArgs)
         return Array.isArray(res) ? Array.from(res) : [res]
       } catch (error) {

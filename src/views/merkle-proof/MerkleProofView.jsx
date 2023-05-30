@@ -1,4 +1,5 @@
 import {
+  useContext,
   useEffect,
   useState
 } from 'react'
@@ -9,6 +10,7 @@ import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { Button } from '@/components/Button/Button'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
 import Switch from '@/components/Switch/Switch'
+import { ToastContext } from '@/components/Toast/Toast'
 import {
   ContractAbis,
   ContractAddresses,
@@ -17,11 +19,10 @@ import {
 import { NftApi } from '@/service/nft-api'
 import { NpmApi } from '@/service/npm-api'
 import { formatDollar } from '@/utils/currencyHelpers'
-import {
-  generateTree,
-  parseLeaf
-} from '@/utils/merkle/tree'
+import { getMerkleRoot } from '@/utils/merkle/tree'
 import { RowPlaceholder } from '@/views/merkle-proof/RowPlaceholder'
+import { formatBytes32String } from '@ethersproject/strings'
+import { useWeb3React } from '@web3-react/core'
 
 const MerkleProofView = () => {
   const crumbs = [
@@ -34,11 +35,7 @@ const MerkleProofView = () => {
       name: 'NFT Marketplace'
     },
     {
-      link: '/marketplace/' + 123 + '/',
-      name: 'Dummy NFT'
-    },
-    {
-      link: '#',
+      link: '/marketplace/minting-levels',
       name: 'Minting Levels'
     },
     {
@@ -51,40 +48,31 @@ const MerkleProofView = () => {
   const [loading, setLoading] = useState(false)
 
   const [merkleTree, setMerkleTree] = useState([])
+  const [merkleTreeLive, setMerkleTreeLive] = useState([])
 
   const [merkleRoot, setMerkleRoot] = useState('')
+  const [merkleRootLive, setMerkleRootLive] = useState('')
 
   useEffect(() => {
-    if (merkleTree.length > 0) {
-      // [account, level, family, persona]
-      const leaves = merkleTree.map((row) => {
-        if (!row.family || !row.persona) return null
-
-        return (
-          [
-            row.account,
-            row.level,
-            row.family,
-            row.persona
-          ]
-        )
-      }).filter(Boolean)
-
-      const tree = generateTree(leaves.map(parseLeaf))
-
-      const root = tree.getHexRoot()
-
-      setMerkleRoot(root)
+    if (merkleTree) {
+      setMerkleRoot(getMerkleRoot(merkleTree))
     }
   }, [merkleTree])
 
-  const getMerkleTree = async () => {
+  useEffect(() => {
+    if (merkleTreeLive) {
+      setMerkleRootLive(getMerkleRoot(merkleTreeLive))
+    }
+  }, [merkleTreeLive])
+
+  const getMerkleTrees = async () => {
     setLoading(true)
 
     try {
-      const response = await NftApi.getMerkleTree(showLiveData)
+      const [response, liveResponse] = await Promise.all([NftApi.getMerkleTree(false), NftApi.getMerkleTree(true)])
 
       setMerkleTree(response.data)
+      setMerkleTreeLive(liveResponse.data)
     } catch (err) {
       console.error(err)
     }
@@ -92,29 +80,92 @@ const MerkleProofView = () => {
     setLoading(false)
   }
 
+  const { account } = useWeb3React()
+
   useEffect(() => {
-    getMerkleTree()
+    getMerkleTrees()
     // eslint-disable-next-line
-  }, [showLiveData])
+  }, [])
+
+  useEffect(() => {
+    if (account) {
+      checkRole()
+    }
+    // eslint-disable-next-line
+  }, [account])
 
   const { isReady, callMethod } = useContractCall({ abi: ContractAbis.MERKLE_PROOF_MINTER, address: ContractAddresses.MERKLE_PROOF_MINTER })
 
   const [busy, setBusy] = useState(false)
+
+  const { showToast } = useContext(ToastContext)
+
+  const [showUpdateRootButton, setShowUpdateRootButton] = useState(false)
+
+  const checkRole = async () => {
+    try {
+      const response = await callMethod('hasRole', [formatBytes32String('proof:agent'), account])
+      if (response && !response.error && response.length > 0 && response[0]) {
+        setShowUpdateRootButton(true)
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   const updateMerkleRoot = async () => {
     if (!isReady) return
 
     setBusy(true)
     try {
-      const tx = await callMethod('setMerkleRoot', [merkleRoot])
-      console.log(tx)
+      let txHash = localStorage.getItem('MERKLE_ROOT_TX_HASH') || ''
 
-      const uuid = uuidv4()
+      if (!txHash) {
+        const tx = await callMethod('setMerkleRoot', [merkleRoot])
 
-      const response = await NpmApi.uploadMerkleDataIpfs(merkleTree.map(row => ({ ...row, id: uuid })))
+        if (tx.length > 0 && tx[0].hash) {
+          txHash = tx[0].hash
+          localStorage.setItem('MERKLE_ROOT_TX_HASH', txHash)
+        }
 
-      console.log(response)
+        if (tx.error) {
+          throw tx.error
+        }
+      }
+
+      let ipfsHash = localStorage.getItem('MERKLE_ROOT_IPFS_HASH') || ''
+      let uuid = localStorage.getItem('MERKLE_ROOT_UUID') || ''
+
+      if (!ipfsHash || !uuid) {
+        uuid = uuidv4()
+
+        const response = await NpmApi.uploadMerkleDataIpfs(merkleTree.map(row => ({ ...row, id: uuid })))
+
+        ipfsHash = response.data.hash
+
+        localStorage.setItem('MERKLE_ROOT_UUID', uuid)
+        localStorage.setItem('MERKLE_ROOT_IPFS_HASH', ipfsHash)
+      }
+
+      await NftApi.setMerkleProof({
+        id: uuid,
+        transaction: txHash.replace(/^0x/, ''),
+        info: ipfsHash
+      })
+
+      localStorage.removeItem('MERKLE_ROOT_TX_HASH')
+      localStorage.removeItem('MERKLE_ROOT_UUID')
+      localStorage.removeItem('MERKLE_ROOT_IPFS_HASH')
+
+      showToast({
+        title: 'Success',
+        description: 'Merkle Proof Set Successfully.'
+      })
     } catch (err) {
+      showToast({
+        title: 'Error',
+        description: 'Something went wrong while setting the merkle proof. Check browser console for details.'
+      })
       console.error(err)
     }
     setBusy(false)
@@ -161,7 +212,7 @@ const MerkleProofView = () => {
                 <div>Proof</div>
               </div>
 
-              {merkleTree.map((row, index) => {
+              {(showLiveData ? merkleTreeLive : merkleTree).map((row, index) => {
                 return (
                   <div className='row' key={index}>
                     <div className='address'>{row.account}</div>
@@ -184,10 +235,16 @@ const MerkleProofView = () => {
 
       <div className='proof'>
         <div className='root'>
-          <div className='label'>Merkle Proof:</div>
+          <div className='label'>Stale Merkle Proof:</div>
           <div className='value'>{merkleRoot}</div>
         </div>
-        <Button size='xl' onClick={updateMerkleRoot}>Set Merkle Root</Button>
+        <div className='root'>
+          <div className='label'>Current Merkle Proof:</div>
+          <div className='value'>{merkleRootLive}</div>
+        </div>
+        {showLiveData && showUpdateRootButton && merkleRoot !== merkleRootLive && (
+          <Button size='xl' disabled={busy} onClick={updateMerkleRoot}>Set Merkle Root</Button>
+        )}
       </div>
     </section>
   )

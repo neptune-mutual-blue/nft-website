@@ -64,7 +64,7 @@ const isNftLiked = async ({ account, tokenId }) => {
 
     return liked
   } catch (error) {
-    console.log({ error })
+    console.error({ error })
   }
 
   return false

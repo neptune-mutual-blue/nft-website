@@ -1,0 +1,31 @@
+@use "../design-system/typography/styles";
+@use "../design-system/typography/weights";
+
+.nft.owner {
+  margin-bottom: 64px;
+  margin-top: 32px;
+
+  .title {
+    @include styles.text-md;
+    @include weights.semibold;
+    margin-bottom: 12px;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    @include styles.text-md;
+
+    .button {
+      margin: 0 !important;
+      width: unset !important;
+
+      svg {
+        height: 16px;
+        width: 16px;
+      }
+    }
+  }
+}

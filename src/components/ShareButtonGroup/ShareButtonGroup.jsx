@@ -14,6 +14,10 @@ const getFacebookShareLink = (link) => {
   return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link)}`
 }
 
+const getEmailShareLink = (link, content) => {
+  return `mailto:?subject=${encodeURIComponent(content)}&body=${encodeURIComponent(link)}`
+}
+
 const ShareButtonGroup = ({ link, content }) => {
   return (
     <div className='share btn group'>
@@ -36,12 +40,12 @@ const ShareButtonGroup = ({ link, content }) => {
           </div>
           <div>Telegram</div>
         </a>
-        <button className='share platform'>
+        <a href={getEmailShareLink(link, content)} className='share platform'>
           <div className='platform icon'>
             <Icon variant='email' />
           </div>
           <div>E-mail</div>
-        </button>
+        </a>
       </div>
 
       <div className='share link'>

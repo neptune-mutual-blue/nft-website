@@ -86,14 +86,26 @@ const getMerkleTree = async (live = false) => {
   return data
 }
 
+const getMerkleLeaf = async (account) => {
+  const response = await fetch(origin + '/merkle/' + AppConstants.NETWORK + '/tree/' + account)
+
+  const data = await response.json()
+
+  return data
+}
+
 const setMerkleProof = async (body) => {
   const requestOptions = {
-    method: 'PUT',
+    method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   }
 
   const response = await fetch(origin + '/merkle/' + AppConstants.NETWORK + '/proof', requestOptions)
+
+  if (!response.ok) {
+    throw new Error('Bad Response')
+  }
 
   const data = await response.json()
 
@@ -111,7 +123,8 @@ const NftApi = {
   mintingLevels,
   mintingLevelsMilestone,
   getMerkleTree,
-  setMerkleProof
+  setMerkleProof,
+  getMerkleLeaf
 }
 
 export { NftApi }
