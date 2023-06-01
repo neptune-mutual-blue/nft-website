@@ -4,6 +4,7 @@
 @use "../../design-system/typography/weights";
 
 @import "./RowPlaceholder.scss";
+@import "./ProofModal.scss";
 
 .merkle.proof.view {
   @include utils.full-width-container;
@@ -127,6 +128,44 @@
 
         .value {
           @include weights.regular;
+        }
+      }
+    }
+  }
+
+  .proof {
+    margin-bottom: 96px;
+
+    .root {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+      @include styles.text-md;
+
+      .label {
+        @include weights.semibold;
+      }
+    }
+  }
+}
+
+.dark .merkle.proof.view {
+  .table {
+    border-color: colors.$gray-800;
+
+    .content {
+      .row {
+        & > div {
+          border-color: colors.$gray-800;
+
+          &.view-proof button {
+            color: colors.$indigo-300;
+          }
+
+          &.points {
+            color: colors.$success-300;
+          }
         }
       }
     }

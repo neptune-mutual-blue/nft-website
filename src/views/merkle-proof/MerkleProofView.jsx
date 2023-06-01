@@ -20,6 +20,7 @@ import { NftApi } from '@/service/nft-api'
 import { NpmApi } from '@/service/npm-api'
 import { formatDollar } from '@/utils/currencyHelpers'
 import { getMerkleRoot } from '@/utils/merkle/tree'
+import ProofModal from '@/views/merkle-proof/ProofModal'
 import { RowPlaceholder } from '@/views/merkle-proof/RowPlaceholder'
 import { formatBytes32String } from '@ethersproject/strings'
 import { useWeb3React } from '@web3-react/core'
@@ -52,6 +53,8 @@ const MerkleProofView = () => {
 
   const [merkleRoot, setMerkleRoot] = useState('')
   const [merkleRootLive, setMerkleRootLive] = useState('')
+
+  const [selectedLeafIndex, setSelectedLeafIndex] = useState(-1)
 
   useEffect(() => {
     if (merkleTree) {
@@ -220,7 +223,11 @@ const MerkleProofView = () => {
                     <div>{formatDollar(row.liquidity)}</div>
                     <div className='points'>{parseFloat(row.points).toLocaleString('en-US')}</div>
                     <div className='view-proof'>
-                      <button>View Proof</button>
+                      <button onClick={() => {
+                        setSelectedLeafIndex(index)
+                      }}
+                      >View Proof
+                      </button>
                     </div>
                   </div>
                 )
@@ -245,6 +252,9 @@ const MerkleProofView = () => {
         {showUpdateRootButton && (
           <Button size='xl' disabled={busy} onClick={updateMerkleRoot}>Set Merkle Root</Button>
         )}
+
+        <ProofModal merkleRoot={merkleRoot} merkleRootLive={merkleRootLive} open={selectedLeafIndex !== -1} setOpen={() => { setSelectedLeafIndex(-1) }} />
+
       </div>
     </section>
   )

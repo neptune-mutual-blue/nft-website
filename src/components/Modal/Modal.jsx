@@ -1,10 +1,20 @@
+import { useEffect } from 'react'
+
 import { Icon } from '@/elements/Icon'
 import * as Dialog from '@radix-ui/react-dialog'
 
 const Modal = (props) => {
   const { cross, children, visible, setVisible, title, description, trigger, className, disableChildrenAsChild } = props
+
+  useEffect(() => {
+    if (visible) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+  }, [visible])
   return (
-    <Dialog.Root open={visible} onOpenChange={setVisible}>
+    <Dialog.Root open={visible} onOpenChange={setVisible} modal={false}>
       {disableChildrenAsChild && (
         <>
           {trigger}
@@ -16,7 +26,7 @@ const Modal = (props) => {
         </Dialog.Trigger>
       )}
       <Dialog.Portal>
-        <Dialog.Overlay className='DialogOverlay' />
+        <div className='DialogOverlay' />
         <Dialog.Content className={'DialogContent' + (className ? ' ' + className : '')}>
           {title && (
             <div className='titlebar'>
