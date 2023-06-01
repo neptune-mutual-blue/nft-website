@@ -7,7 +7,6 @@ import {
 
 import { IconButton } from '@/components/IconButton/IconButton'
 import { Tags } from '@/components/Tags/Tags'
-import { mintingLevelRequirements } from '@/config/minting-levels'
 import { AppConstants } from '@/constants/AppConstants'
 import { Icon } from '@/elements/Icon'
 import useOnEscape from '@/hooks/useOnEscape'
@@ -38,9 +37,7 @@ const ConnectedDropdown = () => {
 
   const points = milestones.totalLiquidityAdded * AppConstants.LIQUIDITY_POINTS_PER_DOLLAR + milestones.totalPolicyPurchased * AppConstants.POLICY_POINTS_PER_DOLLAR
 
-  const eligibleLevels = Object.entries(mintingLevelRequirements).filter(([key, value]) => value.points < points)
-
-  const level = eligibleLevels.length > 0 ? eligibleLevels[eligibleLevels.length - 1][0] : 0
+  const level = 1
 
   const getMilestones = useCallback(async () => {
     if (!account) return

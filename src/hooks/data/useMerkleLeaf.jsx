@@ -6,7 +6,7 @@ import {
 
 import { NftApi } from '@/service/nft-api'
 
-const useMerkleLeaf = (address) => {
+const useMerkleLeaf = (address, nftLevel) => {
   const [merkleLeaf, setMerkleLeaf] = useState()
   const [loading, setLoading] = useState(false)
 
@@ -17,14 +17,14 @@ const useMerkleLeaf = (address) => {
       const response = await NftApi.getMerkleLeaf(address)
 
       if (response && response.data && response.data.length > 0) {
-        setMerkleLeaf(response.data[0])
+        setMerkleLeaf(response.data.find(leaf => leaf.level === nftLevel))
       }
     } catch (err) {
       console.error(err)
     }
 
     setLoading(false)
-  }, [address])
+  }, [address, nftLevel])
 
   useEffect(() => {
     if (address) {

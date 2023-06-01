@@ -1,0 +1,54 @@
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.listbox {
+  button[role="combobox"] {
+    border: 1px solid colors.$gray-300;
+    width: 100%;
+    text-align: left;
+    @include styles.text-md;
+    border-radius: 8px;
+    padding: 10px 14px;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+}
+
+.listbox.options.wrapper {
+  position: fixed;
+  z-index: 9999999999;
+
+  .listbox.options {
+    background-color: colors.$white;
+    border: 1px solid colors.$gray-300;
+    pointer-events: auto;
+    border-radius: 8px;
+    overflow-y: auto;
+    pointer-events: all;
+
+    .option {
+      display: block;
+    }
+
+    button {
+      width: 100%;
+      text-align: left;
+      padding: 10px 14px;
+      @include styles.text-md;
+
+      &:last-of-type {
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+
+      &[aria-selected="true"] {
+        background-color: colors.$gray-200;
+        border-radius: 8px;
+      }
+    }
+  }
+}

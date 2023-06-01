@@ -5,6 +5,7 @@ import {
 } from 'react'
 
 import { ConnectedDropdown } from '@/components/ConnectWallet/ConnectedDropdown'
+import RippleLoader from '@/components/Loader/RippleLoader'
 import { Modal } from '@/components/Modal/Modal'
 import { ThemeContext } from '@/contexts/ThemeContext'
 import { Icon } from '@/elements/Icon'
@@ -87,10 +88,7 @@ const ConnectWallet = () => {
         {isConnecting && (
           <div className='connecting wallet'>
             <div className='connecting icon'>
-              <svg width='52' height='52' viewBox='0 0 52 52' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                <rect x='18' y='18' width='16' height='16' rx='8' stroke='#A4BCFD' strokeWidth='4' />
-                <rect x='2' y='2' width='48' height='48' rx='24' stroke='#EEF4FF' strokeWidth='4' />
-              </svg>
+              <RippleLoader />
             </div>
             <div className='connector name'>Connecting Your {connectorName} Wallet</div>
             <div className='connecting description'>Please don’t close or reload this screen while your wallet is connecting.</div>
