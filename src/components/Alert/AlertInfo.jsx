@@ -1,10 +1,10 @@
 import { Icon } from '@/elements/Icon'
 
-const AlertInfo = () => {
+const AlertInfo = ({ text = 'Please connect your wallet to view milestones and minting levels.' }) => {
   return (
     <div className='alert default'>
       <Icon variant='info-circle' size='lg' />
-      <span>Please connect your wallet to view milestones and minting levels.</span>
+      <span>{text}</span>
     </div>
   )
 }

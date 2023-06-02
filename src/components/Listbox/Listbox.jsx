@@ -1,5 +1,4 @@
 import {
-  useEffect,
   useRef,
   useState
 } from 'react'
@@ -13,15 +12,6 @@ const Listbox = ({ options, value, setValue, maxHeight = 300 }) => {
     top: 0,
     left: 0
   })
-
-  const selectedRef = useRef()
-
-  useEffect(() => {
-    if (showOptions) {
-      console.log(selectedRef.current)
-      selectedRef.current?.focus()
-    }
-  }, [showOptions])
 
   return (
     <div className='listbox'>
@@ -45,7 +35,8 @@ const Listbox = ({ options, value, setValue, maxHeight = 300 }) => {
       >
         <div>
 
-          {options.find(option => option.value === value).render()}
+          {options.find(option => option.value === value)?.render() ?? '- Not Selected -'}
+
         </div>
         <Icon variant='chevron-down' size='lg' />
       </button>
@@ -56,7 +47,6 @@ const Listbox = ({ options, value, setValue, maxHeight = 300 }) => {
               {options.map(option => (
                 <button
                   key={option.value}
-                  ref={option.value === value ? selectedRef : undefined}
                   className='option' onClick={() => {
                     setShowOptions(false)
                     setValue(option.value)

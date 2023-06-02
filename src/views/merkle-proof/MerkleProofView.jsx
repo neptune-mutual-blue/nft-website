@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { Button } from '@/components/Button/Button'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
+import { LoaderPopup } from '@/components/LoaderPopup/LoaderPopup'
 import Switch from '@/components/Switch/Switch'
 import { ToastContext } from '@/components/Toast/Toast'
 import {
@@ -121,6 +122,15 @@ const MerkleProofView = () => {
 
     setBusy(true)
     try {
+      const savedMerkleRoot = localStorage.getItem('MERKLE_ROOT') || ''
+
+      if (savedMerkleRoot && savedMerkleRoot !== merkleRootLive) {
+        localStorage.removeItem('MERKLE_ROOT')
+        localStorage.removeItem('MERKLE_ROOT_TX_HASH')
+        localStorage.removeItem('MERKLE_ROOT_UUID')
+        localStorage.removeItem('MERKLE_ROOT_IPFS_HASH')
+      }
+
       let txHash = localStorage.getItem('MERKLE_ROOT_TX_HASH') || ''
 
       if (!txHash) {
@@ -128,6 +138,7 @@ const MerkleProofView = () => {
 
         if (tx.length > 0 && tx[0].hash) {
           txHash = tx[0].hash
+          localStorage.setItem('MERKLE_ROOT', merkleRootLive)
           localStorage.setItem('MERKLE_ROOT_TX_HASH', txHash)
         }
 
@@ -150,12 +161,19 @@ const MerkleProofView = () => {
         localStorage.setItem('MERKLE_ROOT_IPFS_HASH', ipfsHash)
       }
 
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve()
+        }, 5000)
+      })
+
       await NftApi.setMerkleProof({
         id: uuid,
         transaction: txHash.replace(/^0x/, ''),
         info: ipfsHash
       })
 
+      localStorage.removeItem('MERKLE_ROOT')
       localStorage.removeItem('MERKLE_ROOT_TX_HASH')
       localStorage.removeItem('MERKLE_ROOT_UUID')
       localStorage.removeItem('MERKLE_ROOT_IPFS_HASH')
@@ -176,6 +194,8 @@ const MerkleProofView = () => {
 
   return (
     <section className='merkle proof view'>
+      <LoaderPopup visible={busy} title='Setting New Merkle Root...' />
+
       <div className='breadcrumb and connect wallet'>
         <Breadcrumb items={crumbs} />
         <ConnectWallet />
@@ -186,7 +206,7 @@ const MerkleProofView = () => {
             <h1>Merkle Proof</h1>
             <div className='indicator'>
               <div className='dot' />
-              {showLiveData ? 'Live' : 'Stale'}
+              {showLiveData ? 'Live' : 'Current'}
             </div>
           </div>
 
@@ -197,7 +217,7 @@ const MerkleProofView = () => {
           />
         </div>
         <div className='last updated'>
-          Last Updated On: A Few Days Ago
+          Last Updated On: A Few {showLiveData ? 'Minutes' : 'Days'} Ago
         </div>
 
         {loading && Array.from({ length: 10 }).map((_, index) => (
@@ -207,28 +227,34 @@ const MerkleProofView = () => {
         {!loading && (
           <div className='content'>
             <div>
-              <div className='row heading'>
+              <div className={`row heading${showLiveData ? ' live' : ''}`}>
                 <div>Account</div>
                 <div>Policy</div>
                 <div>Liquidity</div>
                 <div>Points</div>
-                <div>Proof</div>
+                <div>Level</div>
+                {!showLiveData && (
+                  <div>Proof</div>
+                )}
               </div>
 
               {(showLiveData ? merkleTreeLive : merkleTree).map((row, index) => {
                 return (
-                  <div className='row' key={index}>
+                  <div className={`row${showLiveData ? ' live' : ''}`} key={index}>
                     <div className='address'>{row.account}</div>
                     <div>{formatDollar(row.policy)}</div>
                     <div>{formatDollar(row.liquidity)}</div>
                     <div className='points'>{parseFloat(row.points).toLocaleString('en-US')}</div>
-                    <div className='view-proof'>
-                      <button onClick={() => {
-                        setSelectedLeafIndex(index)
-                      }}
-                      >View Proof
-                      </button>
-                    </div>
+                    <div>{row.level}</div>
+                    {!showLiveData && (
+                      <div className='view-proof'>
+                        <button onClick={() => {
+                          setSelectedLeafIndex(index)
+                        }}
+                        >View Proof
+                        </button>
+                      </div>
+                    )}
                   </div>
                 )
               }
@@ -242,18 +268,18 @@ const MerkleProofView = () => {
 
       <div className='proof'>
         <div className='root'>
-          <div className='label'>Latest Merkle Proof:</div>
+          <div className='label'>Current Merkle Root:</div>
           <div className='value'>{merkleRoot}</div>
         </div>
         <div className='root'>
-          <div className='label'>Live Merkle Proof:</div>
+          <div className='label'>Live Merkle Root:</div>
           <div className='value'>{merkleRootLive}</div>
         </div>
-        {showUpdateRootButton && (
+        {showUpdateRootButton && (merkleRoot !== merkleRootLive) && (
           <Button size='xl' disabled={busy} onClick={updateMerkleRoot}>Set Merkle Root</Button>
         )}
 
-        <ProofModal merkleRoot={merkleRoot} merkleRootLive={merkleRootLive} open={selectedLeafIndex !== -1} setOpen={() => { setSelectedLeafIndex(-1) }} />
+        <ProofModal merkleTree={merkleTree} merkleLeaf={merkleTree[selectedLeafIndex]} merkleRoot={merkleRoot} merkleRootLive={merkleRootLive} open={selectedLeafIndex !== -1} setOpen={() => { setSelectedLeafIndex(-1) }} />
 
       </div>
     </section>

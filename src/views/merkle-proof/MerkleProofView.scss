@@ -94,9 +94,13 @@
 
       .row {
         display: grid;
-        grid-template-columns: 497px 199px 199px 199px 122px;
+        grid-template-columns: 450px 184px 184px 184px 90px 122px;
         @include styles.text-md;
         @include weights.semibold;
+
+        &.live {
+          grid-template-columns: 450px 192px 192px 192px 188px;
+        }
 
         & > div {
           border-top: 1px solid colors.$gray-200;

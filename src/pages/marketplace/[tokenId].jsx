@@ -28,7 +28,7 @@ export async function getStaticProps (context) {
         premiumNfts: premiumNftsResponse.data,
         videos: videoResponse
       },
-      revalidate: 60 * 60 // one hour
+      revalidate: 2 * 60 // 2 mins
     }
   } catch (error) {
     return {

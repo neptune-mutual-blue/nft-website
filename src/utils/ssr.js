@@ -15,6 +15,18 @@ const getSSRData = async (context) => {
 
   const filters = queryString ? getFiltersFromQueryString(queryString) : []
 
+  // { "value": 500, "traitType": "Siblings" },
+  // { "value": 6, "maxValue": 10, "traitType": "Rarity" },
+  // { "value": 2, "maxValue": 7, "traitType": "Level" }
+
+  const numericInputs = ['Siblings', 'Rarity', 'Level']
+
+  filters.forEach((filter, i) => {
+    if (numericInputs.includes(filter.key)) {
+      filters[i].value = Number(filters[i].value)
+    }
+  })
+
   const data = await (await searchMarketplace(search, filters, page)).data
   const marketplaceFilters = await (await getMarketplaceFilters()).data
 

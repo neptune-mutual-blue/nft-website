@@ -58,6 +58,25 @@
       display: grid;
       grid-template-columns: 224px 1fr;
       gap: 24px;
+      position: relative;
+
+      .overlay {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: 10000;
+        backdrop-filter: blur(4px);
+        border-radius: 32px;
+      }
+
+      .alert.default {
+        position: fixed;
+        bottom: 32px;
+        z-index: 10001;
+        left: 50%;
+        transform: translateX(-50%);
+        justify-content: center;
+      }
 
       .persona.setting {
         .leading.content {
@@ -66,6 +85,8 @@
           padding: 10px;
           text-align: center;
           border-radius: 12px;
+          display: block;
+          width: 100%;
 
           .supporting.text {
             @include styles.text-sm;

@@ -65,7 +65,29 @@
 
   .nft.description {
     @include styles.text-sm;
-    margin-bottom: 36px;
+    margin-bottom: 32px;
+  }
+
+  .disclaimer {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    background-color: colors.$primary-25;
+    border: 1px solid colors.$primary-300;
+    padding: 16px;
+    border-radius: 12px;
+    @include styles.text-sm;
+    color: colors.$primary-700;
+    margin-bottom: 32px;
+
+    i {
+      color: colors.$primary-600;
+    }
+
+    .title {
+      @include weights.semibold;
+      margin-bottom: 4px;
+    }
   }
 
   .cta {

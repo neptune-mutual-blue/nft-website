@@ -8,6 +8,7 @@ import {
   CharacterDetails,
   Personas
 } from '@/config/persona'
+import { Icon } from '@/elements/Icon'
 import { useWeb3React } from '@web3-react/core'
 
 const GuardianBeastSelection = ({ characters, levels, selection, onSelectionChange, setSelectedLevels, locked, onSetPersona }) => {
@@ -86,8 +87,18 @@ const GuardianBeastSelection = ({ characters, levels, selection, onSelectionChan
       <div className='nft title'>"{firstNft.description}"</div>
       <div className='nft description'>{CharacterDetails[levels[0]][selectedValue]}</div>
 
+      {!locked && (
+        <div className='disclaimer'>
+          <Icon variant='info-circle' size='lg' />
+          <div>
+            <div className='title'>Important</div>
+            <div className='content'>This action is irreversible. Please choose carefully.</div>
+          </div>
+        </div>
+      )}
+
       <div className='cta'>
-        {levels[0] !== 1 && !locked && (
+        {levels[0] !== 1 && (
           <Button
             onClick={() => {
               setSelectedLevels(levels.map(level => level - 2))
@@ -96,7 +107,7 @@ const GuardianBeastSelection = ({ characters, levels, selection, onSelectionChan
           >Previous
           </Button>
         )}
-        {levels[0] !== 5 && !locked && (
+        {levels[0] !== 5 && (
           <Button
             onClick={() => {
               setSelectedLevels(levels.map(level => level + 2))
@@ -105,8 +116,8 @@ const GuardianBeastSelection = ({ characters, levels, selection, onSelectionChan
           >Next
           </Button>
         )}
-        {(levels[0] === 5 || locked) && (
-          <CustomTooltip disabled={!(locked || !active)} text={locked ? 'Your Persona is Locked' : 'Connect Your Wallet'}>
+        {(levels[0] === 5) && (
+          <CustomTooltip disabled={!locked} text='Your Persona is Locked'>
             <div>
               <Button
                 size='xl'

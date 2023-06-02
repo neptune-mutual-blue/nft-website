@@ -47,9 +47,6 @@ const getMerkleRoot = (merkleTree) => {
 const getMerkleProof = (merkleTree, leaf) => {
   const tree = getMerkleTree(merkleTree)
 
-  console.log(leaf)
-
-  // [account, level, family, persona]
   return tree.getHexProof(parseLeaf(leaf))
 }
 
