@@ -112,6 +112,18 @@ const setMerkleProof = async (body) => {
   return data
 }
 
+const getUserInfoFromApi = async (account) => {
+  const { nftApiBaseURL, NETWORK } = AppConstants
+  const url = `${nftApiBaseURL}/marketplace/${NETWORK}/account/info/${account}`
+  try {
+    const res = await fetch(url, { headers: { 'Content-Type': 'application/json' } })
+    const data = await res.json()
+    if (data.data) return data.data[0]
+  } catch (error) {
+    console.error(`Error in getting user info for ${account}:`, error)
+  }
+}
+
 const NftApi = {
   knowTheCharacters,
   mostViewedNfts,
@@ -124,7 +136,8 @@ const NftApi = {
   mintingLevelsMilestone,
   getMerkleTree,
   setMerkleProof,
-  getMerkleLeaf
+  getMerkleLeaf,
+  getUserInfoFromApi
 }
 
 export { NftApi }

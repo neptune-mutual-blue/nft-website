@@ -62,6 +62,9 @@ export const useContractCall = ({ abi, address }) => {
       try {
         methodArgs = [...args, { gasLimit: skipGasEstimation ? AppConstants.DEFAULT_GAS_LIMIT : calculateGasMargin(estimatedGas) }]
         const res = await contract[methodName](...methodArgs)
+
+        if (res?.wait) await res.wait()
+
         return Array.isArray(res) ? Array.from(res) : [res]
       } catch (error) {
         console.error(getErrorMessage(error, iface, `Error in calling ${methodName} function:`))

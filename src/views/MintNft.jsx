@@ -22,6 +22,7 @@ import { formatDollar } from '@/utils/currencyHelpers.js'
 import { MintingLevels } from '@/views/mint-nft/MintingLevels'
 import { MintSuccessModal } from '@/views/mint-nft/MintSuccessModal'
 import { Summary } from '@/views/mint-nft/Summary'
+import { LoaderPopup } from '@/components/LoaderPopup/LoaderPopup'
 import { useWeb3React } from '@web3-react/core'
 
 const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, activePolicies }) => {
@@ -54,7 +55,17 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
 
   const pointsRemaining = requirements.points - points
 
-  const { mint, disabledReason, setShowMintSuccessful, showMintSuccessful, owner, ownerLoading, error, setError } = useMint({
+  const {
+    mint,
+    disabledReason,
+    setShowMintSuccessful,
+    showMintSuccessful,
+    owner,
+    ownerLoading,
+    error,
+    setError,
+    minting
+  } = useMint({
     nftDetails,
     activePolicies,
     points,
@@ -63,6 +74,10 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
 
   return (
     <>
+      <LoaderPopup
+        title={`Minting ${nftDetails.name} NFT`}
+        visible={minting}
+      />
       <div className='mint nft page'>
         <div className='breadcrumb and connect wallet'>
           <Breadcrumb items={crumbs} />

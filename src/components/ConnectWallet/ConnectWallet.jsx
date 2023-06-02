@@ -90,7 +90,7 @@ const ConnectWallet = () => {
             <div className='connecting icon'>
               <RippleLoader />
             </div>
-            <div className='connector name'>Connecting Your {connectorName} Wallet</div>
+            <div className='connector name'>Connecting Your {connectorName}</div>
             <div className='connecting description'>Please don’t close or reload this screen while your wallet is connecting.</div>
           </div>
         )}
