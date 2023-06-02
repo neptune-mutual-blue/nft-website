@@ -45,7 +45,8 @@ const useUserInfo = (account) => {
     userLevel,
     unlockedLevel,
     nickname,
-    loading
+    loading,
+    fetchUserInfo
   }
 }
 

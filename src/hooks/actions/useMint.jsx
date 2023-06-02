@@ -32,7 +32,7 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
 
   const { owner, loading: ownerLoading, setOwner } = useTokenOwner(nftDetails.tokenId)
 
-  const { boundToken } = useUserInfo(account)
+  const { boundToken, fetchUserInfo } = useUserInfo(account)
 
   const { status: mintedThisLevel } = useMintedLevelStatus(account, nftDetails.level ? nftDetails.level : -1)
   const { status: mintedPreviousLevel } = useMintedLevelStatus(account, nftDetails.level ? nftDetails.level - 1 : -1)
@@ -91,6 +91,7 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
           description: response?.error ?? 'Unknown Error'
         })
       } else if (response) {
+        fetchUserInfo()
         setOwner(account)
         setShowMintSuccessful(true)
       }
