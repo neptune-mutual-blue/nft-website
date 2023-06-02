@@ -86,8 +86,8 @@ const getMerkleTree = async (live = false) => {
   return data
 }
 
-const getMerkleLeaf = async (account) => {
-  const response = await fetch(origin + '/merkle/' + AppConstants.NETWORK + '/tree/' + account)
+const getMerkleLeaf = async (account, live = false) => {
+  const response = await fetch(origin + '/merkle/' + AppConstants.NETWORK + '/tree/' + (live ? 'live/' : '') + account)
 
   const data = await response.json()
 

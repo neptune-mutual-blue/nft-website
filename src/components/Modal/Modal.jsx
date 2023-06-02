@@ -13,6 +13,12 @@ const Modal = (props) => {
       document.body.style.overflow = 'auto'
     }
   }, [visible])
+
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [])
   return (
     <Dialog.Root open={visible} onOpenChange={setVisible} modal={false}>
       {disableChildrenAsChild && (

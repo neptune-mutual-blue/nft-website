@@ -1,0 +1,44 @@
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.persona.set.modal {
+  border: none;
+  max-height: auto !important;
+
+  .persona.set.successful {
+    background-image: url("../../../public/assets/images/persona/success.webp");
+    margin: -32px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 866px;
+    padding: 32px;
+
+    .nft.collections.logo {
+      height: 29px;
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 227px;
+    }
+
+    .selections {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+    }
+
+    h1 {
+      text-align: center;
+      @include styles.text-xl;
+      @include weights.bold;
+      margin-top: 16px;
+      margin-bottom: 24px;
+      color: colors.$base-white;
+    }
+
+    .cta {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

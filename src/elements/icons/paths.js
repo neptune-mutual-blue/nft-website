@@ -122,6 +122,8 @@ const paths = {
 
   // Security Icons
   'shield-tick': import('./variants/Security/shield-tick.svg?raw'),
+  'lock-01': import('./variants/Security/lock-01.svg?raw'),
+  'lock-unlocked-01': import('./variants/Security/lock-unlocked-01.svg?raw'),
 
   // Alert And Feedback Icons
   'alert-triangle': import(

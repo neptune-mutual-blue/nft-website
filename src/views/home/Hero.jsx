@@ -9,8 +9,8 @@ const Hero = () => {
         alignment='center'
         heading='Discover Neptune Mutual NFTs'
         secondary={{
-          text: 'View Minting Levels',
-          href: '/marketplace/minting-levels',
+          text: 'My Persona',
+          href: '/my-persona',
           size: 'lg'
         }}
         primary={{

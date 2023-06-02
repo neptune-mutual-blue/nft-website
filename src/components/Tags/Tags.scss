@@ -329,8 +329,13 @@
   }
 
   //NFT Stage
-  .tag[data-color="nft-stage"] {
+  .tag[data-color="nft-selection"] {
     background-color: colors.$blue-100;
     color: colors.$blue-900;
+  }
+
+  .tag[data-color="nft-evolution"] {
+    background-color: colors.$violet-100;
+    color: colors.$violet-900;
   }
 }
