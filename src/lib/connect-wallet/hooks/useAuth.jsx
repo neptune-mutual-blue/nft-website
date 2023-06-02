@@ -61,8 +61,8 @@ const useAuth = (notify = console.log) => {
         if (error instanceof UnsupportedChainIdError) {
           logout();
           try {
-            await setupNetwork(getProviderByName(connectorName))
-            login(connectorName)
+             const accepted = await setupNetwork(getProviderByName(connectorName))
+             if(accepted) login(connectorName)
           } catch(err){
             console.error(err)
           }

@@ -75,10 +75,17 @@ const ConnectWallet = () => {
               Connect Wallet
             </>
             )}
-        visible={popupOpen} setVisible={setPopupOpen}
+        visible={popupOpen}
+        setVisible={(popupOpen && isConnecting) ? () => {} : setPopupOpen}
         trigger={
-          <Button onClick={handleWalletButtonClick} iconLeading='wallet-04' size='md'>Connect Wallet</Button>
-    }
+          <Button
+            onClick={handleWalletButtonClick}
+            iconLeading='wallet-04'
+            size='md'
+          >
+            Connect Wallet
+          </Button>
+        }
         description={isConnecting
           ? undefined
           : <>By connecting a wallet, you agree to Neptune Mutual <a target='_blank' href={'https://neptunemutual.com/policies/standard-terms-and-conditions/?theme=' + (dark ? 'dark' : 'light')}>Terms & Conditions</a> and acknowledge that you have read and understand the Neptune Mutual <a target='_blank' href={'https://neptunemutual.com/docs/usage/disclaimer/?theme=' + (dark ? 'dark' : 'light')}>Protocol Disclaimer</a>.</>}
@@ -90,7 +97,7 @@ const ConnectWallet = () => {
             <div className='connecting icon'>
               <RippleLoader />
             </div>
-            <div className='connector name'>Connecting Your {connectorName} Wallet</div>
+            <div className='connector name'>Connecting Your {connectorName}</div>
             <div className='connecting description'>Please don’t close or reload this screen while your wallet is connecting.</div>
           </div>
         )}
