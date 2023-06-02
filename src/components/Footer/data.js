@@ -55,7 +55,7 @@ const getFooterData = () => {
         {
           href: `${npmURL}/marketplace`,
           text: 'Marketplace',
-          isExternal: true,
+          isExternal: false,
           badge: 'New!',
           badgeColor: 'success'
         },
@@ -67,27 +67,27 @@ const getFooterData = () => {
         {
           href: `${npmURL}/blog/`,
           text: 'Blog',
-          isExternal: true
+          isExternal: false
         },
         {
           href: `${npmURL}/pressroom/`,
           text: 'Press Room',
-          isExternal: true
+          isExternal: false
         },
         {
           href: `${npmURL}/ecosystem/`,
           text: 'Ecosystem',
-          isExternal: true
+          isExternal: false
         },
         {
           href: `${npmURL}/docs/`,
           text: 'Documentation',
-          isExternal: true
+          isExternal: false
         },
         {
           href: `${npmURL}/web3-tools/`,
           text: 'Web3 Tools',
-          isExternal: true
+          isExternal: false
         },
         {
           href: '/',
@@ -102,28 +102,28 @@ const getFooterData = () => {
         {
           href: `${npmURL}/about/`,
           text: 'About us',
-          isExternal: true
+          isExternal: false
         },
         {
           href: `${npmURL}/grants-and-bounties/`,
           text: 'Grants and Bounties',
-          isExternal: true
+          isExternal: false
         },
         {
           href: `${npmURL}/careers/`,
           text: 'Careers',
-          isExternal: true,
+          isExternal: false,
           badge: "We're Hiring!"
         },
         {
           href: `${npmURL}/security/`,
           text: 'Security',
-          isExternal: true
+          isExternal: false
         },
         {
           href: `${npmURL}/contact/`,
           text: 'Contact',
-          isExternal: true
+          isExternal: false
         }
       ]
     },
@@ -133,22 +133,22 @@ const getFooterData = () => {
         {
           href: `${npmURL}/policies/risk-factors/`,
           text: 'Risk Factors',
-          isExternal: true
+          isExternal: false
         },
         {
           href: `${npmURL}/policies/terms-of-use/`,
           text: 'Terms of Use',
-          isExternal: true
+          isExternal: false
         },
         {
           href: `${npmURL}/policies/privacy-policy/`,
           text: 'Privacy Policy',
-          isExternal: true
+          isExternal: false
         },
         {
           href: `${npmURL}/policies/standard-terms-and-conditions/`,
           text: 'Standard Terms and Conditions',
-          isExternal: true
+          isExternal: false
         }
       ]
     }
