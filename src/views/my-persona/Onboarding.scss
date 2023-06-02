@@ -1,0 +1,89 @@
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.onboarding.slider {
+  height: 100%;
+  display: flex;
+  position: relative;
+  transition: all 0.5s;
+
+  .onboarding.page {
+    height: 100%;
+    flex-basis: 100%;
+
+    flex-shrink: 0;
+    position: relative;
+    text-align: center;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    &.guardian {
+      background: url("../../../public/assets/images/persona/guardian-bg.jpg");
+    }
+
+    &.beast {
+      background: url("../../../public/assets/images/persona/beast-bg.jpg");
+    }
+
+    .supporting.text {
+      color: colors.$base-white !important;
+      @include styles.text-lg;
+      @include weights.bold;
+    }
+
+    .logo {
+      height: 250px;
+      object-fit: contain;
+    }
+
+    .details {
+      color: colors.$base-white !important;
+      padding: 16px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(30px);
+
+      h1 {
+        @include styles.display-sm;
+        @include weights.semibold;
+        margin-top: 18px;
+      }
+
+      p {
+        margin-top: 10px;
+        @include styles.text-md;
+      }
+
+      .skip {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        color: colors.$base-white !important;
+        @include styles.text-xs;
+        @include weights.semibold;
+      }
+
+      .pagination {
+        display: flex;
+        gap: 24px;
+        margin-top: 32px;
+        align-items: center;
+        justify-content: flex-end;
+
+        button {
+          color: colors.$base-white !important;
+          display: flex;
+          gap: 8px;
+          align-items: center;
+          @include styles.text-sm;
+          @include weights.semibold;
+        }
+      }
+    }
+  }
+}

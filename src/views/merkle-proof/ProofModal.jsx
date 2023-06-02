@@ -1,8 +1,20 @@
-import React, { useState } from 'react'
+import React, {
+  useEffect,
+  useState
+} from 'react'
 
+import { Button } from '@/components/Button/Button'
 import Listbox from '@/components/Listbox/Listbox'
 import { Modal } from '@/components/Modal/Modal'
 import { Tags } from '@/components/Tags/Tags'
+import { Icon } from '@/elements/Icon'
+import {
+  ContractAbis,
+  ContractAddresses,
+  useContractCall
+} from '@/hooks/useContractCall'
+import { getMerkleProof } from '@/utils/merkle/tree'
+import { formatBytes32String } from '@ethersproject/strings'
 
 const optionRender = (option) => {
   return (
@@ -98,6 +110,12 @@ const OPTIONS = [
     render: function () { return optionRender(this) }
   },
   {
+    value: 'Neptune',
+    level: 7,
+    persona: 0,
+    render: function () { return optionRender(this) }
+  },
+  {
     value: 'Legendary Neptune',
     level: 7,
     persona: 0,
@@ -105,8 +123,74 @@ const OPTIONS = [
   }
 ]
 
-const ProofModal = ({ open, setOpen, merkleRoot, merkleRootLive }) => {
-  const [family, setFamily] = useState('Delphinus')
+const ProofModal = ({ open, setOpen, merkleRoot, merkleRootLive, merkleTree, merkleLeaf }) => {
+  const [family, setFamily] = useState('')
+  const [validity, setValidity] = useState()
+  const [validating, setValidating] = useState(false)
+
+  const [proof, setProof] = useState([])
+
+  const { isReady, callMethod } = useContractCall({ abi: ContractAbis.MERKLE_PROOF_MINTER, address: ContractAddresses.MERKLE_PROOF_MINTER })
+
+  const computeProof = () => {
+    const selectedOption = OPTIONS.find((opt) => family === opt.value)
+    if (selectedOption) {
+      const proof = getMerkleProof(merkleTree, [merkleLeaf.account, selectedOption.level, selectedOption.value, selectedOption.persona])
+
+      setProof(proof)
+    } else {
+      setProof([])
+    }
+  }
+
+  const validateProof = async () => {
+    if (!isReady) return
+
+    const selectedOption = OPTIONS.find((opt) => family === opt.value)
+
+    if (!selectedOption || !proof) {
+      return setValidity(false)
+    }
+
+    setValidity(undefined)
+    setValidating(true)
+
+    try {
+      const response = await callMethod('validateProof', [proof, selectedOption.level, formatBytes32String(selectedOption.value), selectedOption.persona])
+
+      if (response && !response.error) {
+        setValidity(true)
+      } else {
+        setValidity(false)
+      }
+    } catch (err) {
+      console.error(err)
+      setValidity(false)
+    }
+
+    setValidating(false)
+  }
+
+  useEffect(() => {
+    setValidity(undefined)
+  }, [open])
+
+  useEffect(() => {
+    if (merkleLeaf && merkleLeaf.family) {
+      setFamily(merkleLeaf.family)
+    } else {
+      setFamily('')
+      setProof([])
+    }
+  }, [merkleLeaf])
+
+  useEffect(() => {
+    if (merkleLeaf && merkleTree && family) {
+      computeProof()
+    }
+    // eslint-disable-next-line
+  }, [merkleLeaf, family])
+
   return (
     <Modal
       visible={open} setVisible={setOpen}
@@ -115,7 +199,7 @@ const ProofModal = ({ open, setOpen, merkleRoot, merkleRootLive }) => {
         <h1>Merkle Proof</h1>
 
         <div className='root'>
-          <span className='key'>Actual Root: </span>
+          <span className='key'>Live Root: </span>
           {merkleRootLive}
         </div>
         <div className='root'>
@@ -130,9 +214,26 @@ const ProofModal = ({ open, setOpen, merkleRoot, merkleRootLive }) => {
 
         <h2>Proof</h2>
 
-        <div className='merkle-proof'>[]</div>
+        <div className='merkle-proof'>{JSON.stringify(proof, null, 2)}</div>
+        <h2>Level/Family</h2>
 
         <Listbox options={OPTIONS} value={family} setValue={setFamily} />
+
+        <div className='cta'>
+          <Button size='xl' onClick={validateProof} disabled={validating}>Validate</Button>
+        </div>
+
+        {typeof validity !== 'undefined' && (
+          <div className='validation'>
+            <div className={`indicator${validity ? ' valid' : ''}`}>
+              <div className='dot'>
+                <Icon variant={validity ? 'check-circle' : 'alert-circle'} size='xs' />
+              </div>
+              {validity ? 'Proof is Valid' : 'Proof is Invalid'}
+            </div>
+          </div>
+        )}
+
       </div>
     </Modal>
   )

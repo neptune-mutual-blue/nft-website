@@ -76,7 +76,7 @@ const ConnectWallet = () => {
             </>
             )}
         visible={popupOpen}
-        setVisible={(popupOpen && isConnecting) ? () => {} : setPopupOpen}
+        setVisible={setPopupOpen}
         trigger={
           <Button
             onClick={handleWalletButtonClick}

@@ -1,0 +1,104 @@
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.my.persona.page .guardian.beast.selection {
+  padding: 32px;
+
+  .options {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    &.locked {
+      cursor: not-allowed !important;
+      opacity: 0.8;
+    }
+
+    .option {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      @include styles.text-md;
+      @include weights.semibold;
+      color: colors.$gray-500;
+      cursor: pointer;
+
+      &[data-active="true"] {
+        color: colors.$primary-700;
+      }
+
+      input {
+        cursor: pointer;
+      }
+
+      label {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .image.previews {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 24px;
+
+    .nft.name {
+      margin-top: 16px;
+      margin-bottom: 8px;
+      @include styles.text-xl;
+      @include weights.semibold;
+    }
+
+    .tag {
+      @include weights.medium;
+    }
+  }
+
+  .nft.title {
+    margin-top: 24px;
+    margin-bottom: 8px;
+    @include styles.text-sm;
+    @include weights.semibold;
+  }
+
+  .nft.description {
+    @include styles.text-sm;
+    margin-bottom: 32px;
+  }
+
+  .disclaimer {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    background-color: colors.$primary-25;
+    border: 1px solid colors.$primary-300;
+    padding: 16px;
+    border-radius: 12px;
+    @include styles.text-sm;
+    color: colors.$primary-700;
+    margin-bottom: 32px;
+
+    i {
+      color: colors.$primary-600;
+    }
+
+    .title {
+      @include weights.semibold;
+      margin-bottom: 4px;
+    }
+  }
+
+  .cta {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+
+    .ui.link.color.button {
+      padding-left: 20px;
+      padding-right: 20px;
+      background-color: colors.$primary-50;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+.persona.loader {
+  display: grid;
+  grid-template-columns: 224px 1fr;
+  gap: 24px;
+  margin-top: 32px;
+
+  & > div {
+    height: 70vh;
+  }
+}

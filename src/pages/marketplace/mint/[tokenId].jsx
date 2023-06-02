@@ -32,7 +32,7 @@ export async function getStaticProps (context) {
         mintingLevels: mintingLevelResponse.data,
         videos: videoResponse
       },
-      revalidate: 60 * 60 // one hour
+      revalidate: 2 * 60 // 2 mins
     }
   } catch (error) {
     return {

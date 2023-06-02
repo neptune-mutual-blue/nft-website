@@ -12,7 +12,7 @@ const NftSiblingsAndStage = ({ nft }) => {
                 id: '1',
                 slug: '1',
                 text: nft.stage,
-                color: 'nft-stage'
+                color: 'nft-' + (nft.stage.toLowerCase())
               }
             ]}
           />

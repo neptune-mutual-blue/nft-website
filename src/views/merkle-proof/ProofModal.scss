@@ -66,4 +66,48 @@
     color: colors.$error-700;
     margin-bottom: 32px;
   }
+
+  .cta {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 32px;
+
+    button {
+      padding: 12px 57.5px;
+    }
+  }
+
+  .validation {
+    margin-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+
+    .indicator {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      border-radius: 16px;
+      border: 1px solid colors.$error-600;
+      color: colors.$error-700;
+      padding: 2px 8px;
+      @include styles.text-xs;
+      @include weights.medium;
+
+      &.valid {
+        border-color: colors.$success-700;
+        color: colors.$success-700;
+      }
+
+      .dot {
+        svg {
+          height: 12px;
+          width: 12px;
+        }
+
+        &.valid {
+          background-color: colors.$success-500;
+        }
+      }
+    }
+  }
 }

@@ -122,6 +122,8 @@ const paths = {
 
   // Security Icons
   'shield-tick': import('./variants/Security/shield-tick.svg?raw'),
+  'lock-01': import('./variants/Security/lock-01.svg?raw'),
+  'lock-unlocked-01': import('./variants/Security/lock-unlocked-01.svg?raw'),
 
   // Alert And Feedback Icons
   'alert-triangle': import(
@@ -129,6 +131,7 @@ const paths = {
   ),
   'bell-02': import('./variants/AlertsAndFeedback/bell-02.svg?raw'),
   'alert-circle': import('./variants/AlertsAndFeedback/alert-circle.svg?raw'),
+  'check-circle': import('./variants/General/check-circle.svg?raw'),
 
   // Custom Icons
   'check-icon': import('./custom/CheckIcon.svg?raw'),

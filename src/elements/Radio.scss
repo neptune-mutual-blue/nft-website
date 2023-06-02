@@ -1,0 +1,32 @@
+@use "../design-system/colors";
+
+input[type="radio"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: colors.$white;
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  border: 1px solid colors.$gray-300;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+
+  &::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: colors.$primary-600;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+  }
+
+  &:checked::before {
+    transform: scale(1);
+  }
+
+  &:checked {
+    border: 1px solid colors.$primary-600;
+  }
+}
