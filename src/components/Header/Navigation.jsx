@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { Icon } from '@/elements/Icon'
 import { normalizeUrl } from '@/utils/url'
 
@@ -10,15 +12,13 @@ const Navigation = ({ data }) => {
         return href
           ? (
             <li key={title}>
-              <a
+              <Link
                 href={
-                normalizeUrl(href)
-              }
-                target='_blank'
-                rel='noreferrer'
+                  normalizeUrl(href)
+                }
               >
                 {title}
-              </a>
+              </Link>
             </li>
             )
           : (

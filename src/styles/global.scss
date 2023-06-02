@@ -3,6 +3,7 @@
 @use "../design-system/utils";
 @use "../design-system/colors";
 @import "../design-system/base";
+@import "../components/LoaderPopup/LoaderPopup.scss";
 
 .full.width.container {
   @include utils.full-width-container;

@@ -5,7 +5,7 @@ import {
 } from 'react'
 
 import { ToastContext } from '@/components/Toast/Toast'
-import useBoundToken from '@/hooks/data/useBoundToken'
+import useUserInfo from '@/hooks/data/useUserInfo'
 import useMintedLevelStatus from '@/hooks/data/useHasMintedLevel'
 import useMerkleLeaf from '@/hooks/data/useMerkleLeaf'
 import useTokenOwner from '@/hooks/data/useTokenOwner'
@@ -32,7 +32,7 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
 
   const { owner, loading: ownerLoading, setOwner } = useTokenOwner(nftDetails.tokenId)
 
-  const { boundToken } = useBoundToken(account)
+  const { boundToken, fetchUserInfo } = useUserInfo(account)
 
   const { status: mintedThisLevel } = useMintedLevelStatus(account, nftDetails.level ? nftDetails.level : -1)
   const { status: mintedPreviousLevel } = useMintedLevelStatus(account, nftDetails.level ? nftDetails.level - 1 : -1)
@@ -47,10 +47,6 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
   const mint = async (unsafe = false) => {
     setError('')
     setMinting(true)
-    showToast({
-      title: 'Minting...',
-      description: 'Minting Your NFT...'
-    })
 
     // Proof of Policy Minter
     if (policyProofReady && nftDetails.stage === 'Soulbound') {
@@ -95,6 +91,7 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
           description: response?.error ?? 'Unknown Error'
         })
       } else if (response) {
+        fetchUserInfo()
         setOwner(account)
         setShowMintSuccessful(true)
       }
@@ -172,7 +169,8 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
     owner,
     ownerLoading,
     error,
-    setError
+    setError,
+    minting
   }
 }
 

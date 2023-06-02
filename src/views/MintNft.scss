@@ -257,8 +257,10 @@
       }
     }
   }
+
   .explore.minting.collection {
     margin-top: 58px;
+
     h3 {
       @include styles.display-sm;
       @include weights.bold;
@@ -317,6 +319,7 @@
 .dark .mint.nft.page {
   .hero {
     border-color: colors.$gray-800;
+
     .image.and.milestones {
       .supporting.text {
         color: colors.$gray-200;

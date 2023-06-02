@@ -1,0 +1,21 @@
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.minting.loader {
+  text-align: center;
+  padding: 24px 0;
+
+  .loading.icon {
+    margin-bottom: 16px;
+  }
+
+  .nft.name {
+    margin-bottom: 4px;
+    @include styles.text-lg;
+    @include weights.semibold;
+  }
+
+  .description {
+    @include styles.text-sm;
+  }
+}
