@@ -15,7 +15,6 @@ import { Tags } from '@/components/Tags/Tags'
 import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import { Icon } from '@/elements/Icon'
 import useTokenOwner from '@/hooks/data/useTokenOwner'
-import { abbreviateAccount } from '@/utils/abbreviate-account'
 import { useWeb3React } from '@web3-react/core'
 
 const NftDetails = ({ nftDetails, premiumNfts }) => {
@@ -135,7 +134,7 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
               </div>
             </div>
 
-            <div className='activities'>
+            {/* <div className='activities'>
               <h3>Activities</h3>
               <div className='table'>
 
@@ -148,7 +147,7 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
                   <div className='value'><div className='action'>Minted to</div> <span className='address'>{abbreviateAccount('0x9550e6e02e00698d2f8...3416')}</span></div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
           </div>
         </div>

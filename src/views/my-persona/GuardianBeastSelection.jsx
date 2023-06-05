@@ -12,7 +12,7 @@ import { Icon } from '@/elements/Icon'
 import { useWeb3React } from '@web3-react/core'
 
 const GuardianBeastSelection = ({ characters, levels, selection, onSelectionChange, setSelectedLevels, locked, onSetPersona }) => {
-  const selectedValue = selection[levels.join('-')]
+  const selectedValue = selection[levels[0]]
 
   const firstNft = characters.find(character => character.level === levels[0] && selectedValue === character.role)
   const secondNft = characters.find(character => character.level === levels[1] && selectedValue === character.role)
@@ -87,7 +87,7 @@ const GuardianBeastSelection = ({ characters, levels, selection, onSelectionChan
       <div className='nft title'>"{firstNft.description}"</div>
       <div className='nft description'>{CharacterDetails[levels[0]][selectedValue]}</div>
 
-      {!locked && (
+      {!locked && levels[0] === 5 && (
         <div className='disclaimer'>
           <Icon variant='info-circle' size='lg' />
           <div>
