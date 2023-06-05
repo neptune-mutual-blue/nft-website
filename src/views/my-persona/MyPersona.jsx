@@ -107,7 +107,7 @@ const MyPersona = ({ characters }) => {
         const persona = {}
 
         response.forEach(personaLevel => {
-          if (persona.level % 2 === 1) {
+          if (personaLevel.level % 2 === 1) {
             persona[personaLevel.level] = personaLevel.persona === 1 ? Personas.GUARDIAN : Personas.BEAST
           }
         })

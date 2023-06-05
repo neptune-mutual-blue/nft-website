@@ -18,6 +18,7 @@ import { imageOrigin } from '@/services/marketplace-api'
 import { abbreviateAccount } from '@/utils/abbreviate-account'
 import { copyToClipboard } from '@/utils/copy-to-clipboard'
 import { formatDollar } from '@/utils/currencyHelpers'
+import { formatNumber } from '@/utils/number-format'
 import { useWeb3React } from '@web3-react/core'
 
 const ConnectedDropdown = () => {
@@ -111,7 +112,7 @@ const ConnectedDropdown = () => {
 
         <div className='info'>
           <div className='key'>Current Points</div>
-          <div>{points.toLocaleString('en-US')} pts</div>
+          <div>{formatNumber(points)} pts</div>
         </div>
 
         <div className='info'>

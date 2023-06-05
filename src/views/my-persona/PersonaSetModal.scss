@@ -5,10 +5,10 @@
 .persona.set.modal {
   border: none;
   max-height: auto !important;
+  padding: 0;
 
   .persona.set.successful {
     background-image: url("../../../public/assets/images/persona/success.webp");
-    margin: -32px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     width: 866px;

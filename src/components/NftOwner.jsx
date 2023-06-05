@@ -7,14 +7,16 @@ import { useWeb3React } from '@web3-react/core'
 const NftOwner = ({ owner }) => {
   const { account } = useWeb3React()
 
+  const abbreviatedAccount = abbreviateAccount(owner)
+
   return (
     <div className='nft owner'>
       <div className='title'>Owner</div>
       <div className='content'>
         <div>
-          {account === owner && 'You ('}
-          {abbreviateAccount(owner)}
-          {account === owner && ')'}
+          {account === owner
+            ? (<>You ({abbreviatedAccount})</>)
+            : (<>{abbreviatedAccount}</>)}
         </div>
         <IconButton
           showFeedback
