@@ -21,6 +21,7 @@ import { NftApi } from '@/service/nft-api'
 import { NpmApi } from '@/service/npm-api'
 import { formatDollar } from '@/utils/currencyHelpers'
 import { getMerkleRoot } from '@/utils/merkle/tree'
+import { formatNumber } from '@/utils/number-format'
 import ProofModal from '@/views/merkle-proof/ProofModal'
 import { RowPlaceholder } from '@/views/merkle-proof/RowPlaceholder'
 import { formatBytes32String } from '@ethersproject/strings'
@@ -244,7 +245,7 @@ const MerkleProofView = () => {
                     <div className='address'>{row.account}</div>
                     <div>{formatDollar(row.policy)}</div>
                     <div>{formatDollar(row.liquidity)}</div>
-                    <div className='points'>{parseFloat(row.points).toLocaleString('en-US')}</div>
+                    <div className='points'>{formatNumber(parseFloat(row.points))}</div>
                     <div>{row.level}</div>
                     {!showLiveData && (
                       <div className='view-proof'>

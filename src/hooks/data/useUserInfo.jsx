@@ -4,6 +4,10 @@ import {
   useState
 } from 'react'
 
+import {
+  AvailableEvents,
+  useEvent
+} from '@/hooks/useEvent'
 import { NftApi } from '@/service/nft-api'
 
 const useUserInfo = (account) => {
@@ -26,7 +30,7 @@ const useUserInfo = (account) => {
       const userLevel = mintedLevel < 7 ? mintedLevel + 1 : mintedLevel
       setUserData({
         ...userInfo,
-        boundToken: Number(userInfo.tokenId || '0'),
+        boundToken: userInfo.tokenId ? Number(userInfo.tokenId) : '',
         userLevel
       })
     }
@@ -38,6 +42,21 @@ const useUserInfo = (account) => {
   }, [fetchUserInfo])
 
   const { boundToken, mintedLevel, userLevel, unlockedLevel, nickname } = userData
+
+  // HANDLE EVENTS
+
+  const handleMintEvent = useCallback((nft) => {
+    const updatedUserInfo = { userLevel: nft.level ? nft.level + 1 > 7 ? 7 : nft.level + 1 : 1 }
+
+    if (!nft.level) {
+      updatedUserInfo.boundToken = Number(nft.tokenId)
+      updatedUserInfo.nickname = nft.nickname
+    }
+
+    setUserData({ ...userData, ...updatedUserInfo })
+  }, [userData])
+
+  useEvent(AvailableEvents.NEW_NFT_MINTED, handleMintEvent)
 
   return {
     boundToken,

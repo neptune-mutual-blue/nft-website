@@ -20,6 +20,7 @@ import { AppConstants } from '@/constants/AppConstants'
 import { Icon } from '@/elements/Icon'
 import useMint from '@/hooks/actions/useMint'
 import { formatDollar } from '@/utils/currencyHelpers.js'
+import { formatNumber } from '@/utils/number-format'
 import { MintingLevels } from '@/views/mint-nft/MintingLevels'
 import { MintSuccessModal } from '@/views/mint-nft/MintSuccessModal'
 import { Summary } from '@/views/mint-nft/Summary'
@@ -112,7 +113,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
 
               <div className='milestones'>
 
-                <h3>Current Points: <span>{points.toLocaleString('en-US')} pts</span>
+                <h3>Current Points: <span>{formatNumber(points)} pts</span>
                 </h3>
 
                 <Progress percent={(points / requirements.points) * 100} />
@@ -120,10 +121,10 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
                 {pointsRemaining > 0 && (
                   <div className='next level requirements'>
                     <div>
-                      {pointsRemaining} more points needed to mint this NFT
+                      {formatNumber(pointsRemaining)} more points needed to mint this NFT
                     </div>
 
-                    <CustomTooltip text={`Points Required: ${requirements.points}`}>
+                    <CustomTooltip text={`Points Required: ${formatNumber(requirements.points)}`}>
                       <button
                         role='button'
                       >

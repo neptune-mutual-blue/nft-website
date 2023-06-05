@@ -12,7 +12,7 @@ import { Icon } from '@/elements/Icon'
 import { useWeb3React } from '@web3-react/core'
 
 const GuardianBeastSelection = ({ characters, levels, selection, onSelectionChange, setSelectedLevels, locked, onSetPersona }) => {
-  const selectedValue = selection[levels.join('-')]
+  const selectedValue = selection[levels[0]]
 
   const firstNft = characters.find(character => character.level === levels[0] && selectedValue === character.role)
   const secondNft = characters.find(character => character.level === levels[1] && selectedValue === character.role)

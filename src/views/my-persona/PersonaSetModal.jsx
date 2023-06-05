@@ -19,7 +19,7 @@ function PersonaSetModal ({ visible, setVisible, characters, selections }) {
               characters={characters}
               levels={levelGroup}
               selected={false}
-              selection={selections[levelGroup.join('-')]}
+              selection={selections[levelGroup[0]]}
               onClick={() => {}}
             />
           ))}

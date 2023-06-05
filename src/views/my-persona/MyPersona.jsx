@@ -40,15 +40,15 @@ const crumbs = [
 ]
 
 const initialSelections = {
-  '1-2': Personas.GUARDIAN,
-  '3-4': Personas.GUARDIAN,
-  '5-6': Personas.GUARDIAN
+  1: Personas.GUARDIAN,
+  3: Personas.GUARDIAN,
+  5: Personas.GUARDIAN
 }
 
 const initialSelectionsEmpty = {
-  '1-2': '',
-  '3-4': '',
-  '5-6': ''
+  1: '',
+  3: '',
+  5: ''
 }
 
 const MyPersona = ({ characters }) => {
@@ -106,9 +106,11 @@ const MyPersona = ({ characters }) => {
       if (response && response.length === 6) {
         const persona = {}
 
-        for (let i = 0; i < response.length; i = i + 2) {
-          persona[`${i + 1}-${i + 2}`] = response[i].persona === 1 ? Personas.GUARDIAN : Personas.BEAST
-        }
+        response.forEach(personaLevel => {
+          if (persona.level % 2 === 1) {
+            persona[personaLevel.level] = personaLevel.persona === 1 ? Personas.GUARDIAN : Personas.BEAST
+          }
+        })
 
         setRadioSelections(persona)
         setSidebarSelections(persona)
@@ -139,7 +141,7 @@ const MyPersona = ({ characters }) => {
     if (selectedLevels.length > 0) {
       PersonaLevelGroups.forEach((levels) => {
         if (levels[0] < selectedLevels[1]) {
-          const key = levels.join('-')
+          const key = levels[0]
           setSidebarSelections((val) => ({ ...val, [key]: radioSelections[key] }))
         }
       })
@@ -197,7 +199,7 @@ const MyPersona = ({ characters }) => {
                     characters={characters}
                     levels={levelGroup}
                     selected={selectedLevels.includes(levelGroup[0])}
-                    selection={sidebarSelections[levelGroup.join('-')]}
+                    selection={sidebarSelections[levelGroup[0]]}
                     onClick={() => {
                       setSelectedLevels(levelGroup)
                     }}
@@ -220,7 +222,7 @@ const MyPersona = ({ characters }) => {
                   characters={characters}
                   selection={radioSelections}
                   setSelectedLevels={setSelectedLevels}
-                  onSelectionChange={(value) => { setRadioSelections({ ...radioSelections, [selectedLevels.join('-')]: value }) }}
+                  onSelectionChange={(value) => { setRadioSelections({ ...radioSelections, [selectedLevels[0]]: value }) }}
                 />
               )}
             </div>
