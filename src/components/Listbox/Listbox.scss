@@ -52,3 +52,23 @@
     }
   }
 }
+
+.dark .listbox {
+  button[role="combobox"] {
+    border-color: colors.$gray-800;
+  }
+}
+
+.dark .listbox.options.wrapper {
+  .listbox.options {
+    background-color: colors.$black-800;
+    border: 1px solid colors.$gray-800;
+
+    button {
+      &[aria-selected="true"] {
+        background-color: colors.$gray-800;
+        border-radius: 8px;
+      }
+    }
+  }
+}

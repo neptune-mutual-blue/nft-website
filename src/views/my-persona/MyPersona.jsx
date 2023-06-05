@@ -101,13 +101,13 @@ const MyPersona = ({ characters }) => {
   const getPersona = async () => {
     setLoading(true)
     try {
-      const response = await NftApi.getUserInfoFromApi(account)
+      const response = await NftApi.getPersona(account)
 
-      if (response && response.personaInfo && response.personaInfo.length === 6) {
+      if (response && response.length === 6) {
         const persona = {}
 
-        for (let i = 0; i < response.personaInfo.length; i = i + 2) {
-          persona[`${i + 1}-${i + 2}`] = response.personaInfo[i].persona === 1 ? Personas.GUARDIAN : Personas.BEAST
+        for (let i = 0; i < response.length; i = i + 2) {
+          persona[`${i + 1}-${i + 2}`] = response[i].persona === 1 ? Personas.GUARDIAN : Personas.BEAST
         }
 
         setRadioSelections(persona)

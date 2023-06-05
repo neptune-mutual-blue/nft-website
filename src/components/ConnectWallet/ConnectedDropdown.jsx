@@ -9,16 +9,16 @@ import { IconButton } from '@/components/IconButton/IconButton'
 import { Tags } from '@/components/Tags/Tags'
 import { AppConstants } from '@/constants/AppConstants'
 import { Icon } from '@/elements/Icon'
+import useUserInfo from '@/hooks/data/useUserInfo'
 import useOnEscape from '@/hooks/useOnEscape'
 import { useOnClickOutside } from '@/hooks/useOnOutsideClick'
 import useAuth from '@/lib/connect-wallet/hooks/useAuth'
 import { NftApi } from '@/service/nft-api'
+import { imageOrigin } from '@/services/marketplace-api'
 import { abbreviateAccount } from '@/utils/abbreviate-account'
 import { copyToClipboard } from '@/utils/copy-to-clipboard'
 import { formatDollar } from '@/utils/currencyHelpers'
 import { useWeb3React } from '@web3-react/core'
-import useUserInfo from '@/hooks/data/useUserInfo'
-import { imageOrigin } from '@/services/marketplace-api'
 
 const ConnectedDropdown = () => {
   const [open, setOpen] = useState(false)
@@ -70,15 +70,16 @@ const ConnectedDropdown = () => {
       </button>
 
       <div className={'dropdown content' + (open ? ' visible' : '')}>
-        <div className='avatar and nickname'>
-          <div className='avatar'>
-            <img src={boundToken ? `${imageOrigin}/thumbnails/${boundToken}.webp` : '/assets/images/avatar/default.png'} alt='User avatar' />
+        {nickname && boundToken && (
+          <div className='avatar and nickname'>
+            <div className='avatar'>
+              <img src={boundToken ? `${imageOrigin}/thumbnails/${boundToken}.webp` : '/assets/images/avatar/default.png'} alt='User avatar' />
+            </div>
+            <div className='nickname'>
+              {nickname || 'Purple Orchid Isomorphic Nebula'}
+            </div>
           </div>
-          <div className='nickname'>
-            {nickname || 'Purple Orchid Isomorphic Nebula'}
-          </div>
-
-        </div>
+        )}
         <div className='level and account'>
           <div className={`level${userLevel === 0 ? ' hidden' : ''}`}>
             {userLevel !== 0 && (
@@ -110,7 +111,7 @@ const ConnectedDropdown = () => {
 
         <div className='info'>
           <div className='key'>Current Points</div>
-          <div>{points} pts</div>
+          <div>{points.toLocaleString('en-US')} pts</div>
         </div>
 
         <div className='info'>

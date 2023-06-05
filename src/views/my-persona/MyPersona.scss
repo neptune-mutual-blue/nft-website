@@ -26,6 +26,7 @@
     background-size: 100% 100%;
     z-index: -1;
     opacity: 10%;
+    background-position: fixed;
   }
 
   .inner.content {
@@ -123,6 +124,25 @@
       no-repeat center top;
     background-size: 100% 100%;
     mix-blend-mode: overlay;
-    opacity: 80%;
+    opacity: 40%;
+  }
+
+  .inner.content {
+    .wizard {
+      .persona.setting {
+        .leading.content {
+          background-color: colors.$gray-800;
+        }
+
+        .separator {
+          background-color: colors.$gray-600;
+        }
+      }
+
+      .persona.details {
+        background-color: colors.$black-800;
+        border-color: colors.$gray-800;
+      }
+    }
   }
 }

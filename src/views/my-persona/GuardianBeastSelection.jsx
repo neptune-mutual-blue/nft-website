@@ -87,7 +87,7 @@ const GuardianBeastSelection = ({ characters, levels, selection, onSelectionChan
       <div className='nft title'>"{firstNft.description}"</div>
       <div className='nft description'>{CharacterDetails[levels[0]][selectedValue]}</div>
 
-      {!locked && (
+      {!locked && levels[0] === 5 && (
         <div className='disclaimer'>
           <Icon variant='info-circle' size='lg' />
           <div>
