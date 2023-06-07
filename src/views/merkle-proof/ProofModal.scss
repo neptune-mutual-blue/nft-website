@@ -2,162 +2,176 @@
 @use "../../design-system/typography/styles";
 @use "../../design-system/typography/weights";
 
-.proof.modal {
-  min-width: 820px;
-
-  h1 {
-    @include styles.display-xs;
-    @include weights.semibold;
-    margin-bottom: 16px;
+.proof-modal {
+  @media (max-width: 767px) {
+    width: calc(100vw - 48px);
   }
 
-  .root {
-    @include styles.text-md;
-    margin-bottom: 4px;
-    display: flex;
-    gap: 4px;
+  .proof.modal {
+    min-width: 820px;
 
-    .key {
-      @include weights.semibold;
+    @media (max-width: 767px) {
+      min-width: unset;
+      width: 100%;
     }
 
-    .indicator {
-      display: flex;
-      gap: 5px;
-      align-items: center;
-      border-radius: 16px;
-      background-color: colors.$error-50;
-      color: colors.$error-700;
-      padding: 2px 8px;
-      @include styles.text-xs;
-      @include weights.medium;
+    h1 {
+      @include styles.display-xs;
+      @include weights.semibold;
+      margin-bottom: 16px;
+    }
 
-      &.match {
-        background-color: colors.$success-50;
-        color: colors.$success-700;
+    .root {
+      @include styles.text-md;
+      margin-bottom: 4px;
+      display: flex;
+      gap: 4px;
+      word-break: break-all;
+      flex-wrap: wrap;
+
+      .key {
+        @include weights.semibold;
       }
 
-      .dot {
-        height: 6px;
-        width: 6px;
-        border-radius: 50%;
-        background-color: colors.$error-500;
+      .indicator {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        border-radius: 16px;
+        background-color: colors.$error-50;
+        color: colors.$error-700;
+        padding: 2px 8px;
+        @include styles.text-xs;
+        @include weights.medium;
 
         &.match {
-          background-color: colors.$success-500;
+          background-color: colors.$success-50;
+          color: colors.$success-700;
+        }
+
+        .dot {
+          height: 6px;
+          width: 6px;
+          border-radius: 50%;
+          background-color: colors.$error-500;
+
+          &.match {
+            background-color: colors.$success-500;
+          }
         }
       }
     }
-  }
 
-  h2 {
-    margin-top: 32px;
-    @include styles.text-md;
-    @include weights.semibold;
-    margin-bottom: 8px;
-  }
-
-  .merkle-proof {
-    background-color: colors.$error-25;
-    border: 1px solid colors.$error-300;
-    padding: 16px;
-    border-radius: 12px;
-    @include styles.text-sm;
-    color: colors.$error-700;
-    margin-bottom: 32px;
-  }
-
-  .cta {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 32px;
-
-    button {
-      padding: 12px 57.5px;
+    h2 {
+      margin-top: 32px;
+      @include styles.text-md;
+      @include weights.semibold;
+      margin-bottom: 8px;
     }
-  }
 
-  .validation {
-    margin-top: 16px;
-    display: flex;
-    justify-content: flex-end;
-
-    .indicator {
-      display: flex;
-      gap: 5px;
-      align-items: center;
-      border-radius: 16px;
-      border: 1px solid colors.$error-600;
+    .merkle-proof {
+      background-color: colors.$error-25;
+      border: 1px solid colors.$error-300;
+      padding: 16px;
+      border-radius: 12px;
+      @include styles.text-sm;
       color: colors.$error-700;
-      padding: 2px 8px;
-      @include styles.text-xs;
-      @include weights.medium;
+      margin-bottom: 32px;
+      word-break: break-all;
+    }
 
-      &.valid {
-        border-color: colors.$success-700;
-        color: colors.$success-700;
+    .cta {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 32px;
+
+      button {
+        padding: 12px 57.5px;
       }
+    }
 
-      .dot {
-        svg {
-          height: 12px;
-          width: 12px;
-        }
+    .validation {
+      margin-top: 16px;
+      display: flex;
+      justify-content: flex-end;
+
+      .indicator {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        border-radius: 16px;
+        border: 1px solid colors.$error-600;
+        color: colors.$error-700;
+        padding: 2px 8px;
+        @include styles.text-xs;
+        @include weights.medium;
 
         &.valid {
-          background-color: colors.$success-500;
+          border-color: colors.$success-700;
+          color: colors.$success-700;
+        }
+
+        .dot {
+          svg {
+            height: 12px;
+            width: 12px;
+          }
+
+          &.valid {
+            background-color: colors.$success-500;
+          }
         }
       }
     }
   }
-}
 
-.dark .proof.modal {
-  .merkle-proof {
-    background-color: rgba(colors.$error-900, 0.1);
-    border-color: rgba(colors.$error-900, 0.4);
-    color: colors.$error-300;
-  }
-
-  .cta {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 32px;
-
-    button {
-      padding: 12px 57.5px;
+  .dark .proof.modal {
+    .merkle-proof {
+      background-color: rgba(colors.$error-900, 0.1);
+      border-color: rgba(colors.$error-900, 0.4);
+      color: colors.$error-300;
     }
-  }
 
-  .validation {
-    margin-top: 16px;
-    display: flex;
-    justify-content: flex-end;
-
-    .indicator {
+    .cta {
       display: flex;
-      gap: 5px;
-      align-items: center;
-      border-radius: 16px;
-      border: 1px solid colors.$error-600;
-      color: colors.$error-700;
-      padding: 2px 8px;
-      @include styles.text-xs;
-      @include weights.medium;
+      justify-content: flex-end;
+      margin-top: 32px;
 
-      &.valid {
-        border-color: colors.$success-700;
-        color: colors.$success-700;
+      button {
+        padding: 12px 57.5px;
       }
+    }
 
-      .dot {
-        svg {
-          height: 12px;
-          width: 12px;
-        }
+    .validation {
+      margin-top: 16px;
+      display: flex;
+      justify-content: flex-end;
+
+      .indicator {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        border-radius: 16px;
+        border: 1px solid colors.$error-600;
+        color: colors.$error-700;
+        padding: 2px 8px;
+        @include styles.text-xs;
+        @include weights.medium;
 
         &.valid {
-          background-color: colors.$success-500;
+          border-color: colors.$success-700;
+          color: colors.$success-700;
+        }
+
+        .dot {
+          svg {
+            height: 12px;
+            width: 12px;
+          }
+
+          &.valid {
+            background-color: colors.$success-500;
+          }
         }
       }
     }

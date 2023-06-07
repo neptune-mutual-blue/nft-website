@@ -193,6 +193,7 @@ const ProofModal = ({ open, setOpen, merkleRoot, merkleRootLive, merkleTree, mer
 
   return (
     <Modal
+      className='proof-modal'
       visible={open} setVisible={setOpen}
     >
       <div className='proof modal'>

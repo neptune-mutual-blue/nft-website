@@ -5,10 +5,42 @@
 .my.persona.page .guardian.beast.selection {
   padding: 32px;
 
+  @media (max-width: 767px) {
+    padding: 16px;
+  }
+
+  .levels {
+    display: none;
+
+    @media (max-width: 767px) {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
   .options {
     display: flex;
     align-items: center;
     gap: 16px;
+
+    @media (max-width: 767px) {
+      display: none;
+    }
+
+    &.mobile {
+      display: none;
+      @media (max-width: 767px) {
+        display: flex;
+        justify-content: center;
+        padding: 16px 0;
+        margin-bottom: 16px;
+        border: 1px solid colors.$gray-200;
+        border-left: none;
+        border-right: none;
+        margin-left: -16px;
+        margin-right: -16px;
+      }
+    }
 
     &.locked {
       cursor: not-allowed !important;
@@ -95,11 +127,19 @@
     justify-content: flex-end;
     gap: 16px;
 
+    @media (max-width: 767px) {
+      button {
+        flex-basis: 100%;
+        white-space: nowrap;
+      }
+    }
+
     .ui.link.color.button {
       padding-left: 20px;
       padding-right: 20px;
       background-color: colors.$primary-50;
       color: colors.$primary-600;
+      border: 1px solid colors.$primary-50;
 
       &:hover {
         background-color: colors.$primary-200;
@@ -118,15 +158,32 @@
         color: colors.$primary-300;
       }
     }
+
+    &.mobile {
+      border-color: colors.$gray-800;
+    }
+  }
+
+  .cta {
+    .ui.link.color.button {
+      background-color: colors.$gray-700;
+      color: colors.$base-white;
+      border-color: colors.$gray-500;
+
+      &:hover {
+        background-color: colors.$primary-200;
+        color: colors.$primary-700 !important;
+      }
+    }
   }
 
   .disclaimer {
-    background-color: rgba(colors.$primary-900, 0.1);
-    border-color: colors.$gray-800;
-    color: colors.$primary-200;
+    background-color: colors.$black-800;
+    border-color: colors.$primary-300;
+    color: colors.$base-white;
 
     i {
-      color: colors.$primary-200;
+      color: colors.$primary-300;
     }
   }
 }

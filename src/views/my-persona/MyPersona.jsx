@@ -173,7 +173,7 @@ const MyPersona = ({ characters }) => {
         )}
 
         {!loading && (
-          <div className='wizard'>
+          <div className={`wizard${locked ? ' persona set' : ''}`}>
             {!active && (
               <>
                 <AlertInfo text='Please connect your wallet to set or view your persona.' />
@@ -187,25 +187,27 @@ const MyPersona = ({ characters }) => {
                 }} className='leading content'
               >
                 <div className='supporting text'>
-                  Tell us who you are
+                  {locked ? 'Detailed View' : 'Tell us who you are'}
                 </div>
-                <h1>Set Your Persona</h1>
+                <h1> {locked ? 'Your Persona' : 'Set Your Persona'}</h1>
               </button>
-              {PersonaLevelGroups.map(levelGroup => (
-                <Fragment key={levelGroup[0]}>
-                  <div className='separator' />
-                  <PersonaSelection
-                    locked={locked}
-                    characters={characters}
-                    levels={levelGroup}
-                    selected={selectedLevels.includes(levelGroup[0])}
-                    selection={sidebarSelections[levelGroup[0]]}
-                    onClick={() => {
-                      setSelectedLevels(levelGroup)
-                    }}
-                  />
-                </Fragment>
-              ))}
+              <div className='persona-levels'>
+                {PersonaLevelGroups.map(levelGroup => (
+                  <Fragment key={levelGroup[0]}>
+                    <div className='separator' />
+                    <PersonaSelection
+                      locked={locked}
+                      characters={characters}
+                      levels={levelGroup}
+                      selected={selectedLevels.includes(levelGroup[0])}
+                      selection={sidebarSelections[levelGroup[0]]}
+                      onClick={() => {
+                        setSelectedLevels(levelGroup)
+                      }}
+                    />
+                  </Fragment>
+                ))}
+              </div>
             </div>
             <div className='persona details'>
               {selectedLevels.length === 0 && (

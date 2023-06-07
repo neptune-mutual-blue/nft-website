@@ -22,11 +22,11 @@ input[type="radio"] {
     transition: 120ms transform ease-in-out;
   }
 
-  &:checked::before {
+  &.checked::before {
     transform: scale(1);
   }
 
-  &:checked {
+  &.checked {
     border: 1px solid colors.$primary-600;
   }
 }

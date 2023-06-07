@@ -9,7 +9,7 @@ function PersonaSetModal ({ visible, setVisible, characters, selections }) {
   return (
     <Modal className='persona set modal' visible={visible} setVisible={setVisible}>
       <div className='persona set successful'>
-        <img className='nft collections logo' src='assets/images/persona/nft-collections.webp' alt='Neptune Mutual NFT Collections' />
+        <img className='nft collections logo' src='/assets/images/persona/nft-collections.webp' alt='Neptune Mutual NFT Collections' />
 
         <div className='selections'>
           {PersonaLevelGroups.map(levelGroup => (
@@ -23,6 +23,10 @@ function PersonaSetModal ({ visible, setVisible, characters, selections }) {
               onClick={() => {}}
             />
           ))}
+        </div>
+
+        <div className='success text'>
+          <img src='/assets/images/persona/success-text.svg' alt='SUCCESS' />
         </div>
 
         <h1>Congratulations! You have set your persona!</h1>
