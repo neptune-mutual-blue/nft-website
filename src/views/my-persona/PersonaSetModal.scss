@@ -6,6 +6,9 @@
   border: none;
   max-height: auto !important;
   padding: 0;
+  @media (max-width: 767px) {
+    width: calc(100vw - 48px);
+  }
 
   .persona.set.successful {
     background-image: url("../../../public/assets/images/persona/success.webp");
@@ -14,17 +17,39 @@
     width: 866px;
     padding: 32px;
 
+    @media (max-width: 767px) {
+      width: 100%;
+      background-image: url("../../../public/assets/images/persona/success-mobile.webp");
+    }
+
     .nft.collections.logo {
       height: 29px;
       display: block;
       margin: 0 auto;
       margin-bottom: 227px;
+
+      @media (max-width: 767px) {
+        display: none;
+      }
     }
 
     .selections {
       display: flex;
       gap: 24px;
       justify-content: center;
+
+      @media (max-width: 767px) {
+        display: none;
+      }
+    }
+
+    .success.text {
+      display: none;
+
+      @media (max-width: 767px) {
+        display: block;
+        text-align: center;
+      }
     }
 
     h1 {
@@ -39,6 +64,14 @@
     .cta {
       display: flex;
       justify-content: center;
+
+      @media (max-width: 767px) {
+        flex-basis: 100%;
+
+        button {
+          width: 100%;
+        }
+      }
     }
   }
 }

@@ -113,35 +113,39 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
 
               <div className='milestones'>
 
-                <h3>Current Points: <span>{formatNumber(points)} pts</span>
-                </h3>
+                {!owner && (
+                  <>
+                    <h3>Current Points: <span>{formatNumber(points)} pts</span></h3>
 
-                <Progress percent={(points / requirements.points) * 100} />
+                    <Progress percent={(points / requirements.points) * 100} />
 
-                {pointsRemaining > 0 && (
-                  <div className='next level requirements'>
-                    <div>
-                      {formatNumber(pointsRemaining)} more points needed to mint this NFT
+                    {pointsRemaining > 0 && (
+                      <div className='next level requirements'>
+                        <div>
+                          {formatNumber(pointsRemaining)} more points needed to mint this NFT
+                        </div>
+
+                        <CustomTooltip text={`Points Required: ${formatNumber(requirements.points)}`}>
+                          <button
+                            role='button'
+                          >
+                            <Icon variant='help-cirlce' size='sm' />
+                          </button>
+                        </CustomTooltip>
+                      </div>
+                    )}
+
+                    <div className='label and value'>
+                      <div className='label'>Policy Purchase:</div>
+                      <div className='value'>{formatDollar(currentProgress.totalPolicyPurchased)}</div>
                     </div>
-
-                    <CustomTooltip text={`Points Required: ${formatNumber(requirements.points)}`}>
-                      <button
-                        role='button'
-                      >
-                        <Icon variant='help-cirlce' size='sm' />
-                      </button>
-                    </CustomTooltip>
-                  </div>
+                    <div className='label and value'>
+                      <div className='label'>Added Liquidity:</div>
+                      <div className='value'>{formatDollar(currentProgress.totalLiquidityAdded)}</div>
+                    </div>
+                  </>
                 )}
 
-                <div className='label and value'>
-                  <div className='label'>Policy Purchase:</div>
-                  <div className='value'>{formatDollar(currentProgress.totalPolicyPurchased)}</div>
-                </div>
-                <div className='label and value'>
-                  <div className='label'>Added Liquidity:</div>
-                  <div className='value'>{formatDollar(currentProgress.totalLiquidityAdded)}</div>
-                </div>
                 <MintSuccessModal open={showMintSuccessful} setOpen={setShowMintSuccessful} nft={nftDetails}>
                   {ownerLoading && <Skeleton style={{ height: '64px', marginTop: '16px', marginBottom: '64px' }} />}
                   {!ownerLoading && !owner && (

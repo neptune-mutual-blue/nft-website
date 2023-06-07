@@ -16,7 +16,8 @@ const useUserInfo = (account) => {
     mintedLevel: '0',
     boundToken: '',
     nickname: '',
-    userLevel: 0
+    userLevel: 0,
+    personaSet: false
   })
   const [loading, setLoading] = useState(false)
 
@@ -24,16 +25,21 @@ const useUserInfo = (account) => {
     if (!account) return
 
     setLoading(true)
-    const userInfo = await NftApi.getUserInfoFromApi(account)
-    if (userInfo) {
-      const mintedLevel = Number(userInfo.mintedLevel || '0')
-      const userLevel = mintedLevel < 7 ? mintedLevel + 1 : mintedLevel
-      setUserData({
-        ...userInfo,
-        boundToken: userInfo.tokenId ? Number(userInfo.tokenId) : '',
-        userLevel
-      })
-    }
+    const [userInfo, persona] = await Promise.all([NftApi.getUserInfoFromApi(account), NftApi.getPersona(account)])
+
+    const mintedLevel = Number(userInfo?.mintedLevel || '0')
+    const userLevel = mintedLevel < 7 ? mintedLevel + 1 : mintedLevel
+    const boundToken = persona.length > 0 ? persona[0].boundTokenId || '' : ''
+
+    const personaSet = !!(persona.length > 0 && persona[0].persona)
+
+    setUserData({
+      ...userInfo,
+      userLevel: userLevel === 0 && boundToken ? 1 : userLevel,
+      boundToken,
+      personaSet
+    })
+
     setLoading(false)
   }, [account])
 
@@ -41,7 +47,7 @@ const useUserInfo = (account) => {
     fetchUserInfo()
   }, [fetchUserInfo])
 
-  const { boundToken, mintedLevel, userLevel, unlockedLevel, nickname } = userData
+  const { boundToken, mintedLevel, userLevel, unlockedLevel, nickname, personaSet } = userData
 
   // HANDLE EVENTS
 
@@ -65,6 +71,7 @@ const useUserInfo = (account) => {
     unlockedLevel,
     nickname,
     loading,
+    personaSet,
     fetchUserInfo
   }
 }

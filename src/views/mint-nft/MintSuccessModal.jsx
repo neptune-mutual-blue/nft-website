@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { Button } from '@/components/Button/Button'
 import { Modal } from '@/components/Modal/Modal'
 import {
@@ -31,7 +33,7 @@ const MintSuccessModal = (props) => {
       <div className='content'>
         <img src={nft.thumbnail} alt={nft.nickname} />
         <ShareButtonGroup content={shareContent} link={`${typeof window !== 'undefined' ? window.location.origin : ''}/marketplace/${nft.tokenId}/`} />
-        <Button size='xl'>Explore other Collection</Button>
+        <Link to='/marketplace'><Button size='xl'>Explore other Collection</Button></Link>
       </div>
 
     </Modal>

@@ -19,9 +19,15 @@
     outline: none;
   }
 
-  &.selected {
-    background-color: colors.$primary-100;
-    border-color: 1px solid colors.$primary-600;
+  @media (min-width: 768px) {
+    &.selected {
+      background-color: colors.$primary-100;
+      border: 1px solid colors.$primary-600;
+    }
+  }
+
+  .tag {
+    white-space: nowrap;
   }
 
   &.embedded {
@@ -38,27 +44,56 @@
     }
   }
 
-  .lock.status.and.levels {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .mobile.view.more {
+    display: none;
+    justify-content: center;
+    margin-bottom: -12px;
 
-    .lock.icon {
-      height: 24px;
-      width: 24px;
+    @media (max-width: 767px) {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: colors.$primary-200;
-      border-radius: 50%;
-      color: colors.$primary-700;
     }
 
-    .separator {
-      height: 1px !important;
-      width: 14px !important;
-      background-color: transparent !important;
-      border-top: 1px dashed colors.$gray-400;
+    &.expanded {
+      i {
+        transform: scaleY(-1);
+      }
+    }
+  }
+
+  .mobile.details {
+    display: none;
+
+    @media (max-width: 767px) {
+      display: block;
+
+      .guardian.beast.selection {
+        padding: 0;
+      }
+
+      .levels,
+      .options,
+      .cta {
+        display: none !important;
+      }
+
+      .nft.name,
+      .nft.title,
+      .nft.description {
+        text-align: left;
+      }
+
+      .nft.description {
+        margin-bottom: 0 !important;
+      }
+
+      .nft.image.with.expand {
+        border-radius: 8px;
+      }
+
+      .fullscreen.icon {
+        top: 8px !important;
+        right: 8px !important;
+      }
     }
   }
 
@@ -134,14 +169,21 @@
   }
 
   &.selected {
-    background-color: rgba(colors.$primary-900, 0.4);
-    border-color: 1px solid colors.$primary-900;
+    background-color: colors.$gray-800;
+    border-color: colors.$primary-500;
   }
 
   .current.selection {
     &.no.selection {
       @include styles.text-md;
       background-color: colors.$gray-800;
+    }
+  }
+
+  .lock.status.and.levels {
+    .lock.icon {
+      background-color: colors.$gray-600;
+      color: colors.$base-white;
     }
   }
 }

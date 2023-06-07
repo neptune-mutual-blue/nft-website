@@ -9,6 +9,7 @@ import {
   Personas
 } from '@/config/persona'
 import { Icon } from '@/elements/Icon'
+import LockAndLevels from '@/views/my-persona/LockAndLevels'
 import { useWeb3React } from '@web3-react/core'
 
 const GuardianBeastSelection = ({ characters, levels, selection, onSelectionChange, setSelectedLevels, locked, onSetPersona }) => {
@@ -19,40 +20,49 @@ const GuardianBeastSelection = ({ characters, levels, selection, onSelectionChan
 
   const { active } = useWeb3React()
 
+  const buildOptions = (mobile) => (
+    <div class={`options${locked ? ' locked' : ''}${mobile ? ' mobile' : ''}`}>
+      <div class='option' data-active={selectedValue === Personas.GUARDIAN}>
+        <input
+          type='radio'
+          name='option_type'
+          id={Personas.GUARDIAN}
+          value={Personas.GUARDIAN}
+          onChange={(e) => {
+            if (e.target.checked) {
+              onSelectionChange(Personas.GUARDIAN)
+            }
+          }}
+          className={selectedValue === Personas.GUARDIAN ? 'checked' : ''}
+          checked={selectedValue === Personas.GUARDIAN}
+        />
+        <label for={Personas.GUARDIAN}>{Personas.GUARDIAN}</label>
+      </div>
+      <div class='option' data-active={selectedValue === Personas.BEAST}>
+        <input
+          type='radio'
+          name='option_type'
+          id={Personas.BEAST}
+          value={Personas.BEAST}
+          onChange={(e) => {
+            if (e.target.checked) {
+              onSelectionChange(Personas.BEAST)
+            }
+          }}
+          className={selectedValue === Personas.BEAST ? 'checked' : ''}
+          checked={selectedValue === Personas.BEAST}
+        />
+        <label for={Personas.BEAST}>{Personas.BEAST}</label>
+      </div>
+    </div>
+  )
+
   return (
     <div className='guardian beast selection'>
-      <div class={`options${locked ? ' locked' : ''}`}>
-        <div class='option' data-active={selectedValue === Personas.GUARDIAN}>
-          <input
-            type='radio'
-            name='option_type'
-            id={Personas.GUARDIAN}
-            value={Personas.GUARDIAN}
-            onChange={(e) => {
-              if (e.target.checked) {
-                onSelectionChange(Personas.GUARDIAN)
-              }
-            }}
-            checked={selectedValue === Personas.GUARDIAN}
-          />
-          <label for={Personas.GUARDIAN}>{Personas.GUARDIAN}</label>
-        </div>
-        <div class='option' data-active={selectedValue === Personas.BEAST}>
-          <input
-            type='radio'
-            name='option_type'
-            id={Personas.BEAST}
-            value={Personas.BEAST}
-            onChange={(e) => {
-              if (e.target.checked) {
-                onSelectionChange(Personas.BEAST)
-              }
-            }}
-            checked={selectedValue === Personas.BEAST}
-          />
-          <label for={Personas.BEAST}>{Personas.BEAST}</label>
-        </div>
+      <div className='levels'>
+        <LockAndLevels locked={locked} levels={levels} />
       </div>
+      {buildOptions(false)}
       <div className='image previews'>
         <div>
           <NftImageWithExpand nft={firstNft} />
@@ -96,6 +106,8 @@ const GuardianBeastSelection = ({ characters, levels, selection, onSelectionChan
           </div>
         </div>
       )}
+
+      {buildOptions(true)}
 
       <div className='cta'>
         {levels[0] !== 1 && (

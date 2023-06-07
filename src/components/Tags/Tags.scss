@@ -329,7 +329,8 @@
   }
 
   //NFT Stage
-  .tag[data-color="nft-selection"] {
+  .tag[data-color="nft-selection"],
+  .tag[data-color="nft-soulbound"] {
     background-color: colors.$blue-100;
     color: colors.$blue-900;
   }

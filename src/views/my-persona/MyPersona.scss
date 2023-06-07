@@ -9,6 +9,7 @@
 @import "./Onboarding.scss";
 @import "./PersonaSetModal.scss";
 @import "./PersonaLoader.scss";
+@import "./LockAndLevels.scss";
 
 .my.persona.page {
   min-height: calc(100vh - var(--header-height));
@@ -33,6 +34,10 @@
     max-width: 976px;
     margin: 0 auto;
     padding: 32px 0;
+
+    @media (max-width: 767px) {
+      padding: 32px 16px;
+    }
 
     .breadcrumb.and.connect.wallet {
       display: flex;
@@ -61,6 +66,10 @@
       gap: 24px;
       position: relative;
 
+      @media (max-width: 767px) {
+        grid-template-columns: 1fr;
+      }
+
       .overlay {
         position: absolute;
         height: 100%;
@@ -68,6 +77,22 @@
         z-index: 10000;
         backdrop-filter: blur(4px);
         border-radius: 32px;
+      }
+
+      &.persona.set {
+        .persona.setting {
+          .persona-levels {
+            @media (max-width: 767px) {
+              display: block;
+            }
+          }
+        }
+
+        .persona.details {
+          @media (max-width: 767px) {
+            display: none;
+          }
+        }
       }
 
       .alert.default {
@@ -99,11 +124,22 @@
           }
         }
 
-        .separator {
-          width: 1px;
-          background-color: colors.$gray-300;
-          height: 24px;
-          margin: auto;
+        .persona-levels {
+          @media (max-width: 767px) {
+            display: none;
+          }
+
+          & > .separator {
+            width: 1px;
+            background-color: colors.$gray-300;
+            height: 24px;
+            margin: auto;
+
+            @media (max-width: 767px) {
+              height: 16px;
+              background-color: transparent !important;
+            }
+          }
         }
       }
 
@@ -131,7 +167,7 @@
     .wizard {
       .persona.setting {
         .leading.content {
-          background-color: colors.$gray-800;
+          background-color: colors.$black-800;
         }
 
         .separator {

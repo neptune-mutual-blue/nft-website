@@ -4,6 +4,14 @@
   gap: 24px;
   margin-top: 32px;
 
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+
+    & > div:last-of-type {
+      display: none;
+    }
+  }
+
   & > div {
     height: 70vh;
   }

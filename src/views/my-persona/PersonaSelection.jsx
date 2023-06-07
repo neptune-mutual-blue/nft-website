@@ -1,39 +1,58 @@
-import { Tags } from '@/components/Tags/Tags'
-import { Icon } from '@/elements/Icon'
+import {
+  useCallback,
+  useEffect,
+  useState
+} from 'react'
+
+import { Button } from '@/components/Button/Button'
+import GuardianBeastSelection from '@/views/my-persona/GuardianBeastSelection'
+import LockAndLevels from '@/views/my-persona/LockAndLevels'
+
+const PersonaSelectionWrapper = ({ mobile, children, ...props }) => {
+  if (mobile) {
+    return (
+      <div {...props}>
+        {children}
+      </div>
+    )
+  }
+
+  return (
+    <button {...props}>
+      {children}
+    </button>
+  )
+}
 
 const PersonaSelection = ({ locked, levels, selected, characters, selection, onClick, className = '' }) => {
   const firstNft = characters.find(character => character.level === levels[0] && selection === character.role)
   const secondNft = characters.find(character => character.level === levels[1] && selection === character.role)
 
+  const [viewMore, setViewMore] = useState(false)
+
+  const [mobile, setMobile] = useState(typeof window === 'undefined' ? false : window.innerWidth < 768)
+
+  // choose the screen size
+  const handleResize = useCallback(() => {
+    if (window.innerWidth < 768) {
+      setMobile(true)
+    } else {
+      setMobile(false)
+    }
+  }, [])
+
+  // create an event listener
+  useEffect(() => {
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [handleResize])
+
   return (
-    <button className={`persona selection${className ? ' ' + className : ''}${selected ? ' selected' : ''}`} onClick={onClick}>
-      <div className='lock status and levels'>
-        <div className='lock icon'>
-          <Icon variant={locked ? 'lock-01' : 'lock-unlocked-01'} size='sm' />
-        </div>
-        <div className='separator first' />
-        <Tags
-          tags={[
-            {
-              id: '1',
-              slug: '1',
-              text: 'Level ' + levels[0],
-              color: 'level' + levels[0]
-            }
-          ]}
-        />
-        <div className='separator' />
-        <Tags
-          tags={[
-            {
-              id: '1',
-              slug: '1',
-              text: 'Level ' + levels[1],
-              color: 'level' + levels[1]
-            }
-          ]}
-        />
-      </div>
+    <PersonaSelectionWrapper mobile={mobile} className={`persona selection${className ? ' ' + className : ''}${selected ? ' selected' : ''}`} onClick={onClick}>
+      <LockAndLevels levels={levels} locked={locked} />
 
       <div className={`current selection ${selection ? selection.toLowerCase() : 'no selection'}`}>
         {!selection && 'Unspecified'}
@@ -48,7 +67,33 @@ const PersonaSelection = ({ locked, levels, selected, characters, selection, onC
         )}
       </div>
 
-    </button>
+      {viewMore && (
+        <div className='mobile details'>
+          <GuardianBeastSelection
+            onSetPersona={() => {}}
+            locked
+            levels={levels}
+            characters={characters}
+            selection={{ [levels[0]]: selection }}
+            setSelectedLevels={() => {}}
+            onSelectionChange={() => { }}
+          />
+        </div>
+      )}
+
+      {mobile && (
+        <div className={`mobile view more${viewMore ? ' expanded' : ''}`}>
+          <Button
+            onClick={(e) => {
+              e.stopPropagation()
+              setViewMore(!viewMore)
+            }} variant='link-color' size='xl' iconTrailing='chevron-down'
+          >{viewMore ? 'View Less' : 'View More'}
+          </Button>
+        </div>
+      )}
+
+    </PersonaSelectionWrapper>
   )
 }
 

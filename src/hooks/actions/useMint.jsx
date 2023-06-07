@@ -34,7 +34,7 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
 
   const { owner, loading: ownerLoading, setOwner } = useTokenOwner(nftDetails.tokenId)
 
-  const { boundToken, fetchUserInfo } = useUserInfo(account)
+  const { boundToken, fetchUserInfo, personaSet } = useUserInfo(account)
 
   const { status: mintedThisLevel } = useMintedLevelStatus(account, nftDetails.level ? nftDetails.level : -1)
   const { status: mintedPreviousLevel } = useMintedLevelStatus(account, nftDetails.level ? nftDetails.level - 1 : -1)
@@ -51,7 +51,7 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
     setMinting(true)
 
     // Proof of Policy Minter
-    if (policyProofReady && nftDetails.stage === 'Soulbound') {
+    if (policyProofReady && (nftDetails.stage === 'Soulbound' || !nftDetails.stage)) {
       const response = await callPolicyProof('mint', [activePolicies[0].cxToken, nftDetails.tokenId], unsafe)
 
       if (response && response.errorType === 'gasEstimation') {
@@ -136,6 +136,10 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
     if (nftDetails.level && nftDetails.level !== 7) {
       if (!boundToken) {
         return 'You need to mint a soulbound NFT to start minting other NFTs.'
+      }
+
+      if (!personaSet) {
+        return 'You need to set your persona before minting this NFT.'
       }
 
       if (mintedThisLevel) {
