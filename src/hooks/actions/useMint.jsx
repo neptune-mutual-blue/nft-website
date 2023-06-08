@@ -5,15 +5,15 @@ import {
 } from 'react'
 
 import { ToastContext } from '@/components/Toast/Toast'
+import {
+  ContractAbis,
+  ContractAddresses
+} from '@/config/contracts'
 import useMintedLevelStatus from '@/hooks/data/useHasMintedLevel'
 import useMerkleLeaf from '@/hooks/data/useMerkleLeaf'
 import useTokenOwner from '@/hooks/data/useTokenOwner'
 import useUserInfo from '@/hooks/data/useUserInfo'
-import {
-  ContractAbis,
-  ContractAddresses,
-  useContractCall
-} from '@/hooks/useContractCall'
+import { useContractCall } from '@/hooks/useContractCall'
 import { AvailableEvents } from '@/hooks/useEvent'
 import { emitter } from '@/lib/mitt'
 import { NftApi } from '@/service/nft-api'

@@ -143,6 +143,8 @@ const paths = {
 
   // Custom Brand Icons
   'arbitrum-nft': import('./custom/Brands/default/SvgArbitrumNft.svg?raw'),
+  etherscan: import('./custom/Brands/default/etherscan.svg?raw'),
+  basescan: import('./custom/Brands/default/basescan.svg?raw'),
   'ethereum-round': import('./custom/Brands/default/SvgEthereumRound.svg?raw'),
   'arbitrum-round': import('./custom/Brands/default/SvgArbitrumRound.svg?raw'),
   'okx-wallet': import('./custom/Brands/default/SvgOkxWallet.svg?raw'),

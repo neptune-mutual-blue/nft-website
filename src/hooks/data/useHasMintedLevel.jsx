@@ -6,9 +6,9 @@ import {
 
 import {
   ContractAbis,
-  ContractAddresses,
-  useContractCall
-} from '@/hooks/useContractCall'
+  ContractAddresses
+} from '@/config/contracts'
+import { useContractCall } from '@/hooks/useContractCall'
 
 const useMintedLevelStatus = (address, level) => {
   const [status, setStatus] = useState(false)
