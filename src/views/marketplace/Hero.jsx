@@ -1,5 +1,6 @@
 import { Button } from '@/components/Button/Button'
 import { HeaderSection } from '@/components/HeaderSection/HeaderSection'
+import { EXPLORER_LINK_NFT_CONTRACT } from '@/utils/getExplorerLinkForToken'
 
 const Hero = () => {
   return (
@@ -10,7 +11,7 @@ const Hero = () => {
         heading='NFT Marketplace'
         secondary={{
           text: 'View Contract Source Code',
-          href: 'https://github.com/neptune-mutual-blue/neptune-mutual-nft',
+          href: EXPLORER_LINK_NFT_CONTRACT,
           target: '_blank',
           rel: 'noopener',
           size: 'xl'

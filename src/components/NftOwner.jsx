@@ -1,10 +1,10 @@
 import { IconButton } from '@/components/IconButton/IconButton'
 import { abbreviateAccount } from '@/utils/abbreviate-account'
 import { copyToClipboard } from '@/utils/copy-to-clipboard'
-import { getExplorerAddressURL } from '@/utils/get-explorer-url'
+import { getExplorerLinkForToken } from '@/utils/getExplorerLinkForToken'
 import { useWeb3React } from '@web3-react/core'
 
-const NftOwner = ({ owner }) => {
+const NftOwner = ({ owner, tokenId }) => {
   const { account } = useWeb3React()
 
   const abbreviatedAccount = abbreviateAccount(owner)
@@ -24,7 +24,7 @@ const NftOwner = ({ owner }) => {
             copyToClipboard(owner)
           }}
         />
-        <a href={getExplorerAddressURL(owner)} target='_blank'>
+        <a href={getExplorerLinkForToken(tokenId)} target='_blank'>
           <IconButton size='sm' variant='link-03' />
         </a>
 

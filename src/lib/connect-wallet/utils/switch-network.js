@@ -13,7 +13,9 @@ export const chains = {
       symbol: 'ETH',
       decimals: 18
     },
+    explorerIcon: "basescan",
     rpcUrls: rpcUrls[84531],
+    explorerName: 'BaseScan Testnet',
     blockExplorerUrls: ['https://goerli.basescan.org']
   }
 }

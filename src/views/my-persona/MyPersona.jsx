@@ -12,14 +12,14 @@ import { EvmErrorModal } from '@/components/EvmError/EvmErrorModal'
 import { LoaderPopup } from '@/components/LoaderPopup/LoaderPopup'
 import { ToastContext } from '@/components/Toast/Toast'
 import {
+  ContractAbis,
+  ContractAddresses
+} from '@/config/contracts'
+import {
   PersonaLevelGroups,
   Personas
 } from '@/config/persona'
-import {
-  ContractAbis,
-  ContractAddresses,
-  useContractCall
-} from '@/hooks/useContractCall'
+import { useContractCall } from '@/hooks/useContractCall'
 import { NftApi } from '@/service/nft-api'
 import GuardianBeastSelection from '@/views/my-persona/GuardianBeastSelection'
 import Onboarding from '@/views/my-persona/Onboarding'

@@ -13,8 +13,11 @@ import { NftSiblingsAndStage } from '@/components/NftSiblingsAndStage'
 import Skeleton from '@/components/Skeleton'
 import { Tags } from '@/components/Tags/Tags'
 import { CustomTooltip } from '@/components/Tooltip/Tooltip'
+import { AppConstants } from '@/constants/AppConstants'
 import { Icon } from '@/elements/Icon'
 import useTokenOwner from '@/hooks/data/useTokenOwner'
+import { chains } from '@/lib/connect-wallet/utils/switch-network'
+import { getExplorerLinkForToken } from '@/utils/getExplorerLinkForToken'
 import { useWeb3React } from '@web3-react/core'
 
 const NftDetails = ({ nftDetails, premiumNfts }) => {
@@ -87,7 +90,7 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
               )}
 
               {owner && (
-                <NftOwner owner={owner} />
+                <NftOwner owner={owner} tokenId={nftDetails.tokenId} />
               )}
 
               <LikeAndShare nft={nftDetails} />
@@ -121,9 +124,9 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
               <h3>Details</h3>
 
               <div className='links content'>
-                <a>
-                  <Icon variant='arbitrum-nft' />
-                  View on Arbiscan
+                <a href={getExplorerLinkForToken(nftDetails.tokenId)} target='_blank'>
+                  <Icon variant={chains[AppConstants.NETWORK].explorerIcon} />
+                  View on {chains[AppConstants.NETWORK].explorerName}
                   <Icon variant='arrow-right' />
                 </a>
                 <a href={nftDetails.image} target='_blank'>

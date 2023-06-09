@@ -7,12 +7,12 @@ import { Button } from '@/components/Button/Button'
 import Listbox from '@/components/Listbox/Listbox'
 import { Modal } from '@/components/Modal/Modal'
 import { Tags } from '@/components/Tags/Tags'
-import { Icon } from '@/elements/Icon'
 import {
   ContractAbis,
-  ContractAddresses,
-  useContractCall
-} from '@/hooks/useContractCall'
+  ContractAddresses
+} from '@/config/contracts'
+import { Icon } from '@/elements/Icon'
+import { useContractCall } from '@/hooks/useContractCall'
 import { getMerkleProof } from '@/utils/merkle/tree'
 import { formatBytes32String } from '@ethersproject/strings'
 

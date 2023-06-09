@@ -14,9 +14,9 @@ import Switch from '@/components/Switch/Switch'
 import { ToastContext } from '@/components/Toast/Toast'
 import {
   ContractAbis,
-  ContractAddresses,
-  useContractCall
-} from '@/hooks/useContractCall'
+  ContractAddresses
+} from '@/config/contracts'
+import { useContractCall } from '@/hooks/useContractCall'
 import { NftApi } from '@/service/nft-api'
 import { NpmApi } from '@/service/npm-api'
 import { formatDollar } from '@/utils/currencyHelpers'
