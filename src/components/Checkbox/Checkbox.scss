@@ -6,7 +6,6 @@
 @use "../../design-system/theme/light";
 @use "../../design-system/theme/dark";
 
-
 .custom.checkbox.container {
   position: relative;
   cursor: pointer;
@@ -20,9 +19,8 @@
   align-items: center;
   gap: 12px;
 
-
   /* Hide the browser's default checkbox */
-  input {
+  input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -68,12 +66,12 @@
     }
   }
 
-  &:hover input~.checkmark,
-  input:focus-visible~.checkmark {
-    box-shadow: 0px 0px 0px 4px #F4EBFF;
+  &:hover input[type="checkbox"] ~ .checkmark,
+  input[type="checkbox"]:focus-visible ~ .checkmark {
+    box-shadow: 0px 0px 0px 4px #f4ebff;
   }
 
-  & input:checked~.checkmark {
+  & input[type="checkbox"]:checked ~ .checkmark {
     border-color: colors.$primary-600;
     background-color: colors.$primary-50;
     background-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 1L3.5 6.5L1 4' stroke='%23444CE7' stroke-width='1.6666' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
@@ -89,14 +87,14 @@
     background-color: colors.$gray-800;
   }
 
-  & input:checked~.checkmark {
+  & input[type="checkbox"]:checked ~ .checkmark {
     border: 1px solid colors.$gray-500;
     background-color: colors.$gray-800;
     background-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 1L3.5 6.5L1 4' stroke='%23FFFFFF' stroke-width='1.6666' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
   }
 
-  &:hover input~.checkmark,
-  input:focus-visible~.checkmark {
+  &:hover input[type="checkbox"] ~ .checkmark,
+  input[type="checkbox"]:focus-visible ~ .checkmark {
     box-shadow: 0px 0px 0px 4px colors.$gray-700;
   }
 }
