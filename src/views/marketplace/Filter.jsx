@@ -30,13 +30,19 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
   }
 
   const handleFilterUpdate = (key, value) => {
-    const _selectedFilters = selectedFilters
-    const itemIndex = _selectedFilters.findIndex(filter => filter.key === key && filter.value === value)
-    if (itemIndex > -1) {
-      _selectedFilters.splice(itemIndex, 1)
-    } else {
-      _selectedFilters.push({ key, value })
-    }
+    // TODO: HANDLE MULTIPLE VALUES FOR SAME PROPERTIES
+
+    // const _selectedFilters = selectedFilters
+    // const itemIndex = _selectedFilters.findIndex(filter => filter.key === key && filter.value === value)
+    // if (itemIndex > -1) {
+    //   _selectedFilters.splice(itemIndex, 1)
+    // } else {
+    //   _selectedFilters.push({ key, value })
+    // }
+
+    const _selectedFilters = selectedFilters.filter(filter => filter.key !== key)
+
+    _selectedFilters.push({ key, value })
     setSelectedFilters([..._selectedFilters])
     if (!showFilter) setProperties([..._selectedFilters])
   }
