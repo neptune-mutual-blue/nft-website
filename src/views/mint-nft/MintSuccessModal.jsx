@@ -33,7 +33,7 @@ const MintSuccessModal = (props) => {
       <div className='content'>
         <img src={nft.thumbnail} alt={nft.nickname} />
         <ShareButtonGroup content={shareContent} link={`${typeof window !== 'undefined' ? window.location.origin : ''}/marketplace/${nft.tokenId}/`} />
-        <Link to='/marketplace'><Button size='xl'>Explore other Collection</Button></Link>
+        <Link href='/marketplace'><Button size='xl'>Explore other Collection</Button></Link>
       </div>
 
     </Modal>
