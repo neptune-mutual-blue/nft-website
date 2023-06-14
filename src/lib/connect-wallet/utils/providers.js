@@ -77,6 +77,18 @@ export const getBitKeepWalletProvider = () => {
   return undefined
 }
 
+export const getBinanceWalletProvider = () => {
+  if (typeof window === 'undefined' || !window || !window.BinanceChain) {
+    return undefined
+  }
+
+  if (window.BinanceChain) {
+    return window.BinanceChain
+  }
+
+  return undefined
+}
+
 /**
  * Asynchronously load the selected provider only
  *
@@ -98,7 +110,11 @@ export const getProviderByName = (name) => {
     }
 
     case ConnectorNames.CoinbaseWallet: {
-      getCoinbaseWalletProvider()
+      return getCoinbaseWalletProvider()
+    }
+
+    case ConnectorNames.BinanceWallet: {
+      return getBinanceWalletProvider()
     }
 
     default:

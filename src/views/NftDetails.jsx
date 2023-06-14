@@ -42,6 +42,21 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
 
   const { owner, loading: ownerLoading } = useTokenOwner(nftDetails.tokenId)
 
+  const getDisabledReason = () => {
+    if (!active) {
+      return 'Connect Your Wallet'
+    }
+
+    // This condition is for NFTs which are not mintable. Eg: Diabolic Grim Wyvern
+    if (!nftDetails.stage) {
+      return 'This NFT is not available for minting.'
+    }
+
+    return ''
+  }
+
+  const disabledReason = getDisabledReason()
+
   return (
 
     <div className='nft details page'>
@@ -73,12 +88,15 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
               {ownerLoading && <Skeleton style={{ height: '64px', marginBottom: '64px' }} />}
               {!ownerLoading && !owner && (
                 <div className='minting btn'>
-                  <CustomTooltip text='Connect Your Wallet' disabled={active}>
+                  <CustomTooltip text={disabledReason} disabled={disabledReason.length === 0}>
                     <div>
                       <Button
-                        type='button' size='xl' disabled={!active} onClick={() => {
+                        type='button'
+                        size='xl'
+                        onClick={() => {
                           router.push('/marketplace/mint/' + nftDetails.tokenId)
                         }}
+                        disabled={disabledReason.length > 0}
                       >I Want This for Free
                       </Button>
                     </div>

@@ -1,11 +1,17 @@
 import {
   useCallback,
+  useContext,
   useEffect
 } from 'react'
 
+import { ToastContext } from '@/components/Toast/Toast'
 import { LocalStorageKeys } from '@/config/localstorage'
+import { AppConstants } from '@/constants/AppConstants'
 import { getProviderByName } from '@/lib/connect-wallet/utils/providers'
-import { setupNetwork } from '@/lib/connect-wallet/utils/switch-network'
+import {
+  chains,
+  setupNetwork
+} from '@/lib/connect-wallet/utils/switch-network'
 import {
   UnsupportedChainIdError,
   useWeb3React
@@ -55,15 +61,26 @@ const useAuth = (notify = console.log) => {
     }
   }, [connector])
 
+  const {showToast} = useContext(ToastContext);
+
   const login = useCallback(
     (connectorName, errorCallback = () => {}) => {
       activateConnector(connectorName, activate, notify, async (error) => {
         if (error instanceof UnsupportedChainIdError) {
           logout();
           try {
+             console.log(connectorName)
              const accepted = await setupNetwork(getProviderByName(connectorName))
-             if(accepted) login(connectorName)
+             if(accepted) {
+              login(connectorName)
+             } else {
+              showToast({
+                title: "Unsupported Network", 
+                 description: `Please switch to ${chains[AppConstants.NETWORK].chainName} in your wallet.`
+              });
+             }
           } catch(err){
+            console.err("SWITCH NETWORK NOT SUPPORTED")
             console.error(err)
           }
         }

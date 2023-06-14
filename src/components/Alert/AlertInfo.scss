@@ -7,8 +7,12 @@
   padding: 8px 12px;
   border-radius: 8px;
   color: colors.$base-white;
-  align-items: center;
-  gap: 4px;
+  align-items: flex-start;
+  gap: 16px;
+
+  svg {
+    transform: translateY(2px);
+  }
 
   span {
     @include styles.text-md;

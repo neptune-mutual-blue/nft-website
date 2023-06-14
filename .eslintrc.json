@@ -1,12 +1,6 @@
 {
-  "extends": [
-    "standard",
-    "standard-jsx",
-    "next/core-web-vitals"
-  ],
-  "plugins": [
-    "unused-imports"
-  ],
+  "extends": ["standard", "standard-jsx", "next/core-web-vitals"],
+  "plugins": ["unused-imports"],
   "rules": {
     "@next/next/no-img-element": 0,
     "unused-imports/no-unused-imports": "error",

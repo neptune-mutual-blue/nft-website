@@ -1,6 +1,7 @@
 import {
   getCoinbaseWalletProvider
 } from '@/lib/connect-wallet/utils/coinbase-wallet/package'
+import { getBinanceWalletProvider } from '@/lib/connect-wallet/utils/providers'
 
 import { ConnectorNames } from './connectors'
 
@@ -29,6 +30,15 @@ export const wallets = [
   },
   {
     id: '3',
+    name: 'Binance Wallet',
+    connectorName: ConnectorNames.BinanceWallet,
+    iconVariant: 'binance-wallet',
+    iconVariantDark: 'binance-wallet-dark',
+    isAvailable: () => !!getBinanceWalletProvider(),
+    downloadURL: () => 'https://chrome.google.com/webstore/detail/binance-chain-wallet/fhbohimaelbohpjbbldcngcnapndodjp'
+  },
+  {
+    id: '4',
     name: 'OKX Wallet',
     connectorName: ConnectorNames.OKXWallet,
     iconVariant: 'okx-wallet',
@@ -37,11 +47,12 @@ export const wallets = [
     downloadURL: () => 'https://www.okx.com/download'
   },
   {
-    id: '4',
+    id: '5',
     name: 'Gnosis Safe Wallet',
     connectorName: ConnectorNames.Gnosis,
     iconVariant: 'gnosis-wallet',
     iconVariantDark: 'gnosis-wallet-dark',
     isAvailable: () => !isNotFrame()
-  }
+  },
+  
 ]
