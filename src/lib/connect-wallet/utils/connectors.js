@@ -37,6 +37,12 @@ export const getConnectorByName = async (name) => {
       return c.getConnector()
     }
 
+    case ConnectorNames.BinanceWallet: {
+      const c = await import('./binance-wallet/connector')
+
+      return c.getConnector()
+    }
+
     default:
       return null
   }

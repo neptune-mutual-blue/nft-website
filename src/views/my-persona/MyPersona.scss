@@ -102,6 +102,12 @@
         left: 50%;
         transform: translateX(-50%);
         justify-content: center;
+
+        @media (max-width: 767px) {
+          left: 16px;
+          right: 16px;
+          transform: unset;
+        }
       }
 
       .persona.setting {

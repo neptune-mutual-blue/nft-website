@@ -103,27 +103,29 @@ const ConnectWallet = () => {
         )}
         {!isConnecting && (
           <>
-            {wallets.map(wallet => wallet.isAvailable() || !wallet.downloadURL
-              ? (
-                <Button key={wallet.id} variant='secondary-gray' size='lg' onClick={() => onConnect(wallet.id)} disabled={isConnecting}>
-                  <span className='light only'><Icon variant={wallet.iconVariant} size='sm' /></span>
-                  <span className='dark only'><Icon variant={wallet.iconVariantDark} size='sm' /></span>
-                  {wallet.name}
-                </Button>
-                )
-              : (
-                <a
-                  key={wallet.id} href={wallet.downloadURL()}
-                  target='_blank'
-                  rel='noreferrer noopener nofollow'
-                >
-                  <Button key={wallet.id} variant='secondary-gray' size='lg' disabled={isConnecting}>
+            {wallets.map(wallet => {
+              return wallet.isAvailable() || !wallet.downloadURL
+                ? (
+                  <Button key={wallet.id} variant='secondary-gray' size='lg' onClick={() => { return onConnect(wallet.id) }} disabled={isConnecting}>
                     <span className='light only'><Icon variant={wallet.iconVariant} size='sm' /></span>
                     <span className='dark only'><Icon variant={wallet.iconVariantDark} size='sm' /></span>
-                    Install {wallet.name}
+                    {wallet.name}
                   </Button>
-                </a>
-                ))}
+                  )
+                : (
+                  <a
+                    key={wallet.id} href={wallet.downloadURL()}
+                    target='_blank'
+                    rel='noreferrer noopener nofollow'
+                  >
+                    <Button key={wallet.id} variant='secondary-gray' size='lg' disabled={isConnecting}>
+                      <span className='light only'><Icon variant={wallet.iconVariant} size='sm' /></span>
+                      <span className='dark only'><Icon variant={wallet.iconVariantDark} size='sm' /></span>
+                      Install {wallet.name}
+                    </Button>
+                  </a>
+                  )
+            })}
           </>
         )}
       </Modal>

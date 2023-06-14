@@ -1,0 +1,1 @@
+export { NoBscProviderError } from './package'

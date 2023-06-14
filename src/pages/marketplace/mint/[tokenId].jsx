@@ -27,12 +27,12 @@ export async function getStaticProps (context) {
 
     return {
       props: {
-        nftDetails: nftDetailsResponse.data[0],
+        nft: nftDetailsResponse.data[0],
         premiumNfts: premiumNftsResponse.data,
         mintingLevels: mintingLevelResponse.data,
         videos: videoResponse
       },
-      revalidate: 2 * 60 // 2 mins
+      revalidate: 60 * 60 // 1 hour
     }
   } catch (error) {
     return {
@@ -45,12 +45,14 @@ export async function getStaticPaths () {
   return { paths: [], fallback: 'blocking' }
 }
 
-const MintNftPage = ({ nftDetails, premiumNfts, mintingLevels, videos }) => {
+const MintNftPage = ({ nft, premiumNfts, mintingLevels, videos }) => {
   const router = useRouter()
 
   const { account, chainId } = useWeb3React()
 
   const logWantToMintExecuted = useRef(false)
+
+  const [nftDetails, setNftDetails] = useState(nft)
 
   const [userProgress, setUserProgress] = useState({
     totalLiquidityAdded: 0,
@@ -79,14 +81,27 @@ const MintNftPage = ({ nftDetails, premiumNfts, mintingLevels, videos }) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const { tokenId } = router.query
+
       try {
         setActivePolicies([])
 
-        const [data, activePolicies] = await Promise.all([NftApi.mintingLevelsMilestone(account), NpmApi.getActivePolicies(chainId, account)])
+        const [
+          data,
+          nftDetailsResponse,
+          activePolicies
+        ] = await Promise.all([
+          NftApi.mintingLevelsMilestone(account),
+          NftApi.getNftDetails(tokenId),
+          NpmApi.getActivePolicies(chainId, account)
+        ])
+
         setUserProgress({
           totalLiquidityAdded: parseFloat(data.data[0].totalLiquidityAdded),
           totalPolicyPurchased: parseFloat(data.data[0].totalPolicyPurchased)
         })
+
+        setNftDetails(nftDetailsResponse.data[0])
 
         setActivePolicies(activePolicies.data)
       } catch (err) {

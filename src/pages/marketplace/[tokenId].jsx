@@ -1,7 +1,8 @@
 import {
   useCallback,
   useEffect,
-  useRef
+  useRef,
+  useState
 } from 'react'
 
 import { useRouter } from 'next/router'
@@ -24,11 +25,11 @@ export async function getStaticProps (context) {
 
     return {
       props: {
-        nftDetails: nftDetailsResponse.data[0],
+        nft: nftDetailsResponse.data[0],
         premiumNfts: premiumNftsResponse.data,
         videos: videoResponse
       },
-      revalidate: 2 * 60 // 2 mins
+      revalidate: 60 * 60 // 1 hour
     }
   } catch (error) {
     return {
@@ -41,8 +42,26 @@ export async function getStaticPaths () {
   return { paths: [], fallback: 'blocking' }
 }
 
-const NftDetailsPage = ({ nftDetails, premiumNfts, videos }) => {
+const NftDetailsPage = ({ nft, premiumNfts, videos }) => {
   const router = useRouter()
+
+  const [nftDetails, setNftDetails] = useState(nft)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { tokenId } = router.query
+
+      try {
+        const nftDetailsResponse = await NftApi.getNftDetails(tokenId)
+
+        setNftDetails(nftDetailsResponse.data[0])
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
+    fetchData()
+  }, [router.query])
 
   const logViewExecuted = useRef(false)
 
