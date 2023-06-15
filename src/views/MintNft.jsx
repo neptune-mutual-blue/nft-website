@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import AlertInfo from '@/components/Alert/AlertInfo'
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { Button } from '@/components/Button/Button'
@@ -166,7 +168,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
                 )}
 
                 {owner && (
-                  <NftOwner owner={owner} />
+                  <NftOwner owner={owner} tokenId={nftDetails.tokenId} />
                 )}
 
                 <LikeAndShare nft={nftDetails} />
@@ -177,6 +179,11 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
 
           <MintingLevels mintingLevels={mintingLevels} />
           <Summary />
+          <div className='merkle proof link'>
+            <Link href='/marketplace/minting-levels/merkle-proof'>
+              Merkle Proof
+            </Link>
+          </div>
           <div className='explore minting collection'>
             <h3>Explore Our Collection</h3>
             <div className='nft characters'>

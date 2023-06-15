@@ -49,11 +49,15 @@ export const useContractCall = ({ abi, address }) => {
         const res = await contract[methodName](...methodArgs)
 
         if (res?.wait) {
-          await res.wait()
+          await res.wait(1)
         }
 
         return Array.isArray(res) ? Array.from(res) : [res]
       } catch (error) {
+        if (error?.cancelled === false) {
+          return [error.replacement]
+        }
+
         console.error(getErrorMessage(error, iface, `Error in calling ${methodName} function:`))
         return {
           error: getErrorMessage(error, iface, `Error in calling ${methodName} function:`
