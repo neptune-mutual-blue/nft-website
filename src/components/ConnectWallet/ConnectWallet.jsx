@@ -32,7 +32,7 @@ const ConnectWallet = () => {
   }
 
   useEffect(() => {
-    if (!popupOpen) setIsConnecting(false)
+    if (!popupOpen) { setIsConnecting(false) }
 
     if (active) {
       setIsConnecting(false)

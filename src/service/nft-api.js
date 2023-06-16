@@ -118,7 +118,7 @@ const getUserInfoFromApi = async (account) => {
   try {
     const res = await fetch(url, { headers: { 'Content-Type': 'application/json' } })
     const data = await res.json()
-    if (data.data) return data.data[0]
+    if (data.data) { return data.data[0] }
   } catch (error) {
     console.error(`Error in getting user info for ${account}:`, error)
   }
@@ -130,7 +130,7 @@ const getPersona = async (account) => {
   try {
     const res = await fetch(url, { headers: { 'Content-Type': 'application/json' } })
     const data = await res.json()
-    if (data.data) return data.data
+    if (data.data) { return data.data }
   } catch (error) {
     console.error(`Error in getting user persona for ${account}:`, error)
   }

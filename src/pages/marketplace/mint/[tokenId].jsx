@@ -109,7 +109,7 @@ const MintNftPage = ({ nft, premiumNfts, mintingLevels, videos }) => {
       }
     }
 
-    if (account) fetchData()
+    if (account) { fetchData() }
     // eslint-disable-next-line
   }, [account])
 

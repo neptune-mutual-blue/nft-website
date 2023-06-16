@@ -17,7 +17,7 @@
       "error",
       "always"
     ],
-    "curly": "error"
+    "curly": ["error", "all"]
   },
   "env": {
     "jest": true

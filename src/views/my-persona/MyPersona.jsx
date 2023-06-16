@@ -69,7 +69,7 @@ const MyPersona = ({ characters }) => {
   const { showToast, setOpen: setToastOpen } = useContext(ToastContext)
 
   const setPersona = async (unsafe = false) => {
-    if (!isReady) return
+    if (!isReady) { return }
     setError('')
     setSettingPersona(true)
     setToastOpen(false)

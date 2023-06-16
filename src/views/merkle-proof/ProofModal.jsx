@@ -144,7 +144,7 @@ const ProofModal = ({ open, setOpen, merkleRoot, merkleRootLive, merkleTree, mer
   }
 
   const validateProof = async () => {
-    if (!isReady) return
+    if (!isReady) { return }
 
     const selectedOption = OPTIONS.find((opt) => { return family === opt.value })
 

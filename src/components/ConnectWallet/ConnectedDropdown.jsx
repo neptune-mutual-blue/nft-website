@@ -43,7 +43,7 @@ const ConnectedDropdown = () => {
   const points = milestones.totalLiquidityAdded * AppConstants.LIQUIDITY_POINTS_PER_DOLLAR + milestones.totalPolicyPurchased * AppConstants.POLICY_POINTS_PER_DOLLAR
 
   const getMilestones = useCallback(async () => {
-    if (!account) return
+    if (!account) { return }
 
     try {
       const response = await NftApi.mintingLevelsMilestone(account)

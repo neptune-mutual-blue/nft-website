@@ -45,7 +45,7 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
 
     _selectedFilters.push({ key, value })
     setSelectedFilters([..._selectedFilters])
-    if (!showFilter) setProperties([..._selectedFilters])
+    if (!showFilter) { setProperties([..._selectedFilters]) }
   }
 
   const applyFilterUpdate = () => {
