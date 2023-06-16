@@ -11,28 +11,32 @@ const KnowTheCharacters = ({ charactersByPage }) => {
     <div className='know the characters'>
       <h2>Know the Characters</h2>
       {
-        charactersByPage.map((characters, index) => (
-          <div
-            key={index}
-            className={`character page${page === index + 1 ? '' : ' hidden'}`}
-          >
-            {characters.map((character) => (
-              <Link
-                href={getMarketplaceFiltersHref(character)}
-                key={character.name}
-                className='character details'
-              >
-                <div>
-                  <img src={character.thumbnail} alt={character.name} />
-                </div>
-                <div>
-                  <div className='character name'>{character.name}</div>
-                  <div className='character description'>{character.description}</div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        ))
+        charactersByPage.map((characters, index) => {
+          return (
+            <div
+              key={index}
+              className={`character page${page === index + 1 ? '' : ' hidden'}`}
+            >
+              {characters.map((character) => {
+                return (
+                  <Link
+                    href={getMarketplaceFiltersHref(character)}
+                    key={character.name}
+                    className='character details'
+                  >
+                    <div>
+                      <img src={character.thumbnail} alt={character.name} />
+                    </div>
+                    <div>
+                      <div className='character name'>{character.name}</div>
+                      <div className='character description'>{character.description}</div>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+          )
+        })
       }
 
       <div className='pagination'>

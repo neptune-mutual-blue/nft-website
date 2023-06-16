@@ -49,52 +49,56 @@ const Activities = () => {
       <div className='activities list'>
         {
           activities.map(
-            ({ avatar, name, time, text, images, imageDesc, comments }, idx) => (
-              <div className='activity container' key={idx}>
-                <div className='avatar and name'>
-                  <img src={avatar} alt={`${name}-avatar`} />
-                  <div className='text'>
-                    <p className='name'>{name}</p>
-                    <p className='time'>{time}</p>
+            ({ avatar, name, time, text, images, imageDesc, comments }, idx) => {
+              return (
+                <div className='activity container' key={idx}>
+                  <div className='avatar and name'>
+                    <img src={avatar} alt={`${name}-avatar`} />
+                    <div className='text'>
+                      <p className='name'>{name}</p>
+                      <p className='time'>{time}</p>
+                    </div>
+                  </div>
+
+                  <hr />
+
+                  <div className='content'>
+                    {text && <p className='text'>{text}</p>}
+
+                    {images && images.length && (
+                      <>
+                        <div className='images' data-images={images.length}>
+                          {images.map((image, idx) => {
+                            return (
+                              <img src={image} key={idx} alt={`images by ${name}`} />
+                            )
+                          })}
+                        </div>
+
+                        {imageDesc && <p className='image description'>{imageDesc}</p>}
+                      </>
+                    )}
+                  </div>
+
+                  <div className='actions'>
+                    <button>
+                      <Icon variant='heart' />
+                      <span>{comments}</span>
+                    </button>
+
+                    <button>
+                      <Icon variant='share-01' />
+                      <span>Share</span>
+                    </button>
+
+                    <a href='#'>
+                      <Icon variant='file-search-01' />
+                      <span>View on Etherscan </span>
+                    </a>
                   </div>
                 </div>
-
-                <hr />
-
-                <div className='content'>
-                  {text && <p className='text'>{text}</p>}
-
-                  {images && images.length && (
-                    <>
-                      <div className='images' data-images={images.length}>
-                        {images.map((image, idx) => (
-                          <img src={image} key={idx} alt={`images by ${name}`} />
-                        ))}
-                      </div>
-
-                      {imageDesc && <p className='image description'>{imageDesc}</p>}
-                    </>
-                  )}
-                </div>
-
-                <div className='actions'>
-                  <button>
-                    <Icon variant='heart' />
-                    <span>{comments}</span>
-                  </button>
-
-                  <button>
-                    <Icon variant='share-01' />
-                    <span>Share</span>
-                  </button>
-
-                  <a href='#'>
-                    <Icon variant='file-search-01' />
-                    <span>View on Etherscan </span>
-                  </a>
-                </div>
-              </div>
-            )
+              )
+            }
           )
         }
       </div>

@@ -128,12 +128,14 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
                   <div className='value'>Value</div>
                 </div>
                 {
-              nftDetails.attributes.map((attr) => (
-                <div className='row' key={attr.traitType}>
-                  <div className='type'>{attr.traitType}</div>
-                  <div className='value'>{attr.value}</div>
-                </div>
-              ))
+              nftDetails.attributes.map((attr) => {
+                return (
+                  <div className='row' key={attr.traitType}>
+                    <div className='type'>{attr.traitType}</div>
+                    <div className='value'>{attr.value}</div>
+                  </div>
+                )
+              })
             }
               </div>
             </div>
@@ -176,7 +178,7 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
         <div className='nfts you may like'>
           <h3>NFTs You May Like</h3>
           <div className='nft characters'>
-            {premiumNfts.slice(0, 6).map(nft => <NftCardWithBlurEffect key={nft.name} nft={nft} />)}
+            {premiumNfts.slice(0, 6).map(nft => { return <NftCardWithBlurEffect key={nft.name} nft={nft} /> })}
           </div>
         </div>
       </section>

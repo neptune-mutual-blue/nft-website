@@ -41,20 +41,22 @@ const Achievements = () => {
 
         <div className='achievements list'>
           {
-            data.map(({ avatar, name, tags, achievement }, idx) => (
-              <div className='item' key={idx}>
-                <img src={avatar} alt={`${name}-avatar`} />
+            data.map(({ avatar, name, tags, achievement }, idx) => {
+              return (
+                <div className='item' key={idx}>
+                  <img src={avatar} alt={`${name}-avatar`} />
 
-                <div className='name and achievement'>
-                  <p className='name'>{name}</p>
-                  <p className='achievement'>{achievement}</p>
-                </div>
+                  <div className='name and achievement'>
+                    <p className='name'>{name}</p>
+                    <p className='achievement'>{achievement}</p>
+                  </div>
 
-                <div className='level tag'>
-                  <Tags tags={tags} />
+                  <div className='level tag'>
+                    <Tags tags={tags} />
+                  </div>
                 </div>
-              </div>
-            ))
+              )
+            })
           }
         </div>
       </div>

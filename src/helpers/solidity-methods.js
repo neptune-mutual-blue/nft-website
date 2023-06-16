@@ -70,7 +70,7 @@ const getFunctionSignature = (_function) => {
   const _isTuple = _function.inputs[0]?.type === 'tuple'
   const inputs = _function?.inputs?.[0]?.components || _function?.inputs
 
-  const argsSignature = inputs.map(_inp => _inp.type).join(', ')
+  const argsSignature = inputs.map(_inp => { return _inp.type }).join(', ')
   const args = _isTuple ? `(${argsSignature})` : argsSignature
   return `${_function.name}(${args})`
 }

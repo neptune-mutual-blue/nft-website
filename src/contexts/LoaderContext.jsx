@@ -7,8 +7,8 @@ export function LoaderProvider ({ children }) {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    const show = () => setLoading(true)
-    const hide = () => setLoading(false)
+    const show = () => { return setLoading(true) }
+    const hide = () => { return setLoading(false) }
 
     Router.events.on('routeChangeStart', show)
     Router.events.on('routeChangeComplete', hide)

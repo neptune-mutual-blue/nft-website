@@ -3,12 +3,12 @@ import { Icon } from '@/elements/Icon'
 import { formatText } from '@/utils/helpers'
 
 const MintingLevels = ({ mintingLevels }) => {
-  const guardians = mintingLevels.filter(character => character.role === 'Guardian' && character.level !== 7)
-  const beasts = mintingLevels.filter(character => character.role === 'Beast' && character.level !== 7)
-  const level7Character = mintingLevels.find(character => character.level === 7)
+  const guardians = mintingLevels.filter(character => { return character.role === 'Guardian' && character.level !== 7 })
+  const beasts = mintingLevels.filter(character => { return character.role === 'Beast' && character.level !== 7 })
+  const level7Character = mintingLevels.find(character => { return character.level === 7 })
 
-  guardians.sort((a, b) => a.level - b.level)
-  beasts.sort((a, b) => a.level - b.level)
+  guardians.sort((a, b) => { return a.level - b.level })
+  beasts.sort((a, b) => { return a.level - b.level })
 
   const renderCharacter = (character) => {
     return (

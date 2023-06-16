@@ -35,7 +35,7 @@ const Listbox = ({ options, value, setValue, maxHeight = 300 }) => {
       >
         <div>
 
-          {options.find(option => option.value === value)?.render() ?? '- Not Selected -'}
+          {options.find(option => { return option.value === value })?.render() ?? '- Not Selected -'}
 
         </div>
         <Icon variant='chevron-down' size='lg' />
@@ -44,17 +44,19 @@ const Listbox = ({ options, value, setValue, maxHeight = 300 }) => {
         createPortal(
           <div className='listbox options wrapper' style={{ top: position.current.top + 'px', left: position.current.left + 'px', width: position.current.width + 'px', bottom: position.current.bottom + 'px' }}>
             <div role='listbox' aria-label='List Options' className='listbox options' id='listbox-options' style={{ maxHeight: `${maxHeight}px` }}>
-              {options.map(option => (
-                <button
-                  key={option.value}
-                  className='option' onClick={() => {
-                    setShowOptions(false)
-                    setValue(option.value)
-                  }} role='option' aria-selected={option.value === value}
-                >
-                  {option.render()}
-                </button>
-              ))}
+              {options.map(option => {
+                return (
+                  <button
+                    key={option.value}
+                    className='option' onClick={() => {
+                      setShowOptions(false)
+                      setValue(option.value)
+                    }} role='option' aria-selected={option.value === value}
+                  >
+                    {option.render()}
+                  </button>
+                )
+              })}
             </div>
           </div>
 

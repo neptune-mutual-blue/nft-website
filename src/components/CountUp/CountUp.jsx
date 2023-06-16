@@ -26,9 +26,9 @@ const CountUp = ({ number, symbol, prefix = false, localized = false }) => {
   const countRef = useRef()
   const [shouldStartAnimation, setShouldStartAnimation] = useState(false)
 
-  const steps = useMemo(() => linspace(0, number, 50), [number])
+  const steps = useMemo(() => { return linspace(0, number, 50) }, [number])
 
-  const diff = useMemo(() => steps[1] - steps[0], [steps])
+  const diff = useMemo(() => { return steps[1] - steps[0] }, [steps])
 
   useEffect(() => {
     if (shouldStartAnimation && val < number) {

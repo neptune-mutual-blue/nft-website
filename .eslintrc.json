@@ -12,7 +12,12 @@
         "args": "after-used",
         "argsIgnorePattern": "^_"
       }
-    ]
+    ],
+    "arrow-body-style": [
+      "error",
+      "always"
+    ],
+    "curly": "error"
   },
   "env": {
     "jest": true

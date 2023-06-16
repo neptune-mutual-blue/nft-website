@@ -1,7 +1,6 @@
 import { AppConstants } from '@/constants/AppConstants'
 
-const weiToToken = (x, decimals = 18) =>
-  parseInt(x.toString()) / 10 ** decimals
+const weiToToken = (x, decimals = 18) => { return parseInt(x.toString()) / 10 ** decimals }
 
 const formatTokenLong = (x, symbol, token = false, maxFractionDigits = 6) => {
   if (!token) {
@@ -27,7 +26,7 @@ const weiAsToken = (
   symbol,
   decimals = AppConstants.NPM_TOKEN_DECIMALS,
   token = false
-) => formatTokenLong(weiToToken(x, decimals), symbol, token)
+) => { return formatTokenLong(weiToToken(x, decimals), symbol, token) }
 
 const abbreviateNumber = (input) => {
   const number = parseFloat(Math.abs(input).toString())
@@ -104,23 +103,23 @@ const formatToken = (
   }
 }
 
-const localizeValue = (value) => (typeof value !== 'number' ? parseFloat(value) : value).toLocaleString(AppConstants.PREFERRED_LOCALE)
+const localizeValue = (value) => { return (typeof value !== 'number' ? parseFloat(value) : value).toLocaleString(AppConstants.PREFERRED_LOCALE) }
 
 const formatNpmToken = (
   amount,
   decimals = AppConstants.NPM_TOKEN_DECIMALS,
   symbol = AppConstants.NPM_TOKEN_SYMBOL
-) => formatToken(amount, decimals, symbol, true)
+) => { return formatToken(amount, decimals, symbol, true) }
 
 const formatLiquidityToken = (
   amount,
   decimals = AppConstants.FALLBACK_LIQUIDITY_TOKEN_DECIMALS,
   symbol = AppConstants.FALLBACK_LIQUIDITY_TOKEN_SYMBOL
-) => formatToken(amount, decimals, symbol, symbol !== 'USD')
+) => { return formatToken(amount, decimals, symbol, symbol !== 'USD') }
 
 const formatDollar = (
   amount
-) => formatTokenLong(amount, 'USD', false, 2)
+) => { return formatTokenLong(amount, 'USD', false, 2) }
 
 export {
   abbreviateNumber,

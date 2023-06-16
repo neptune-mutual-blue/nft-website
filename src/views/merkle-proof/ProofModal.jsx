@@ -133,7 +133,7 @@ const ProofModal = ({ open, setOpen, merkleRoot, merkleRootLive, merkleTree, mer
   const { isReady, callMethod } = useContractCall({ abi: ContractAbis.MERKLE_PROOF_MINTER, address: ContractAddresses.MERKLE_PROOF_MINTER })
 
   const computeProof = () => {
-    const selectedOption = OPTIONS.find((opt) => family === opt.value)
+    const selectedOption = OPTIONS.find((opt) => { return family === opt.value })
     if (selectedOption) {
       const proof = getMerkleProof(merkleTree, [merkleLeaf.account, selectedOption.level, selectedOption.value, selectedOption.persona])
 
@@ -146,7 +146,7 @@ const ProofModal = ({ open, setOpen, merkleRoot, merkleRootLive, merkleTree, mer
   const validateProof = async () => {
     if (!isReady) return
 
-    const selectedOption = OPTIONS.find((opt) => family === opt.value)
+    const selectedOption = OPTIONS.find((opt) => { return family === opt.value })
 
     if (!selectedOption || !proof) {
       return setValidity(false)

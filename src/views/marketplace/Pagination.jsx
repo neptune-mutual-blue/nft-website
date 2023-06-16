@@ -2,7 +2,7 @@ import { Icon } from '@/elements/Icon'
 import { getPagination } from '@/utils/pagination'
 import Link from 'next/link'
 
-const t = (x) => x
+const t = (x) => { return x }
 
 const Pagination = ({ currentPage, totalPages, getHref }) => {
   const { previous, pages, next } = getPagination(totalPages, currentPage)

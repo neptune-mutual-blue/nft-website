@@ -19,7 +19,7 @@ const likeOrDislikeNft = async ({
   tokenId,
   library,
   onSuccess = () => {},
-  onError = e => e
+  onError = e => { return e }
 }) => {
   if (!account) return
 

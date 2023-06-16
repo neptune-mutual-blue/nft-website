@@ -14,7 +14,7 @@ const aggregateFiltersData = (data) => {
   let finalArray = []
 
   finalArray = data.reduce((acc, curr) => {
-    const foundIndex = acc.findIndex(i => i.key === curr.key)
+    const foundIndex = acc.findIndex(i => { return i.key === curr.key })
     if (foundIndex > -1) {
       const found = acc[foundIndex]
       if (Array.isArray(found.values)) found.values.push(curr.value)

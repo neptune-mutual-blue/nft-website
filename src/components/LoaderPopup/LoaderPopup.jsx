@@ -5,16 +5,18 @@ export const LoaderPopup = ({
   visible,
   title,
   subTitle = "Please don't close or reload this screen while your transaction is processing."
-}) => (
-  <Modal visible={visible} setVisible={() => {}}>
-    <div className='minting loader'>
-      <div className='loading icon'>
-        <RippleLoader />
+}) => {
+  return (
+    <Modal visible={visible} setVisible={() => {}}>
+      <div className='minting loader'>
+        <div className='loading icon'>
+          <RippleLoader />
+        </div>
+        <div className='nft name'>{title}</div>
+        <div className='description'>
+          {subTitle}
+        </div>
       </div>
-      <div className='nft name'>{title}</div>
-      <div className='description'>
-        {subTitle}
-      </div>
-    </div>
-  </Modal>
-)
+    </Modal>
+  )
+}
