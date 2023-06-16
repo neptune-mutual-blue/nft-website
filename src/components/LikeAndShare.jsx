@@ -14,7 +14,7 @@ const LikeAndShare = ({ nft }) => {
   const { library, account } = useWeb3React()
 
   useEffect(() => {
-    if (!account) return
+    if (!account) { return }
 
     (async function () {
       const liked = await isNftLiked({ account, tokenId: nft?.tokenId })

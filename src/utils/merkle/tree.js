@@ -18,7 +18,7 @@ const getMerkleTree = (merkleTree) => {
   if (merkleTree.length > 0) {
     // [account, level, family, persona]
     const leaves = merkleTree.map((row) => {
-      if (!row.family || !row.persona) return null
+      if (!row.family || !row.persona) { return null }
 
       return (
         [

@@ -17,7 +17,7 @@ const getErrorMessage = (_error, iface, prefix) => {
       return 'Unexpected Error Occurred'
     }
 
-    if (error?.reason) return error.reason
+    if (error?.reason) { return error.reason }
 
     if (error?.data?.message) {
       errorMessage = error.data.message.trim().replace('execution reverted: ', '')
@@ -55,7 +55,7 @@ const calculateGasMargin = (value) => {
 }
 
 const encodeData = (encodeInterface, methodName, methodArgs = [], onError = () => {}) => {
-  if (!encodeInterface || !methodName) return
+  if (!encodeInterface || !methodName) { return }
 
   try {
     const encoded = encodeInterface.encodeFunctionData(methodName, methodArgs)

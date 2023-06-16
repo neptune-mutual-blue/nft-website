@@ -119,7 +119,7 @@ const MerkleProofView = () => {
   }
 
   const updateMerkleRoot = async () => {
-    if (!isReady) return
+    if (!isReady) { return }
 
     setBusy(true)
     try {

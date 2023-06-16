@@ -17,7 +17,7 @@ const useMintedLevelStatus = (address, level) => {
   const { callMethod, isReady } = useContractCall({ abi: ContractAbis.MERKLE_PROOF_MINTER, address: ContractAddresses.MERKLE_PROOF_MINTER })
 
   const getBoundToken = useCallback(async () => {
-    if (level === -1) return
+    if (level === -1) { return }
 
     setLoading(true)
 

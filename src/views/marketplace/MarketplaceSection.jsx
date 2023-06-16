@@ -36,7 +36,7 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
   const { showFilter, onFilterOpen, onFilterClose } = useMobileFilter()
 
   const updateUrlPath = useCallback((_page, _search, _filters) => {
-    if (initial.current) return
+    if (initial.current) { return }
 
     const urlObject = getMarketplaceUrl(_page, _search, _filters)
 
@@ -57,7 +57,7 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
   }, [])
 
   const [curentPage, totalPages] = useMemo(() => {
-    if (!data.length) return [1, 1]
+    if (!data.length) { return [1, 1] }
 
     return [
       data[0].pageNumber,

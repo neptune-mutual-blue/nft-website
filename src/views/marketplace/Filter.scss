@@ -119,6 +119,24 @@
       }
     }
 
+    .clear.button {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid colors.$gray-300;
+      width: max-content;
+      margin-top: 12px;
+      margin-right: auto;
+      box-shadow: none;
+      background-color: transparent;
+      color: colors.$gray-700;
+      @include styles.text-sm;
+      @include weights.regular;
+
+      &:disabled {
+        opacity: 0.5;
+      }
+    }
+
     .filters.list {
       margin-top: 24px;
 
@@ -135,6 +153,10 @@
             @include styles.text-md;
             @include weights.semibold;
             color: colors.$gray-700;
+
+            .selected {
+              color: colors.$primary-700;
+            }
           }
 
           .count {
@@ -183,6 +205,18 @@
                 color: colors.$gray-700;
                 cursor: pointer;
               }
+            }
+          }
+
+          div.wrapper {
+            padding: 8px 12px;
+
+            .clear.button {
+              margin-top: 0;
+              box-shadow: none;
+              background-color: transparent;
+              width: max-content;
+              padding: 4px 8px;
             }
           }
         }
@@ -253,6 +287,10 @@
         button {
           .name {
             color: colors.$base-white;
+
+            .selected {
+              color: colors.$primary-500;
+            }
           }
 
           .count {
@@ -286,6 +324,11 @@
           }
         }
       }
+    }
+
+    .clear.button {
+      border: 1px solid colors.$gray-700;
+      color: colors.$base-white;
     }
   }
 }

@@ -22,7 +22,7 @@ const useUserInfo = (account) => {
   const [loading, setLoading] = useState(false)
 
   const fetchUserInfo = useCallback(async () => {
-    if (!account) return
+    if (!account) { return }
 
     setLoading(true)
     const [userInfo, persona] = await Promise.all([NftApi.getUserInfoFromApi(account), NftApi.getPersona(account)])

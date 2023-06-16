@@ -1,11 +1,11 @@
 const truncateAddress = (address) => {
-  if (address.length !== 42) return 'INVALID_ADDRESS'
+  if (address.length !== 42) { return 'INVALID_ADDRESS' }
 
   const match = address.match(
     /^(0x[a-zA-Z0-9]{2})[a-zA-Z0-9]+([a-zA-Z0-9]{6})$/
   )
 
-  if (match === null) return address
+  if (match === null) { return address }
 
   return `${match[1]}…${match[2]}`
 }
@@ -17,8 +17,7 @@ const aggregateFiltersData = (data) => {
     const foundIndex = acc.findIndex(i => { return i.key === curr.key })
     if (foundIndex > -1) {
       const found = acc[foundIndex]
-      if (Array.isArray(found.values)) found.values.push(curr.value)
-      else found.values = [curr.value]
+      if (Array.isArray(found.values)) { found.values.push(curr.value) } else { found.values = [curr.value] }
       acc[foundIndex] = found
       return acc
     }
@@ -30,8 +29,8 @@ const aggregateFiltersData = (data) => {
   const sorted = finalArray.map(item => {
     const values = item.values
     const sortedValues = values.sort((a, b) => {
-      if (!Number.isNaN(Number(a))) return Number(a) - Number(b)
-      if (typeof a === 'string' && typeof b === 'string') return a.localeCompare(b)
+      if (!Number.isNaN(Number(a))) { return Number(a) - Number(b) }
+      if (typeof a === 'string' && typeof b === 'string') { return a.localeCompare(b) }
       return 0
     })
     return {
@@ -63,13 +62,13 @@ const getMarketplaceFiltersHref = (nft) => {
 
 // Capitalize first letter of a string
 function capitalizeFirstLetter (str) {
-  if (!str) return ''
+  if (!str) { return '' }
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
 // Decapitalize first letter of a string
 function decapitalizeFirstLetter (str) {
-  if (!str) return ''
+  if (!str) { return '' }
   return str.charAt(0).toLowerCase() + str.slice(1)
 }
 
@@ -90,7 +89,7 @@ const getFiltersFromQueryString = (query) => {
 const getMarketplaceUrl = (_page, _search, _filters) => {
   let url = '/marketplace'
 
-  if (_page !== 1) url += `/page/${_page}`
+  if (_page !== 1) { url += `/page/${_page}` }
 
   const searchParams = new URLSearchParams()
 

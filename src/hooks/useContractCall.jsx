@@ -33,7 +33,7 @@ export const useContractCall = ({ abi, address }) => {
   }, [abi, address, library, account])
 
   async function callMethod (methodName, args = [], skipGasEstimation = false, swallowError = false) {
-    if (!contract || !methodName) return
+    if (!contract || !methodName) { return }
 
     const iface = new Interface(abi)
 
@@ -58,14 +58,14 @@ export const useContractCall = ({ abi, address }) => {
           return [error.replacement]
         }
 
-        if (!swallowError) console.error(getErrorMessage(error, iface, `Error in calling ${methodName} function:`))
+        if (!swallowError) { console.error(getErrorMessage(error, iface, `Error in calling ${methodName} function:`)) }
         return {
           error: getErrorMessage(error, iface, `Error in calling ${methodName} function:`
           )
         }
       }
     } catch (e) {
-      if (!swallowError) console.error(getErrorMessage(e, iface, `Could not estimate gas for ${methodName}(${methodArgs}):`))
+      if (!swallowError) { console.error(getErrorMessage(e, iface, `Could not estimate gas for ${methodName}(${methodArgs}):`)) }
       return { error: getErrorMessage(e, iface, `Could not estimate gas for ${methodName}(${methodArgs}):`), errorType: 'gasEstimation' }
     }
   }

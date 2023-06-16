@@ -21,7 +21,7 @@ const likeOrDislikeNft = async ({
   onSuccess = () => {},
   onError = e => { return e }
 }) => {
-  if (!account) return
+  if (!account) { return }
 
   try {
     const signingMessage = 'Like/UnLike Neptune Mutual NFT'
@@ -42,18 +42,18 @@ const likeOrDislikeNft = async ({
     if (res.ok) {
       const data = await res.json()
       const updatedLikeCount = data?.data[0].logLike
-      if (onSuccess) onSuccess(updatedLikeCount)
+      if (onSuccess) { onSuccess(updatedLikeCount) }
       return
     }
 
-    if (onError) onError()
+    if (onError) { onError() }
   } catch (e) {
-    if (onError) onError(e)
+    if (onError) { onError(e) }
   }
 }
 
 const isNftLiked = async ({ account, tokenId }) => {
-  if (!tokenId) return false
+  if (!tokenId) { return false }
 
   const url = getIsNftLikedUrl(tokenId, account)
 

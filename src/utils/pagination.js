@@ -13,17 +13,17 @@ const getMiddlePages = (currentPage, count) => {
 }
 
 const getPreviousPage = (currentPage, totalPages) => {
-  if (currentPage <= 1) return undefined
+  if (currentPage <= 1) { return undefined }
 
-  if (currentPage > totalPages) return totalPages
+  if (currentPage > totalPages) { return totalPages }
 
   return currentPage - 1
 }
 
 const getNextPage = (currentPage, totalPages) => {
-  if (currentPage >= totalPages) return undefined
+  if (currentPage >= totalPages) { return undefined }
 
-  if (currentPage < 1) return 1
+  if (currentPage < 1) { return 1 }
 
   return currentPage + 1
 }
@@ -74,7 +74,7 @@ const getPagination = (totalPages, currentPage) => {
     (acc, curr) => {
       if (allPagesArray.includes(curr)) {
         const prevItem = acc.at(-1)
-        if (typeof prevItem === 'number' && curr - prevItem > 1) acc.push(null)
+        if (typeof prevItem === 'number' && curr - prevItem > 1) { acc.push(null) }
         acc.push(curr)
       }
       return acc
