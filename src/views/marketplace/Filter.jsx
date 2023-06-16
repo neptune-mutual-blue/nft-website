@@ -8,6 +8,7 @@ import { Button } from '@/components/Button/Button'
 import { Checkbox } from '@/components/Checkbox/Checkbox'
 import { Icon } from '@/elements/Icon'
 import { useOnClickOutside } from '@/hooks/useOnOutsideClick'
+import SecondaryGrayButton from '@/components/Button/SecondaryGrayButton'
 
 const createToggleStates = (filters) => {
   return filters.reduce((acc, curr) => {
@@ -66,6 +67,23 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
     })
   }, [searchValue, filters])
 
+  const handleClearAll = () => {
+    if (properties.length) {
+      setProperties([])
+    }
+    if (selectedFilters.length) {
+      setSelectedFilters([])
+    }
+  }
+
+  const handleClearFilter = (key) => {
+    const newProperties = properties.filter(p => {
+      return p.key !== key
+    })
+    setProperties([...newProperties])
+    setSelectedFilters([...newProperties])
+  }
+
   return (
     <div ref={ref} className='marketplace filter container' id='view-nfts' data-open={showFilter ? 'true' : 'false'}>
       <div className='filter inner'>
@@ -78,6 +96,7 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
             </i>
           </button>
         </div>
+
         <div className='input container'>
           <Icon variant='search-lg' />
           <label htmlFor='properties' className='label-hidden'>Properties</label>
@@ -91,16 +110,28 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
           />
         </div>
 
+        <SecondaryGrayButton
+          className='clear all'
+          onClick={handleClearAll}
+          disabled={!selectedFilters.length}
+        >
+          Clear All Filters
+        </SecondaryGrayButton>
+
         <div className='filters list'>
           {
             filteredProperties.map((filter, i) => {
+              const selectedCount = selectedFilters.find(f => { return f.key === filter.key })
               return (
                 <div
                   className={`filter container ${toggles[filter.key] && 'active'}`}
                   key={i}
                 >
                   <button onClick={() => { return handleToggle(filter.key) }}>
-                    <span className='name'>{filter.key}</span>
+                    {/* TODO: Remove hardcoded `(1)` after multiple filters selection is supported */}
+                    <span className='name'>
+                      {filter.key} {selectedCount && <span className='selected'>(1)</span>}
+                    </span>
                     <span className='count'>{filter.values.length}</span>
                     <Icon variant='chevron-down' />
                   </button>
@@ -108,22 +139,36 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
                   <div className='options'>
                     <ul>
                       {
-                      filter.values.map((value, idx) => {
-                        const checked = selectedFilters.find(f => {
-                          return f.key === filter.key && f.value === value
+                        filter.values.map((value, idx) => {
+                          const checked = selectedFilters.find(f => {
+                            return f.key === filter.key && f.value === value
+                          })
+                          return (
+                            <li className='option' key={idx}>
+                              <Checkbox
+                                label={value}
+                                checked={Boolean(checked)}
+                                onChange={() => { return handleFilterUpdate(filter.key, value) }}
+                              />
+                            </li>
+                          )
                         })
-                        return (
-                          <li className='option' key={idx}>
-                            <Checkbox
-                              label={value}
-                              checked={Boolean(checked)}
-                              onChange={() => { return handleFilterUpdate(filter.key, value) }}
-                            />
-                          </li>
-                        )
-                      })
-                    }
+                      }
                     </ul>
+
+                    <div className='wrapper'>
+                      <SecondaryGrayButton
+                        className='clear'
+                        onClick={() => {
+                          handleClearFilter(filter.key)
+                        }}
+                        disabled={!selectedFilters.find(f => {
+                          return f.key === filter.key
+                        })}
+                      >
+                        Clear Filter
+                      </SecondaryGrayButton>
+                    </div>
                   </div>
                 </div>
               )
@@ -131,7 +176,15 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
           }
         </div>
 
-        {showFilter && <Button type='button' size='xl' onClick={() => { return applyFilterUpdate() }}>Apply Filter</Button>}
+        {showFilter && (
+          <Button
+            type='button'
+            size='xl'
+            onClick={() => { return applyFilterUpdate() }}
+          >
+            Apply Filter
+          </Button>
+        )}
       </div>
     </div>
   )
