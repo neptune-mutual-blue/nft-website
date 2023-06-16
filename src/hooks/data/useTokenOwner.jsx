@@ -20,7 +20,7 @@ const useTokenOwner = (tokenId) => {
     setLoading(true)
 
     try {
-      const response = await callMethod('ownerOf', [parseInt(tokenId)])
+      const response = await callMethod('ownerOf', [parseInt(tokenId)], false, true)
 
       if (response && !response.error && response.length > 0) {
         setOwner(response[0])

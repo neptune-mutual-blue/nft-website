@@ -11,7 +11,7 @@ const getErrorMessage = (_error, iface, prefix) => {
   let errorMessage = 'Something went wrong'
 
   try {
-    console.error(_error)
+    // console.error(_error)
     const error = _error.error || _error
     if (!error || !error.message) {
       return 'Unexpected Error Occurred'

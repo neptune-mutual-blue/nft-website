@@ -14,7 +14,7 @@ const Pagination = ({ currentPage, totalPages, getHref }) => {
           className={`previous page ${!previous && 'disabled pointer events none'}`}
           href={getHref(previous)}
           scroll={false}
-          tabIndex={!previous && '-1'}
+          tabIndex={!previous ? '-1' : '0'}
         >
           <Icon variant='arrow-left' size='lg' />
           <span>{t('Previous')}</span>
@@ -48,7 +48,7 @@ const Pagination = ({ currentPage, totalPages, getHref }) => {
           className={`next page ${!next && 'disabled pointer events none'}`}
           href={getHref(next)}
           scroll={false}
-          tabIndex={!next && '-1'}
+          tabIndex={!next ? '-1' : '0'}
         >
           <span>{t('Next')}</span>
           <Icon variant='arrow-right' size='lg' />

@@ -1,14 +1,16 @@
+import { forwardRef } from 'react'
+
 const { AnchorButton } = require('@/components/Button/_base/_anchor')
 const { BaseButton } = require('@/components/Button/_base/_button')
 const { Icon } = require('@/elements/Icon')
 
-const VanillaButton = (props) => {
+const VanillaButton = forwardRef((props, ref) => {
   const { type, icon, iconOnlyMobile, iconLeading, iconTrailing, children } = props
 
   const UntypedElement = type === 'anchor' ? AnchorButton : BaseButton
 
   return (
-    <UntypedElement {...props}>
+    <UntypedElement ref={ref} {...props}>
       {iconLeading && <Icon variant={iconLeading} />}
 
       <span
@@ -23,6 +25,8 @@ const VanillaButton = (props) => {
       )}
     </UntypedElement>
   )
-}
+})
+
+VanillaButton.displayName = 'VanillaButton'
 
 export { VanillaButton }
