@@ -25,8 +25,8 @@ const PersonaSelectionWrapper = ({ mobile, children, ...props }) => {
 }
 
 const PersonaSelection = ({ locked, levels, selected, characters, selection, onClick, className = '' }) => {
-  const firstNft = characters.find(character => character.level === levels[0] && selection === character.role)
-  const secondNft = characters.find(character => character.level === levels[1] && selection === character.role)
+  const firstNft = characters.find(character => { return character.level === levels[0] && selection === character.role })
+  const secondNft = characters.find(character => { return character.level === levels[1] && selection === character.role })
 
   const [viewMore, setViewMore] = useState(false)
 

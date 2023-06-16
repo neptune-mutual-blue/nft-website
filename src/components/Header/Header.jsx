@@ -10,10 +10,12 @@ import NpmDarkLogo from '../../elements/npm/npm-logo-dark-mode.svg'
 import NpmLightLogo from '../../elements/npm/npm-logo-light-mode.svg'
 
 const Header = ({ headerStyle, videos }) => {
-  const updatedVideos = videos && videos.map((video) => ({
-    ...video,
-    thumbnail: { ...video.thumbnail, url: '' }
-  }))
+  const updatedVideos = videos && videos.map((video) => {
+    return {
+      ...video,
+      thumbnail: { ...video.thumbnail, url: '' }
+    }
+  })
 
   return (
     <>

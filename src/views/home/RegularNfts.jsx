@@ -10,7 +10,7 @@ const RegularNfts = ({ regularNfts }) => {
       <h2>Regular NFTs</h2>
       <Slider gap={16}>
         {
-        regularNfts.sort((obj1, obj2) => obj1.siblings - obj2.siblings).map((character) => {
+        regularNfts.sort((obj1, obj2) => { return obj1.siblings - obj2.siblings }).map((character) => {
           return (
             <div
               key={character.name}

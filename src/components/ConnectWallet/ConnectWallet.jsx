@@ -46,7 +46,7 @@ const ConnectWallet = () => {
 
   const onConnect = (id) => {
     setIsConnecting(true)
-    const wallet = wallets.find((x) => x.id === id)
+    const wallet = wallets.find((x) => { return x.id === id })
     const connectorName = wallet.connectorName
     setConnectorName(wallet.name)
 

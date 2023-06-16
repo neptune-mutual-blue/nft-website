@@ -154,7 +154,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
                     <CustomTooltip text={disabledReason} disabled={disabledReason.length === 0}>
                       <div className='tooltip assist'>
                         <Button
-                          type='button' disabled={disabledReason.length > 0} size='xl' onClick={() => mint()}
+                          type='button' disabled={disabledReason.length > 0} size='xl' onClick={() => { return mint() }}
                         >Mint this NFT
                         </Button>
                       </div>
@@ -187,7 +187,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
           <div className='explore minting collection'>
             <h3>Explore Our Collection</h3>
             <div className='nft characters'>
-              {premiumNfts.slice(0, 6).map(nft => <NftCardWithBlurEffect key={nft.name} nft={nft} />)}
+              {premiumNfts.slice(0, 6).map(nft => { return <NftCardWithBlurEffect key={nft.name} nft={nft} /> })}
             </div>
           </div>
         </div>

@@ -72,7 +72,7 @@ const MintingLevelsPage = ({ premiumNfts, mintingLevels, videos }) => {
           <div className='explore minting collection'>
             <h3>Explore Our Collection</h3>
             <div className='nft characters'>
-              {premiumNfts.slice(0, 6).map(nft => <NftCardWithBlurEffect key={nft.name} nft={nft} />)}
+              {premiumNfts.slice(0, 6).map(nft => { return <NftCardWithBlurEffect key={nft.name} nft={nft} /> })}
             </div>
           </div>
         </div>

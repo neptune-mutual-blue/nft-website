@@ -13,31 +13,34 @@ const VideoSection = ({ section, videos }) => {
       <h4 className='title'>{title}</h4>
       <div className='content'>
         {
-          videos?.length && videos.map((video) =>
-            <Fragment key={video.videoId}>
-              <button
-                className='video container play button'
-                data-video-id={video.videoId}
-              >
-                <div className='thumbnail'>
-                  <img
-                    src={AppConstants.neptunemutualOrigin + '/cdn/' + video.thumbnail.filename}
-                    alt={video.title}
-                    loading='lazy'
-                  />
-                  <div className='overlay'>
-                    <Icon variant='play' size='2xl' />
+          videos?.length && videos.map((video) => {
+            return (
+              <Fragment key={video.videoId}>
+                <button
+                  className='video container play button'
+                  data-video-id={video.videoId}
+                >
+                  <div className='thumbnail'>
+                    <img
+                      src={AppConstants.neptunemutualOrigin + '/cdn/' + video.thumbnail.filename}
+                      alt={video.title}
+                      loading='lazy'
+                    />
+                    <div className='overlay'>
+                      <Icon variant='play' size='2xl' />
+                    </div>
                   </div>
-                </div>
-                <div className='video content'>
-                  <h3 className='video title'>{video.title}</h3>
-                  <p
-                    className='video supporting text'
-                  >{trimText(video.htmlAsText, 80)}
-                  </p>
-                </div>
-              </button>
-            </Fragment>
+                  <div className='video content'>
+                    <h3 className='video title'>{video.title}</h3>
+                    <p
+                      className='video supporting text'
+                    >{trimText(video.htmlAsText, 80)}
+                    </p>
+                  </div>
+                </button>
+              </Fragment>
+            )
+          }
           )
         }
       </div>

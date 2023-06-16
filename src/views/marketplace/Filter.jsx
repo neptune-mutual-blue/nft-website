@@ -23,10 +23,10 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
 
   const ref = useRef()
 
-  useOnClickOutside(ref, () => onFilterClose())
+  useOnClickOutside(ref, () => { return onFilterClose() })
 
   const handleToggle = key => {
-    setToggles(_toggles => ({ ..._toggles, [key]: !_toggles[key] }))
+    setToggles(_toggles => { return { ..._toggles, [key]: !_toggles[key] } })
   }
 
   const handleFilterUpdate = (key, value) => {
@@ -40,7 +40,7 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
     //   _selectedFilters.push({ key, value })
     // }
 
-    const _selectedFilters = selectedFilters.filter(filter => filter.key !== key)
+    const _selectedFilters = selectedFilters.filter(filter => { return filter.key !== key })
 
     _selectedFilters.push({ key, value })
     setSelectedFilters([..._selectedFilters])
@@ -61,7 +61,7 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
     return filters.map(f => {
       return {
         key: f.key,
-        values: f.values.filter(v => v && v.toLowerCase().includes(searchValue.toLowerCase()))
+        values: f.values.filter(v => { return v && v.toLowerCase().includes(searchValue.toLowerCase()) })
       }
     })
   }, [searchValue, filters])
@@ -71,7 +71,7 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
       <div className='filter inner'>
         <div className='filter heading'>
           <h2>Properties</h2>
-          <button className='button' onClick={() => onFilterClose()}>
+          <button className='button' onClick={() => { return onFilterClose() }}>
             <span className='label-hidden'>Close Filter</span>
             <i data-icon='x'>
               <Icon variant='x' />
@@ -93,20 +93,21 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
 
         <div className='filters list'>
           {
-            filteredProperties.map((filter, i) => (
-              <div
-                className={`filter container ${toggles[filter.key] && 'active'}`}
-                key={i}
-              >
-                <button onClick={() => handleToggle(filter.key)}>
-                  <span className='name'>{filter.key}</span>
-                  <span className='count'>{filter.values.length}</span>
-                  <Icon variant='chevron-down' />
-                </button>
+            filteredProperties.map((filter, i) => {
+              return (
+                <div
+                  className={`filter container ${toggles[filter.key] && 'active'}`}
+                  key={i}
+                >
+                  <button onClick={() => { return handleToggle(filter.key) }}>
+                    <span className='name'>{filter.key}</span>
+                    <span className='count'>{filter.values.length}</span>
+                    <Icon variant='chevron-down' />
+                  </button>
 
-                <div className='options'>
-                  <ul>
-                    {
+                  <div className='options'>
+                    <ul>
+                      {
                       filter.values.map((value, idx) => {
                         const checked = selectedFilters.find(f => {
                           return f.key === filter.key && f.value === value
@@ -116,20 +117,21 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
                             <Checkbox
                               label={value}
                               checked={Boolean(checked)}
-                              onChange={() => handleFilterUpdate(filter.key, value)}
+                              onChange={() => { return handleFilterUpdate(filter.key, value) }}
                             />
                           </li>
                         )
                       })
                     }
-                  </ul>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            ))
+              )
+            })
           }
         </div>
 
-        {showFilter && <Button type='button' size='xl' onClick={() => applyFilterUpdate()}>Apply Filter</Button>}
+        {showFilter && <Button type='button' size='xl' onClick={() => { return applyFilterUpdate() }}>Apply Filter</Button>}
       </div>
     </div>
   )

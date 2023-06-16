@@ -124,7 +124,7 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
                 ref={inputRef}
                 aria-label='Search Marketplace'
               />
-              <button className='button' onClick={() => onFilterOpen()}>
+              <button className='button' onClick={() => { return onFilterOpen() }}>
                 <span>Properties</span>
                 <i data-icon='filter-lines'>
                   <Icon variant='filter-lines' />
@@ -133,20 +133,24 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
             </div>
             <div className='nft grid'>
               {loading && !isNavigating &&
-                Array.from({ length: 9 }).map((_x, i) => (
-                  <NftPlaceholder key={i} />
-                ))}
+                Array.from({ length: 9 }).map((_x, i) => {
+                  return (
+                    <NftPlaceholder key={i} />
+                  )
+                })}
               {(!loading || isNavigating) &&
-                 data.map((nft) => (
-                   <NftCard
-                     key={nft.tokenId}
-                     name={nft.nickname}
-                     nftId={nft.tokenId}
-                     views={nft.views}
-                     count={nft.siblings}
-                     image={`${imageOrigin}/thumbnails/${nft.tokenId}.webp`}
-                   />
-                 ))}
+                 data.map((nft) => {
+                   return (
+                     <NftCard
+                       key={nft.tokenId}
+                       name={nft.nickname}
+                       nftId={nft.tokenId}
+                       views={nft.views}
+                       count={nft.siblings}
+                       image={`${imageOrigin}/thumbnails/${nft.tokenId}.webp`}
+                     />
+                   )
+                 })}
             </div>
 
             {!loading && !isNavigating && data.length === 0 &&
@@ -161,7 +165,7 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
           <Pagination
             currentPage={curentPage}
             totalPages={totalPages}
-            getHref={page => page ? getMarketplaceUrl(page, searchValue, properties) : '#'}
+            getHref={page => { return page ? getMarketplaceUrl(page, searchValue, properties) : '#' }}
           />
         </div>
       </div>

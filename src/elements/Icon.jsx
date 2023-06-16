@@ -7,8 +7,8 @@ const Icon = ({ variant, size }) => {
   useEffect(() => {
     if (variant && paths[variant]) {
       paths[variant]
-        .then((x) => x.default)
-        .then(x => setComponent(x))
+        .then((x) => { return x.default })
+        .then(x => { return setComponent(x) })
     }
   }, [variant])
 

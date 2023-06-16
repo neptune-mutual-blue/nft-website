@@ -11,7 +11,7 @@ const getErrorMessage = (_error, iface, prefix) => {
   let errorMessage = 'Something went wrong'
 
   try {
-    console.error(_error)
+    // console.error(_error)
     const error = _error.error || _error
     if (!error || !error.message) {
       return 'Unexpected Error Occurred'
@@ -70,7 +70,7 @@ const getFunctionSignature = (_function) => {
   const _isTuple = _function.inputs[0]?.type === 'tuple'
   const inputs = _function?.inputs?.[0]?.components || _function?.inputs
 
-  const argsSignature = inputs.map(_inp => _inp.type).join(', ')
+  const argsSignature = inputs.map(_inp => { return _inp.type }).join(', ')
   const args = _isTuple ? `(${argsSignature})` : argsSignature
   return `${_function.name}(${args})`
 }

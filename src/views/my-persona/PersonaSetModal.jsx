@@ -12,17 +12,19 @@ function PersonaSetModal ({ visible, setVisible, characters, selections }) {
         <img className='nft collections logo' src='/assets/images/persona/nft-collections.webp' alt='Neptune Mutual NFT Collections' />
 
         <div className='selections'>
-          {PersonaLevelGroups.map(levelGroup => (
-            <PersonaSelection
-              className='embedded'
-              key={levelGroup[0]}
-              characters={characters}
-              levels={levelGroup}
-              selected={false}
-              selection={selections[levelGroup[0]]}
-              onClick={() => {}}
-            />
-          ))}
+          {PersonaLevelGroups.map(levelGroup => {
+            return (
+              <PersonaSelection
+                className='embedded'
+                key={levelGroup[0]}
+                characters={characters}
+                levels={levelGroup}
+                selected={false}
+                selection={selections[levelGroup[0]]}
+                onClick={() => {}}
+              />
+            )
+          })}
         </div>
 
         <div className='success text'>

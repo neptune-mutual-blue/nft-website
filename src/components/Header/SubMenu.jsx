@@ -6,7 +6,7 @@ const SubMenu = ({ data, videos }) => {
     <>
       {
         data
-          .filter((nav) => nav.children)
+          .filter((nav) => { return nav.children })
           .map(
             ({ children }, key) => {
               return (
@@ -17,14 +17,14 @@ const SubMenu = ({ data, videos }) => {
                     <div className='content'>
                       <div className='non video sections'>
                         {children
-                          .filter((x) => x.type === 'section')
+                          .filter((x) => { return x.type === 'section' })
                           .map((child) => {
                             return <Section key={child.title} section={child} />
                           })}
                       </div>
                       <div className='video sections'>
                         {children
-                          .filter((x) => x.type !== 'section')
+                          .filter((x) => { return x.type !== 'section' })
                           .map((child) => {
                             return <VideoSection key={child.title} section={child} videos={videos} />
                           })}

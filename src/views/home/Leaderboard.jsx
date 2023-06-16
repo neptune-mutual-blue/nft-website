@@ -47,20 +47,22 @@ const Leaderboard = () => {
 
       <div className='leaderboard list'>
         {
-          data.map(({ avatar, name, tags, address }, idx) => (
-            <div className='item' key={idx}>
-              <img src={avatar} alt={`${name}-avatar`} />
+          data.map(({ avatar, name, tags, address }, idx) => {
+            return (
+              <div className='item' key={idx}>
+                <img src={avatar} alt={`${name}-avatar`} />
 
-              <div className='name and address'>
-                <p className='name'>{name}</p>
-                <p className='address'>{address}</p>
-              </div>
+                <div className='name and address'>
+                  <p className='name'>{name}</p>
+                  <p className='address'>{address}</p>
+                </div>
 
-              <div className='level tag'>
-                <Tags tags={tags} />
+                <div className='level tag'>
+                  <Tags tags={tags} />
+                </div>
               </div>
-            </div>
-          ))
+            )
+          })
         }
       </div>
     </div>

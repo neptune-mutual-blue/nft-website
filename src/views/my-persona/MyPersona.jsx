@@ -75,7 +75,7 @@ const MyPersona = ({ characters }) => {
     setToastOpen(false)
 
     try {
-      const personas = Object.values(radioSelections).map((selection) => selection === Personas.GUARDIAN ? 1 : 2)
+      const personas = Object.values(radioSelections).map((selection) => { return selection === Personas.GUARDIAN ? 1 : 2 })
 
       const response = await callMethod('setMyPersona', [personas], unsafe)
 
@@ -142,7 +142,7 @@ const MyPersona = ({ characters }) => {
       PersonaLevelGroups.forEach((levels) => {
         if (levels[0] < selectedLevels[1]) {
           const key = levels[0]
-          setSidebarSelections((val) => ({ ...val, [key]: radioSelections[key] }))
+          setSidebarSelections((val) => { return { ...val, [key]: radioSelections[key] } })
         }
       })
     }
@@ -192,21 +192,23 @@ const MyPersona = ({ characters }) => {
                 <h1> {locked ? 'Your Persona' : 'Set Your Persona'}</h1>
               </button>
               <div className='persona-levels'>
-                {PersonaLevelGroups.map(levelGroup => (
-                  <Fragment key={levelGroup[0]}>
-                    <div className='separator' />
-                    <PersonaSelection
-                      locked={locked}
-                      characters={characters}
-                      levels={levelGroup}
-                      selected={selectedLevels.includes(levelGroup[0])}
-                      selection={sidebarSelections[levelGroup[0]]}
-                      onClick={() => {
-                        setSelectedLevels(levelGroup)
-                      }}
-                    />
-                  </Fragment>
-                ))}
+                {PersonaLevelGroups.map(levelGroup => {
+                  return (
+                    <Fragment key={levelGroup[0]}>
+                      <div className='separator' />
+                      <PersonaSelection
+                        locked={locked}
+                        characters={characters}
+                        levels={levelGroup}
+                        selected={selectedLevels.includes(levelGroup[0])}
+                        selection={sidebarSelections[levelGroup[0]]}
+                        onClick={() => {
+                          setSelectedLevels(levelGroup)
+                        }}
+                      />
+                    </Fragment>
+                  )
+                })}
               </div>
             </div>
             <div className='persona details'>

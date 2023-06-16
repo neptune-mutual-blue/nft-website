@@ -29,7 +29,7 @@ const LikeAndShare = ({ nft }) => {
       tokenId: nft.tokenId,
       onSuccess: (updatedLikeCount) => {
         setLikeCount(Number(updatedLikeCount))
-        setIsLike(prev => !prev)
+        setIsLike(prev => { return !prev })
       }
     })
   }

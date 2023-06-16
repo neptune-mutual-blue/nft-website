@@ -9,10 +9,10 @@ const Tags = (props) => {
       {
   tags && (
     <div className='tags container'>
-      {all?.map((tag) => {
+      {all?.map((tag, idx) => {
         return tag.href
           ? (
-            <a className='tag' key={tag.name} data-color={tag.color} href={tag.href}>
+            <a className='tag' key={idx} data-color={tag.color} href={tag.href}>
               {tag.icon && (
                 <Icon variant={tag.icon.toLowerCase()} size={tag.size || size} />
               )}
@@ -20,7 +20,7 @@ const Tags = (props) => {
             </a>
             )
           : (
-            <span className='tag' data-color={tag.color}>
+            <span className='tag' data-color={tag.color} key={idx}>
               {tag.icon && (
                 <Icon variant={tag.icon.toLowerCase()} size={tag.size || size} />
               )}

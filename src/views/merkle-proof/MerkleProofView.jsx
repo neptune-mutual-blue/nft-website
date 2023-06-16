@@ -154,7 +154,7 @@ const MerkleProofView = () => {
       if (!ipfsHash || !uuid) {
         uuid = uuidv4()
 
-        const response = await NpmApi.uploadMerkleDataIpfs(merkleTreeLive.map(row => ({ ...row, id: uuid })))
+        const response = await NpmApi.uploadMerkleDataIpfs(merkleTreeLive.map(row => { return { ...row, id: uuid } }))
 
         ipfsHash = response.data.hash
 
@@ -221,9 +221,11 @@ const MerkleProofView = () => {
           Last Updated On: A Few {showLiveData ? 'Minutes' : 'Days'} Ago
         </div>
 
-        {loading && Array.from({ length: 10 }).map((_, index) => (
-          <RowPlaceholder key={index} />
-        ))}
+        {loading && Array.from({ length: 10 }).map((_, index) => {
+          return (
+            <RowPlaceholder key={index} />
+          )
+        })}
 
         {!loading && (
           <div className='content'>

@@ -30,7 +30,7 @@ const ConnectedDropdown = () => {
 
   const ref = createRef()
 
-  useOnClickOutside(ref, () => setOpen(false))
+  useOnClickOutside(ref, () => { return setOpen(false) })
 
   const { boundToken, nickname, userLevel } = useUserInfo(account)
 

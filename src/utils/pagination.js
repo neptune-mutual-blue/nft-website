@@ -57,7 +57,7 @@ const getPagination = (totalPages, currentPage) => {
 
   const allPagesArray = Array(totalPages)
     .fill(0)
-    .map((_, i) => i + 1)
+    .map((_, i) => { return i + 1 })
 
   if (allPagesArray.length <= (2 * EDGE_COUNT)) {
     return { previous, pages: allPagesArray, next }
@@ -68,7 +68,7 @@ const getPagination = (totalPages, currentPage) => {
   const middleSlice = getMiddlePages(currentPage, MIDDLE_COUNT)
 
   const set = new Set([...firstSlice, ...middleSlice, ...lastSlice])
-  const uniquePagesArray = Array.from(set).sort((a, b) => a - b)
+  const uniquePagesArray = Array.from(set).sort((a, b) => { return a - b })
 
   const pages = uniquePagesArray.reduce(
     (acc, curr) => {

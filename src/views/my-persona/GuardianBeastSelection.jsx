@@ -15,47 +15,49 @@ import { useWeb3React } from '@web3-react/core'
 const GuardianBeastSelection = ({ characters, levels, selection, onSelectionChange, setSelectedLevels, locked, onSetPersona }) => {
   const selectedValue = selection[levels[0]]
 
-  const firstNft = characters.find(character => character.level === levels[0] && selectedValue === character.role)
-  const secondNft = characters.find(character => character.level === levels[1] && selectedValue === character.role)
+  const firstNft = characters.find(character => { return character.level === levels[0] && selectedValue === character.role })
+  const secondNft = characters.find(character => { return character.level === levels[1] && selectedValue === character.role })
 
   const { active } = useWeb3React()
 
-  const buildOptions = (mobile) => (
-    <div class={`options${locked ? ' locked' : ''}${mobile ? ' mobile' : ''}`}>
-      <div class='option' data-active={selectedValue === Personas.GUARDIAN}>
-        <input
-          type='radio'
-          name='option_type'
-          id={Personas.GUARDIAN}
-          value={Personas.GUARDIAN}
-          onChange={(e) => {
-            if (e.target.checked) {
-              onSelectionChange(Personas.GUARDIAN)
-            }
-          }}
-          className={selectedValue === Personas.GUARDIAN ? 'checked' : ''}
-          checked={selectedValue === Personas.GUARDIAN}
-        />
-        <label for={Personas.GUARDIAN}>{Personas.GUARDIAN}</label>
+  const buildOptions = (mobile) => {
+    return (
+      <div class={`options${locked ? ' locked' : ''}${mobile ? ' mobile' : ''}`}>
+        <div class='option' data-active={selectedValue === Personas.GUARDIAN}>
+          <input
+            type='radio'
+            name='option_type'
+            id={Personas.GUARDIAN}
+            value={Personas.GUARDIAN}
+            onChange={(e) => {
+              if (e.target.checked) {
+                onSelectionChange(Personas.GUARDIAN)
+              }
+            }}
+            className={selectedValue === Personas.GUARDIAN ? 'checked' : ''}
+            checked={selectedValue === Personas.GUARDIAN}
+          />
+          <label for={Personas.GUARDIAN}>{Personas.GUARDIAN}</label>
+        </div>
+        <div class='option' data-active={selectedValue === Personas.BEAST}>
+          <input
+            type='radio'
+            name='option_type'
+            id={Personas.BEAST}
+            value={Personas.BEAST}
+            onChange={(e) => {
+              if (e.target.checked) {
+                onSelectionChange(Personas.BEAST)
+              }
+            }}
+            className={selectedValue === Personas.BEAST ? 'checked' : ''}
+            checked={selectedValue === Personas.BEAST}
+          />
+          <label for={Personas.BEAST}>{Personas.BEAST}</label>
+        </div>
       </div>
-      <div class='option' data-active={selectedValue === Personas.BEAST}>
-        <input
-          type='radio'
-          name='option_type'
-          id={Personas.BEAST}
-          value={Personas.BEAST}
-          onChange={(e) => {
-            if (e.target.checked) {
-              onSelectionChange(Personas.BEAST)
-            }
-          }}
-          className={selectedValue === Personas.BEAST ? 'checked' : ''}
-          checked={selectedValue === Personas.BEAST}
-        />
-        <label for={Personas.BEAST}>{Personas.BEAST}</label>
-      </div>
-    </div>
-  )
+    )
+  }
 
   return (
     <div className='guardian beast selection'>
@@ -113,7 +115,7 @@ const GuardianBeastSelection = ({ characters, levels, selection, onSelectionChan
         {levels[0] !== 1 && (
           <Button
             onClick={() => {
-              setSelectedLevels(levels.map(level => level - 2))
+              setSelectedLevels(levels.map(level => { return level - 2 }))
             }}
             variant='link-color' size='xl' iconLeading='arrow-left'
           >Previous
@@ -122,7 +124,7 @@ const GuardianBeastSelection = ({ characters, levels, selection, onSelectionChan
         {levels[0] !== 5 && (
           <Button
             onClick={() => {
-              setSelectedLevels(levels.map(level => level + 2))
+              setSelectedLevels(levels.map(level => { return level + 2 }))
             }}
             size='xl' iconTrailing='arrow-right'
           >Next

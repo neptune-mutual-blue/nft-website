@@ -1,4 +1,6 @@
-const BaseButton = (props) => {
+import { forwardRef } from 'react'
+
+const BaseButton = forwardRef((props, ref) => {
   const {
     id,
     className,
@@ -21,10 +23,13 @@ const BaseButton = (props) => {
       data-state={state}
       data-destructive={destructive}
       data-icon-only-mobile={iconOnlyMobile}
+      ref={ref}
     >
       {children}
     </button>
   )
-}
+})
+
+BaseButton.displayName = 'BaseButton'
 
 export { BaseButton }

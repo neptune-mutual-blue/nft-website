@@ -17,7 +17,7 @@ const useMerkleLeaf = (address, nftLevel) => {
       const response = await NftApi.getMerkleLeaf(address)
 
       if (response && response.data && response.data.length > 0) {
-        setMerkleLeaf(response.data.find(leaf => leaf.level === nftLevel))
+        setMerkleLeaf(response.data.find(leaf => { return leaf.level === nftLevel }))
       }
     } catch (err) {
       console.error(err)
