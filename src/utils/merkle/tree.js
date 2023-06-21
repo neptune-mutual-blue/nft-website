@@ -50,4 +50,16 @@ const getMerkleProof = (merkleTree, leaf) => {
   return tree.getHexProof(parseLeaf(leaf))
 }
 
-export { generateTree, getMerkleProof, getMerkleRoot, parseLeaf }
+const verifyMerkleProof = (merkleTree, root, leaf, proof) => {
+  const tree = getMerkleTree(merkleTree)
+
+  return tree.verify(proof, parseLeaf(leaf), root)
+}
+
+export {
+  generateTree,
+  getMerkleProof,
+  getMerkleRoot,
+  parseLeaf,
+  verifyMerkleProof
+}

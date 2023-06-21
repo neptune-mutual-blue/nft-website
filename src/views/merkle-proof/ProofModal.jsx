@@ -7,14 +7,11 @@ import { Button } from '@/components/Button/Button'
 import Listbox from '@/components/Listbox/Listbox'
 import { Modal } from '@/components/Modal/Modal'
 import { Tags } from '@/components/Tags/Tags'
-import {
-  ContractAbis,
-  ContractAddresses
-} from '@/config/contracts'
 import { Icon } from '@/elements/Icon'
-import { useContractCall } from '@/hooks/useContractCall'
-import { getMerkleProof } from '@/utils/merkle/tree'
-import { formatBytes32String } from '@ethersproject/strings'
+import {
+  getMerkleProof,
+  verifyMerkleProof
+} from '@/utils/merkle/tree'
 
 const optionRender = (option) => {
   return (
@@ -126,11 +123,8 @@ const OPTIONS = [
 const ProofModal = ({ open, setOpen, merkleRoot, merkleRootLive, merkleTree, merkleLeaf }) => {
   const [family, setFamily] = useState('')
   const [validity, setValidity] = useState()
-  const [validating, setValidating] = useState(false)
 
   const [proof, setProof] = useState([])
-
-  const { isReady, callMethod } = useContractCall({ abi: ContractAbis.MERKLE_PROOF_MINTER, address: ContractAddresses.MERKLE_PROOF_MINTER })
 
   const computeProof = () => {
     const selectedOption = OPTIONS.find((opt) => { return family === opt.value })
@@ -144,8 +138,6 @@ const ProofModal = ({ open, setOpen, merkleRoot, merkleRootLive, merkleTree, mer
   }
 
   const validateProof = async () => {
-    if (!isReady) { return }
-
     const selectedOption = OPTIONS.find((opt) => { return family === opt.value })
 
     if (!selectedOption || !proof) {
@@ -153,12 +145,12 @@ const ProofModal = ({ open, setOpen, merkleRoot, merkleRootLive, merkleTree, mer
     }
 
     setValidity(undefined)
-    setValidating(true)
 
     try {
-      const response = await callMethod('validateProof', [proof, selectedOption.level, formatBytes32String(selectedOption.value), selectedOption.persona])
+      const leaf = [merkleLeaf.account, selectedOption.level, selectedOption.value, selectedOption.persona]
+      const response = verifyMerkleProof(merkleTree, merkleRoot, leaf, proof)
 
-      if (response && !response.error) {
+      if (response) {
         setValidity(true)
       } else {
         setValidity(false)
@@ -167,8 +159,6 @@ const ProofModal = ({ open, setOpen, merkleRoot, merkleRootLive, merkleTree, mer
       console.error(err)
       setValidity(false)
     }
-
-    setValidating(false)
   }
 
   useEffect(() => {
@@ -221,7 +211,7 @@ const ProofModal = ({ open, setOpen, merkleRoot, merkleRootLive, merkleTree, mer
         <Listbox options={OPTIONS} value={family} setValue={setFamily} />
 
         <div className='cta'>
-          <Button size='xl' onClick={validateProof} disabled={validating}>Validate</Button>
+          <Button size='xl' onClick={validateProof}>Validate</Button>
         </div>
 
         {typeof validity !== 'undefined' && (
