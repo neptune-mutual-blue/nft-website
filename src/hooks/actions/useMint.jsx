@@ -58,7 +58,7 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
         setError(response?.error ?? 'Unknown Error')
       } else if (!response || response.error) {
         showToast({
-          title: 'Error',
+          title: 'Unable To Mint NFT',
           description: response?.error ?? 'Unknown Error'
         })
       } else if (response) {
@@ -89,7 +89,7 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
         setError(response?.error ?? 'Unknown Error')
       } else if (!response || response.error) {
         showToast({
-          title: 'Error',
+          title: 'Unable To Mint NFT',
           description: response?.error ?? 'Unknown Error'
         })
       } else if (response) {

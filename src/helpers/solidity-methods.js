@@ -7,7 +7,7 @@ BigNumber.config({
 
 const GAS_MARGIN_MULTIPLIER = 1.5
 
-const getErrorMessage = (_error, iface, prefix) => {
+const getErrorMessage = (_error, iface, prefix = '') => {
   let errorMessage = 'Something went wrong'
 
   try {
@@ -34,10 +34,8 @@ const getErrorMessage = (_error, iface, prefix) => {
       errorMessage = `
       ${errorMessage}
 
-      Parsed Error:
-      Name: ${parsedError.name}
+      ${parsedError.name}(${parsedError.args})      
       Signature: ${parsedError.signature}
-      Args: ${parsedError.args}
       `
     }
   } catch (error) {

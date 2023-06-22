@@ -2,6 +2,12 @@ import { AppConstants } from '@/constants/AppConstants'
 
 export const rpcUrls = {
   84531: ['https://goerli.base.org'],
+  56: [
+    'https://bsc-dataseed1.binance.org',
+    'https://bsc-dataseed2.binance.org',
+    'https://bsc-dataseed3.binance.org',
+    'https://bsc-dataseed4.binance.org',
+  ],
 }
 
 export const chains = {
@@ -17,6 +23,19 @@ export const chains = {
     rpcUrls: rpcUrls[84531],
     explorerName: 'BaseScan Testnet',
     blockExplorerUrls: ['https://goerli.basescan.org']
+  },
+  56: {
+    chainId: `0x${(56).toString(16)}`,
+    chainName: 'BNB Smart Chain',
+    nativeCurrency: {
+      name: 'BNB',
+      symbol: 'BNB',
+      decimals: 18
+    },
+    explorerIcon: "bscscan",
+    rpcUrls: rpcUrls[56],
+    explorerName: 'BscScan',
+    blockExplorerUrls: ['https://bscscan.com']
   }
 }
 

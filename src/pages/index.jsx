@@ -10,39 +10,20 @@ import { Home } from '@/views/Home'
 
 export async function getStaticProps () {
   const [
-    knowTheCharactersResponse,
     mostViewedNftsResponse,
     regularNftsResponse,
     premiumNftsResponse,
     videoResponse
   ] = await Promise.all([
-    NftApi.knowTheCharacters(),
     NftApi.mostViewedNfts(),
     NftApi.regularNfts(),
     NftApi.premiumNfts(),
     resourcesVideoData()
   ])
 
-  knowTheCharactersResponse.data.sort((a, b) => {
-    if (!a.level) {
-      return -1
-    }
-
-    if (!b.level) {
-      return 1
-    }
-    return b.level - a.level
-  })
-
-  const charactersByPage = []
-
-  for (let i = 0; i < knowTheCharactersResponse.data.length; i += 5) {
-    charactersByPage.push(knowTheCharactersResponse.data.slice(i, i + 5))
-  }
   return {
     props: {
       ssg: {
-        charactersByPage,
         mostViewedNfts: mostViewedNftsResponse.data,
         regularNfts: regularNftsResponse.data,
         premiumNfts: premiumNftsResponse.data

@@ -60,8 +60,7 @@ export const useContractCall = ({ abi, address }) => {
 
         if (!swallowError) { console.error(getErrorMessage(error, iface, `Error in calling ${methodName} function:`)) }
         return {
-          error: getErrorMessage(error, iface, `Error in calling ${methodName} function:`
-          )
+          error: getErrorMessage(error, iface)
         }
       }
     } catch (e) {
