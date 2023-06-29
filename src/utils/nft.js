@@ -105,9 +105,9 @@ const getMarketplaceUrl = (_page, _search, _filters) => {
 }
 
 export {
-  truncateAddress,
   aggregateFiltersData,
+  getFiltersFromQueryString,
   getMarketplaceFiltersHref,
   getMarketplaceUrl,
-  getFiltersFromQueryString
+  truncateAddress
 }

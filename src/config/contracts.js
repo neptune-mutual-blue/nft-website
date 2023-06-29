@@ -9,7 +9,7 @@ export const ContractAbis = {
 }
 
 export const ContractAddresses = {
-  POLICY_PROOF_MINTER: process.env.NEXT_PUBLIC_POLICY_PROOF_MINTER_ADDRESS ?? '',
-  MERKLE_PROOF_MINTER: process.env.NEXT_PUBLIC_MERKLE_PROOF_MINTER_ADDRESS ?? '',
-  NEPTUNE_LEGENDS: process.env.NEPTUNE_LEGENDS_ADDRESS ?? ''
+  POLICY_PROOF_MINTER: process.env.NEXT_PUBLIC_POLICY_PROOF_MINTER ?? '',
+  MERKLE_PROOF_MINTER: process.env.NEXT_PUBLIC_MERKLE_PROOF_MINTER ?? '',
+  NEPTUNE_LEGENDS: process.env.NEPTUNE_LEGENDS ?? ''
 }
