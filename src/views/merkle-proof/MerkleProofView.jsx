@@ -185,7 +185,7 @@ const MerkleProofView = () => {
       })
     } catch (err) {
       showToast({
-        title: 'Error',
+        title: 'Unable To Set Merkle Proof',
         description: 'Something went wrong while setting the merkle proof. Check browser console for details.'
       })
       console.error(err)

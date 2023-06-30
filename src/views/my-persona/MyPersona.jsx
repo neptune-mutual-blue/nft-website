@@ -83,7 +83,7 @@ const MyPersona = ({ characters }) => {
         setError(response?.error ?? 'Unknown Error')
       } else if (!response || response.error) {
         showToast({
-          title: 'Error',
+          title: 'Unable To Set Persona',
           description: response?.error ?? 'Unknown Error'
         })
       } else if (response) {
