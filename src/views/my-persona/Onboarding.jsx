@@ -11,7 +11,7 @@ const Onboarding = ({ onSkip }) => {
         <div className='supporting text'>
           The Personas
         </div>
-        <img src='/assets/images/persona/guardian-logo.webp' className='logo' alt='Guardian Logo' srcset='' />
+        <img src='/assets/images/persona/guardian-logo.webp' className='logo' alt='Guardian Logo' srcSet='' />
 
         <div className='details'>
           <h1>Guardian</h1>
