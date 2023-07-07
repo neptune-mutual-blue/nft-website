@@ -86,7 +86,7 @@ const cleanUrl = () => {
   const url = new URL(window.location)
   url.searchParams.delete('theme') // remove theme
 
-  window.history.pushState({}, undefined, url)
+  window.history.replaceState({}, undefined, url)
 }
 
 const ThemeContext = createContext()
@@ -98,8 +98,13 @@ export function ThemeProvider ({ children }) {
 
   useEffect(() => {
     setDark(getTheme() === 'dark')
-    cleanUrl()
   }, [])
+
+  useEffect(() => {
+    if (router.isReady) {
+      cleanUrl()
+    }
+  }, [router.isReady])
 
   useEffect(() => {
     if (dark) {
