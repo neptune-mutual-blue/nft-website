@@ -9,6 +9,7 @@ import {
   ContractAbis,
   ContractAddresses
 } from '@/config/contracts'
+import { useERC20Balance } from '@/hooks/data/useERC20Balance'
 import useMintedLevelStatus from '@/hooks/data/useHasMintedLevel'
 import useMerkleLeaf from '@/hooks/data/useMerkleLeaf'
 import useTokenOwner from '@/hooks/data/useTokenOwner'
@@ -28,6 +29,8 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
 
   const [showMintSuccessful, setShowMintSuccessful] = useState(false)
   const [error, setError] = useState('')
+
+  const { balance } = useERC20Balance(ContractAddresses.NPM)
 
   const { callMethod: callPolicyProof, isReady: policyProofReady } = useContractCall({ abi: ContractAbis.POLICY_PROOF_MINTER, address: ContractAddresses.POLICY_PROOF_MINTER })
   const { callMethod: callMerkleProof, isReady: merkleProofReady } = useContractCall({ abi: ContractAbis.MERKLE_PROOF_MINTER, address: ContractAddresses.MERKLE_PROOF_MINTER })
@@ -133,7 +136,7 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
 
     // Other NFTs than SoulBould NFTs
 
-    if (nftDetails.level && nftDetails.level !== 7) {
+    if (nftDetails.level) {
       if (!boundToken) {
         return 'You need to mint a soulbound NFT to start minting other NFTs.'
       }
@@ -160,6 +163,10 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
 
       if (merkleLeaf.persona !== nftPersona) {
         return `You have selected ${merkleLeaf.persona === 1 ? 'Guardian' : 'Beast'} as your persona, so you cannot mint ${nftDetails.family}.`
+      }
+
+      if ((balance / 10 ** 18) < 10) {
+        return 'Your need at least 10 NPM in your wallet to mint this NFT.'
       }
     }
 
