@@ -165,8 +165,9 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
         return `You have selected ${merkleLeaf.persona === 1 ? 'Guardian' : 'Beast'} as your persona, so you cannot mint ${nftDetails.family}.`
       }
 
-      if ((balance / 10 ** 18) < 10) {
-        return 'Your need at least 10 NPM in your wallet to mint this NFT.'
+      // Level * 10 NPM required to mint NFT
+      if ((balance / 10 ** 18) < (10 * nftDetails.level)) {
+        return `Your need at least ${(10 * nftDetails.level)} NPM in your wallet to mint this NFT.`
       }
     }
 
