@@ -21,6 +21,16 @@
     "type": "error"
   },
   {
+    "inputs": [],
+    "name": "DuplicateRootError",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ExternalContractInvocationRevertError",
+    "type": "error"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -33,17 +43,18 @@
         "type": "uint256"
       }
     ],
-    "name": "BalanceInsufficientError",
+    "name": "InsufficientDepositError",
     "type": "error"
   },
   {
-    "inputs": [],
-    "name": "DuplicateRootError",
-    "type": "error"
-  },
-  {
-    "inputs": [],
-    "name": "ExternalContractInvocationRevertError",
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "minRequired",
+        "type": "uint256"
+      }
+    ],
+    "name": "InsufficientNpmBalanceError",
     "type": "error"
   },
   {
@@ -187,6 +198,22 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "balance",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "requested",
+        "type": "uint256"
+      }
+    ],
+    "name": "WithdrawalTooHighError",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes32",
         "name": "argument",
         "type": "bytes32"
@@ -289,6 +316,12 @@
   {
     "anonymous": false,
     "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
       {
         "indexed": false,
         "internalType": "bytes32[]",
@@ -688,6 +721,11 @@
       {
         "internalType": "contract INeptuneLegends",
         "name": "nft",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IERC20Upgradeable",
+        "name": "npm",
         "type": "address"
       },
       {
