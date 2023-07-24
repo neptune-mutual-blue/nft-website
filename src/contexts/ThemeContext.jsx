@@ -82,11 +82,13 @@ const getTheme = () => {
   return prefersDarkMode ? 'dark' : 'light'
 }
 
-const cleanUrl = () => {
+const cleanUrl = (router) => {
   const url = new URL(window.location)
-  url.searchParams.delete('theme') // remove theme
 
-  window.history.replaceState({}, undefined, url)
+  if (url.searchParams.has('theme')) {
+    url.searchParams.delete('theme')
+    router.replace(url.pathname, undefined, { shallow: true })
+  }
 }
 
 const ThemeContext = createContext()
@@ -102,8 +104,10 @@ export function ThemeProvider ({ children }) {
 
   useEffect(() => {
     if (router.isReady) {
-      cleanUrl()
+      cleanUrl(router)
     }
+
+    // eslint-disable-next-line
   }, [router.isReady])
 
   useEffect(() => {
