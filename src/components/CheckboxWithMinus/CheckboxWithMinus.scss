@@ -1,0 +1,100 @@
+@use "../../design-system/utils";
+@use "../../design-system/colors";
+@use "../../design-system/shadows";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+@use "../../design-system/theme/light";
+@use "../../design-system/theme/dark";
+
+.minus.checkbox.container {
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: max-content;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  /* Hide the browser's default checkbox */
+  input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  /* Create a custom checkbox */
+  .checkmark {
+    border-radius: 4px;
+    border: 1px solid colors.$gray-300;
+    background-color: colors.$base-white;
+    flex-shrink: 0;
+
+    &[data-size="xs"] {
+      height: 10px;
+      width: 10px;
+    }
+
+    &[data-size="sm"] {
+      height: 14px;
+      width: 14px;
+    }
+
+    &[data-size="md"] {
+      height: 16px;
+      width: 16px;
+    }
+
+    &[data-size="lg"] {
+      height: 20px;
+      width: 20px;
+    }
+
+    &[data-size="xl"] {
+      height: 22px;
+      width: 22px;
+    }
+
+    &[data-size="2xl"] {
+      height: 28px;
+      width: 28px;
+    }
+  }
+
+  &:hover input[type="checkbox"] ~ .checkmark,
+  input[type="checkbox"]:focus-visible ~ .checkmark {
+    box-shadow: 0px 0px 0px 4px #f4ebff;
+  }
+
+  & input[type="checkbox"]:checked ~ .checkmark {
+    border-color: colors.$primary-600;
+    background-color: colors.$primary-50;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 6H9.5' stroke='%23444CE7' stroke-width='1.66666' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+    background-repeat: no-repeat;
+    background-size: 70% 70%;
+    background-position: center;
+  }
+}
+
+.dark .minus.checkbox.container {
+  .checkmark {
+    border: 1px solid colors.$gray-500;
+    background-color: colors.$gray-800;
+  }
+
+  & input[type="checkbox"]:checked ~ .checkmark {
+    border: 1px solid colors.$gray-500;
+    background-color: colors.$gray-800;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 6H9.5' stroke='%238098f9' stroke-width='1.66666' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+  }
+
+  &:hover input[type="checkbox"] ~ .checkmark,
+  input[type="checkbox"]:focus-visible ~ .checkmark {
+    box-shadow: 0px 0px 0px 4px colors.$gray-700;
+  }
+}

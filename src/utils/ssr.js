@@ -2,6 +2,8 @@ import { getFiltersFromQueryString } from '@/utils/nft'
 
 const { searchMarketplace, getMarketplaceFilters } = require('@/services/marketplace-api')
 
+const SUPPORTED_ROLES = ['Beast', 'Guardian', 'Neptune']
+
 const getSSRData = async (context) => {
   const { params, query, resolvedUrl } = context
 
@@ -10,6 +12,9 @@ const getSSRData = async (context) => {
     page = params.page && parseInt(params.page)
   }
   const search = query.search ?? ''
+  const minted = ['true', 'false'].includes(query.minted) ? query.minted === 'true' : undefined
+  const soulbound = ['true', 'false'].includes(query.soulbound) ? query.soulbound === 'true' : undefined
+  const roles = query.roles ? query.roles.split(',').filter(role => { return SUPPORTED_ROLES.includes(role) }) : undefined
 
   const queryString = resolvedUrl.includes('?') ? resolvedUrl.split('?')[1] : ''
 
@@ -27,14 +32,33 @@ const getSSRData = async (context) => {
     }
   })
 
-  const data = await (await searchMarketplace(search, filters, page)).data
-  const marketplaceFilters = await (await getMarketplaceFilters()).data
+  const additionalFilters = {
+    minted,
+    soulbound,
+    roles
+  }
+
+  for (const property in additionalFilters) {
+    if (!additionalFilters[property] || (typeof additionalFilters[property] === 'object' && additionalFilters.length === 0)) {
+      delete additionalFilters[property]
+    }
+  }
+
+  const data = (await searchMarketplace(search, filters, page, additionalFilters)).data
+  const marketplaceFilters = (await getMarketplaceFilters()).data
+
+  if (additionalFilters.roles) {
+    additionalFilters.roles = (additionalFilters.roles ?? []).join(',')
+  }
 
   return {
     data,
     marketplaceFilters,
     pageData: {
-      page, search, filters
+      page,
+      search,
+      filters,
+      additionalFilters
     }
   }
 }

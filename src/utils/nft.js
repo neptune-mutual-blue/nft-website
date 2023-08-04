@@ -78,7 +78,7 @@ const getFiltersFromQueryString = (query) => {
   const filters = []
 
   for (const [key, value] of searchParams.entries()) {
-    if (key !== 'search') {
+    if (!['search', 'minted', 'soulbound', 'roles'].includes(key)) {
       filters.push({ key: capitalizeFirstLetter(key), value })
     }
   }
@@ -86,7 +86,7 @@ const getFiltersFromQueryString = (query) => {
   return filters
 }
 
-const getMarketplaceUrl = (_page, _search, _filters) => {
+const getMarketplaceUrl = (_page, _search, _filters, _additionalFilters) => {
   let url = '/marketplace'
 
   if (_page !== 1) { url += `/page/${_page}` }
@@ -95,6 +95,10 @@ const getMarketplaceUrl = (_page, _search, _filters) => {
 
   if (_search) {
     searchParams.append('search', _search)
+  }
+
+  for (const filter in _additionalFilters) {
+    searchParams.append(filter, _additionalFilters[filter])
   }
 
   for (const filter of _filters) {

@@ -48,47 +48,120 @@
       justify-content: space-between;
 
       .filter.marketplace {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 16px;
+
+        @media (max-width: 767px) {
+          grid-template-columns: 1fr;
+        }
+
+        .filter.dialog.wrapper {
+          position: relative;
+          height: 100%;
+
+          @media (max-width: 768px) {
+            height: unset;
+          }
+
+          .filter.dialog {
+            display: none;
+            position: absolute;
+            z-index: 900;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 230px;
+            padding: 10px 6px;
+            box-shadow: shadows.$xl;
+            background-color: colors.$base-white;
+            border: 1px solid colors.$gray-300;
+            border-radius: 8px;
+
+            @media (max-width: 768px) {
+              position: fixed;
+              top: var(--header-height);
+              left: 0;
+              right: 0;
+              bottom: 0;
+              width: unset;
+              overflow: auto;
+              border-radius: 0;
+              padding: 24px 16px;
+            }
+
+            .filter.title.mobile {
+              display: none;
+
+              @media (max-width: 768px) {
+                display: flex;
+                justify-content: space-between;
+                gap: 8px;
+                color: colors.$gray-900;
+                @include styles.text-lg;
+                @include weights.semibold;
+                margin-bottom: 16px;
+              }
+            }
+
+            .label {
+              margin-bottom: 4px;
+              @include styles.text-md;
+              @include weights.medium;
+              color: colors.$gray-500;
+            }
+
+            &.open {
+              display: flex;
+              flex-direction: column;
+            }
+          }
+        }
+
+        .filter.buttons {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          height: 100%;
+
+          @media (max-width: 767px) {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+          }
+
+          button.ui {
+            height: 100%;
+            width: 100%;
+            background-color: colors.$base-white;
+            outline: none;
+
+            &:focus,
+            &:active {
+              box-shadow: shadows.$xs, 0px 0px 0px 3px colors.$primary-100;
+            }
+          }
+        }
+
         input.search {
           padding: 10px 14px;
           @include styles.text-md;
           @include weights.regular;
           border-radius: 8px;
           border: 1px solid colors.$gray-300;
-          box-shadow: shadows.$xs;
           width: 100%;
+          outline: none;
           min-width: 100px;
+
+          &:focus {
+            box-shadow: shadows.$xs, 0px 0px 0px 3px colors.$primary-100;
+          }
         }
 
-        .button {
+        .filter.button {
           display: none;
-          padding: 8px 4px;
-
-          span {
-            display: none;
-            color: colors.$gray-600;
-            @include styles.text-md;
-            @include weights.regular;
-
-            @media (min-width: 768px) and (max-width: 1024px) {
-              display: flex;
-            }
-          }
-
-          svg {
-            aspect-ratio: 1/1;
-            color: colors.$gray-700;
-          }
 
           @media (max-width: 1024px) {
             display: flex;
           }
-        }
-
-        @media (max-width: 1024px) {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 40px;
         }
       }
 
@@ -205,7 +278,35 @@
           border-color: colors.$gray-700;
           background-color: dark.$primary-background-color;
         }
-        .button {
+
+        .filter.dialog.wrapper {
+          .filter.dialog {
+            background-color: colors.$black-800;
+            border: 1px solid colors.$gray-800;
+
+            .filter.title.mobile {
+              @media (max-width: 768px) {
+                color: colors.$base-white;
+              }
+            }
+
+            .label {
+              margin-bottom: 4px;
+              @include styles.text-md;
+              @include weights.medium;
+              color: colors.$gray-200;
+            }
+          }
+        }
+
+        .filter.buttons {
+          button {
+            border-color: colors.$gray-700;
+            background-color: dark.$primary-background-color;
+          }
+        }
+
+        .filter.button {
           span {
             color: colors.$gray-100;
           }

@@ -107,6 +107,10 @@
       gap: 8px;
       color: colors.$gray-500;
 
+      &:focus-within {
+        box-shadow: shadows.$xs, 0px 0px 0px 3px colors.$primary-100;
+      }
+
       input {
         outline: none;
         @include styles.text-md;
@@ -131,6 +135,12 @@
       color: colors.$gray-700;
       @include styles.text-sm;
       @include weights.regular;
+      outline: none;
+
+      &:focus,
+      &:active {
+        box-shadow: shadows.$xs, 0px 0px 0px 3px colors.$gray-100;
+      }
 
       &:disabled {
         opacity: 0.5;
@@ -142,12 +152,18 @@
 
       .container {
         button {
+          outline: none;
           width: 100%;
           padding: 8px 12px;
           display: flex;
           justify-content: space-between;
           gap: 8px;
           border-radius: 6px;
+
+          &:focus,
+          &:active {
+            box-shadow: shadows.$xs, 0px 0px 0px 3px colors.$primary-100;
+          }
 
           .name {
             @include styles.text-md;
@@ -280,6 +296,10 @@
       border: 1px solid colors.$gray-800;
       background-color: dark.$primary-background-color;
       color: colors.$gray-25;
+
+      &:focus-within {
+        box-shadow: shadows.$xs, 0px 0px 0px 3px colors.$primary-100;
+      }
     }
 
     .filters.list {
@@ -329,6 +349,11 @@
     .clear.button {
       border: 1px solid colors.$gray-700;
       color: colors.$base-white;
+
+      &:focus,
+      &:active {
+        box-shadow: shadows.$xs, 0px 0px 0px 3px colors.$gray-700;
+      }
     }
   }
 }
