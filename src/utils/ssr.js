@@ -3,6 +3,7 @@ import { getFiltersFromQueryString } from '@/utils/nft'
 const { searchMarketplace, getMarketplaceFilters } = require('@/services/marketplace-api')
 
 const SUPPORTED_ROLES = ['Beast', 'Guardian', 'Neptune']
+const BOOLEAN_STRINGS = ['true', 'false']
 
 const getSSRData = async (context) => {
   const { params, query, resolvedUrl } = context
@@ -12,8 +13,8 @@ const getSSRData = async (context) => {
     page = params.page && parseInt(params.page)
   }
   const search = query.search ?? ''
-  const minted = ['true', 'false'].includes(query.minted) ? query.minted === 'true' : undefined
-  const soulbound = ['true', 'false'].includes(query.soulbound) ? query.soulbound === 'true' : undefined
+  const minted = BOOLEAN_STRINGS.includes(query.minted) ? query.minted === 'true' : undefined
+  const soulbound = BOOLEAN_STRINGS.includes(query.soulbound) ? query.soulbound === 'true' : undefined
   const roles = query.roles ? query.roles.split(',').filter(role => { return SUPPORTED_ROLES.includes(role) }) : undefined
 
   const queryString = resolvedUrl.includes('?') ? resolvedUrl.split('?')[1] : ''
@@ -39,7 +40,7 @@ const getSSRData = async (context) => {
   }
 
   for (const property in additionalFilters) {
-    if (!additionalFilters[property] || (typeof additionalFilters[property] === 'object' && additionalFilters.length === 0)) {
+    if (additionalFilters[property] === undefined || (typeof additionalFilters[property] === 'object' && additionalFilters.length === 0)) {
       delete additionalFilters[property]
     }
   }
