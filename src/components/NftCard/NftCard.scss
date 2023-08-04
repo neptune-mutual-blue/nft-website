@@ -26,6 +26,34 @@
     height: 240px;
     width: 100%;
     overflow: hidden;
+    position: relative;
+
+    .badges {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      .badge {
+        background-color: colors.$gray-700;
+        color: colors.$base-white;
+        padding: 4px;
+        border-radius: 16px;
+
+        &.text {
+          padding: 2px 8px;
+          @include styles.text-xs;
+          @include weights.medium;
+        }
+
+        svg {
+          height: 12px;
+          width: 12px;
+        }
+      }
+    }
 
     img {
       width: 100%;

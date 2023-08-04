@@ -12,21 +12,26 @@ import {
   useRouter
 } from 'next/router'
 
+import { Button } from '@/components/Button/Button'
 import { NftCard } from '@/components/NftCard/NftCard'
 import { LoaderContext } from '@/contexts/LoaderContext'
 import { Icon } from '@/elements/Icon'
 import { useDebounce } from '@/hooks/useDebounce'
 import { useMobileFilter } from '@/hooks/useMobileFilter'
+import { useOnClickOutside } from '@/hooks/useOnOutsideClick'
 import { imageOrigin } from '@/services/marketplace-api'
 import { getMarketplaceUrl } from '@/utils/nft'
+import DropdownFilterItem from '@/views/marketplace/DropdownFilterItem'
+import { Filter } from '@/views/marketplace/Filter'
 import { NftPlaceholder } from '@/views/marketplace/NftPlaceholder'
+import { Pagination } from '@/views/marketplace/Pagination'
 
-import { Filter } from './Filter'
-import { Pagination } from './Pagination'
+const ROLE_OPTIONS = ['Beast', 'Guardian', 'Neptune']
 
 const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
   const [searchValue, setSearchValue] = useState(pageData?.search || '')
   const [properties, setProperties] = useState(pageData?.filters ?? [])
+  const [additionalFilters, setAdditionalFilters] = useState(pageData?.additionalFilters ?? [])
   const initial = useRef(true)
   const inputRef = useRef(null)
 
@@ -35,10 +40,10 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
   const debouncedSearchValue = useDebounce(searchValue, 500)
   const { showFilter, onFilterOpen, onFilterClose } = useMobileFilter()
 
-  const updateUrlPath = useCallback((_page, _search, _filters) => {
+  const updateUrlPath = useCallback((_page, _search, _filters, _additionalFilters) => {
     if (initial.current) { return }
 
-    const urlObject = getMarketplaceUrl(_page, _search, _filters)
+    const urlObject = getMarketplaceUrl(_page, _search, _filters, _additionalFilters)
 
     router.push(urlObject, undefined, { scroll: false })
 
@@ -46,8 +51,8 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
   }, [])
 
   useEffect(() => {
-    updateUrlPath(1, debouncedSearchValue, properties)
-  }, [debouncedSearchValue, properties, updateUrlPath])
+    updateUrlPath(1, debouncedSearchValue, properties, additionalFilters)
+  }, [debouncedSearchValue, properties, updateUrlPath, additionalFilters])
 
   useEffect(() => {
     /* initial delay of 500ms */
@@ -72,6 +77,7 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
   const { loading } = useContext(LoaderContext)
 
   const [isNavigating, setIsNavigating] = useState(false)
+  const [showFilters, setShowFilters] = useState(false)
 
   useEffect(() => {
     if (loading && !initial.current) {
@@ -99,6 +105,54 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
     }
   }, [])
 
+  const toggleAdditionalFilters = (key, value) => {
+    if (value === undefined) {
+      const clonedFilters = { ...additionalFilters }
+
+      delete clonedFilters[key]
+      return setAdditionalFilters(clonedFilters)
+    }
+
+    if (key !== 'roles') {
+      return setAdditionalFilters({
+        ...additionalFilters,
+        [key]: value
+      })
+    }
+
+    const hasRole = additionalFilters.roles?.includes(value)
+
+    let newRoles = ''
+
+    if (hasRole) {
+      newRoles = (additionalFilters.roles ?? '').split(',').filter(x => { return x !== value && x }).join(',')
+    } else {
+      newRoles = additionalFilters.roles ? additionalFilters.roles + ',' + value : value
+    }
+
+    if (newRoles) {
+      setAdditionalFilters({
+        ...additionalFilters,
+        [key]: newRoles
+      })
+    } else {
+      const clonedFilters = { ...additionalFilters }
+
+      delete clonedFilters[key]
+      return setAdditionalFilters(clonedFilters)
+    }
+  }
+
+  const ref = useRef()
+  const triggerRef = useRef()
+
+  useOnClickOutside(ref, (e) => {
+    if (triggerRef.current.contains(e.target)) {
+      return
+    }
+    return setShowFilters(false)
+  })
+
   return (
     <div className='marketplace search container'>
       <div className='inner container'>
@@ -124,12 +178,54 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
                 ref={inputRef}
                 aria-label='Search Marketplace'
               />
-              <button className='button' onClick={() => { return onFilterOpen() }}>
-                <span>Properties</span>
-                <i data-icon='filter-lines'>
-                  <Icon variant='filter-lines' />
-                </i>
-              </button>
+
+              <div className='filter buttons'>
+                <Button
+                  variant='secondary-gray'
+                  size='md'
+                  iconTrailing='filter-lines'
+                  classname='filter button'
+                  onClick={() => { return onFilterOpen() }}
+                >
+                  Properties
+                </Button>
+                <div className='filter dialog wrapper'>
+                  <Button
+                    variant='secondary-gray'
+                    size='md'
+                    iconTrailing='filter-funnel-02'
+                    ref={triggerRef}
+                    onClick={() => {
+                      return setShowFilters(!showFilters)
+                    }}
+                  >
+                    Filter
+                  </Button>
+
+                  <div className={`filter dialog${showFilters ? ' open' : ''}`} ref={ref}>
+                    <div className='filter title mobile'>
+                      <div>Filter</div>
+                      <button onClick={() => {
+                        setShowFilters(false)
+                      }}
+                      ><Icon variant='x-close' size='lg' />
+                      </button>
+                    </div>
+                    <div className='label'>Role</div>
+                    {ROLE_OPTIONS.map((role) => {
+                      return <DropdownFilterItem key={role} filterKey='roles' label={role} selected={(additionalFilters.roles ?? '').includes(role)} toggle={toggleAdditionalFilters} value={role} showCheckbox />
+                    })}
+                    <div className='label'>Transferability</div>
+                    <DropdownFilterItem filterKey='soulbound' label='All' selected={additionalFilters.soulbound === undefined} toggle={toggleAdditionalFilters} value={undefined} />
+                    <DropdownFilterItem filterKey='soulbound' label='Soulbound' selected={additionalFilters.soulbound === true} toggle={toggleAdditionalFilters} value />
+                    <DropdownFilterItem filterKey='soulbound' label='Tradable' selected={additionalFilters.soulbound === false} toggle={toggleAdditionalFilters} value={false} />
+                    <div className='label'>Ownership</div>
+                    <DropdownFilterItem filterKey='minted' label='All' selected={additionalFilters.minted === undefined} toggle={toggleAdditionalFilters} value={undefined} />
+                    <DropdownFilterItem filterKey='minted' label='Minted' selected={additionalFilters.minted === true} toggle={toggleAdditionalFilters} value />
+                    <DropdownFilterItem filterKey='minted' label='Non-minted' selected={additionalFilters.minted === false} toggle={toggleAdditionalFilters} value={false} />
+                  </div>
+                </div>
+              </div>
             </div>
             <div className='nft grid'>
               {loading && !isNavigating &&
@@ -148,6 +244,8 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
                        views={nft.views}
                        count={nft.siblings}
                        image={`${imageOrigin}/thumbnails/${nft.tokenId}.webp`}
+                       soulbound={nft.soulbound}
+                       minted={!!nft.tokenOwner}
                      />
                    )
                  })}

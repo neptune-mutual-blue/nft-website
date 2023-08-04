@@ -5,7 +5,7 @@ const useOnClickOutside = (ref, handler) => {
     const listener = (event) => {
       // Do nothing if clicking ref's element or descendent elements
       if (ref.current && !ref.current.contains(event.target)) {
-        handler()
+        handler(event)
       }
     }
     document.addEventListener('mousedown', listener)

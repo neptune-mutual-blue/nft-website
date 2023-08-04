@@ -10,6 +10,7 @@ const searchMarketplace = async (
   searchQuery = '',
   properties = [],
   pageNumber = 1,
+  others = {},
   pageSize = DEFAULT_PAGE_SIZE
 ) => {
   const origin = apiOrigin
@@ -18,7 +19,8 @@ const searchMarketplace = async (
     search: searchQuery,
     properties,
     pageNumber,
-    pageSize
+    pageSize,
+    ...others
   })
 
   try {
@@ -51,6 +53,7 @@ const getMarketplaceFilters = async () => {
     const { message, code, data } = await res.json()
 
     const aggregatedData = aggregateFiltersData(data)
+
     return {
       message,
       data: aggregatedData,

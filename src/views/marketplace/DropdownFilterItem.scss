@@ -1,0 +1,57 @@
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.dropdown.filter.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 8px;
+  gap: 8px;
+  border-radius: 6px;
+  @include styles.text-md;
+  @include weights.medium;
+  margin-bottom: 4px;
+
+  .label {
+    color: colors.$gray-900 !important;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    .minus.checkbox {
+      pointer-events: none;
+    }
+  }
+
+  i svg {
+    color: colors.$primary-600;
+  }
+
+  &.selected {
+    background-color: colors.$gray-50;
+  }
+
+  &:hover {
+    background-color: colors.$gray-100;
+  }
+}
+
+.dark .dropdown.filter.item {
+  .label {
+    color: colors.$base-white !important;
+  }
+
+  i svg {
+    color: colors.$primary-400;
+  }
+
+  &.selected {
+    background-color: colors.$gray-700 !important;
+  }
+
+  &:hover {
+    background-color: colors.$gray-800 !important;
+  }
+}

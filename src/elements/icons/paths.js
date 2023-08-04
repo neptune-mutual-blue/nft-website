@@ -10,6 +10,7 @@ const paths = {
   ),
   'download-01': import('./variants/General/download-01.svg?raw'),
   'filter-lines': import('./variants/General/filter-lines.svg?raw'),
+  'filter-funnel-02': import('./variants/General/filter-funnel-02.svg?raw'),
   'edit-03': import('./variants/General/edit-03.svg?raw'),
   'tool-01': import('./variants/General/tool-01.svg?raw'),
   'menu-01': import('./variants/General/menu-01.svg?raw'),
@@ -81,6 +82,7 @@ const paths = {
   medium: import('./variants/Socials/svg/gray/Medium.svg?raw'),
 
   // Weather Icons
+  'star-04': import('./variants/Shapes/star-04.svg?raw'),
   'stars-01': import('./variants/Weather/stars-01.svg?raw'),
   'stars-02': import('./variants/Weather/stars-02.svg?raw'),
 

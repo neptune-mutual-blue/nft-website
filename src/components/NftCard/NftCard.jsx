@@ -1,12 +1,26 @@
 import Link from 'next/link'
 
+import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import { Icon } from '@/elements/Icon'
 
-const NftCard = ({ name, views, count, nftId, image }) => {
+const NftCard = ({ name, views, count, nftId, image, soulbound, minted }) => {
   return (
     <Link className='nft card container' href={`/marketplace/${nftId}`}>
       <div className='image container'>
         <img src={image} loading='lazy' aria-labelledby={nftId} alt='' />
+
+        <div className='badges'>
+          {minted && (
+            <div className='badge text'>Minted</div>
+          )}
+          {soulbound && (
+            <CustomTooltip text='Soulbound NFT'>
+              <div className='badge'>
+                <Icon variant='star-04' size='sm' />
+              </div>
+            </CustomTooltip>
+          )}
+        </div>
       </div>
 
       <div className='contents'>
