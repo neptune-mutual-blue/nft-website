@@ -15,6 +15,7 @@ const DropdownFilterItem = ({ filterKey, value, label, selected, showCheckbox = 
       <div className='label'>
         {showCheckbox && (
           <CheckboxWithMinus
+            tabIndex={-1}
             checked={selected}
             onChange={() => {}}
           />

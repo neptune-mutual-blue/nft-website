@@ -1,4 +1,5 @@
 @use "../../design-system/colors";
+@use "../../design-system/shadows";
 @use "../../design-system/typography/styles";
 @use "../../design-system/typography/weights";
 
@@ -13,6 +14,12 @@
   @include styles.text-md;
   @include weights.medium;
   margin-bottom: 4px;
+  outline: none;
+
+  &:focus,
+  &:active {
+    box-shadow: shadows.$xs, 0px 0px 0px 3px colors.$primary-100;
+  }
 
   .label {
     color: colors.$gray-900 !important;
@@ -22,6 +29,10 @@
 
     .minus.checkbox {
       pointer-events: none;
+
+      input {
+        pointer-events: none;
+      }
     }
   }
 

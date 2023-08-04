@@ -8,11 +8,12 @@
  * @returns
  */
 
-const CheckboxWithMinus = ({ label, size = 'md', checked, onChange }) => {
+const CheckboxWithMinus = ({ label, size = 'md', checked, onChange, tabIndex }) => {
   return (
     <label className='minus checkbox container'>
       <input
         type='checkbox'
+        tabIndex={tabIndex}
         onChange={e => {
           onChange(e.target.checked)
         }}

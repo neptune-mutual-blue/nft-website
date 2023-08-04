@@ -132,6 +132,12 @@
             height: 100%;
             width: 100%;
             background-color: colors.$base-white;
+            outline: none;
+
+            &:focus,
+            &:active {
+              box-shadow: shadows.$xs, 0px 0px 0px 3px colors.$primary-100;
+            }
           }
         }
 
@@ -141,9 +147,13 @@
           @include weights.regular;
           border-radius: 8px;
           border: 1px solid colors.$gray-300;
-          box-shadow: shadows.$xs;
           width: 100%;
+          outline: none;
           min-width: 100px;
+
+          &:focus {
+            box-shadow: shadows.$xs, 0px 0px 0px 3px colors.$primary-100;
+          }
         }
 
         .filter.button {
