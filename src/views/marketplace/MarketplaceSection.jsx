@@ -263,7 +263,7 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
           <Pagination
             currentPage={curentPage}
             totalPages={totalPages}
-            getHref={page => { return page ? getMarketplaceUrl(page, searchValue, properties) : '#' }}
+            getHref={page => { return page ? getMarketplaceUrl(page, searchValue, properties, additionalFilters) : '#' }}
           />
         </div>
       </div>
