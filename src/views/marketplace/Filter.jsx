@@ -5,10 +5,10 @@ import {
 } from 'react'
 
 import { Button } from '@/components/Button/Button'
+import SecondaryGrayButton from '@/components/Button/SecondaryGrayButton'
 import { Checkbox } from '@/components/Checkbox/Checkbox'
 import { Icon } from '@/elements/Icon'
 import { useOnClickOutside } from '@/hooks/useOnOutsideClick'
-import SecondaryGrayButton from '@/components/Button/SecondaryGrayButton'
 
 const createToggleStates = (filters) => {
   return filters.reduce((acc, curr) => {
@@ -137,6 +137,21 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
                   </button>
 
                   <div className='options'>
+
+                    <div className='wrapper'>
+                      <SecondaryGrayButton
+                        className='clear'
+                        onClick={() => {
+                          handleClearFilter(filter.key)
+                        }}
+                        disabled={!selectedFilters.find(f => {
+                          return f.key === filter.key
+                        })}
+                      >
+                        Clear Filter
+                      </SecondaryGrayButton>
+                    </div>
+
                     <ul>
                       {
                         filter.values.map((value, idx) => {
@@ -156,19 +171,6 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
                       }
                     </ul>
 
-                    <div className='wrapper'>
-                      <SecondaryGrayButton
-                        className='clear'
-                        onClick={() => {
-                          handleClearFilter(filter.key)
-                        }}
-                        disabled={!selectedFilters.find(f => {
-                          return f.key === filter.key
-                        })}
-                      >
-                        Clear Filter
-                      </SecondaryGrayButton>
-                    </div>
                   </div>
                 </div>
               )
