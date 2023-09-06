@@ -65,16 +65,6 @@ const getFooterData = () => {
           isExternal: true
         },
         {
-          href: `${npmURL}/blog/`,
-          text: 'Blog',
-          isExternal: false
-        },
-        {
-          href: `${npmURL}/pressroom/`,
-          text: 'Press Room',
-          isExternal: false
-        },
-        {
           href: `${npmURL}/ecosystem/`,
           text: 'Ecosystem',
           isExternal: false
@@ -93,6 +83,11 @@ const getFooterData = () => {
           href: '/',
           text: 'NFT Portal',
           isExternal: false
+        },
+        {
+          href: 'https://explorer.neptunemutual.net',
+          text: 'Explorer',
+          isExternal: false
         }
       ]
     },
@@ -102,6 +97,16 @@ const getFooterData = () => {
         {
           href: `${npmURL}/about/`,
           text: 'About us',
+          isExternal: false
+        },
+        {
+          href: `${npmURL}/blog/`,
+          text: 'Blog',
+          isExternal: false
+        },
+        {
+          href: `${npmURL}/pressroom/`,
+          text: 'Press Room',
           isExternal: false
         },
         {
