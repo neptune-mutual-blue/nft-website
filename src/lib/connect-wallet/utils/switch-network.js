@@ -2,6 +2,7 @@ import { AppConstants } from '@/constants/AppConstants'
 
 export const rpcUrls = {
   84531: ['https://goerli.base.org'],
+  80001: ['https://polygon-mumbai.gateway.tenderly.co'],
   56: [
     'https://bsc-dataseed1.binance.org',
     'https://bsc-dataseed2.binance.org',
@@ -23,6 +24,19 @@ export const chains = {
     rpcUrls: rpcUrls[84531],
     explorerName: 'BaseScan Testnet',
     blockExplorerUrls: ['https://goerli.basescan.org']
+  },
+  80001: {
+    chainId: `0x${(80001).toString(16)}`,
+    chainName: 'Mumbai',
+    nativeCurrency: {
+      name: 'MATIC',
+      symbol: 'MATIC',
+      decimals: 18
+    },
+    explorerIcon: "polygonscan",
+    rpcUrls: rpcUrls[80001],
+    explorerName: 'PolygonScan (Mumbai)',
+    blockExplorerUrls: ['https://mumbai.polygonscan.com']
   },
   56: {
     chainId: `0x${(56).toString(16)}`,
