@@ -35,5 +35,9 @@
   "devDependencies": {
     "@svgr/webpack": "^6.5.1",
     "sass": "1.59.3"
+  },
+  "volta": {
+    "node": "18.12.0",
+    "yarn": "1.22.19"
   }
 }
