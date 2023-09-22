@@ -42,6 +42,8 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
 
   const { owner, loading: ownerLoading } = useTokenOwner(nftDetails.tokenId)
 
+  const currentOwner = owner || nftDetails.tokenOwner
+
   const getDisabledReason = () => {
     if (!active) {
       return 'Connect Your Wallet'
@@ -86,7 +88,7 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
               <h1 className='character name'>{nftDetails.name}</h1>
               <NftSiblingsAndStage nft={nftDetails} />
               {ownerLoading && <Skeleton style={{ height: '64px', marginBottom: '64px' }} />}
-              {!ownerLoading && !owner && (
+              {!ownerLoading && !currentOwner && (
                 <div className='minting btn'>
                   <CustomTooltip text={disabledReason} disabled={disabledReason.length === 0}>
                     <div>
@@ -107,8 +109,8 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
                 </div>
               )}
 
-              {owner && (
-                <NftOwner owner={owner} tokenId={nftDetails.tokenId} />
+              {currentOwner && (
+                <NftOwner owner={currentOwner} tokenId={nftDetails.tokenId} />
               )}
 
               <LikeAndShare nft={nftDetails} />
