@@ -1,0 +1,85 @@
+@use "../../design-system/colors";
+@use "../../design-system/shadows";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.vertical.timeline.container {
+  .item {
+    display: flex;
+    gap: 8px;
+
+    &:not(:last-child) {
+      .content {
+        padding-bottom: 12px;
+      }
+    }
+
+    .check {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      .empty {
+        height: 16px;
+        width: 16px;
+        background-color: colors.$gray-200;
+        border-radius: 50%;
+      }
+
+      .line {
+        min-height: 16px;
+        flex-grow: 1;
+        width: 1px;
+        background-color: colors.$gray-200;
+
+        &.completed {
+          background-color: colors.$success-400;
+        }
+      }
+    }
+
+    .content {
+
+      &,
+      a,
+      button {
+        color: colors.$gray-800;
+        @include styles.text-sm;
+        @include weights.regular;
+      }
+
+      a,
+      button {
+        color: inherit;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.dark .vertical.timeline.container {
+  .item {
+    .check {
+      .empty {
+        background-color: colors.$gray-600;
+      }
+
+      .line {
+        background-color: colors.$gray-600;
+
+        &.completed {
+          background-color: colors.$success-400;
+        }
+      }
+    }
+
+    .content {
+
+      &,
+      a,
+      button {
+        color: colors.$gray-200;
+      }
+    }
+  }
+}

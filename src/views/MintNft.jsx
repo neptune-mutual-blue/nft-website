@@ -27,6 +27,11 @@ import { MintingLevels } from '@/views/mint-nft/MintingLevels'
 import { MintSuccessModal } from '@/views/mint-nft/MintSuccessModal'
 import { Summary } from '@/views/mint-nft/Summary'
 import { useWeb3React } from '@web3-react/core'
+import { VerticalTimeline } from '@/components/VerticalTimeline/VerticalTimeline'
+import useUserInfo from '@/hooks/data/useUserInfo'
+import useMintedLevelStatus from '@/hooks/data/useHasMintedLevel'
+import { useState } from 'react'
+import { MarketplacePopup } from '@/views/mint-nft/MarketplacePopup'
 
 const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, activePolicies }) => {
   const crumbs = [
@@ -74,6 +79,10 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
     points,
     requiredPoints: requirements.points
   })
+
+  const { boundToken, personaSet } = useUserInfo(account)
+  const { status: mintedThisLevel } = useMintedLevelStatus(account, nftDetails.level ? nftDetails.level : -1)
+  const [open, setOpen] = useState(false)
 
   return (
     <>
@@ -147,6 +156,44 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
                     </div>
                   </>
                 )}
+
+                <VerticalTimeline
+                  items={[
+                    {
+                      label: (
+                        <div className='link'>
+                          Mint a soulbound token
+                          <a href='/marketplace?soulbound=true' target='_blank'>
+                            <Icon variant='link-external-02' />
+                          </a>
+                        </div>
+                      ),
+                      completed: Boolean(boundToken)
+                    },
+                    {
+                      label: (
+                        <div className='link'>
+                          Set persona
+                          <a href='/my-persona' target='_blank'>
+                            <Icon variant='link-external-02' />
+                          </a>
+                        </div>
+                      ),
+                      completed: personaSet
+                    },
+                    {
+                      label: (
+                        <div>
+                          Collect {formatNumber(pointsRemaining > 0 ? pointsRemaining : requirements.points)} pts. by <button onClick={() => { return setOpen(true) }}>providing liquidity</button> or <button onClick={() => { return setOpen(true) }}>purchasing policy</button>.
+                        </div>
+                      ),
+                      completed: !(pointsRemaining > 0)
+                    },
+                    { label: 'Mint this NFT for free.', completed: mintedThisLevel }
+                  ]}
+                />
+
+                <MarketplacePopup open={open} close={() => { return setOpen(false) }} />
 
                 <MintSuccessModal open={showMintSuccessful} setOpen={setShowMintSuccessful} nft={nftDetails}>
                   {ownerLoading && <Skeleton style={{ height: '64px', marginTop: '16px', marginBottom: '64px' }} />}

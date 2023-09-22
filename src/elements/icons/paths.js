@@ -28,6 +28,7 @@ const paths = {
   check: import('./variants/General/check.svg?raw'),
   x: import('./variants/General/x.svg?raw'),
   clapperboard: import('./variants/General/clapperboard.svg?raw'),
+  'link-external-02': import('./variants/General/link-external-02.svg?raw'),
 
   // Arrow Icons
   'arrow-left': import('./variants/Arrows/arrow-left.svg?raw'),
@@ -142,6 +143,7 @@ const paths = {
   play: import('./custom/PlayIcon.svg?raw'),
   dot: import('./custom/dot.svg?raw'),
   Dot: import('./custom/dot.svg?raw'),
+  'check-circle-filled': import('./variants/General/check-circle-filled.svg?raw'),
 
   // Custom Brand Icons
   'arbitrum-nft': import('./custom/Brands/default/SvgArbitrumNft.svg?raw'),
