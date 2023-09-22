@@ -1,0 +1,122 @@
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.launch-app.modal.container {
+  z-index: 1000;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 128px;
+
+  @media (max-width: 767px) {
+    padding: 32px;
+  }
+
+  &>.content {
+    padding: 32px;
+    background-color: white;
+    position: relative;
+    width: 616px;
+
+    @media (max-width: 767px) {
+      width: auto;
+    }
+
+    .close.button {
+      position: absolute;
+      background: colors.$primary-50;
+      border: none;
+      top: 32px;
+      right: 32px;
+      padding: 10px;
+      border-radius: 0;
+
+      svg {
+        width: 16px;
+        height: 16px;
+        color: colors.$primary-700;
+      }
+
+      @media (max-width: 767px) {
+        display: none;
+      }
+
+    }
+
+    h2 {
+      margin-bottom: 16px;
+
+      @include styles.text-xl;
+      @include weights.semibold;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .option {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        @include weights.regular;
+
+        input {
+          cursor: pointer;
+        }
+
+        label {
+          cursor: pointer;
+
+          .link {
+            @media (max-width: 767px) {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+
+    .buttons.container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 48px;
+
+      @media (max-width: 767px) {
+        justify-content: center;
+      }
+    }
+  }
+
+  &[data-open="false"] {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.dark {
+  .launch-app.modal.container {
+    &>.content {
+      background-color: colors.$gray-800;
+
+      .close.button {
+        background-color: colors.$gray-700;
+
+        svg {
+          color: white;
+        }
+      }
+    }
+  }
+}
