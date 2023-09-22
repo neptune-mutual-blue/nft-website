@@ -120,7 +120,7 @@
       display: grid;
       grid-template-columns: 400px 1fr;
       gap: 35px;
-      align-items: center;
+      align-items: flex-start;
 
       @media (min-width: 768px) and (max-width: 1024px) {
         grid-template-columns: 266px 1fr;
