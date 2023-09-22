@@ -1,0 +1,264 @@
+@use "../design-system/utils";
+@use "../design-system/colors";
+@use "../design-system/typography/styles";
+@use "../design-system/typography/weights";
+
+.my.collection.page {
+  @include utils.full-width-container;
+
+  section {
+    padding: 96px 0;
+    padding-top: 56px;
+
+    @media (max-width: 767px) {
+      padding-top: 24px;
+    }
+
+    @media (max-width: 280px) {
+      padding-bottom: 32px;
+    }
+  }
+
+  .breadcrumb.and.connect.wallet {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    >ol {
+      margin: 0;
+    }
+
+    @media (max-width: 767px) {
+      gap: 24px;
+    }
+
+    @media (max-width: 575px) {
+      .ui.primary.button {
+        width: 100%;
+      }
+    }
+  }
+
+  .content.container {
+    margin: 58px auto;
+    border-radius: 24px;
+    border: 1px solid colors.$gray-300;
+    padding: 32px;
+    max-width: 780px;
+
+    .tags.container {
+      margin-top: 16px;
+    }
+
+    .milestones {
+      margin-top: 32px;
+
+      @media (max-width: 767px) {
+        padding: 0;
+      }
+
+      h3 {
+        @include styles.text-lg;
+        @include weights.semibold;
+        margin-bottom: 16px;
+
+        span {
+          color: colors.$indigo-600;
+        }
+      }
+
+      .progress.bar {
+        margin-bottom: 8px;
+      }
+
+      .next.level.requirements {
+        display: flex;
+        @include styles.text-sm;
+        @include weights.semibold;
+        color: colors.$indigo-600;
+        align-items: center;
+        gap: 6px;
+
+        svg {
+          color: colors.$gray-400;
+        }
+      }
+
+      .info {
+        margin-top: 24px;
+
+        .label.and.value {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 4px;
+          margin-bottom: 8px;
+          @include styles.text-sm;
+          @include weights.regular;
+
+          .value {
+            @include weights.semibold;
+          }
+        }
+      }
+    }
+
+    .bridge.banner {
+      margin-top: 32px;
+      border-radius: 8px;
+      background-color: colors.$gray-100;
+      padding: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &,
+      button.primary {
+        @include styles.text-md;
+        @include weights.semibold;
+      }
+
+      button.primary {
+        border-radius: 8px;
+        padding: 12px 20px;
+      }
+    }
+
+    .minted.nfts {
+      margin-top: 32px;
+
+      h3 {
+        @include styles.text-lg;
+        @include weights.semibold;
+      }
+
+      .empty {
+        &>* {
+          margin: 0 auto;
+          text-align: center;
+        }
+
+        img {
+          filter: grayscale(1);
+        }
+
+        p {
+          margin-top: 24px;
+          @include styles.display-xs;
+          @include weights.semibold;
+          color: colors.$gray-500;
+        }
+
+        a {
+          display: block;
+          width: max-content;
+
+          button.primary {
+            @include styles.text-md;
+            @include weights.semibold;
+            margin-top: 32px;
+            width: 334px;
+            border-radius: 8px;
+            padding: 12px 20px;
+          }
+        }
+      }
+
+      .nfts.grid {
+        margin-top: 16px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 64px;
+        row-gap: 32px;
+
+        .nft {
+          text-align: center;
+
+          .tags.container {
+            justify-content: center;
+          }
+
+          p {
+            @include styles.text-md;
+            @include weights.semibold;
+          }
+
+          p.category {
+            margin-top: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  .explore.minting.collection {
+    margin-top: 58px;
+
+    h3 {
+      @include styles.display-sm;
+      @include weights.bold;
+      margin-bottom: 24px;
+
+      @media (max-width: 767px) {
+        @include styles.text-lg;
+        @include weights.semibold;
+      }
+    }
+
+    @media (max-width: 280px) {
+      margin-bottom: 32px;
+    }
+
+    .nft.characters {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, calc(20% - 1px)));
+      gap: 12.8px;
+
+      @media (max-width: 1024px) {
+        grid-template-columns: repeat(6, minmax(25%, 1fr));
+        overflow-x: auto;
+      }
+
+      @media (max-width: 767px) {
+        grid-template-columns: repeat(6, minmax(40%, 1fr));
+      }
+
+      @media (max-width: 280px) {
+        grid-template-columns: repeat(6, minmax(47%, 1fr));
+      }
+
+      .blur.effect.character.details {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.dark .my.collection.page {
+  .content.container {
+    border-color: colors.$gray-800;
+
+    .milestones {
+      h3 {
+        span {
+          color: colors.$indigo-300;
+        }
+      }
+
+      .next.level.requirements {
+        color: colors.$indigo-300;
+      }
+    }
+
+    .bridge.banner {
+      background-color: colors.$black-800;
+    }
+
+    .minted.nfts .empty {
+      p {
+        color: colors.$gray-25;
+      }
+    }
+  }
+}
