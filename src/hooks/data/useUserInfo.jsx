@@ -17,7 +17,8 @@ const useUserInfo = (account) => {
     boundToken: '',
     nickname: '',
     userLevel: 0,
-    personaSet: false
+    personaSet: false,
+    persona: undefined
   })
   const [loading, setLoading] = useState(false)
 
@@ -37,7 +38,14 @@ const useUserInfo = (account) => {
       ...userInfo,
       userLevel: userLevel === 0 && boundToken ? 1 : userLevel,
       boundToken,
-      personaSet
+      personaSet,
+      persona: personaSet
+        ? persona.reduce((acc, curr) => {
+          acc[curr.level] = curr.persona
+
+          return acc
+        }, {})
+        : {}
     })
 
     setLoading(false)
@@ -47,7 +55,7 @@ const useUserInfo = (account) => {
     fetchUserInfo()
   }, [fetchUserInfo])
 
-  const { boundToken, mintedLevel, userLevel, unlockedLevel, nickname, personaSet } = userData
+  const { boundToken, mintedLevel, userLevel, unlockedLevel, nickname, personaSet, persona } = userData
 
   // HANDLE EVENTS
 
@@ -72,7 +80,8 @@ const useUserInfo = (account) => {
     nickname,
     loading,
     personaSet,
-    fetchUserInfo
+    fetchUserInfo,
+    persona
   }
 }
 

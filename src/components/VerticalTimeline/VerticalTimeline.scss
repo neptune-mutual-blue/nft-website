@@ -4,6 +4,11 @@
 @use "../../design-system/typography/weights";
 
 .vertical.timeline.container {
+  .checklist.tooltip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
   .item {
     display: flex;
     gap: 8px;
@@ -18,6 +23,16 @@
       display: flex;
       align-items: center;
       flex-direction: column;
+
+      &.errored {
+        color: colors.$error-400;
+
+        svg {
+          height: 16px;
+          width: 16px;
+          transform: scale(1.5);
+        }
+      }
 
       .empty {
         height: 16px;
@@ -39,7 +54,6 @@
     }
 
     .content {
-
       &,
       a,
       button {
@@ -74,7 +88,6 @@
     }
 
     .content {
-
       &,
       a,
       button {

@@ -5,22 +5,26 @@ const VerticalTimeline = ({
 }) => {
   if (!Array.isArray(items) || !items.length) { return null }
 
+  const sortedItems = items.sort((a, b) => { return (b.completed ? 1 : 0) - (a.completed ? 1 : 0) })
+
   return (
     <div className='vertical timeline container'>
       {
-          items.map((item, idx) => {
+          sortedItems.map((item, idx) => {
             return (
               <div key={idx} className='item'>
-                <div className='check'>
+                <div className={`check${item.errored ? ' errored' : ''}`}>
                   {
-                  item.completed
-                    ? <Icon variant='check-circle-filled' />
-                    : <div className='empty' />
+                 item.errored
+                   ? <Icon variant='x-circle-filled' />
+                   : item.completed
+                     ? <Icon variant='check-circle-filled' />
+                     : <div className='empty' />
                   }
 
                   {
-                    idx < (items.length - 1) && (
-                      <div className={`line${(item.completed && items[idx + 1]?.completed) ? ' completed' : ''}`} />
+                    idx < (sortedItems.length - 1) && (
+                      <div className={`line${(item.completed && sortedItems[idx + 1]?.completed) ? ' completed' : ''}`} />
                     )
                   }
                 </div>
