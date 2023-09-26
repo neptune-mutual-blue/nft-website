@@ -13,11 +13,13 @@ const VerticalTimeline = ({
           sortedItems.map((item, idx) => {
             return (
               <div key={idx} className='item'>
-                <div className='check'>
+                <div className={`check${item.errored ? ' errored' : ''}`}>
                   {
-                  item.completed
-                    ? <Icon variant='check-circle-filled' />
-                    : <div className='empty' />
+                 item.errored
+                   ? <Icon variant='x-circle-filled' />
+                   : item.completed
+                     ? <Icon variant='check-circle-filled' />
+                     : <div className='empty' />
                   }
 
                   {

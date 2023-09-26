@@ -5,6 +5,7 @@ import {
 } from 'react'
 
 import { ToastContext } from '@/components/Toast/Toast'
+import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import {
   ContractAbis,
   ContractAddresses
@@ -39,7 +40,7 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
 
   const { owner, loading: ownerLoading, setOwner } = useTokenOwner(nftDetails.tokenId)
 
-  const { boundToken, fetchUserInfo, personaSet } = useUserInfo(account)
+  const { boundToken, fetchUserInfo, personaSet, persona } = useUserInfo(account)
 
   const { status: mintedThisLevel } = useMintedLevelStatus(account, nftDetails.level ? nftDetails.level : -1)
   const { status: mintedPreviousLevel } = useMintedLevelStatus(account, nftDetails.level ? nftDetails.level - 1 : -1)
@@ -117,8 +118,9 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
           completed: activePolicies.length > 0
         },
         {
-          label: 'Not have already minted a soulbound token',
-          completed: !boundToken
+          label: 'Did not mint a soulbound NFT',
+          completed: !boundToken,
+          errored: !!boundToken
         }
       ]
 
@@ -129,7 +131,7 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
       {
         label: (
           <div className='link'>
-            Mint a soulbound token
+            Mint a soulbound NFT
             <a href='/marketplace?soulbound=true' target='_blank'>
               <Icon variant='link-external-02' />
             </a>
@@ -139,37 +141,61 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
       },
       {
         label: (
+          <div className='link'>
+            Set Persona as {nftDetails.role}
+            {!personaSet && (
+              <a href='/my-persona' target='_blank'>
+                <Icon variant='link-external-02' />
+              </a>
+            )}
+          </div>
+        ),
+        errored: personaSet && persona[nftDetails.level] !== nftPersona,
+        completed: personaSet && persona[nftDetails.level] === nftPersona
+      },
+      {
+        label: (
           <div>
             Collect {formatNumber(requiredPoints)} pts. by <button onClick={() => { return openMarketplace() }}>providing liquidity</button> or <button onClick={() => { return openMarketplace() }}>purchasing policy</button>.
           </div>
         ),
         completed: points > requiredPoints
       },
+
       {
-        label: (
-          <div className='link'>
-            Set persona
-            <a href='/my-persona' target='_blank'>
-              <Icon variant='link-external-02' />
-            </a>
-          </div>
-        ),
-        completed: personaSet
-      },
-      {
-        label: `Not have minted another NFT of Level ${nftDetails.level}`,
-        completed: !mintedThisLevel
+        label: `Did not mint Level ${nftDetails.level} NFT`,
+        completed: !mintedThisLevel,
+        errored: mintedThisLevel
       },
       nftDetails.level === 1
         ? undefined
         : {
-            label: `Minted NFT of Level ${nftDetails.level - 1}`,
+            label: (
+              <div className='link'>
+                Mint Level {nftDetails.level - 1} NFT
+                <a href={`/marketplace?${personaSet ? `roles=${persona[nftDetails.level - 1] === 1 ? 'Guardian' : 'Beast'}&` : ''}level=${nftDetails.level - 1}`} target='_blank'>
+                  <Icon variant='link-external-02' />
+                </a>
+              </div>
+            ),
             completed: nftDetails.level === 1 || mintedPreviousLevel
           },
+
       {
-        label: 'Merkle Proof Valid & Updated',
-        completed: merkleLeaf && merkleLeaf.persona && merkleLeaf.family && merkleLeaf.persona !== nftPersona
+        label: (
+          <div className='checklist tooltip'>
+            Update Merkle Proof & Validate
+
+            <CustomTooltip text='Merkle Proof will be updated by the admin.'>
+              <div>
+                <Icon variant='info-circle' size='sm' />
+              </div>
+            </CustomTooltip>
+          </div>
+        ),
+        completed: merkleLeaf && merkleLeaf.persona && merkleLeaf.family
       },
+
       {
         label: `Have ${(10 * nftDetails.level)} NPM in your wallet`,
         completed: (balance / 10 ** 18) > (10 * nftDetails.level)
@@ -178,7 +204,6 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
 
     return eligibilityCheckList.filter(Boolean)
   }
-
   const getButtonDisabledReason = () => {
     if (!account) {
       return 'Connect Your Wallet First!'

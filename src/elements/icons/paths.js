@@ -144,6 +144,7 @@ const paths = {
   dot: import('./custom/dot.svg?raw'),
   Dot: import('./custom/dot.svg?raw'),
   'check-circle-filled': import('./variants/General/check-circle-filled.svg?raw'),
+  'x-circle-filled': import('./variants/General/x-circle-filled.svg?raw'),
 
   // Custom Brand Icons
   'arbitrum-nft': import('./custom/Brands/default/SvgArbitrumNft.svg?raw'),
