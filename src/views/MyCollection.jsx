@@ -10,9 +10,14 @@ import { Tags } from '@/components/Tags/Tags'
 import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import { Icon } from '@/elements/Icon'
 import useUserInfo from '@/hooks/data/useUserInfo'
+import { useUserMilestonesData } from '@/hooks/data/useUserMilestonesData'
+import { NftApi } from '@/service/nft-api'
+import { imageOrigin } from '@/services/marketplace-api'
 import { formatDollar } from '@/utils/currencyHelpers'
 import { formatNumber } from '@/utils/number-format'
 import { useWeb3React } from '@web3-react/core'
+import Link from 'next/link'
+import { useCallback, useEffect, useState } from 'react'
 
 const MyCollection = ({ premiumNfts }) => {
   const crumbs = [
@@ -29,22 +34,32 @@ const MyCollection = ({ premiumNfts }) => {
   const { account } = useWeb3React()
   const { userLevel, nickname = 'Purple Orchid Isomorphic Nebula' } = useUserInfo(account)
 
-  // TEMP
-  const points = 11
-  const pointsRemaining = 67
-  const requirements = { points: 120 }
-  const currentProgress = { totalPolicyPurchased: 1000, totalLiquidityAdded: 1200 }
+  const { points, pointsRemaining, requiredPoints, totalLiquidityAdded, totalPolicyPurchased } = useUserMilestonesData()
 
-  const mock = {
-    level: 4,
-    tokenId: '141157',
-    name: 'Diabolic Gargantuworm #141157',
-    category: 'Diabolic Gargantuworm',
-    thumbnail: 'https://nft.neptunemutual.net/thumbnails/141157.webp',
-    cover: 'https://nft.neptunemutual.net/covers/141157.webp'
-  }
+  const [userNFTs, setUserNFTs] = useState([])
 
-  const empty = true
+  const updateUserNfts = useCallback(async () => {
+    if (!account) { return }
+    const nfts = await NftApi.getUserMintedNFTs(account)
+
+    const nftsWithDetails = nfts.map(nft => {
+      const level = nft.attributes.find(a => { return a.traitType === 'Level' }).value || 0
+      const thumbnail = `${imageOrigin}/thumbnails/${nft.tokenId}.webp`
+      const cover = `${imageOrigin}/covers/${nft.tokenId}.webp`
+
+      return {
+        ...nft,
+        level,
+        thumbnail,
+        cover
+      }
+    })
+    setUserNFTs(nftsWithDetails)
+  }, [account])
+
+  useEffect(() => {
+    if (updateUserNfts) { updateUserNfts() }
+  }, [updateUserNfts])
 
   return (
     <div className='my collection page'>
@@ -79,7 +94,7 @@ const MyCollection = ({ premiumNfts }) => {
           <div className='milestones'>
             <h3>Current Points: <span>{formatNumber(points)} pts</span></h3>
 
-            <Progress percent={(points / requirements.points) * 100} />
+            <Progress percent={(points / requiredPoints) * 100} />
 
             {pointsRemaining > 0 && (
               <div className='next level requirements'>
@@ -87,7 +102,7 @@ const MyCollection = ({ premiumNfts }) => {
                   {formatNumber(pointsRemaining)} points until next level.
                 </div>
 
-                <CustomTooltip text={`Points Required: ${formatNumber(requirements.points)}`}>
+                <CustomTooltip text={`Points Required: ${formatNumber(requiredPoints)}`}>
                   <button
                     role='button'
                   >
@@ -100,11 +115,11 @@ const MyCollection = ({ premiumNfts }) => {
             <div className='info'>
               <div className='label and value'>
                 <div className='label'>Policy Purchase:</div>
-                <div className='value'>{formatDollar(currentProgress.totalPolicyPurchased)}</div>
+                <div className='value'>{formatDollar(totalPolicyPurchased)}</div>
               </div>
               <div className='label and value'>
                 <div className='label'>Added Liquidity:</div>
-                <div className='value'>{formatDollar(currentProgress.totalLiquidityAdded)}</div>
+                <div className='value'>{formatDollar(totalLiquidityAdded)}</div>
               </div>
             </div>
           </div>
@@ -113,16 +128,16 @@ const MyCollection = ({ premiumNfts }) => {
             <p>
               Move your NFTs across different blockchain networks.
             </p>
-            <Button>
+            <Link href='/my-collection/bridge'>
               Bridge My NFTs
-            </Button>
+            </Link>
           </div>
 
           <div className='minted nfts'>
             <h3>NFTs You've Minted</h3>
 
             {
-              empty
+              userNFTs.length === 0
                 ? (
                   <div className='empty'>
                     <img src='/assets/images/hero/hero-light.webp' alt='B/W Hero Image' />
@@ -139,25 +154,29 @@ const MyCollection = ({ premiumNfts }) => {
                 : (
                   <div className='nfts grid'>
                     {
-                  Array(5).fill(0).map((_, i) => {
+                  userNFTs.map((nft, i) => {
                     return (
                       <div key={i} className='nft'>
-                        <NftImageWithExpand nft={mock} isCover={false} />
+                        <NftImageWithExpand nft={nft} isCover={false} />
 
-                        <Tags
-                          tags={[
-                            {
-                              id: '1',
-                              slug: '1',
-                              text: 'Level ' + mock.level,
-                              color: 'level' + mock.level
-                            }
-                          ]}
-                        />
+                        {
+                          nft.level > 0 && (
+                            <Tags
+                              tags={[
+                                {
+                                  id: '1',
+                                  slug: '1',
+                                  text: 'Level ' + nft.level,
+                                  color: 'level' + nft.level
+                                }
+                              ]}
+                            />
+                          )
+                        }
 
-                        <p className='category'>{mock.category}</p>
+                        <p className='category'>{nft.family}</p>
 
-                        <p className='tokenId'>#{mock.tokenId}</p>
+                        <p className='tokenId'>#{nft.tokenId}</p>
                       </div>
                     )
                   })
@@ -169,7 +188,7 @@ const MyCollection = ({ premiumNfts }) => {
         </div>
 
         {
-          !empty && (
+          userNFTs.length > 0 && (
             <div className='explore minting collection'>
               <h3>Explore Our Collection</h3>
               <div className='nft characters'>

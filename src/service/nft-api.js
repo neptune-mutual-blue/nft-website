@@ -136,6 +136,20 @@ const getPersona = async (account) => {
   }
 }
 
+const getUserMintedNFTs = async (account) => {
+  const { nftApiBaseURL, NETWORK } = AppConstants
+  const url = `${nftApiBaseURL}/marketplace/${NETWORK}/account/collection/${account}`
+
+  try {
+    const res = await fetch(url, { headers: { 'Content-Type': 'application/json' } })
+    const data = await res.json()
+    if (data.data) { return data.data }
+  } catch (error) {
+    console.error(`Error in getting user collections for ${account}:`, error)
+    return []
+  }
+}
+
 const NftApi = {
   knowTheCharacters,
   mostViewedNfts,
@@ -150,7 +164,8 @@ const NftApi = {
   setMerkleProof,
   getMerkleLeaf,
   getUserInfoFromApi,
-  getPersona
+  getPersona,
+  getUserMintedNFTs
 }
 
 export { NftApi }

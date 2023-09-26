@@ -114,14 +114,16 @@
       align-items: center;
 
       &,
-      button.primary {
+      a {
         @include styles.text-md;
         @include weights.semibold;
       }
 
-      button.primary {
+      a {
         border-radius: 8px;
         padding: 12px 20px;
+        background-color: colors.$primary-600;
+        color: colors.$base-white;
       }
     }
 
