@@ -139,20 +139,22 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
         ),
         completed: !!boundToken
       },
-      {
-        label: (
-          <div className='link'>
-            Set Persona as {nftDetails.role}
-            {!personaSet && (
-              <a href='/my-persona' target='_blank'>
-                <Icon variant='link-external-02' />
-              </a>
-            )}
-          </div>
-        ),
-        errored: personaSet && persona[nftDetails.level] !== nftPersona,
-        completed: personaSet && persona[nftDetails.level] === nftPersona
-      },
+      nftDetails.level === 7
+        ? undefined
+        : {
+            label: (
+              <div className='link'>
+                Set Persona as {nftDetails.role}
+                {!personaSet && (
+                  <a href='/my-persona' target='_blank'>
+                    <Icon variant='link-external-02' />
+                  </a>
+                )}
+              </div>
+            ),
+            errored: personaSet && persona[nftDetails.level] !== nftPersona,
+            completed: personaSet && persona[nftDetails.level] === nftPersona
+          },
       {
         label: (
           <div>
