@@ -118,7 +118,7 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
           completed: activePolicies.length > 0
         },
         {
-          label: 'Did not mint a soulbound NFT',
+          label: 'Have not minted a Soulbound NFT',
           completed: !boundToken,
           errored: !!boundToken
         }
@@ -131,7 +131,7 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
       {
         label: (
           <div className='link'>
-            Mint a soulbound NFT
+            Minted a Soulbound NFT
             <a href='/marketplace?soulbound=true' target='_blank'>
               <Icon variant='link-external-02' />
             </a>
@@ -139,31 +139,33 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
         ),
         completed: !!boundToken
       },
-      {
-        label: (
-          <div className='link'>
-            Set Persona as {nftDetails.role}
-            {!personaSet && (
-              <a href='/my-persona' target='_blank'>
-                <Icon variant='link-external-02' />
-              </a>
-            )}
-          </div>
-        ),
-        errored: personaSet && persona[nftDetails.level] !== nftPersona,
-        completed: personaSet && persona[nftDetails.level] === nftPersona
-      },
+      nftDetails.level === 7
+        ? undefined
+        : {
+            label: (
+              <div className='link'>
+                Set the Persona as {nftDetails.role}
+                {!personaSet && (
+                  <a href='/my-persona' target='_blank'>
+                    <Icon variant='link-external-02' />
+                  </a>
+                )}
+              </div>
+            ),
+            errored: personaSet && persona[nftDetails.level] !== nftPersona,
+            completed: personaSet && persona[nftDetails.level] === nftPersona
+          },
       {
         label: (
           <div>
-            Collect {formatNumber(requiredPoints)} pts. by <button onClick={() => { return openMarketplace() }}>providing liquidity</button> or <button onClick={() => { return openMarketplace() }}>purchasing policy</button>.
+            Collected {formatNumber(requiredPoints)} points by <button onClick={() => { return openMarketplace() }}>providing liquidity</button> or <button onClick={() => { return openMarketplace() }}>purchasing policy</button>.
           </div>
         ),
         completed: points > requiredPoints
       },
 
       {
-        label: `Did not mint Level ${nftDetails.level} NFT`,
+        label: `Have not minted a level ${nftDetails.level} NFT`,
         completed: !mintedThisLevel,
         errored: mintedThisLevel
       },
@@ -172,7 +174,7 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
         : {
             label: (
               <div className='link'>
-                Mint Level {nftDetails.level - 1} NFT
+                Have minted <a href='tel:+' /> a level {nftDetails.level - 1} NFT
                 <a href={`/marketplace?${personaSet ? `roles=${persona[nftDetails.level - 1] === 1 ? 'Guardian' : 'Beast'}&` : ''}level=${nftDetails.level - 1}`} target='_blank'>
                   <Icon variant='link-external-02' />
                 </a>
@@ -184,9 +186,9 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
       {
         label: (
           <div className='checklist tooltip'>
-            Update Merkle Proof & Validate
+            Merkle Proof Validation
 
-            <CustomTooltip text='Merkle Proof will be updated by the admin.'>
+            <CustomTooltip text='Merkle Proof will be updated and validated by the admin.'>
               <div>
                 <Icon variant='info-circle' size='sm' />
               </div>
@@ -197,7 +199,7 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
       },
 
       {
-        label: `Have ${(10 * nftDetails.level)} NPM in your wallet`,
+        label: `Holding ${(10 * nftDetails.level)} NPM in your wallet`,
         completed: (balance / 10 ** 18) > (10 * nftDetails.level)
       }
     ]
@@ -239,11 +241,11 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
       }
 
       if (mintedThisLevel) {
-        return `You have already minted NFT of Level ${nftDetails.level}.`
+        return `You have already minted NFT of level ${nftDetails.level}.`
       }
 
       if (nftDetails.level !== 1 && !mintedPreviousLevel) {
-        return `You need to first mint NFT of Level ${nftDetails.level - 1} before minting this NFT.`
+        return `You need to first mint NFT of level ${nftDetails.level - 1} before minting this NFT.`
       }
 
       if (!merkleLeaf) {
