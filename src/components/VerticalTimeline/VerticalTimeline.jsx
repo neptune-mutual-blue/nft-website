@@ -5,7 +5,7 @@ const VerticalTimeline = ({
 }) => {
   if (!Array.isArray(items) || !items.length) { return null }
 
-  const sortedItems = items.filter(Boolean).sort((a, b) => { return (b.completed ? 1 : 0) - (a.completed ? 1 : 0) })
+  const sortedItems = items.sort((a, b) => { return (b.completed ? 1 : 0) - (a.completed ? 1 : 0) })
 
   return (
     <div className='vertical timeline container'>

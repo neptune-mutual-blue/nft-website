@@ -26,7 +26,6 @@ import { mintingLevelRequirements } from '@/config/minting-levels'
 import { AppConstants } from '@/constants/AppConstants'
 import { Icon } from '@/elements/Icon'
 import useMint from '@/hooks/actions/useMint'
-import useUserInfo from '@/hooks/data/useUserInfo'
 import { formatDollar } from '@/utils/currencyHelpers.js'
 import { formatNumber } from '@/utils/number-format'
 import { MarketplacePopup } from '@/views/mint-nft/MarketplacePopup'
@@ -55,8 +54,6 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
     }
   ]
 
-  const isSoulbound = nftDetails.stage === 'Soulbound' || !nftDetails.stage
-
   const { account } = useWeb3React()
 
   const actualPoints = currentProgress.totalLiquidityAdded * AppConstants.LIQUIDITY_POINTS_PER_DOLLAR + currentProgress.totalPolicyPurchased * AppConstants.POLICY_POINTS_PER_DOLLAR
@@ -76,7 +73,8 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
     ownerLoading,
     error,
     setError,
-    minting
+    minting,
+    getEligibilityChecklist
   } = useMint({
     nftDetails,
     activePolicies,
@@ -86,8 +84,11 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
 
   const currentOwner = owner || nftDetails.tokenOwner
 
-  const { boundToken, personaSet } = useUserInfo(account)
   const [open, setOpen] = useState(false)
+
+  const eligibilityChecklist = getEligibilityChecklist(() => {
+    setOpen(true)
+  })
 
   return (
     <>
@@ -162,45 +163,9 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
                   </>
                 )}
 
-                {(!currentOwner || currentOwner === account) && (
+                {(!currentOwner) && (
                   <VerticalTimeline
-                    items={[
-                      isSoulbound
-                        ? undefined
-                        : {
-                            label: (
-                              <div className='link'>
-                                Mint a soulbound token
-                                <a href='/marketplace?soulbound=true' target='_blank'>
-                                  <Icon variant='link-external-02' />
-                                </a>
-                              </div>
-                            ),
-                            completed: Boolean(boundToken)
-                          },
-                      isSoulbound
-                        ? undefined
-                        : {
-                            label: (
-                              <div className='link'>
-                                Set persona
-                                <a href='/my-persona' target='_blank'>
-                                  <Icon variant='link-external-02' />
-                                </a>
-                              </div>
-                            ),
-                            completed: personaSet
-                          },
-                      {
-                        label: (
-                          <div>
-                            Collect {formatNumber(pointsRemaining > 0 ? pointsRemaining : requirements.points)} pts. by <button onClick={() => { return setOpen(true) }}>providing liquidity</button> or <button onClick={() => { return setOpen(true) }}>purchasing policy</button>.
-                          </div>
-                        ),
-                        completed: !(pointsRemaining > 0)
-                      },
-                      { label: 'Mint this NFT for free.', completed: currentOwner === account }
-                    ]}
+                    items={eligibilityChecklist}
                   />
                 )}
 
