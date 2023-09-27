@@ -20,6 +20,7 @@ import { copyToClipboard } from '@/utils/copy-to-clipboard'
 import { formatDollar } from '@/utils/currencyHelpers'
 import { formatNumber } from '@/utils/number-format'
 import { useWeb3React } from '@web3-react/core'
+import Link from 'next/link'
 
 const ConnectedDropdown = () => {
   const [open, setOpen] = useState(false)
@@ -124,6 +125,13 @@ const ConnectedDropdown = () => {
           <div className='key'>Added Liquidity</div>
           <div>{formatDollar(milestones.totalLiquidityAdded)}</div>
         </div>
+
+        <Link href='/my-collection' className='collection' onClick={() => { return setOpen(false) }}>
+          <Icon variant='image-04' size='md' />
+          <p>
+            View My NFT Collection
+          </p>
+        </Link>
 
         <button
           className='logout' onClick={() => {

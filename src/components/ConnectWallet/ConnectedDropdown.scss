@@ -66,6 +66,7 @@
     .level.and.account {
       border-top: 1px solid colors.$gray-200;
       padding: 17px 20px;
+
       .level {
         display: grid;
         grid-template-columns: 38px 1fr auto;
@@ -120,6 +121,17 @@
         @include weights.semibold;
       }
     }
+
+    .collection {
+      color: inherit;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 16px;
+      border-top: 1px solid colors.$gray-200;
+      @include styles.text-sm;
+      @include weights.medium;
+    }
   }
 
   @media (max-width: 767px) {
@@ -155,6 +167,10 @@
       .shortcut {
         color: colors.$gray-50;
       }
+    }
+
+    .collection {
+      border-color: colors.$gray-800;
     }
   }
 }

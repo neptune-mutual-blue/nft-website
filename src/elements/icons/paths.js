@@ -186,7 +186,10 @@ const paths = {
 
   // Layout Icons
   'align-bottom-01': import('./variants/Layout/align-bottom-01.svg?raw'),
-  table: import('./variants/Layout/table.svg?raw')
+  table: import('./variants/Layout/table.svg?raw'),
+
+  'image-04': import('./variants/Images/image-04.svg?raw')
+
 }
 
 export { paths }
