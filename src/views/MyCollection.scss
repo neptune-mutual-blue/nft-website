@@ -156,14 +156,14 @@
           display: block;
           width: max-content;
 
-          button.primary {
-            @include styles.text-md;
-            @include weights.semibold;
-            margin-top: 32px;
-            width: 334px;
-            border-radius: 8px;
-            padding: 12px 20px;
-          }
+          @include styles.text-md;
+          @include weights.semibold;
+          margin-top: 32px;
+          width: 334px;
+          border-radius: 8px;
+          padding: 12px 20px;
+          background-color: colors.$primary-600;
+          color: colors.$base-white;
         }
       }
 
@@ -181,14 +181,27 @@
             justify-content: center;
           }
 
-          p {
-            @include styles.text-md;
-            @include weights.semibold;
+          a {
+            color: inherit;
+            display: block;
+            margin: 0 auto;
+            width: max-content;
+
+            &:hover p {
+              text-decoration: underline;
+            }
+
+            p {
+              margin: 0 auto;
+              @include styles.text-md;
+              @include weights.semibold;
+            }
+
+            p.category {
+              margin-top: 16px;
+            }
           }
 
-          p.category {
-            margin-top: 16px;
-          }
         }
       }
     }
