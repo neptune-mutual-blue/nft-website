@@ -1,6 +1,5 @@
 
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
-import { Button } from '@/components/Button/Button'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
 import NftCardWithBlurEffect from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
 import NftImageWithExpand from '@/components/NftImageWithExpand'
@@ -144,11 +143,9 @@ const MyCollection = ({ premiumNfts }) => {
 
                     <p>You do not own any NFTs yet</p>
 
-                    <a href='#'>
-                      <Button>
-                        Explore Our Collection
-                      </Button>
-                    </a>
+                    <Link href='/marketplace'>
+                      Explore Our Collection
+                    </Link>
                   </div>
                   )
                 : (
@@ -159,24 +156,21 @@ const MyCollection = ({ premiumNfts }) => {
                       <div key={i} className='nft'>
                         <NftImageWithExpand nft={nft} isCover={false} />
 
-                        {
-                          nft.level > 0 && (
-                            <Tags
-                              tags={[
-                                {
-                                  id: '1',
-                                  slug: '1',
-                                  text: 'Level ' + nft.level,
-                                  color: 'level' + nft.level
-                                }
-                              ]}
-                            />
-                          )
-                        }
+                        <Tags
+                          tags={[
+                            {
+                              id: '1',
+                              slug: '1',
+                              text: nft.soulbound ? 'Soulbound' : 'Level ' + nft.level,
+                              color: nft.soulbound ? 'nft-soulbound' : 'level' + nft.level
+                            }
+                          ]}
+                        />
 
-                        <p className='category'>{nft.family}</p>
-
-                        <p className='tokenId'>#{nft.tokenId}</p>
+                        <Link href={`/marketplace/${nft.tokenId}`} target='_blank'>
+                          <p className='category'>{nft.family}</p>
+                          <p className='tokenId'>#{nft.tokenId}</p>
+                        </Link>
                       </div>
                     )
                   })

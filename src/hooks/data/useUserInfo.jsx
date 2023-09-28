@@ -29,10 +29,10 @@ const useUserInfo = (account) => {
     const [userInfo, persona] = await Promise.all([NftApi.getUserInfoFromApi(account), NftApi.getPersona(account)])
 
     const mintedLevel = Number(userInfo?.mintedLevel || '0')
-    const boundToken = persona.length > 0 ? persona[0].boundTokenId || '' : ''
+    const boundToken = persona?.length > 0 ? persona[0].boundTokenId || '' : ''
     const userLevel = mintedLevel < 7 && boundToken ? mintedLevel + 1 : mintedLevel
 
-    const personaSet = !!(persona.length > 0 && persona[0].persona)
+    const personaSet = !!(persona?.length > 0 && persona[0].persona)
 
     setUserData({
       ...userInfo,

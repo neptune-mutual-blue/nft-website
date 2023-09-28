@@ -131,6 +131,10 @@
       border-top: 1px solid colors.$gray-200;
       @include styles.text-sm;
       @include weights.medium;
+
+      &:hover {
+        background-color: colors.$gray-100;
+      }
     }
   }
 
@@ -171,6 +175,10 @@
 
     .collection {
       border-color: colors.$gray-800;
+
+      &:hover {
+        background-color: colors.$gray-900;
+      }
     }
   }
 }
