@@ -1,0 +1,13 @@
+.custom.radio.container {
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: max-content;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
