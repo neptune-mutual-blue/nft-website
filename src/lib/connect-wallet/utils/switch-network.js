@@ -9,6 +9,9 @@ export const rpcUrls = {
     'https://bsc-dataseed3.binance.org',
     'https://bsc-dataseed4.binance.org',
   ],
+  1: [
+    'https://mainnet.infura.io/v3/04f673a8619b4e3f89a49232d453f6f2'
+  ]
 }
 
 export const chains = {
@@ -50,6 +53,19 @@ export const chains = {
     rpcUrls: rpcUrls[56],
     explorerName: 'BscScan',
     blockExplorerUrls: ['https://bscscan.com']
+  },
+  1: {
+    chainId: `0x${(1).toString(16)}`,
+    chainName: 'Ethereum',
+    nativeCurrency: {
+      name: 'Ether',
+      symbol: 'ETH',
+      decimals: 18
+    },
+    explorerIcon: "ethereum-round",
+    rpcUrls: rpcUrls[1],
+    explorerName: 'EtherScan',
+    blockExplorerUrls: ['https://etherscan.io']
   }
 }
 

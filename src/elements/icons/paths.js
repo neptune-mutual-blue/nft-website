@@ -175,6 +175,7 @@ const paths = {
   avalanche: import('./custom/Brands/default/SvgAvalanche.svg?raw'),
   bnbchain: import('./custom/Brands/default/SvgBNBChain.svg?raw'),
   polygon: import('./custom/Brands/default/SvgPolygon.svg?raw'),
+  'ethereum-round-blue': import('./custom/Brands/default/SvgEthereumRoundBlue.svg?raw'),
 
   // NFT Icons
   guardian: import('./variants/Nft/guardian.svg?raw'),

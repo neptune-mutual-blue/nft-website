@@ -154,6 +154,8 @@ button,
 @import "../components/Toast/Toast.scss";
 @import "../components/EvmError/EvmErrorModal.scss";
 
+@import "../components/InputWithIcon/InputWithIcon.scss";
+
 @import "../layouts/BaseLayout.scss";
 
 //Pages
@@ -169,3 +171,5 @@ button,
 @import "../views/my-persona/MyPersona.scss";
 @import "../views/mint-nft/MarketplacePopup.scss";
 @import "../views/MyCollection.scss";
+@import "../views/bridge/TransactionHistory.scss";
+@import "../views/bridge/TransactionReceipt.scss";

@@ -1,0 +1,257 @@
+@use "../../design-system/utils";
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.nft.bridge.transaction.history {
+  @include utils.full-width-container;
+
+  section {
+    padding: 96px 0;
+    padding-top: 32px;
+
+    @media (max-width: 767px) {
+      padding-top: 24px;
+    }
+
+    @media (max-width: 280px) {
+      padding-bottom: 32px;
+    }
+  }
+
+  .breadcrumb.and.connect.wallet {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    >ol {
+      margin: 0;
+    }
+
+    @media (max-width: 767px) {
+      gap: 24px;
+    }
+
+    @media (max-width: 575px) {
+      .ui.primary.button {
+        width: 100%;
+      }
+    }
+  }
+
+  section>div.content {
+    border: 1px solid colors.$gray-300;
+    border-radius: 12px;
+    margin-top: 48px;
+
+    .table.header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+
+      h3 {
+        @include styles.display-xs;
+        @include weights.bold;
+      }
+
+      .input.container {
+        width: 296px;
+      }
+    }
+
+    .table.wrapper {
+      width: 100%;
+      overflow-x: auto;
+
+      table {
+        border: 1px solid colors.$gray-200;
+        border-width: 1px 0;
+        border-collapse: collapse;
+        min-width: 100%;
+
+        thead th {
+          padding: 12px 24px;
+          word-break: keep-all;
+
+          &,
+          * {
+            @include styles.text-md;
+            @include weights.semibold;
+            color: colors.$gray-600;
+          }
+
+          button {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+
+            svg {
+              width: 16px;
+              height: 16px;
+              transform: rotate(360deg);
+              transition: transform 0.2s;
+            }
+
+            &[data-sorttype="asc"] svg {
+              transform: rotate(180deg);
+            }
+          }
+        }
+
+        tbody {
+          tr {
+            td {
+              border-top: 1px solid colors.$gray-200;
+              padding: 16px 24px;
+
+              &,
+              * {
+                @include styles.text-sm;
+                color: colors.$gray-900;
+              }
+
+              &.date {
+                text-wrap: nowrap;
+              }
+
+              &.nft {
+                min-width: 243px;
+              }
+
+              &.chain {
+                min-width: 170px;
+
+                div {
+                  display: flex;
+                  align-items: center;
+                  gap: 4px;
+
+                  svg {
+                    width: 16px;
+                    height: 16px;
+                  }
+
+                  &>i:first-child,
+                  &>i:last-child {
+                    svg {
+                      width: 20px;
+                      height: 20px;
+                    }
+                  }
+                }
+              }
+
+              &.address {
+                min-width: 230px;
+
+                div {
+                  display: flex;
+                  align-items: center;
+                  gap: 4px;
+
+                  span {
+                    width: max-content;
+                  }
+
+                  svg {
+                    width: 16px;
+                    height: 16px;
+                  }
+                }
+              }
+
+              &.action {
+                a {
+                  display: block;
+                  width: max-content;
+                  @include weights.semibold;
+                  color: colors.$primary-600;
+                }
+              }
+            }
+
+            td.empty {
+              padding: 96px;
+              text-align: center;
+              background-color: colors.$gray-100;
+
+              &,
+              p {
+                @include styles.display-xs;
+                @include weights.semibold;
+                color: colors.$gray-500;
+              }
+
+              a {
+                display: block;
+                width: max-content;
+                min-width: 180px;
+                background-color: colors.$primary-600;
+                border-radius: 8px;
+                margin: 0 auto;
+                margin-top: 24px;
+                padding: 10px 18px;
+
+
+                @include styles.text-md;
+                @include weights.semibold;
+                color: colors.$white;
+
+              }
+            }
+          }
+        }
+      }
+
+    }
+
+    .ui.pagination {
+      margin-top: 0;
+
+      div.container {
+        padding: 12px 24px 16px;
+      }
+    }
+  }
+}
+
+.dark .nft.bridge.transaction.history {
+  section>div.content {
+    border-color: colors.$gray-800;
+
+    .table.wrapper table {
+      border-color: colors.$gray-800;
+
+      thead th {
+
+        &,
+        * {
+          color: colors.$gray-300;
+        }
+      }
+
+      tbody td {
+        border-color: colors.$gray-800;
+
+        &,
+        * {
+          color: colors.$gray-100;
+        }
+
+        &.action a {
+          color: colors.$primary-400;
+        }
+
+        &.empty {
+          background-color: colors.$black-800;
+
+          p {
+            color: colors.$gray-200;
+          }
+        }
+      }
+    }
+  }
+}

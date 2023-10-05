@@ -1,0 +1,94 @@
+@use "../../design-system/utils";
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+main.transaction.receipt {
+  background-color: colors.$white;
+  min-height: 100vh;
+  padding: 78px 0 300px;
+
+  .key.val {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+
+    @include styles.text-lg;
+
+    strong {
+      display: block;
+      min-width: 195px;
+    }
+
+    p {
+      flex-grow: 0;
+      word-break: break-all;
+    }
+  }
+
+  .content {
+    padding: 0 16px;
+    max-width: 785px;
+    margin: auto;
+
+    * {
+      color: colors.$black;
+    }
+
+    hr {
+      margin: 40px 0;
+      background-color: colors.$black;
+      height: 1px;
+
+      &.header {
+        margin: 16px 0 48px;
+      }
+    }
+
+    div.header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    div.title {
+      h1 {
+        @include styles.display-md;
+      }
+
+      p {
+        margin-top: 16px;
+        @include styles.text-lg;
+      }
+    }
+
+    div.details {
+      &>p:first-child {
+        @include styles.text-xl;
+      }
+
+      .nfts {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 4px;
+
+        @include styles.display-xs;
+      }
+
+      .kv.wrapper {
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
+
+    div.footer {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+  }
+
+}
