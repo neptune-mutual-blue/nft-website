@@ -6,7 +6,7 @@ import {
 
 import { Button } from '@/components/Button/Button'
 import SecondaryGrayButton from '@/components/Button/SecondaryGrayButton'
-import { Checkbox } from '@/components/Checkbox/Checkbox'
+import { Radio } from '@/components/Radio/Radio'
 import { Icon } from '@/elements/Icon'
 import { useOnClickOutside } from '@/hooks/useOnOutsideClick'
 
@@ -160,7 +160,7 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
                           })
                           return (
                             <li className='option' key={idx}>
-                              <Checkbox
+                              <Radio
                                 label={value}
                                 checked={Boolean(checked)}
                                 onChange={() => { return handleFilterUpdate(filter.key, value) }}

@@ -136,9 +136,9 @@ const getPersona = async (account) => {
   }
 }
 
-const getUserMintedNFTs = async (account) => {
+const getUserMintedNFTs = async (account, network) => {
   const { nftApiBaseURL, NETWORK } = AppConstants
-  const url = `${nftApiBaseURL}/marketplace/${NETWORK}/account/collection/${account}`
+  const url = `${nftApiBaseURL}/marketplace/${network || NETWORK}/account/collection/${account}`
 
   try {
     const res = await fetch(url, { headers: { 'Content-Type': 'application/json' } })

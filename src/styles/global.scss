@@ -113,6 +113,7 @@ button,
 @import "../components/Footer/Footer.scss";
 @import "../elements/Icon.scss";
 @import "../elements/Radio.scss";
+@import "../components/Radio/Radio.scss";
 @import "../components/Slider/Slider.scss";
 @import "../components/HeaderSection/HeaderSection.scss";
 @import "../components/Breadcrumb/Breadcrumb.scss";
@@ -169,3 +170,5 @@ button,
 @import "../views/my-persona/MyPersona.scss";
 @import "../views/mint-nft/MarketplacePopup.scss";
 @import "../views/MyCollection.scss";
+@import "../views/bridge/NftBridge.scss";
+@import "../views/bridge/ChainSelector.scss";

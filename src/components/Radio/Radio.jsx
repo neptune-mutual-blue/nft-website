@@ -8,20 +8,20 @@
  * @returns
  */
 
-const Checkbox = ({ label, size = 'md', checked, onChange }) => {
+const Radio = ({ label, checked, onChange }) => {
   return (
-    <label className='custom checkbox container'>
+    <label className='custom radio container'>
       <input
-        type='checkbox'
+        type='radio'
+        className={checked ? 'checked' : undefined}
         onChange={e => {
           onChange(e.target.checked)
         }}
         checked={checked}
       />
-      <span className='checkmark' data-size={size} />
       {label}
     </label>
   )
 }
 
-export { Checkbox }
+export { Radio }

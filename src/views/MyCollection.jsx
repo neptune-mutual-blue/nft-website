@@ -1,7 +1,9 @@
+import Link from 'next/link'
 
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
-import NftCardWithBlurEffect from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
+import NftCardWithBlurEffect
+  from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
 import NftImageWithExpand from '@/components/NftImageWithExpand'
 import { NftNickname } from '@/components/NftNickname'
 import { Progress } from '@/components/Progress/Progress'
@@ -10,13 +12,10 @@ import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import { Icon } from '@/elements/Icon'
 import useUserInfo from '@/hooks/data/useUserInfo'
 import { useUserMilestonesData } from '@/hooks/data/useUserMilestonesData'
-import { NftApi } from '@/service/nft-api'
-import { imageOrigin } from '@/services/marketplace-api'
+import { useUserNfts } from '@/hooks/data/useUserNfts'
 import { formatDollar } from '@/utils/currencyHelpers'
 import { formatNumber } from '@/utils/number-format'
 import { useWeb3React } from '@web3-react/core'
-import Link from 'next/link'
-import { useCallback, useEffect, useState } from 'react'
 
 const MyCollection = ({ premiumNfts }) => {
   const crumbs = [
@@ -35,30 +34,7 @@ const MyCollection = ({ premiumNfts }) => {
 
   const { points, pointsRemaining, requiredPoints, totalLiquidityAdded, totalPolicyPurchased } = useUserMilestonesData()
 
-  const [userNFTs, setUserNFTs] = useState([])
-
-  const updateUserNfts = useCallback(async () => {
-    if (!account) { return }
-    const nfts = await NftApi.getUserMintedNFTs(account)
-
-    const nftsWithDetails = nfts.map(nft => {
-      const level = nft.attributes.find(a => { return a.traitType === 'Level' }).value || 0
-      const thumbnail = `${imageOrigin}/thumbnails/${nft.tokenId}.webp`
-      const cover = `${imageOrigin}/covers/${nft.tokenId}.webp`
-
-      return {
-        ...nft,
-        level,
-        thumbnail,
-        cover
-      }
-    })
-    setUserNFTs(nftsWithDetails)
-  }, [account])
-
-  useEffect(() => {
-    if (updateUserNfts) { updateUserNfts() }
-  }, [updateUserNfts])
+  const { userNFTs } = useUserNfts(account)
 
   return (
     <div className='my collection page'>
