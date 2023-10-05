@@ -1,5 +1,6 @@
 import React, {
   useEffect,
+  useRef,
   useState
 } from 'react'
 
@@ -15,6 +16,31 @@ const OnBoardingImagePage = ({ image, title, text, minimizedText, minimized }) =
   return (
     <div className='onboarding image page'>
       <img src={image} alt='onboarding image' />
+
+      <h1>{title}</h1>
+      <div className='description'>{minimized ? minimizedText : text}</div>
+    </div>
+  )
+}
+
+const OnBoardingVideoPage = ({ video, title, text, minimizedText, minimized, play = false }) => {
+  const videoRef = useRef()
+
+  useEffect(() => {
+    if (videoRef.current.pause) { videoRef.current.pause() }
+  }, [])
+
+  useEffect(() => {
+    if (!videoRef.current.play || !videoRef.current.pause) { return }
+    if (play) { videoRef.current.play() } else { videoRef.current.pause() }
+  }, [play])
+
+  return (
+    <div className='onboarding image page' ref={videoRef}>
+      <video autoPlay loop muted>
+        <source src={video} type='video/mp4' />
+        Your browser does not support HTML video.
+      </video>
 
       <h1>{title}</h1>
       <div className='description'>{minimized ? minimizedText : text}</div>
@@ -139,8 +165,8 @@ const UserOnboarding = () => {
                 minimizedText=''
                 minimized={minimized}
               />
-              <OnBoardingImagePage
-                image='/assets/images/onboarding/set-persona.png'
+              <OnBoardingVideoPage
+                video='/assets/videos/onboarding-set-persona.mp4'
                 title='Setup Your Persona'
                 text={(
                   <>
@@ -153,9 +179,10 @@ const UserOnboarding = () => {
                   </>
                 )}
                 minimized={minimized}
+                play={page === 2}
               />
-              <OnBoardingImagePage
-                image='/assets/images/onboarding/mint.png'
+              <OnBoardingVideoPage
+                video='/assets/videos/onboarding-mint.mp4'
                 title='Mint Your NFT'
                 text={(
                   <>
@@ -168,9 +195,10 @@ const UserOnboarding = () => {
                   </>
                 )}
                 minimized={minimized}
+                play={page === 3}
               />
-              <OnBoardingImagePage
-                image='/assets/images/onboarding/explore-marketplace.png'
+              <OnBoardingVideoPage
+                video='/assets/videos/onboarding-marketplace.mp4'
                 title='Enjoy and Discover Our Collection!'
                 text={(
                   <>
@@ -183,6 +211,7 @@ const UserOnboarding = () => {
                   </>
                 )}
                 minimized={minimized}
+                play={page === 1}
               />
             </div>
 
