@@ -48,6 +48,7 @@ const UserOnboarding = () => {
 
     setOpen(true)
     setExpanded(true)
+    // eslint-disable-next-line
   }, [])
 
   const minimized = !open && !expanded

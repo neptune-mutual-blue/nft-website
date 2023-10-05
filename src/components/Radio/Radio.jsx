@@ -8,7 +8,6 @@
  */
 
 const Radio = ({ label, checked, onChange }) => {
-
   return (
     <label className='custom checkbox container'>
       <input
