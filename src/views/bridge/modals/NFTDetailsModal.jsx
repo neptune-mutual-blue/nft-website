@@ -78,7 +78,7 @@ const mockNft = {
   ],
   activities: []
 }
-const NFTDetails = ({ open, close }) => {
+const NFTDetailsModal = ({ open, close }) => {
   return (
     <Modal
       className='nft details modal'
@@ -127,4 +127,4 @@ const NFTDetails = ({ open, close }) => {
   )
 }
 
-export { NFTDetails }
+export { NFTDetailsModal }

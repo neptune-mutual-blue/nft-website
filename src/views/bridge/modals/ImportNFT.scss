@@ -41,3 +41,15 @@
     @include weights.semibold;
   }
 }
+
+.dark .import.nft.modal.DialogContent {
+  background-color: colors.$black-900;
+
+  h3 {
+    color: colors.$base-white;
+  }
+
+  input {
+    border-color: colors.$gray-700;
+  }
+}

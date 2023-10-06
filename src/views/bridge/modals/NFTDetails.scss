@@ -90,3 +90,19 @@
     }
   }
 }
+
+.dark .nft.details.modal.DialogContent {
+  background-color: colors.$black-900;
+
+  h3 {
+    color: colors.$base-white;
+  }
+
+  .image.and.details .details .detail {
+    background-color: colors.$black-800;
+
+    p.title {
+      color: colors.$gray-25;
+    }
+  }
+}

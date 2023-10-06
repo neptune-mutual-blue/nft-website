@@ -53,6 +53,7 @@
         * {
           @include styles.text-sm;
           @include weights.semibold;
+          color: colors.$gray-900;
         }
 
         div.chain,
