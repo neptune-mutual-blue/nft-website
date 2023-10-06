@@ -1,0 +1,43 @@
+@use "../../../design-system/utils";
+@use "../../../design-system/colors";
+@use "../../../design-system/typography/styles";
+@use "../../../design-system/typography/weights";
+
+.import.nft.modal.DialogContent {
+  padding: 16px;
+  background-color: colors.$base-white;
+
+  button.close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 6px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  h3 {
+    @include styles.text-lg;
+    @include weights.semibold;
+    margin-bottom: 36px;
+  }
+
+  input {
+    margin-bottom: 36px;
+    padding: 14px 20px;
+    border-radius: 8px;
+    border: 1px solid colors.$gray-300;
+    width: 326px;
+    @include styles.text-sm;
+  }
+
+  button.primary {
+    width: 100%;
+    padding: 12px 20px;
+    @include styles.text-md;
+    @include weights.semibold;
+  }
+}
