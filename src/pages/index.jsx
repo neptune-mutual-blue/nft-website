@@ -3,7 +3,6 @@ import { useEffect } from 'react'
 import Script from 'next/script'
 
 import Seo from '@/components/Seo/Seo'
-import UserOnboarding from '@/components/UserOnboarding/UserOnboarding'
 import { BaseLayout } from '@/layouts/BaseLayout'
 import { NftApi } from '@/service/nft-api'
 import { resourcesVideoData } from '@/service/video-api'
@@ -56,7 +55,6 @@ export default function HomePage ({ ssg, videos }) {
 
       <BaseLayout videos={videos}>
         <Home ssg={ssg} />
-        <UserOnboarding />
       </BaseLayout>
 
       {/* eslint-disable-next-line */}

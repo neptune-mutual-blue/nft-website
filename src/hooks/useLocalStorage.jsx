@@ -1,43 +1,54 @@
-import { useState } from 'react'
+import {
+  useEffect,
+  useState
+} from 'react'
 
-// Hook
 export function useLocalStorage (key, initialValue) {
-  // State to store our value
-  // Pass initial state function to useState so logic is only executed once
-  const [storedValue, setStoredValue] = useState(() => {
-    if (!process.browser) { return }
+  const [storedValue, setStoredValue] = useState(initialValue)
+  // We will use this flag to trigger the reading from localStorage
+  const [firstLoadDone, setFirstLoadDone] = useState(false)
+
+  // Use an effect hook in order to prevent SSR inconsistencies and errors.
+  // This will update the state with the value from the local storage after
+  // the first initial value is applied.
+  useEffect(() => {
+    const fromLocal = () => {
+      if (typeof window === 'undefined') {
+        return initialValue
+      }
+      try {
+        const item = window.localStorage.getItem(key)
+        return item ? JSON.parse(item) : initialValue
+      } catch (error) {
+        console.error(error)
+        return initialValue
+      }
+    }
+
+    // Set the value from localStorage
+    setStoredValue(fromLocal)
+    // First load is done
+    setFirstLoadDone(true)
+  }, [initialValue, key])
+
+  // Instead of replacing the setState function, react to changes.
+  // Whenever the state value changes, save it in the local storage.
+  useEffect(() => {
+    // If it's the first load, don't store the value.
+    // Otherwise, the initial value will overwrite the local storage.
+    if (!firstLoadDone) {
+      return
+    }
 
     try {
-      // Get from local storage by key
-      const item = window.localStorage.getItem(key)
-
-      // Parse stored json or if none return initialValue
-      return item ? JSON.parse(item) : initialValue
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem(key, JSON.stringify(storedValue))
+      }
     } catch (error) {
-      // If error also return initialValue
-      console.log(error)
-
-      return initialValue
-    }
-  })
-  // Return a wrapped version of useState's setter function that ...
-  // ... persists the new value to localStorage.
-  const setValue = (value) => {
-    if (!process.browser) { return }
-
-    try {
-      // Allow value to be a function so we have same API as useState
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value
-      // Save state
-      setStoredValue(valueToStore)
-      // Save to local storage
-      window.localStorage.setItem(key, JSON.stringify(valueToStore))
-    } catch (error) {
-      // A more advanced implementation would handle the error case
       console.log(error)
     }
-  }
+  }, [storedValue, firstLoadDone, key])
 
-  return [storedValue, setValue]
+  // Return the original useState functions
+  return [storedValue, setStoredValue]
 }

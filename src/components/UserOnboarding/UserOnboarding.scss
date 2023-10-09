@@ -21,11 +21,14 @@
     overflow: hidden;
     border: 1px solid colors.$gray-100;
     box-shadow: shadows.$lg;
+    z-index: 99999;
 
     @media (max-width: 767px) {
-      bottom: 16px;
-      right: 16px;
-      width: calc(100vw - 32px);
+      bottom: 0;
+      right: 0;
+      width: 100vw;
+      border-radius: 0;
+      padding: 16px;
     }
 
     &.hidden {
@@ -40,11 +43,19 @@
         top: 0;
         right: 0;
         z-index: 100;
+
+        @media (max-width: 767px) {
+          display: none;
+        }
       }
     }
 
     .onboarding.slider {
       gap: 12px;
+
+      @media (max-width: 767px) {
+        display: none;
+      }
     }
 
     .onboarding.page {
@@ -87,6 +98,10 @@
       color: colors.$gray-500;
       margin-top: 16px;
 
+      @media (max-width: 767px) {
+        display: none;
+      }
+
       &.mobile {
         display: none;
       }
@@ -99,6 +114,25 @@
         button {
           padding: 4px 10px;
         }
+      }
+    }
+
+    .content.mobile {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      @media (min-width: 768px) {
+        display: none;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      .pages {
+        @include styles.text-xs;
+        white-space: nowrap;
       }
     }
   }
@@ -150,6 +184,10 @@
       gap: 16px;
       @include styles.text-sm;
     }
+  }
+
+  .content.mobile {
+    display: none;
   }
 
   .onboarding.slider {
@@ -217,5 +255,44 @@
     @include weights.regular;
     margin-bottom: 56px;
     color: colors.$gray-500;
+  }
+}
+
+.dark {
+  .user.onboarding.section {
+    a {
+      color: colors.$primary-400;
+    }
+
+    .minimized.modal {
+      background-color: colors.$black-900;
+      border-color: colors.$gray-800;
+      box-shadow: shadows.$lg;
+
+      .description {
+        color: colors.$gray-25;
+      }
+
+      .pagination.wrapper {
+        color: colors.$gray-25;
+      }
+    }
+  }
+
+  .on-boarding-modal {
+    background-color: colors.$black-800;
+
+    a {
+      color: colors.$primary-400;
+    }
+
+    .onboarding.modal {
+      overflow: hidden;
+      padding: 32px;
+    }
+
+    .description {
+      color: colors.$gray-25;
+    }
   }
 }
