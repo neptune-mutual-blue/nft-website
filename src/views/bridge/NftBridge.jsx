@@ -54,7 +54,7 @@ const NftBridge = () => {
   // Stage 1: Source & Destination Selection
   // Stage 2: Bridge
 
-  const { balance, fees } = useNftBridge(selectedNfts, destinationChainId)
+  const { balance, fees, isApproved, approving, approveForAll, sending, sendNfts } = useNftBridge(selectedNfts, destinationChainId, currentNetwork.lzProxyONft || currentNetwork.lzONft721)
 
   return (
     <div className='nft bridge page'>
@@ -181,19 +181,30 @@ const NftBridge = () => {
 
               <div className='selected info'>
                 <h3>NFTs Selected <span>{selectedNfts.length}/{nonSoulboundNFts.length}</span></h3>
-                <div>
+                <div className='balance'>
                   Balance: <span title={balance.long}>{balance.short}</span>
                 </div>
                 <div className='fees'>
                   <div>
-
                     Fees
                   </div>
-                  <div title={fees.long}>{fees.short}</div>
+                  <div title={fees.long}>{fees.short ?? '-'}</div>
                 </div>
 
-                <Button size='2xl'>Approve</Button>
               </div>
+              <Button
+                size='2xl'
+                disabled={approving || sending || (isApproved && selectedNfts.length === 0)}
+                onClick={() => {
+                  if (isApproved) {
+                    return sendNfts()
+                  }
+
+                  return approveForAll()
+                }}
+              >
+                {isApproved ? sending ? 'Sending...' : 'Send' : approving ? 'Approving...' : 'Approve'}
+              </Button>
             </section>
           </div>
         )}

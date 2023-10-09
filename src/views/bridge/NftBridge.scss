@@ -273,6 +273,46 @@
         }
       }
     }
+
+    .selected.info {
+      background-color: colors.$gray-100;
+      padding: 24px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+
+      h3 {
+        @include styles.text-lg;
+        @include weights.semibold;
+        padding-bottom: 24px;
+        border-bottom: 1px solid colors.$gray-300;
+        margin-bottom: 24px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+
+        span {
+          color: colors.$primary-600;
+        }
+      }
+
+      .balance {
+        @include styles.text-sm;
+        color: colors.$gray-700;
+        margin-bottom: 4px;
+      }
+
+      .fees {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        @include styles.text-xl;
+        @include weights.medium;
+      }
+    }
+
+    .destination > button.ui.primary {
+      width: 100%;
+    }
   }
 }
 
