@@ -148,6 +148,23 @@
       }
     }
 
+    .selected.filters {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+
+      button.filter {
+        border-radius: 6px;
+        border: 1px solid colors.$gray-300;
+        padding: 4px 4px 4px 10px;
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+    }
+
     .filters.list {
       margin-top: 24px;
 
@@ -355,6 +372,11 @@
       &:active {
         box-shadow: shadows.$xs, 0px 0px 0px 3px colors.$gray-700;
       }
+    }
+
+    .selected.filters button.filter {
+      border-color: colors.$gray-500;
+      color: colors.$gray-300;
     }
   }
 }
