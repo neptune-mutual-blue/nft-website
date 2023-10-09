@@ -29,6 +29,7 @@ const BaseLayout = ({ children, videos }) => {
 
   return (
     <div className='base layout'>
+
       {loading && (
         <PageLoader />
       )}
