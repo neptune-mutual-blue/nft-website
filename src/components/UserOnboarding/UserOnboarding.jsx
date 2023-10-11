@@ -76,7 +76,7 @@ const UserOnboarding = () => {
 
     document.body.style.overflow = 'auto'
 
-    if (checkboxNeverShow && page === 4) {
+    if (checkboxNeverShow) {
       return setNeverShow(true)
     }
   }
@@ -237,7 +237,7 @@ const UserOnboarding = () => {
                 closeDialog()
               }}
               >
-                <Icon variant={page === 4 && checkboxNeverShow ? 'x-close' : 'minimize-01'} size='xl' />
+                <Icon variant={checkboxNeverShow ? 'x-close' : 'minimize-01'} size='xl' />
               </button>
             </div>
 
