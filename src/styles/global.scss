@@ -118,6 +118,7 @@ button,
 @import "../components/Breadcrumb/Breadcrumb.scss";
 @import "../components/Tags/Tags.scss";
 @import "../components/Tooltip/Tooltip.scss";
+@import "../components/Radio/Radio.scss";
 @import "../components/Checkbox/Checkbox.scss";
 @import "../components/CheckboxWithMinus/CheckboxWithMinus.scss";
 @import "../components/Loader/RippleLoader.scss";
@@ -153,6 +154,8 @@ button,
 @import "../components/PageLoader/PageLoader.scss";
 @import "../components/Toast/Toast.scss";
 @import "../components/EvmError/EvmErrorModal.scss";
+@import "../components/UserOnboarding/UserOnboarding.scss";
+@import "../components/UserOnboarding/MinimizedInfo.scss";
 
 @import "../layouts/BaseLayout.scss";
 

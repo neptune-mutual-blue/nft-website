@@ -8,22 +8,18 @@
  * @returns
  */
 
-// TODO: Remove ESLINT DISABLE WHEN REVERTING BACK TO CHECKBOX
-// eslint-disable-next-line
 const Checkbox = ({ label, size = 'md', checked, onChange }) => {
-  // TODO: Change The Input Type to Checkbox, and remove the className property
-
   return (
     <label className='custom checkbox container'>
       <input
-        type='radio'
+        type='checkbox'
         className={checked ? 'checked' : undefined}
         onChange={e => {
           onChange(e.target.checked)
         }}
         checked={checked}
       />
-      {/* <span className='checkmark' data-size={size} /> */}
+      <span className='checkmark' data-size={size} />
       {label}
     </label>
   )

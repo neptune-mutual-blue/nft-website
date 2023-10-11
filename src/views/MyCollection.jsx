@@ -1,7 +1,15 @@
+import {
+  useCallback,
+  useEffect,
+  useState
+} from 'react'
+
+import Link from 'next/link'
 
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
-import NftCardWithBlurEffect from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
+import NftCardWithBlurEffect
+  from '@/components/NftCardWithBlurEffect/NftCardWithBlurEffect'
 import NftImageWithExpand from '@/components/NftImageWithExpand'
 import { NftNickname } from '@/components/NftNickname'
 import { Progress } from '@/components/Progress/Progress'
@@ -15,8 +23,6 @@ import { imageOrigin } from '@/services/marketplace-api'
 import { formatDollar } from '@/utils/currencyHelpers'
 import { formatNumber } from '@/utils/number-format'
 import { useWeb3React } from '@web3-react/core'
-import Link from 'next/link'
-import { useCallback, useEffect, useState } from 'react'
 
 const MyCollection = ({ premiumNfts }) => {
   const crumbs = [
@@ -123,14 +129,14 @@ const MyCollection = ({ premiumNfts }) => {
             </div>
           </div>
 
-          <div className='bridge banner'>
+          {/* <div className='bridge banner'>
             <p>
               Move your NFTs across different blockchain networks.
             </p>
             <Link href='/my-collection/bridge'>
               Bridge My NFTs
             </Link>
-          </div>
+          </div> */}
 
           <div className='minted nfts'>
             <h3>NFTs You've Minted</h3>
