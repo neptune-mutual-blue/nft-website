@@ -155,6 +155,8 @@ button,
 @import "../components/Toast/Toast.scss";
 @import "../components/EvmError/EvmErrorModal.scss";
 
+@import "../components/InputWithIcon/InputWithIcon.scss";
+
 @import "../layouts/BaseLayout.scss";
 
 //Pages
@@ -172,3 +174,8 @@ button,
 @import "../views/MyCollection.scss";
 @import "../views/bridge/NftBridge.scss";
 @import "../views/bridge/ChainSelector.scss";
+@import "../views/bridge/TransactionHistory.scss";
+@import "../views/bridge/TransactionReceipt.scss";
+@import "../views/bridge/modals/ImportNFT.scss";
+@import "../views/bridge/modals/NFTDetails.scss";
+@import "../views/bridge/modals/BridgingResults.scss";

@@ -1,8 +1,10 @@
 import {
+  useContext,
   useEffect,
   useState
 } from 'react'
 
+import { ToastContext } from '@/components/Toast/Toast'
 import { bridgeConfig } from '@/config/bridge'
 import {
   ContractAbis,
@@ -26,6 +28,9 @@ const useNftBridge = (selectedTokens, destinationChainId, lzAddress) => {
   const { callMethod: callLz, isReady: isLzReady } = useContractCall({ abi: ContractAbis.LZ_NFT, address: bridgeConfig[AppConstants.NETWORK].lzProxyONft })
   const { callMethod: callNft, isReady: isNftReady } = useContractCall({ abi: ContractAbis.NEPTUNE_LEGENDS, address: ContractAddresses.NEPTUNE_LEGENDS })
 
+  const [error, setError] = useState('')
+  const { showToast, setOpen: setToastOpen } = useContext(ToastContext)
+
   const [isApproved, setApproved] = useState(false)
   const [sending, setSending] = useState(false)
   const [approving, setApproving] = useState(false)
@@ -43,25 +48,47 @@ const useNftBridge = (selectedTokens, destinationChainId, lzAddress) => {
     setApproving(true)
 
     try {
-      await callNft('setApprovalForAll', [lzAddress, true])
-      fetchApproved()
+      const response = await callNft('setApprovalForAll', [lzAddress, true])
+
+      if (response && response.errorType === 'gasEstimation') {
+        setError(response?.error ?? 'Unknown Error')
+      } else if (!response || response.error) {
+        showToast({
+          title: 'Unable To Approve NFTs',
+          description: response?.error ?? 'Unknown Error'
+        })
+      } else if (response) {
+        fetchApproved()
+      }
     } catch (err) {
       console.error(err)
     }
 
+    setToastOpen(false)
     setApproving(false)
   }
 
-  const sendNfts = async () => {
+  const sendNfts = async (unsafe = false) => {
+    setError('')
     setSending(true)
 
     try {
       const destChainId = bridgeConfig[destinationChainId].lzChainId
-      await callLz('sendBatchFrom', [account, destChainId, account, selectedTokens, account, AppConstants.ADDRESS_ZERO, AppConstants.LZ_DEFAULT_ADAPTER_PARAMS], false, false, { value: feesNumeric }, false, false, { value: feesNumeric })
+      const response = await callLz('sendBatchFrom', [account, destChainId, account, selectedTokens, account, AppConstants.ADDRESS_ZERO, AppConstants.LZ_DEFAULT_ADAPTER_PARAMS], unsafe, false, { value: feesNumeric }, false, false, { value: feesNumeric })
+
+      if (response && response.errorType === 'gasEstimation') {
+        setError(response?.error ?? 'Unknown Error')
+      } else if (!response || response.error) {
+        showToast({
+          title: 'Unable To Send NFTs',
+          description: response?.error ?? 'Unknown Error'
+        })
+      }
     } catch (err) {
       console.error(err)
     }
 
+    setToastOpen(false)
     setSending(false)
   }
 
@@ -116,7 +143,9 @@ const useNftBridge = (selectedTokens, destinationChainId, lzAddress) => {
     approveForAll,
     approving,
     sendNfts,
-    sending
+    sending,
+    error,
+    setError
   }
 }
 

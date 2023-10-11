@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { Button } from '@/components/Button/Button'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
+import { EvmErrorModal } from '@/components/EvmError/EvmErrorModal'
 import { NftCard } from '@/components/NftCard/NftCard'
 import { bridgeConfig } from '@/config/bridge'
 import { AppConstants } from '@/constants/AppConstants'
@@ -49,12 +50,21 @@ const NftBridge = () => {
 
   const [destinationChainId, setDestinationChainId] = useState(initialDestinationNetwork.chainId)
 
-  const [stage, setStage] = useState(1)
-
   // Stage 1: Source & Destination Selection
   // Stage 2: Bridge
+  const [stage, setStage] = useState(1)
 
-  const { balance, fees, isApproved, approving, approveForAll, sending, sendNfts } = useNftBridge(selectedNfts, destinationChainId, currentNetwork.lzProxyONft || currentNetwork.lzONft721)
+  const {
+    balance,
+    fees,
+    isApproved,
+    approving,
+    approveForAll,
+    sending,
+    sendNfts,
+    error,
+    setError
+  } = useNftBridge(selectedNfts, destinationChainId, currentNetwork.lzProxyONft || currentNetwork.lzONft721)
 
   return (
     <div className='nft bridge page'>
@@ -64,6 +74,17 @@ const NftBridge = () => {
           <Breadcrumb items={crumbs} />
           <ConnectWallet />
         </div>
+
+        <EvmErrorModal
+          open={error !== ''}
+          setOpen={() => {
+            setError('')
+          }}
+          onOK={() => {
+            sendNfts(true)
+          }}
+          error={error}
+        />
 
         {stage === 1 && (
           <div className='bridge selection'>
