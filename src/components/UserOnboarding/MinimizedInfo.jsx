@@ -7,7 +7,7 @@ const MinimizedInfo = ({ hide }) => {
     <div className='minimized guide info'>
       <div className='guide content'>
         <div>
-          This guide will be available on this tray throughout the walkthrough.
+          The guide will be available on this tray throughout the walkthrough.
         </div>
 
         <Button onClick={hide}>Got It</Button>
