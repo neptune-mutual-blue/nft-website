@@ -1,0 +1,42 @@
+@use "../../design-system/colors";
+@use "../../design-system/shadows";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.minimized.guide.info {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 99998;
+
+  .guide.content {
+    position: fixed;
+    background-color: colors.$gray-900;
+    color: colors.$base-white;
+    max-width: 320px;
+    bottom: 166px;
+    right: 32px;
+    padding: 12px;
+    border-radius: 8px;
+
+    @media (max-width: 767px) {
+      bottom: 96px;
+      left: 8px;
+      right: 8px;
+      max-width: unset;
+    }
+
+    div {
+      @include styles.text-xs;
+      @include weights.medium;
+    }
+
+    button {
+      margin-top: 4px;
+      margin-left: auto;
+      padding: 4px 10px;
+      @include styles.text-xs;
+      @include weights.semibold;
+    }
+  }
+}
