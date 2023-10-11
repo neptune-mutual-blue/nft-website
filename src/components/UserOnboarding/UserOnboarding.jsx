@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { Button } from '@/components/Button/Button'
 import { Checkbox } from '@/components/Checkbox/Checkbox'
 import { Modal } from '@/components/Modal/Modal'
+import MinimizedInfo from '@/components/UserOnboarding/MinimizedInfo'
 import { Icon } from '@/elements/Icon'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 
@@ -61,10 +62,17 @@ const UserOnboarding = () => {
   const [expanded, setExpanded] = useLocalStorage('USER_ONBOARDING_EXPANDED', true)
   const [page, setPage] = useLocalStorage('USER_ONBOARDING_PAGE', 1)
   const [open, setOpen] = useLocalStorage('USER_ONBOARDING_OPEN', true)
+  const [displayHint, setDisplayHint] = useState(false)
+  const [hasDisplayedHint, setHasDisplayedHint] = useLocalStorage('USER_ONBOARDING_DISPLAY_HINT', false)
 
   const closeDialog = () => {
     setOpen(false)
     setExpanded(false)
+
+    if (!hasDisplayedHint) {
+      setDisplayHint(true)
+      setHasDisplayedHint(true)
+    }
 
     document.body.style.overflow = 'auto'
 
@@ -91,6 +99,13 @@ const UserOnboarding = () => {
         <div className={`minimized modal${hiddenModal ? ' hidden' : minimized ? '' : ' hidden'}`}>
           {children}
         </div>
+
+        {displayHint && (
+          <MinimizedInfo hide={() => {
+            setDisplayHint(false)
+          }}
+          />
+        )}
 
         <Modal
           className='on-boarding-modal'
