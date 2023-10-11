@@ -1,10 +1,9 @@
 @use "../design-system/utils";
+@use "../design-system/colors";
 @use "../design-system/typography/styles";
 @use "../design-system/typography/weights";
 
 .home.page {
-  @include utils.full-width-container;
-
   section {
     padding: 96px 0;
 
@@ -23,21 +22,28 @@
     }
   }
 
-  .nft.showcase {
-    h2 {
-      @include styles.display-xs;
-      @include weights.bold;
-      margin-bottom: 20px;
-    }
+  .nft.persona {
+    background-color: colors.$gray-100;
 
-    .content {
+    .section.content {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 438px;
       gap: 32px;
+      @include utils.full-width-container;
 
       @media (max-width: 1024px) {
         grid-template-columns: minmax(0, 1fr);
       }
+    }
+  }
+
+  .nft.showcase {
+    @include utils.full-width-container;
+
+    h2 {
+      @include styles.display-xs;
+      @include weights.bold;
+      margin-bottom: 20px;
     }
   }
 
