@@ -13,14 +13,18 @@ import { Progress } from '@/components/Progress/Progress'
 import Skeleton from '@/components/Skeleton'
 import { Tags } from '@/components/Tags/Tags'
 import { CustomTooltip } from '@/components/Tooltip/Tooltip'
+import { LocalStorageKeys } from '@/config/localstorage'
 import { Personas } from '@/config/persona'
 import { Icon } from '@/elements/Icon'
+import useMintedLevelStatus from '@/hooks/data/useHasMintedLevel'
 import useUserInfo from '@/hooks/data/useUserInfo'
 import { useUserMilestonesData } from '@/hooks/data/useUserMilestonesData'
+import { wallets } from '@/lib/connect-wallet/config/wallets'
 import useAuth from '@/lib/connect-wallet/hooks/useAuth'
 import { NftApi } from '@/service/nft-api'
 import { imageOrigin } from '@/services/marketplace-api'
 import { formatDollar } from '@/utils/currencyHelpers'
+import { truncateAddress } from '@/utils/nft'
 import { formatNumber } from '@/utils/number-format'
 import LockAndLevels from '@/views/my-persona/LockAndLevels'
 import { useWeb3React } from '@web3-react/core'
@@ -32,8 +36,31 @@ const HomePersona = ({ characters }) => {
 
   const { logout } = useAuth()
 
+  const [connector, setConnector] = useState()
+
+  const updateConnector = useCallback(() => {
+    if (active) {
+      const connectorName = localStorage.getItem(LocalStorageKeys.CONNECTOR_NAME)
+      const connector = wallets.find(wallet => { return wallet.connectorName === connectorName })
+
+      if (!connector) {
+        setConnector(undefined)
+        return
+      }
+      setConnector(connector)
+    } else {
+      setConnector(undefined)
+    }
+  }, [active])
+
+  useEffect(() => {
+    updateConnector()
+  }, [updateConnector])
+
   const [userPersona, setUserPersona] = useState([])
   const [personaLoading, setPersonaLoading] = useState(false)
+
+  const { status: mintedLevel7 } = useMintedLevelStatus(account, 7)
 
   const getPersona = useCallback(async () => {
     setPersonaLoading(true)
@@ -91,11 +118,66 @@ const HomePersona = ({ characters }) => {
     })
   }, [characters, userLevel, userPersona, boundToken])
 
+  const nextNft = (mobile) => {
+    return (
+      <div className={`next nft${mobile ? ' mobile' : ''}`}>
+        <div className='title'>
+          <div>Available NFTs Based on Your Current Progress</div>
+          <div><Link href='/my-collection'>View My Collection</Link></div>
+        </div>
+        <div className={`description${mintedLevel7 ? ' minted' : ''}`}>
+          {!active && (
+            <div className='text'>
+              Please connect your wallet to view your progress.
+            </div>
+          )}
+
+          {mintedLevel7 && (
+            <div className='text'>
+              You have minted and completed the entire collection!
+            </div>
+          )}
+
+          {nextCharacter && active && !mintedLevel7 && (
+            <Link href={nextCharacter.url}>
+              <div className='thumbnail'>
+                <img className='next character' alt='Next NFT' src={nextCharacter.image} />
+                <div className='badges'>
+                  {nextCharacter.soulbound && (
+                    <CustomTooltip text='Soulbound NFT'>
+                      <div className='badge'>
+                        <Icon variant='star-04' size='sm' />
+                      </div>
+                    </CustomTooltip>
+                  )}
+                </div>
+              </div>
+            </Link>
+          )}
+        </div>
+        <div className='mobile link'>
+          <Link href='/my-collection'>View My Collection</Link>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className='home persona'>
       <div className='progress and persona'>
         <div className='progress details'>
           <div>
+            {connector && account && (
+              <div className='connector'>
+                <div className='icon'>
+                  <span className='light only'><Icon variant={connector.iconVariant} size='sm' /></span>
+                  <span className='dark only'><Icon variant={connector.iconVariantDark} size='sm' /></span>
+                </div>
+                <div className='account'>
+                  {truncateAddress(account)}
+                </div>
+              </div>
+            )}
             <div className='title'>
               Welcome to Neptune Mutual NFT Collections!
             </div>
@@ -117,7 +199,34 @@ const HomePersona = ({ characters }) => {
                         }
                       ]}
                     />
-                    <Icon variant='help-cirlce' size='sm' />
+                    <CustomTooltip
+                      text={
+                        <div
+                          style={
+                            {
+                              maxWidth: '320px',
+                              lineHeight: '1.5',
+                              fontSize: '12px',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              gap: '8px'
+                            }
+                          }
+                        >
+                          <div style={{ fontWeight: 600 }}>Your Current Level: Level 0</div>
+                          <div style={{ fontWeight: 500 }}>Level up by earning points through policy purchase, adding liquidity or do both simultaneously.</div>
+                          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <a href='https://neptunemutual.com/docs/neptune-mutual-nfts/' target='_blank'>
+                              <Button size='sm' style={{ padding: '4px 10px' }}>Know more</Button>
+                            </a>
+                          </div>
+                        </div>
+                      }
+                    >
+                      <div>
+                        <Icon variant='help-cirlce' size='sm' />
+                      </div>
+                    </CustomTooltip>
                   </div>
 
                   <h3>Current Points: <span>{formatNumber(points)} pts</span></h3>
@@ -155,6 +264,8 @@ const HomePersona = ({ characters }) => {
             </div>
           </div>
 
+          {nextNft(true)}
+
           {!active && (
             <ConnectWallet />
           )}
@@ -180,7 +291,7 @@ const HomePersona = ({ characters }) => {
               </div>
               <div className='description'>
                 {userPersona.length === 0 && !personaLoading && (
-                  'Reserve your spot by first telling us who you are. You can change persona after you have evolved an NFT or reaching Level 3 or Level 5.'
+                  'Guardian or Beast? Your decision shapes your journey. Will you stand as a protector or unleash your formidable spirit? Your persona, your adventure.'
                 )}
                 {personaLoading && (
                   <div className='user persona'>
@@ -216,40 +327,7 @@ const HomePersona = ({ characters }) => {
           </div>
         </div>
       </div>
-      <div className='next nft'>
-        <div className='title'>
-          <div>Available NFTs Based on Your Current Progress</div>
-          <div><Link href='/my-collection'>View My Collection</Link></div>
-        </div>
-        <div className='description'>
-          <div className='text'>
-            {!active && (
-              'Please connect your wallet to view your progress.'
-            )}
-
-          </div>
-
-          {nextCharacter && (
-            <Link href={nextCharacter.url}>
-              <div className='thumbnail'>
-                <img className='next character' alt='Next NFT' src={nextCharacter.image} />
-                <div className='badges'>
-                  {nextCharacter.soulbound && (
-                    <CustomTooltip text='Soulbound NFT'>
-                      <div className='badge'>
-                        <Icon variant='star-04' size='sm' />
-                      </div>
-                    </CustomTooltip>
-                  )}
-                </div>
-              </div>
-            </Link>
-          )}
-        </div>
-        <div className='mobile link'>
-          <Link href='/my-collection'>View My Collection</Link>
-        </div>
-      </div>
+      {nextNft()}
     </div>
   )
 }
