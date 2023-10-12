@@ -21,7 +21,7 @@ const Home = ({ ssg }) => {
         <section className='nft persona'>
 
           <div className='section content'>
-            <HomePersona />
+            <HomePersona characters={ssg.characters} />
             <div><MostViewedNfts mostViewedNfts={ssg.mostViewedNfts} /></div>
           </div>
         </section>
