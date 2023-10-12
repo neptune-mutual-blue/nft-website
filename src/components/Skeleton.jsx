@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Skeleton = ({ style }) => {
+const Skeleton = ({ style, className }) => {
   return (
-    <div className='skeleton placeholder' style={style} />
+    <div className={'skeleton placeholder' + (className ? ' ' + className : '')} style={style} />
   )
 }
 

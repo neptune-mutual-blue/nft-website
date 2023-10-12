@@ -14,6 +14,17 @@
   width: 100%;
   position: relative;
 
+  &.dark::after {
+    background: colors.$gray-600;
+    background-image: linear-gradient(
+      to right,
+      colors.$gray-600 0%,
+      colors.$gray-700 20%,
+      colors.$gray-600 40%,
+      colors.$gray-600 100%
+    );
+  }
+
   &::after {
     content: "";
     position: absolute;

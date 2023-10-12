@@ -13,11 +13,13 @@ export async function getStaticProps () {
     mostViewedNftsResponse,
     regularNftsResponse,
     premiumNftsResponse,
+    charactersResponse,
     videoResponse
   ] = await Promise.all([
     NftApi.mostViewedNfts(),
     NftApi.regularNfts(),
     NftApi.premiumNfts(),
+    NftApi.knowTheCharacters(),
     resourcesVideoData()
   ])
 
@@ -26,7 +28,8 @@ export async function getStaticProps () {
       ssg: {
         mostViewedNfts: mostViewedNftsResponse.data,
         regularNfts: regularNftsResponse.data,
-        premiumNfts: premiumNftsResponse.data
+        premiumNfts: premiumNftsResponse.data,
+        characters: charactersResponse.data
       },
       videos: videoResponse
     },
