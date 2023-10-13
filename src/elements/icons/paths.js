@@ -136,6 +136,8 @@ const paths = {
   'alert-circle': import('./variants/AlertsAndFeedback/alert-circle.svg?raw'),
   'check-circle': import('./variants/General/check-circle.svg?raw'),
   plus: import('./variants/General/plus.svg?raw'),
+  'maximize-01': import('./variants/Layout/maximize-01.svg?raw'),
+  'minimize-01': import('./variants/Layout/minimize-01.svg?raw'),
 
   // Custom Icons
   'check-icon': import('./custom/CheckIcon.svg?raw'),

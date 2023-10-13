@@ -2,6 +2,7 @@ import '@/styles/global.scss'
 
 import { useEffect } from 'react'
 
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
 
@@ -12,6 +13,7 @@ import { getLibrary } from '@/lib/connect-wallet/web3'
 import { Web3ReactProvider } from '@web3-react/core'
 
 const excludeScriptPaths = ['/my-collection/bridge/receipt/[txHash]']
+const UserOnboarding = dynamic(() => { return import('@/components/UserOnboarding/UserOnboarding') }, { ssr: false })
 
 export default function App ({ Component, pageProps }) {
   const router = useRouter()
@@ -39,6 +41,7 @@ export default function App ({ Component, pageProps }) {
         <ToastProvider>
           <LoaderProvider>
             <ThemeProvider>
+              <UserOnboarding />
               <Component {...pageProps} />
             </ThemeProvider>
           </LoaderProvider>

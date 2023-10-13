@@ -99,14 +99,14 @@ const MyCollection = ({ premiumNfts }) => {
             </div>
           </div>
 
-          <div className='bridge banner'>
+          {/* <div className='bridge banner'>
             <p>
               Move your NFTs across different blockchain networks.
             </p>
             <Link href='/my-collection/bridge'>
               Bridge My NFTs
             </Link>
-          </div>
+          </div> */}
 
           <div className='minted nfts'>
             <h3>NFTs You've Minted</h3>

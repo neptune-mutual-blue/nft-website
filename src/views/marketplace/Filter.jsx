@@ -84,6 +84,15 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
     setSelectedFilters([...newProperties])
   }
 
+  const sortedLevelAndFamilyFirst = useMemo(() => {
+    const level = filteredProperties.find(f => { return f.key.toLowerCase() === 'level' })
+    const family = filteredProperties.find(f => { return f.key.toLowerCase() === 'family' })
+    const _filtered = filteredProperties.filter(f => { return !['level', 'family'].includes(f.key.toLowerCase()) })
+    _filtered.unshift(level, family)
+
+    return _filtered
+  }, [filteredProperties])
+
   return (
     <div ref={ref} className='marketplace filter container' id='view-nfts' data-open={showFilter ? 'true' : 'false'}>
       <div className='filter inner'>
@@ -118,9 +127,30 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
           Clear All Filters
         </SecondaryGrayButton>
 
+        {
+          selectedFilters.length > 0 && (
+            <div className='selected filters'>
+              {
+                selectedFilters.map(({ key, value }, idx) => {
+                  return (
+                    <button
+                      key={`selected-filter-${idx}`}
+                      className='filter'
+                      onClick={() => { return handleClearFilter(key) }}
+                    >
+                      {value}
+                      <Icon variant='x-close' size='sm' />
+                    </button>
+                  )
+                })
+              }
+            </div>
+          )
+        }
+
         <div className='filters list'>
           {
-            filteredProperties.map((filter, i) => {
+            sortedLevelAndFamilyFirst.map((filter, i) => {
               const selectedCount = selectedFilters.find(f => { return f.key === filter.key })
               return (
                 <div

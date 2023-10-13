@@ -1,0 +1,298 @@
+@use "../../design-system/utils";
+@use "../../design-system/colors";
+@use "../../design-system/shadows";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+
+.user.onboarding.section {
+  a {
+    color: colors.$primary-700;
+    text-decoration: underline !important;
+  }
+
+  .minimized.modal {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    padding: 12px;
+    background-color: colors.$base-white;
+    width: 372px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid colors.$gray-100;
+    box-shadow: shadows.$lg;
+    z-index: 99999;
+
+    @media (max-width: 767px) {
+      bottom: 0;
+      right: 0;
+      width: 100vw;
+      border-radius: 0;
+      padding: 16px;
+    }
+
+    &.hidden {
+      display: none;
+    }
+
+    .onboarding.modal {
+      position: relative;
+
+      .expander {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 100;
+
+        @media (max-width: 767px) {
+          display: none;
+        }
+      }
+    }
+
+    .onboarding.slider {
+      gap: 12px;
+
+      @media (max-width: 767px) {
+        display: none;
+      }
+    }
+
+    .onboarding.page {
+      padding: 0;
+
+      img,
+      video {
+        display: none;
+      }
+    }
+
+    .close.onboarding {
+      display: none;
+    }
+
+    .checkbox {
+      display: none;
+    }
+
+    h1,
+    .description {
+      text-align: left;
+    }
+
+    h1 {
+      @include styles.text-md;
+      margin-bottom: 4px;
+    }
+
+    .description {
+      @include styles.text-sm;
+      color: colors.$gray-500;
+    }
+
+    .pagination.wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      @include styles.text-sm;
+      color: colors.$gray-500;
+      margin-top: 16px;
+
+      @media (max-width: 767px) {
+        display: none;
+      }
+
+      &.mobile {
+        display: none;
+      }
+
+      .pagination {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        button {
+          padding: 4px 10px;
+        }
+      }
+    }
+
+    .content.mobile {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      @media (min-width: 768px) {
+        display: none;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      .pages {
+        @include styles.text-xs;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+.on-boarding-modal {
+  width: 728px;
+  background-color: colors.$base-white;
+  padding: 0;
+
+  a {
+    color: colors.$primary-700;
+    text-decoration: underline !important;
+  }
+
+  @media (max-width: 767px) {
+    height: 100vh;
+    padding: 0;
+    width: 100vw;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .onboarding.modal {
+    overflow: hidden;
+    padding: 32px;
+
+    @media (max-width: 767px) {
+      padding: 16px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      height: 100%;
+    }
+  }
+
+  .close.onboarding {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+
+    label {
+      @media (min-width: 768px) {
+        display: none;
+      }
+    }
+
+    @media (max-width: 767px) {
+      justify-content: space-between;
+      gap: 16px;
+      @include styles.text-sm;
+    }
+  }
+
+  .content.mobile {
+    display: none;
+  }
+
+  .onboarding.slider {
+    gap: 32px;
+
+    .onboarding.page {
+      padding: 0;
+
+      img,
+      video {
+        width: 100%;
+      }
+
+      @media (max-width: 767px) {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        word-break: break-word;
+      }
+    }
+  }
+
+  .pagination.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    @include styles.text-sm;
+
+    @media (max-width: 767px) {
+      display: none;
+    }
+
+    &.mobile {
+      display: none;
+
+      @media (max-width: 767px) {
+        display: flex;
+      }
+    }
+
+    .custom.checkbox.container {
+      @include weights.medium;
+    }
+
+    .pagination {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  h1,
+  .description {
+    text-align: center;
+  }
+
+  h1 {
+    @include styles.text-xl;
+    @include weights.semibold;
+    margin-top: 16px;
+  }
+
+  .description {
+    @include styles.text-md;
+    @include weights.regular;
+    margin-bottom: 56px;
+    color: colors.$gray-500;
+  }
+}
+
+.dark {
+  .user.onboarding.section {
+    a {
+      color: colors.$primary-400;
+    }
+
+    .minimized.modal {
+      background-color: colors.$black-900;
+      border-color: colors.$gray-800;
+      box-shadow: shadows.$lg;
+
+      .description {
+        color: colors.$gray-25;
+      }
+
+      .pagination.wrapper {
+        color: colors.$gray-25;
+      }
+    }
+  }
+
+  .on-boarding-modal {
+    background-color: colors.$black-800;
+
+    a {
+      color: colors.$primary-400;
+    }
+
+    .onboarding.modal {
+      overflow: hidden;
+      padding: 32px;
+    }
+
+    .description {
+      color: colors.$gray-25;
+    }
+  }
+}

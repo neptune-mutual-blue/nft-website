@@ -13,6 +13,7 @@ const Checkbox = ({ label, size = 'md', checked, onChange }) => {
     <label className='custom checkbox container'>
       <input
         type='checkbox'
+        className={checked ? 'checked' : undefined}
         onChange={e => {
           onChange(e.target.checked)
         }}
