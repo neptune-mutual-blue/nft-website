@@ -1,59 +1,19 @@
+import {
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
+
+import Link from 'next/link'
+
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
 import { InputWithIcon } from '@/components/InputWithIcon/InputWithIcon'
+import { bridgeConfig } from '@/config/bridge'
+import { NftApi } from '@/service/nft-api'
 import { columns } from '@/views/bridge/TableComponents'
-import { Pagination } from '@/views/marketplace/Pagination'
-import Link from 'next/link'
-import { useMemo, useState } from 'react'
-
-const mocks = [
-  {
-    timestamp: 1696407710592,
-    nftTitle: 'Diabolic Merman Serpent #172001',
-    depChainId: 1,
-    destChainId: 56,
-    depAddress: '0x8JDAE5a084EC18558J78e98J38d1A67c79F6C8J6',
-    destAddress: '0x8R4AEga0A4EC1AgkAJ7Ae9AJ3Ad1A67c79F6CAJ6',
-    txHash: '0x8dbc9d96f7ade6e5afb1d912056245f08c24d8995dc313a2da570416f27afd06'
-  },
-  {
-    timestamp: 1696407720592,
-    nftTitle: 'Siabolic Merman Serpent #172001',
-    depChainId: 1,
-    destChainId: 56,
-    depAddress: '0x8JDAE5a084EC18558J78e98J38d1A67c79F6C8J6',
-    destAddress: '0x8R4AEga0A4EC1AgkAJ7Ae9AJ3Ad1A67c79F6CAJ6',
-    txHash: '0x8dbc9d96f7ade6e5afb1d912056245f08c24d8995dc313a2da570416f27afd06'
-  },
-  {
-    timestamp: 1696407720582,
-    nftTitle: 'Diabolic Merman Serpents #172001',
-    depChainId: 1,
-    destChainId: 56,
-    depAddress: '0x8JDAE5a084EC18558J78e98J38d1A67c79F6C8J6',
-    destAddress: '0x8R4AEga0A4EC1AgkAJ7Ae9AJ3Ad1A67c79F6CAJ6',
-    txHash: '0x8dbc9d96f7ade6e5afb1d912056245f08c24d8995dc313a2da570416f27afd06'
-  },
-  {
-    timestamp: 1696557720582,
-    nftTitle: 'Diabolic Merman H Serpent #172001',
-    depChainId: 1,
-    destChainId: 56,
-    depAddress: '0x8JDAE5a084EC18558J78e98J38d1A67c79F6C8J6',
-    destAddress: '0x8R4AEga0A4EC1AgkAJ7Ae9AJ3Ad1A67c79F6CAJ6',
-    txHash: '0x8dbc9d96f7ade6e5afb1d912056245f08c24d8995dc313a2da570416f27afd06'
-  },
-  {
-    timestamp: 1696557743582,
-    nftTitle: 'Biabolic Merman Serpent #172001',
-    depChainId: 1,
-    destChainId: 56,
-    depAddress: '0x8JDAE5a084EC18558J78e98J38d1A67c79F6C8J6',
-    destAddress: '0x8R4AEga0A4EC1AgkAJ7Ae9AJ3Ad1A67c79F6CAJ6',
-    txHash: '0x8dbc9d96f7ade6e5afb1d912056245f08c24d8995dc313a2da570416f27afd06'
-  }
-]
-const empty = true
+import { RowPlaceholder } from '@/views/merkle-proof/RowPlaceholder'
+import { useWeb3React } from '@web3-react/core'
 
 const TransactionHistory = () => {
   const crumbs = [
@@ -70,15 +30,45 @@ const TransactionHistory = () => {
   const [query, setQuery] = useState('')
   const [sortType, setSortType] = useState(null)
 
-  const filteredData = useMemo(() => {
-    if (!query) { return mocks }
+  const [transactions, setTransactions] = useState([])
+  const [loading, setLoading] = useState(false)
 
-    return mocks.filter(({ nftTitle, depAddress, destAddress }) => {
-      return nftTitle.toLowerCase().includes(query.toLowerCase()) ||
-        depAddress.toLowerCase().includes(query.toLowerCase()) ||
-        destAddress.toLowerCase().includes(query.toLowerCase())
+  const { account } = useWeb3React()
+
+  const getTransactions = async () => {
+    setLoading(true)
+
+    try {
+      const response = await NftApi.getBridgeTransactions(account)
+
+      console.log(transactions)
+
+      setTransactions(response.data)
+    } catch (err) {
+      console.error(err)
+    }
+
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    if (account) {
+      getTransactions()
+    }
+    // eslint-disable-next-line
+  }, [account])
+
+  const filteredData = useMemo(() => {
+    if (!query) { return transactions }
+
+    return transactions.filter(({ tokenIds, chainId, dstChainId }) => {
+      const dstChain = Object.values(bridgeConfig).find((x) => { return x.lzChainId === parseInt(dstChainId) })
+
+      return dstChain.chainId.toString().toLowerCase().includes(query.toLowerCase()) ||
+        tokenIds.toLowerCase().includes(query.toLowerCase()) ||
+        chainId.toLowerCase().includes(query.toLowerCase())
     })
-  }, [query, mocks])
+  }, [query, transactions])
 
   const sortedData = useMemo(() => {
     if (!sortType) { return filteredData }
@@ -92,6 +82,8 @@ const TransactionHistory = () => {
       return 0
     })
   }, [sortType, filteredData])
+
+  const empty = filteredData.length === 0
 
   return (
     <div className='nft bridge transaction history'>
@@ -124,7 +116,7 @@ const TransactionHistory = () => {
               </thead>
 
               <tbody>
-                {
+                {!loading && (
                   !empty
                     ? sortedData.map((data, idx2) => {
                       return (
@@ -143,12 +135,19 @@ const TransactionHistory = () => {
                         </td>
                       </tr>
                       )
-                }
+                )}
               </tbody>
+
             </table>
 
+            {loading && Array.from({ length: 10 }).map((_, index) => {
+              return (
+                <RowPlaceholder key={index} />
+              )
+            })}
+
           </div>
-          <Pagination currentPage={1} totalPages={10} getHref={page => { return `/bridge-transactions/page/${page}` }} />
+          {/* <Pagination currentPage={1} totalPages={10} getHref={page => { return `/bridge-transactions/page/${page}` }} /> */}
         </div>
       </section>
     </div>

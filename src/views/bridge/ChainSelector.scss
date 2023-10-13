@@ -77,3 +77,20 @@
     }
   }
 }
+
+.dark .chain.selector {
+  .trigger {
+    background-color: colors.$gray-700;
+  }
+
+  .dropdown.items {
+    background-color: colors.$black-800;
+    border-color: colors.$gray-800;
+
+    .chain.item {
+      &:hover {
+        background-color: colors.$gray-700;
+      }
+    }
+  }
+}

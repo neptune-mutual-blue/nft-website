@@ -25,7 +25,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
 
-    >ol {
+    > ol {
       margin: 0;
     }
 
@@ -40,7 +40,7 @@
     }
   }
 
-  section>div.content {
+  section > div.content {
     border: 1px solid colors.$gray-300;
     border-radius: 12px;
     margin-top: 48px;
@@ -113,7 +113,7 @@
               }
 
               &.date {
-                text-wrap: nowrap;
+                white-space: nowrap;
               }
 
               &.nft {
@@ -122,6 +122,11 @@
 
               &.chain {
                 min-width: 170px;
+
+                img {
+                  height: 20px;
+                  width: 20px;
+                }
 
                 div {
                   display: flex;
@@ -133,8 +138,8 @@
                     height: 16px;
                   }
 
-                  &>i:first-child,
-                  &>i:last-child {
+                  & > i:first-child,
+                  & > i:last-child {
                     svg {
                       width: 20px;
                       height: 20px;
@@ -194,17 +199,14 @@
                 margin-top: 24px;
                 padding: 10px 18px;
 
-
                 @include styles.text-md;
                 @include weights.semibold;
                 color: colors.$white;
-
               }
             }
           }
         }
       }
-
     }
 
     .ui.pagination {
@@ -218,14 +220,13 @@
 }
 
 .dark .nft.bridge.transaction.history {
-  section>div.content {
+  section > div.content {
     border-color: colors.$gray-800;
 
     .table.wrapper table {
       border-color: colors.$gray-800;
 
       thead th {
-
         &,
         * {
           color: colors.$gray-300;

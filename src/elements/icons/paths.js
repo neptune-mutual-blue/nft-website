@@ -135,6 +135,7 @@ const paths = {
   'bell-02': import('./variants/AlertsAndFeedback/bell-02.svg?raw'),
   'alert-circle': import('./variants/AlertsAndFeedback/alert-circle.svg?raw'),
   'check-circle': import('./variants/General/check-circle.svg?raw'),
+  plus: import('./variants/General/plus.svg?raw'),
 
   // Custom Icons
   'check-icon': import('./custom/CheckIcon.svg?raw'),

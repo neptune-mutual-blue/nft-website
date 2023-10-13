@@ -149,8 +149,10 @@ const NftBridge = () => {
               </div>
 
               <div className='actions'>
-                <Link href='/my-collection/bridge/history'>Transaction History</Link>
-                <Button variant='secondary-gray' iconTrailing='download-01'>Import</Button>
+                <Link href='/my-collection/bridge/transactions'>Transaction History</Link>
+                <Button variant='secondary-gray'>
+                  <Icon variant='plus' />
+                </Button>
               </div>
 
               <div className='nft selection'>

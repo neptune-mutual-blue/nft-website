@@ -1,4 +1,5 @@
 import {
+  useCallback,
   useContext,
   useEffect,
   useState
@@ -35,14 +36,14 @@ const useNftBridge = (selectedTokens, destinationChainId, lzAddress) => {
   const [sending, setSending] = useState(false)
   const [approving, setApproving] = useState(false)
 
-  const fetchApproved = async () => {
+  const fetchApproved = useCallback(async () => {
     try {
       const [approved] = await callNft('isApprovedForAll', [account, lzAddress])
       setApproved(approved)
     } catch (err) {
       console.error(err)
     }
-  }
+  }, [account, callNft, lzAddress])
 
   const approveForAll = async () => {
     setApproving(true)
@@ -92,7 +93,7 @@ const useNftBridge = (selectedTokens, destinationChainId, lzAddress) => {
     setSending(false)
   }
 
-  const getBalance = async () => {
+  const getBalance = useCallback(async () => {
     try {
       const balance = await library.getBalance(account)
 
@@ -100,9 +101,9 @@ const useNftBridge = (selectedTokens, destinationChainId, lzAddress) => {
     } catch (err) {
       console.error(err)
     }
-  }
+  }, [account, library, nativeCurrency])
 
-  const estimateFees = async () => {
+  const estimateFees = useCallback(async () => {
     try {
       const destChainId = bridgeConfig[destinationChainId].lzChainId
 
@@ -113,7 +114,7 @@ const useNftBridge = (selectedTokens, destinationChainId, lzAddress) => {
     } catch (err) {
       console.error(err)
     }
-  }
+  }, [account, callLz, destinationChainId, nativeCurrency, selectedTokens])
 
   useEffect(() => {
     if (isNftReady && lzAddress && account) {
@@ -125,7 +126,7 @@ const useNftBridge = (selectedTokens, destinationChainId, lzAddress) => {
     } else {
       setFees('')
     }
-  }, [account, isLzReady, selectedTokens])
+  }, [account, isLzReady, selectedTokens, estimateFees, fetchApproved, isNftReady, lzAddress])
 
   useEffect(() => {
     if (account) {
@@ -133,7 +134,7 @@ const useNftBridge = (selectedTokens, destinationChainId, lzAddress) => {
     }
 
     setBalance('')
-  }, [account])
+  }, [account, getBalance])
 
   return {
     balance,

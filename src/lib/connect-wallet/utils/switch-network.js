@@ -66,6 +66,19 @@ export const chains = {
     rpcUrls: rpcUrls[1],
     explorerName: 'EtherScan',
     blockExplorerUrls: ['https://etherscan.io']
+  },
+  4002: {
+    chainId: `0x${(4002).toString(16)}`,
+    chainName: 'Fantom Testnet',
+    nativeCurrency: {
+      name: 'FTM',
+      symbol: 'FTM',
+      decimals: 18
+    },
+    explorerIcon: "ethereum-round",
+    rpcUrls: rpcUrls[1],
+    explorerName: 'FTMScan',
+    blockExplorerUrls: ['https://testnet.ftmscan.com']
   }
 }
 

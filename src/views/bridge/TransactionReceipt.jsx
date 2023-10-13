@@ -1,31 +1,39 @@
+import Link from 'next/link'
+
+import { bridgeConfig } from '@/config/bridge'
 import { AppConstants } from '@/constants/AppConstants'
+import { getDateInFormat } from '@/utils/date'
 
 import NpmDarkLogo from '../../elements/npm/npm-logo-dark-mode.svg'
 import NpmLightLogo from '../../elements/npm/npm-logo-light-mode.svg'
-import Link from 'next/link'
-import { getDateInFormat } from '@/utils/date'
 
-const mock = {
-  receiptNo: '001',
-  timestamp: 1696407710592,
-  nftTitle: 'Diabolic Merman Serpent #172001',
-  depChain: 'ETH',
-  destChain: 'BSC',
-  depAddress: '0x8JDAE5a084EC18558J78e98J38d1A67c79F6C8J6',
-  destAddress: '0x8R4AEga0A4EC1AgkAJ7Ae9AJ3Ad1A67c79F6CAJ6',
-  depHash: '0x0Edbd64c91409ad3Bb413Ab3DF7fcd786',
-  destHash: '0x63ef5603e38996de2d810aaf1193ef19168ca2807a4f8557568653772740235b',
-  txHash: '0x8dbc9d96f7ade6e5afb1d912056245f08c24d8995dc313a2da570416f27afd06',
-  nfts: [
-    'Diabolic Merman Serpent #172001',
-    'Sabersquatch #153771',
-    'Epic Aquavallo #145216'
-  ],
-  fees: '0.0015 ETH'
-}
-
-const TransactionReceipt = () => {
+const TransactionReceipt = ({ txDetails }) => {
   const nftDomain = new URL(AppConstants.domainName)
+
+  const tx = txDetails.messages?.[0]
+
+  const depChain = Object.values(bridgeConfig).find((x) => { return x.lzChainId === parseInt(tx.srcChainId) })
+  const dstChain = Object.values(bridgeConfig).find((x) => { return x.lzChainId === parseInt(tx.dstChainId) })
+
+  const details = {
+    receiptNo: '001',
+    timestamp: tx?.created * 1000,
+    nftTitle: 'Diabolic Merman Serpent #172001',
+    depChain: depChain?.chainName,
+    destChain: dstChain?.chainName,
+    depAddress: tx?.srcUaAddress,
+    destAddress: tx?.dstUaAddress,
+    depHash: tx?.srcTxHash,
+    destHash: tx?.dstTxHash,
+    txHash: tx?.srcBlockHash,
+    nfts: [
+      'Diabolic Merman Serpent #172001',
+      'Sabersquatch #153771',
+      'Epic Aquavallo #145216'
+    ],
+    fees: '0.0015 ETH'
+  }
+
   return (
     <main className='transaction receipt'>
       <div className='content'>
@@ -45,8 +53,8 @@ const TransactionReceipt = () => {
 
         <div className='title'>
           <h1>NFT Bridging Receipt</h1>
-          <p><strong>Date:</strong> {getDateInFormat(mock.timestamp)}</p>
-          <p><strong>Receipt no:</strong> {mock.receiptNo}</p>
+          <p><strong>Date:</strong> {getDateInFormat(details.timestamp)}</p>
+          <p><strong>Receipt no:</strong> {details.receiptNo}</p>
         </div>
 
         <hr />
@@ -56,7 +64,7 @@ const TransactionReceipt = () => {
 
           <div className='nfts'>
             {
-            mock.nfts.map((nft, idx) => {
+            details.nfts.map((nft, idx) => {
               return (
                 <p key={idx}>
                   <strong>
@@ -70,19 +78,19 @@ const TransactionReceipt = () => {
           </div>
 
           <div className='kv wrapper'>
-            <KeyVal keyText='Departure Chain' val={mock.depChain} />
-            <KeyVal keyText='Departure Address' val={mock.depAddress} />
-            <KeyVal keyText='Destination Chain' val={mock.destChain} />
-            <KeyVal keyText='Destination Address' val={mock.destAddress} />
-            <KeyVal keyText='Fees Paid' val={mock.fees} />
+            <KeyVal keyText='Departure Chain' val={details.depChain} />
+            <KeyVal keyText='Departure Address' val={details.depAddress} />
+            <KeyVal keyText='Destination Chain' val={details.destChain} />
+            <KeyVal keyText='Destination Address' val={details.destAddress} />
+            <KeyVal keyText='Fees Paid' val={details.fees} />
           </div>
         </div>
 
         <hr />
 
         <div className='footer'>
-          <KeyVal keyText='Departure Hash' val={mock.depHash} />
-          <KeyVal keyText='Destination Hash' val={mock.destHash} />
+          <KeyVal keyText='Departure Hash' val={details.depHash} />
+          <KeyVal keyText='Destination Hash' val={details.destHash} />
         </div>
       </div>
     </main>

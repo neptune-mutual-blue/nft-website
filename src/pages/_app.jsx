@@ -11,7 +11,7 @@ import { ThemeProvider } from '@/contexts/ThemeContext'
 import { getLibrary } from '@/lib/connect-wallet/web3'
 import { Web3ReactProvider } from '@web3-react/core'
 
-const excludeScriptPaths = ['/bridge/receipt/[txHash]']
+const excludeScriptPaths = ['/my-collection/bridge/receipt/[txHash]']
 
 export default function App ({ Component, pageProps }) {
   const router = useRouter()

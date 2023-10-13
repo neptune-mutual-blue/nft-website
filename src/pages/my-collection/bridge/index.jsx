@@ -2,7 +2,7 @@ import Seo from '@/components/Seo/Seo'
 import { BaseLayout } from '@/layouts/BaseLayout'
 import NftBridge from '@/views/bridge/NftBridge'
 
-const BridgePage = ({ videos, characters }) => {
+const BridgePage = ({ videos }) => {
   return (
     <>
       <Seo

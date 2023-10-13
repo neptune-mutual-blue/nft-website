@@ -1,7 +1,26 @@
 import Seo from '@/components/Seo/Seo'
 import { TransactionReceipt } from '@/views/bridge/TransactionReceipt'
+import { createClient } from '@layerzerolabs/scan-client'
 
-const BridgeTransactionReceiptPage = () => {
+export async function getServerSideProps (context) {
+  const client = createClient('testnet')
+
+  const { messages } = await client.getMessagesBySrcTxHash(
+    context.params.txHash
+  )
+
+  console.log(messages)
+
+  return {
+    props: {
+      txDetails: {
+        messages
+      }
+    }
+  }
+}
+
+const BridgeTransactionReceiptPage = ({ txDetails }) => {
   return (
     <>
       <Seo
@@ -12,7 +31,7 @@ const BridgeTransactionReceiptPage = () => {
         description='Get to know the description, properties, and activities of varied digital collectibles. Mint Neptune Mutual NFTs with ease and share them with the world.'
       />
 
-      <TransactionReceipt />
+      <TransactionReceipt txDetails={txDetails} />
     </>
   )
 }

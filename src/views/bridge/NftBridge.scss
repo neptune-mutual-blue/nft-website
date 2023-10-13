@@ -82,7 +82,7 @@
       }
 
       button {
-        padding: 6px 12px;
+        padding: 8px;
         @include weights.regular;
 
         svg {
@@ -317,6 +317,9 @@
 }
 
 .dark .nft.bridge.page {
+  min-height: calc(100vh - var(--header-height));
+  position: relative;
+
   &::before {
     background: url("../../../public/assets/images/404/nft_error_bg_dark.webp")
       no-repeat center top;
@@ -326,5 +329,59 @@
   }
 
   .inner.content {
+    input.search {
+      border: 1px solid colors.$gray-800;
+    }
+
+    .actions {
+      a {
+        color: colors.$primary-400;
+      }
+    }
+
+    .bridge.selection {
+      border-color: colors.$gray-800;
+
+      .selection.box {
+        .selection.container {
+          background-color: colors.$gray-800;
+          color: colors.$gray-300;
+        }
+
+        .vertical.switch {
+          background-color: colors.$gray-700;
+          border-color: colors.$black-900;
+        }
+      }
+    }
+
+    .bridge.section {
+      section {
+        background-color: colors.$black-900;
+        border-color: colors.$gray-800;
+      }
+
+      .destination {
+        .destination.input {
+          border-color: colors.$gray-800;
+        }
+      }
+    }
+
+    .selected.info {
+      background-color: colors.$black-800;
+
+      h3 {
+        border-color: colors.$gray-800;
+
+        span {
+          color: colors.$primary-400;
+        }
+      }
+
+      .balance {
+        color: colors.$gray-200;
+      }
+    }
   }
 }
