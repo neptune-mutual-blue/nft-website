@@ -11,6 +11,7 @@ const AnchorButton = (props) => {
     rel,
     size,
     state,
+    style,
     destructive,
     iconOnlyMobile,
     onClick
@@ -19,6 +20,7 @@ const AnchorButton = (props) => {
   return (
     <Link
       id={id}
+      style={style}
       onClick={onClick}
       className={`ui ${(className || '').trim()} button`}
       data-text-size={size}

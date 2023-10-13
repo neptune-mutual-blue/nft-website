@@ -16,7 +16,7 @@ const useMintedLevelStatus = (address, level) => {
 
   const { callMethod, isReady } = useContractCall({ abi: ContractAbis.MERKLE_PROOF_MINTER, address: ContractAddresses.MERKLE_PROOF_MINTER })
 
-  const getBoundToken = useCallback(async () => {
+  const checkStatus = useCallback(async () => {
     if (level === -1) { return }
 
     setLoading(true)
@@ -36,7 +36,7 @@ const useMintedLevelStatus = (address, level) => {
 
   useEffect(() => {
     if (isReady && address) {
-      getBoundToken()
+      checkStatus()
     }
 
   // eslint-disable-next-line
