@@ -238,6 +238,11 @@
                 @include weights.semibold;
                 color: colors.$gray-700;
                 cursor: pointer;
+
+                &[aria-disabled="true"] {
+                  cursor: not-allowed;
+                  opacity: 0.5;
+                }
               }
             }
           }
