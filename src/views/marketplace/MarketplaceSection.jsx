@@ -245,7 +245,7 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
                        count={nft.siblings}
                        image={`${imageOrigin}/thumbnails/${nft.tokenId}.webp`}
                        soulbound={nft.soulbound}
-                       minted={!!nft.tokenOwner}
+                       minted={!!nft.tokenOwner?.[0].owner}
                      />
                    )
                  })}
