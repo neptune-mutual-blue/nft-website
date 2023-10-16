@@ -25,7 +25,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
 
-    >ol {
+    > ol {
       margin: 0;
     }
 
@@ -46,10 +46,6 @@
     border: 1px solid colors.$gray-300;
     padding: 32px;
     max-width: 780px;
-
-    .tags.container {
-      margin-top: 16px;
-    }
 
     .milestones {
       margin-top: 32px;
@@ -136,7 +132,7 @@
       }
 
       .empty {
-        &>* {
+        & > * {
           margin: 0 auto;
           text-align: center;
         }
@@ -177,6 +173,19 @@
         .nft {
           text-align: center;
 
+          .details.with.chain {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+
+            img {
+              height: 20px;
+              width: 20px;
+            }
+          }
+
           .tags.container {
             justify-content: center;
           }
@@ -201,7 +210,6 @@
               margin-top: 16px;
             }
           }
-
         }
       }
     }

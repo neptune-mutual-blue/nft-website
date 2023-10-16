@@ -7,7 +7,7 @@
  * @returns
  */
 
-const Radio = ({ label, checked, onChange }) => {
+const Radio = ({ label, checked, onChange, ...rest }) => {
   return (
     <label className='custom radio container'>
       <input
@@ -17,6 +17,7 @@ const Radio = ({ label, checked, onChange }) => {
           onChange(e.target.checked)
         }}
         checked={checked}
+        {...rest}
       />
       {label}
     </label>

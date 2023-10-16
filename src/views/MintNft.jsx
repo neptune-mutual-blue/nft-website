@@ -82,7 +82,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
     requiredPoints: requirements.points
   })
 
-  const currentOwner = owner || nftDetails.tokenOwner
+  const currentOwner = owner || nftDetails.tokenOwner?.[0]?.owner
 
   const [open, setOpen] = useState(false)
 

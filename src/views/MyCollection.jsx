@@ -132,16 +132,21 @@ const MyCollection = ({ premiumNfts }) => {
                       <div key={i} className='nft'>
                         <NftImageWithExpand nft={nft} isCover={false} />
 
-                        <Tags
-                          tags={[
-                            {
-                              id: '1',
-                              slug: '1',
-                              text: nft.soulbound ? 'Soulbound' : 'Level ' + nft.level,
-                              color: nft.soulbound ? 'nft-soulbound' : 'level' + nft.level
-                            }
-                          ]}
-                        />
+                        <div className='details with chain'>
+                          <Tags
+                            tags={[
+                              {
+                                id: '1',
+                                slug: '1',
+                                text: nft.soulbound ? 'Soulbound' : 'Level ' + nft.level,
+                                color: nft.soulbound ? 'nft-soulbound' : 'level' + nft.level
+                              }
+                            ]}
+                          />
+
+                          <img src={`/assets/images/chains/${nft.tokenOwner?.[0].chainId}.png`} alt={nft.tokenOwner?.[0].chainId} />
+
+                        </div>
 
                         <Link href={`/marketplace/${nft.tokenId}`} target='_blank'>
                           <p className='category'>{nft.family}</p>
