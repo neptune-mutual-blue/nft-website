@@ -5,7 +5,7 @@
 
 .bridging.results.modal.DialogContent {
   padding: 32px;
-  background-image: url('/assets/images/bridge/blue-bg.png');
+  background-image: url("/assets/images/bridge/blue-bg.png");
   border: none;
   width: 650px;
 
@@ -33,7 +33,7 @@
   div.details.container {
     border-radius: 16px;
     padding: 24px;
-    background-color: rgba(255, 255, 255, 0.50);
+    background-color: rgba(255, 255, 255, 0.5);
     border: 1px solid colors.$gray-200;
     backdrop-filter: blur(12px);
 
@@ -48,7 +48,6 @@
       }
 
       div.value {
-
         &,
         * {
           @include styles.text-sm;
@@ -60,6 +59,17 @@
         div.address {
           display: flex;
           gap: 4px;
+          align-items: center;
+
+          svg {
+            height: 16px;
+            width: 16px;
+          }
+
+          img {
+            height: 20px;
+            width: 20px;
+          }
         }
 
         div.address {
@@ -93,7 +103,7 @@
       padding: 24px;
       border-radius: 8px;
       border: 1px solid colors.$base-white;
-      background-color: rgba(242, 244, 247, 0.60);
+      background-color: rgba(242, 244, 247, 0.6);
 
       p.card.title {
         @include styles.text-sm;
@@ -110,6 +120,7 @@
       div.info {
         display: flex;
         gap: 16px;
+        margin-bottom: 8px;
 
         img {
           border-radius: 6px;

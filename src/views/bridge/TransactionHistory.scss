@@ -44,6 +44,7 @@
     border: 1px solid colors.$gray-300;
     border-radius: 12px;
     margin-top: 48px;
+    overflow: hidden;
 
     .table.header {
       display: flex;
@@ -67,6 +68,7 @@
 
       table {
         border: 1px solid colors.$gray-200;
+        border-bottom: none;
         border-width: 1px 0;
         border-collapse: collapse;
         min-width: 100%;
@@ -102,9 +104,23 @@
 
         tbody {
           tr {
+            &.expanded {
+              background-color: colors.$gray-200;
+            }
+
             td {
               border-top: 1px solid colors.$gray-200;
               padding: 16px 24px;
+
+              &.expanded {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+
+                div {
+                  white-space: nowrap;
+                }
+              }
 
               &,
               * {
@@ -118,6 +134,30 @@
 
               &.nft {
                 min-width: 243px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 8px;
+
+                .title {
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  max-width: 208px;
+                }
+
+                .dropdown {
+                  display: flex;
+                  align-items: center;
+                  gap: 4px;
+
+                  .badge {
+                    background-color: colors.$gray-100;
+                    padding: 2px 8px;
+                    border-radius: 50%;
+                    @include styles.text-xs;
+                  }
+                }
               }
 
               &.chain {
@@ -226,6 +266,10 @@
     .table.wrapper table {
       border-color: colors.$gray-800;
 
+      tr.expanded {
+        background-color: colors.$gray-800;
+      }
+
       thead th {
         &,
         * {
@@ -243,6 +287,14 @@
 
         &.action a {
           color: colors.$primary-400;
+        }
+
+        &.nft {
+          .dropdown {
+            .badge {
+              background-color: colors.$gray-700;
+            }
+          }
         }
 
         &.empty {

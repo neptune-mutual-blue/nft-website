@@ -2,6 +2,8 @@ import Link from 'next/link'
 
 import { bridgeConfig } from '@/config/bridge'
 import { AppConstants } from '@/constants/AppConstants'
+import { chains } from '@/lib/connect-wallet/utils/switch-network'
+import { formatNpmToken } from '@/utils/currencyHelpers'
 import { getDateInFormat } from '@/utils/date'
 
 import NpmDarkLogo from '../../elements/npm/npm-logo-dark-mode.svg'
@@ -15,8 +17,10 @@ const TransactionReceipt = ({ txDetails }) => {
   const depChain = Object.values(bridgeConfig).find((x) => { return x.lzChainId === parseInt(tx.srcChainId) })
   const dstChain = Object.values(bridgeConfig).find((x) => { return x.lzChainId === parseInt(tx.dstChainId) })
 
+  const depNativeCurrency = chains[depChain.chainId].nativeCurrency
+
   const details = {
-    receiptNo: '001',
+    receiptNo: `${tx?.srcChainId}-${tx?.dstChainId}-${tx?.srcUaNonce}`,
     timestamp: tx?.created * 1000,
     nftTitle: 'Diabolic Merman Serpent #172001',
     depChain: depChain?.chainName,
@@ -31,7 +35,7 @@ const TransactionReceipt = ({ txDetails }) => {
       'Sabersquatch #153771',
       'Epic Aquavallo #145216'
     ],
-    fees: '0.0015 ETH'
+    fees: formatNpmToken(txDetails.fees, depNativeCurrency.decimals, depNativeCurrency.symbol)
   }
 
   return (
@@ -82,7 +86,7 @@ const TransactionReceipt = ({ txDetails }) => {
             <KeyVal keyText='Departure Address' val={details.depAddress} />
             <KeyVal keyText='Destination Chain' val={details.destChain} />
             <KeyVal keyText='Destination Address' val={details.destAddress} />
-            <KeyVal keyText='Fees Paid' val={details.fees} />
+            <KeyVal keyText='Fees Paid' val={details.fees.long} />
           </div>
         </div>
 

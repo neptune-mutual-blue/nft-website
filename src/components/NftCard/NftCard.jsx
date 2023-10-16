@@ -9,7 +9,7 @@ import { Checkbox } from '@/components/Checkbox/Checkbox'
 import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import { Icon } from '@/elements/Icon'
 
-const NftCard = ({ name, views, count, nftId, image, soulbound, minted, selectable, checked, setChecked }) => {
+const NftCard = ({ name, views, count, nftId, image, soulbound, minted, selectable, checked, setChecked, onInfo }) => {
   const [selected, setSelected] = useState(checked || false)
 
   useEffect(() => {
@@ -75,7 +75,9 @@ const NftCard = ({ name, views, count, nftId, image, soulbound, minted, selectab
           <div className='insights'>
             {selectable && (
               <div className='nft insight'>
-                <Icon variant='info-circle' size='sm' />
+                <button onClick={onInfo}>
+                  <Icon variant='info-circle' size='sm' />
+                </button>
               </div>
             )}
             {!selectable && (

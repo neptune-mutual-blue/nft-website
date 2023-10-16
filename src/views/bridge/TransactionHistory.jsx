@@ -1,4 +1,5 @@
 import {
+  Fragment,
   useEffect,
   useMemo,
   useState
@@ -22,13 +23,23 @@ const TransactionHistory = () => {
       name: 'NFT Home'
     },
     {
-      link: '#',
+      link: '/my-collection',
       name: 'My Collection'
+    },
+    {
+      link: '/my-collection/bridge',
+      name: 'NFT Bridge'
+    },
+    {
+      link: '#',
+      name: 'Transactions'
     }
   ]
 
   const [query, setQuery] = useState('')
   const [sortType, setSortType] = useState(null)
+
+  const [expandedRowIndexes, setExpandedRowIndexes] = useState([])
 
   const [transactions, setTransactions] = useState([])
   const [loading, setLoading] = useState(false)
@@ -120,9 +131,30 @@ const TransactionHistory = () => {
                   !empty
                     ? sortedData.map((data, idx2) => {
                       return (
-                        <tr key={`row-${idx2}`}>
-                          {columns.map(({ render }, idx3) => { return render(data, `row-${idx2}-col-${idx3}`) })}
-                        </tr>
+                        <Fragment key={`row-${idx2}`}>
+                          <tr>
+                            {columns.map(({ render }, idx3) => { return render(data, `row-${idx2}-col-${idx3}`, idx2, expandedRowIndexes, setExpandedRowIndexes) })}
+                          </tr>
+                          {expandedRowIndexes.includes(idx2) && (
+                            <tr className='expanded'>
+                              {columns.map((_, idx3) => {
+                                return idx3 === 1
+                                  ? (
+                                    <td className='expanded'>
+                                      {data.tokens.map(token => {
+                                        return (
+                                          <div className='nowrap' key={token.tokenId}>
+                                            {token.name}
+                                          </div>
+                                        )
+                                      })}
+                                    </td>
+                                    )
+                                  : <td />
+                              })}
+                            </tr>
+                          )}
+                        </Fragment>
                       )
                     })
                     : (

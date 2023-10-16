@@ -1,4 +1,8 @@
-import React, { useState } from 'react'
+import React, {
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
 
 import Link from 'next/link'
 
@@ -6,6 +10,7 @@ import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { Button } from '@/components/Button/Button'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
 import { EvmErrorModal } from '@/components/EvmError/EvmErrorModal'
+import { LoaderPopup } from '@/components/LoaderPopup/LoaderPopup'
 import { NftCard } from '@/components/NftCard/NftCard'
 import { bridgeConfig } from '@/config/bridge'
 import { AppConstants } from '@/constants/AppConstants'
@@ -14,6 +19,9 @@ import useNftBridge from '@/hooks/actions/useNftBridge'
 import { useUserNfts } from '@/hooks/data/useUserNfts'
 import { imageOrigin } from '@/services/marketplace-api'
 import ChainSelector from '@/views/bridge/ChainSelector'
+import { BridgingResults } from '@/views/bridge/modals/BridgingResults'
+import { ImportNFT } from '@/views/bridge/modals/ImportNFT'
+import { NFTDetailsModal } from '@/views/bridge/modals/NFTDetailsModal'
 import { useWeb3React } from '@web3-react/core'
 
 const crumbs = [
@@ -34,11 +42,15 @@ const crumbs = [
 const NftBridge = () => {
   const { account } = useWeb3React()
 
-  const { userNFTs } = useUserNfts(account)
+  const { userNFTs, updateUserNfts } = useUserNfts(account)
 
-  const nonSoulboundNFts = userNFTs.filter(nft => { return !nft.soulbound })
+  const [info, setInfo] = useState()
+
+  const nonSoulboundNFTs = userNFTs.filter(nft => { return !nft.soulbound })
 
   const [selectedNfts, setSelectedNfts] = useState([])
+
+  const [showImport, setShowImport] = useState(false)
 
   const currentNetwork = bridgeConfig[AppConstants.NETWORK]
 
@@ -63,8 +75,29 @@ const NftBridge = () => {
     sending,
     sendNfts,
     error,
-    setError
+    fetchingFees,
+    setError,
+    transaction,
+    setTransaction
   } = useNftBridge(selectedNfts, destinationChainId, currentNetwork.lzProxyONft || currentNetwork.lzONft721)
+
+  useEffect(() => {
+    if (transaction) {
+      updateUserNfts()
+    }
+
+    // eslint-disable-next-line
+  }, [transaction])
+
+  const [searchText, setSearchText] = useState('')
+
+  const filteredNfts = useMemo(() => {
+    const searchQuery = searchText.toLowerCase().trim()
+
+    if (!searchQuery) { return nonSoulboundNFTs }
+
+    return nonSoulboundNFTs.filter((nft) => { return nft.tokenId.toString().includes(searchQuery) || nft.name.toLowerCase().includes(searchQuery) || nft.nickname.toLowerCase().includes(searchQuery) })
+  }, [searchText, nonSoulboundNFTs])
 
   return (
     <div className='nft bridge page'>
@@ -128,38 +161,76 @@ const NftBridge = () => {
                   <ChainSelector selectedChain={sourceChainId} setSelectedChain={setSourceChainId} />
                 </div>
                 <div className='right'>
-                  <label htmlFor='search' className='label-hidden'>Search </label>
-                  <input
-                    id='search'
-                    placeholder='Search'
-                    className='search input'
-                    aria-label='Search'
-                  />
+                  <div className='search wrapper'>
+                    <Icon size='lg' variant='search-lg' />
+                    <label htmlFor='search' className='label-hidden'>Search </label>
+                    <input
+                      value={searchText}
+                      onChange={(e) => {
+                        setSearchText(e.target.value)
+                      }}
+                      id='search'
+                      placeholder='Search'
+                      className='search input'
+                      aria-label='Search'
+                    />
+                  </div>
 
-                  <Button
-                    variant='secondary-gray'
-                    size='md'
-                    iconTrailing='filter-lines'
-                    classname='filter button'
-                  >
-                    Sort by: Recent
-                  </Button>
                 </div>
 
               </div>
 
               <div className='actions'>
                 <Link href='/my-collection/bridge/transactions'>Transaction History</Link>
-                <Button variant='secondary-gray'>
+                <Button
+                  variant='secondary-gray' onClick={() => {
+                    setShowImport(true)
+                  }}
+                >
                   <Icon variant='plus' />
                 </Button>
               </div>
 
+              <NFTDetailsModal
+                nft={info} open={!!info} close={() => {
+                  setInfo(undefined)
+                }}
+              />
+
+              <ImportNFT
+                open={showImport}
+                close={() => {
+                  setShowImport(false)
+                }}
+              />
+
+              <BridgingResults
+                departureChainId={sourceChainId}
+                destinationChainId={destinationChainId}
+                open={!!transaction}
+                close={() => {
+                  setSelectedNfts([])
+                  setTransaction(undefined)
+                }}
+                transaction={transaction}
+                nfts={nonSoulboundNFTs.filter((nft) => { return selectedNfts.includes(nft.tokenId) })}
+              />
+
+              <LoaderPopup
+                title='Bridging NFTs'
+                visible={sending}
+              />
+
               <div className='nft selection'>
                 <div className='nft list'>
-                  {nonSoulboundNFts.map((nft) => {
+                  {filteredNfts.map((nft) => {
                     return (
                       <NftCard
+                        onInfo={() => {
+                          setInfo(
+                            nft
+                          )
+                        }}
                         selectable
                         checked={selectedNfts.includes(nft.tokenId)}
                         setChecked={(selected) => {
@@ -181,7 +252,7 @@ const NftBridge = () => {
                     )
                   })}
                 </div>
-                {nonSoulboundNFts.length === 0 && (
+                {filteredNfts.length === 0 && (
                   <div className='no nft found'>
                     <img src='/assets/images/bridge/bridge_no_nft_bg.webp' alt='Background NFT' srcset='' />
                     <div className='text'>No NFTs Found</div>
@@ -200,10 +271,12 @@ const NftBridge = () => {
                 placeholder='Destination Address'
                 className='destination input'
                 aria-label='Destination Address'
+                value={account}
+                disabled
               />
 
               <div className='selected info'>
-                <h3>NFTs Selected <span>{selectedNfts.length}/{nonSoulboundNFts.length}</span></h3>
+                <h3>NFTs Selected <span>{selectedNfts.length}/{nonSoulboundNFTs.length}</span></h3>
                 <div className='balance'>
                   Balance: <span title={balance.long}>{balance.short}</span>
                 </div>
@@ -217,7 +290,7 @@ const NftBridge = () => {
               </div>
               <Button
                 size='2xl'
-                disabled={approving || sending || (isApproved && selectedNfts.length === 0)}
+                disabled={approving || fetchingFees || sending || (isApproved && selectedNfts.length === 0)}
                 onClick={() => {
                   if (isApproved) {
                     return sendNfts()

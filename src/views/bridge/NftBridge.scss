@@ -52,15 +52,26 @@
       }
     }
 
+    .search.wrapper {
+      position: relative;
+
+      svg {
+        top: 12px;
+        left: 14px;
+        position: absolute;
+      }
+    }
+
     input.search {
       padding: 10px 14px;
+      padding-left: 42px;
       @include styles.text-md;
       @include weights.regular;
       border-radius: 8px;
       border: 1px solid colors.$gray-300;
       width: 100%;
       outline: none;
-      width: 202px;
+      width: 320px;
 
       &:focus {
         box-shadow: shadows.$xs, 0px 0px 0px 3px colors.$primary-100;
@@ -184,11 +195,14 @@
       margin-bottom: 96px;
 
       .nft.selection {
+        border-radius: 16px;
+        overflow: hidden;
+        margin-top: 16px;
+
         .nft.list {
           display: grid;
           grid-template-columns: 1fr 1fr 1fr;
           gap: 16px;
-          margin-top: 16px;
         }
 
         .no.nft.found {
@@ -330,7 +344,7 @@
 
   .inner.content {
     input.search {
-      border: 1px solid colors.$gray-800;
+      border-color: colors.$gray-800;
     }
 
     .actions {
@@ -356,6 +370,15 @@
     }
 
     .bridge.section {
+      .nft.selection {
+        .no.nft.found {
+          background-color: #acacac0d;
+          img {
+            opacity: 0.25;
+          }
+        }
+      }
+
       section {
         background-color: colors.$black-900;
         border-color: colors.$gray-800;

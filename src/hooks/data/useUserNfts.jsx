@@ -14,7 +14,7 @@ const useUserNfts = (account, network) => {
     if (!account) { return }
     const nfts = await NftApi.getUserMintedNFTs(account, network)
 
-    const nftsWithDetails = nfts.map(nft => {
+    const nftsWithDetails = (nfts ?? []).map(nft => {
       const level = nft.attributes.find(a => { return a.traitType === 'Level' }).value || 0
       const thumbnail = `${imageOrigin}/thumbnails/${nft.tokenId}.webp`
       const cover = `${imageOrigin}/covers/${nft.tokenId}.webp`
@@ -33,7 +33,7 @@ const useUserNfts = (account, network) => {
     if (updateUserNfts) { updateUserNfts() }
   }, [updateUserNfts])
 
-  return { userNFTs }
+  return { userNFTs, updateUserNfts }
 }
 
 export { useUserNfts }

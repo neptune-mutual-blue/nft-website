@@ -5,4 +5,8 @@ const getExplorerAddressURL = (address, chainId = AppConstants.NETWORK) => {
   return `${chains[chainId].blockExplorerUrls[0]}/address/${address}`
 }
 
-export { getExplorerAddressURL }
+const getExplorerTransactionURL = (hash, chainId = AppConstants.NETWORK) => {
+  return `${chains[chainId].blockExplorerUrls[0]}/tx/${hash}`
+}
+
+export { getExplorerAddressURL, getExplorerTransactionURL }

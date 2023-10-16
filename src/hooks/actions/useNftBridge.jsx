@@ -35,6 +35,9 @@ const useNftBridge = (selectedTokens, destinationChainId, lzAddress) => {
   const [isApproved, setApproved] = useState(false)
   const [sending, setSending] = useState(false)
   const [approving, setApproving] = useState(false)
+  const [fetchingFees, setFetchingFees] = useState(false)
+
+  const [transaction, setTransaction] = useState()
 
   const fetchApproved = useCallback(async () => {
     try {
@@ -85,6 +88,8 @@ const useNftBridge = (selectedTokens, destinationChainId, lzAddress) => {
           description: response?.error ?? 'Unknown Error'
         })
       }
+
+      setTransaction(response[0])
     } catch (err) {
       console.error(err)
     }
@@ -104,6 +109,8 @@ const useNftBridge = (selectedTokens, destinationChainId, lzAddress) => {
   }, [account, library, nativeCurrency])
 
   const estimateFees = useCallback(async () => {
+    setFetchingFees(true)
+
     try {
       const destChainId = bridgeConfig[destinationChainId].lzChainId
 
@@ -114,19 +121,24 @@ const useNftBridge = (selectedTokens, destinationChainId, lzAddress) => {
     } catch (err) {
       console.error(err)
     }
+
+    setFetchingFees(false)
   }, [account, callLz, destinationChainId, nativeCurrency, selectedTokens])
 
   useEffect(() => {
     if (isNftReady && lzAddress && account) {
       fetchApproved()
     }
+  }, [account, fetchApproved, isNftReady, lzAddress])
 
+  useEffect(() => {
     if (selectedTokens.length > 0 && account && isLzReady) {
       estimateFees()
     } else {
       setFees('')
     }
-  }, [account, isLzReady, selectedTokens, estimateFees, fetchApproved, isNftReady, lzAddress])
+    // eslint-disable-next-line
+  }, [selectedTokens, account])
 
   useEffect(() => {
     if (account) {
@@ -146,7 +158,10 @@ const useNftBridge = (selectedTokens, destinationChainId, lzAddress) => {
     sendNfts,
     sending,
     error,
-    setError
+    setError,
+    fetchingFees,
+    transaction,
+    setTransaction
   }
 }
 

@@ -40,7 +40,7 @@ const columns = [
   },
   {
     header: (onSortChange, key) => { return <HeaderCol title='NFT' sort onSortChange={sortType => { return onSortChange(sortType, 'nft') }} key={key} /> },
-    render: (data, key) => { return <RenderNFTTitle name={data.tokenIds.replace('{', '').replace('}', '').split(',').map(x => { return `#${x}` }).join(', ')} key={key} /> }
+    render: (data, key, index, expandedRowIndexes, setExpandedRowIndexes) => { return <RenderNFTTitle index={index} expandedRowIndexes={expandedRowIndexes} setExpandedRowIndexes={setExpandedRowIndexes} count={data.tokens.length} name={data.tokens[0].name} key={key} /> }
   },
   {
     header: (_, key) => { return <HeaderCol title='DEP/DST Chain' key={key} /> },
@@ -76,10 +76,31 @@ const RenderDate = ({ timestamp }) => {
   )
 }
 
-const RenderNFTTitle = ({ name }) => {
+const RenderNFTTitle = ({ name, count, index, expandedRowIndexes, setExpandedRowIndexes }) => {
   return (
     <td className='nft'>
-      {name}
+      <div className='title'>
+
+        {name}
+      </div>
+
+      <div className='dropdown'>
+
+        <div className='badge'>
+          {count}
+        </div>
+        <button onClick={() => {
+          if (expandedRowIndexes.includes(index)) {
+            setExpandedRowIndexes(expandedRowIndexes.filter(x => { return x !== index }))
+          } else {
+            setExpandedRowIndexes([...expandedRowIndexes, index])
+          }
+        }}
+        >
+          <Icon size='md' variant={expandedRowIndexes.includes(index) ? 'chevron-up' : 'chevron-down'} />
+        </button>
+      </div>
+
     </td>
   )
 }

@@ -1,20 +1,32 @@
+import { ethers } from 'ethers'
+
 import Seo from '@/components/Seo/Seo'
+import { bridgeConfig } from '@/config/bridge'
+import { rpcUrls } from '@/lib/connect-wallet/utils/switch-network'
 import { TransactionReceipt } from '@/views/bridge/TransactionReceipt'
 import { createClient } from '@layerzerolabs/scan-client'
 
 export async function getServerSideProps (context) {
   const client = createClient('testnet')
 
+  const txHash = context.params.txHash
+
   const { messages } = await client.getMessagesBySrcTxHash(
-    context.params.txHash
+    txHash
   )
 
-  console.log(messages)
+  const tx = messages?.[0]
+  const depChain = Object.values(bridgeConfig).find((x) => { return x.lzChainId === parseInt(tx.srcChainId) })
+
+  const etherscanProvider = new ethers.providers.JsonRpcProvider(rpcUrls[depChain.chainId][0])
+
+  const txReceipt = await etherscanProvider.getTransaction(txHash)
 
   return {
     props: {
       txDetails: {
-        messages
+        messages,
+        fees: txReceipt.value.toString()
       }
     }
   }

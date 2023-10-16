@@ -9,7 +9,7 @@ const ImportNFT = ({ open, close }) => {
       visible={open}
       setVisible={close}
     >
-      <button className='close'>
+      <button className='close' onClick={close}>
         <Icon variant='x-close' size='xl' />
       </button>
 
