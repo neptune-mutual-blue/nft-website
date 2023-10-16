@@ -1,9 +1,3 @@
-import {
-  useCallback,
-  useEffect,
-  useState
-} from 'react'
-
 import Link from 'next/link'
 
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
@@ -18,8 +12,7 @@ import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import { Icon } from '@/elements/Icon'
 import useUserInfo from '@/hooks/data/useUserInfo'
 import { useUserMilestonesData } from '@/hooks/data/useUserMilestonesData'
-import { NftApi } from '@/service/nft-api'
-import { imageOrigin } from '@/services/marketplace-api'
+import { useUserNfts } from '@/hooks/data/useUserNfts'
 import { formatDollar } from '@/utils/currencyHelpers'
 import { formatNumber } from '@/utils/number-format'
 import { useWeb3React } from '@web3-react/core'
@@ -41,30 +34,7 @@ const MyCollection = ({ premiumNfts }) => {
 
   const { points, pointsRemaining, requiredPoints, totalLiquidityAdded, totalPolicyPurchased } = useUserMilestonesData()
 
-  const [userNFTs, setUserNFTs] = useState([])
-
-  const updateUserNfts = useCallback(async () => {
-    if (!account) { return }
-    const nfts = await NftApi.getUserMintedNFTs(account)
-
-    const nftsWithDetails = nfts.map(nft => {
-      const level = nft.attributes.find(a => { return a.traitType === 'Level' }).value || 0
-      const thumbnail = `${imageOrigin}/thumbnails/${nft.tokenId}.webp`
-      const cover = `${imageOrigin}/covers/${nft.tokenId}.webp`
-
-      return {
-        ...nft,
-        level,
-        thumbnail,
-        cover
-      }
-    })
-    setUserNFTs(nftsWithDetails)
-  }, [account])
-
-  useEffect(() => {
-    if (updateUserNfts) { updateUserNfts() }
-  }, [updateUserNfts])
+  const { userNFTs } = useUserNfts(account)
 
   return (
     <div className='my collection page'>
@@ -129,14 +99,14 @@ const MyCollection = ({ premiumNfts }) => {
             </div>
           </div>
 
-          {/* <div className='bridge banner'>
+          <div className='bridge banner'>
             <p>
               Move your NFTs across different blockchain networks.
             </p>
             <Link href='/my-collection/bridge'>
               Bridge My NFTs
             </Link>
-          </div> */}
+          </div>
 
           <div className='minted nfts'>
             <h3>NFTs You've Minted</h3>
@@ -162,16 +132,21 @@ const MyCollection = ({ premiumNfts }) => {
                       <div key={i} className='nft'>
                         <NftImageWithExpand nft={nft} isCover={false} />
 
-                        <Tags
-                          tags={[
-                            {
-                              id: '1',
-                              slug: '1',
-                              text: nft.soulbound ? 'Soulbound' : 'Level ' + nft.level,
-                              color: nft.soulbound ? 'nft-soulbound' : 'level' + nft.level
-                            }
-                          ]}
-                        />
+                        <div className='details with chain'>
+                          <Tags
+                            tags={[
+                              {
+                                id: '1',
+                                slug: '1',
+                                text: nft.soulbound ? 'Soulbound' : 'Level ' + nft.level,
+                                color: nft.soulbound ? 'nft-soulbound' : 'level' + nft.level
+                              }
+                            ]}
+                          />
+
+                          <img src={`/assets/images/chains/${nft.tokenOwner?.[0].chainId}.png`} alt={nft.tokenOwner?.[0].chainId} />
+
+                        </div>
 
                         <Link href={`/marketplace/${nft.tokenId}`} target='_blank'>
                           <p className='category'>{nft.family}</p>

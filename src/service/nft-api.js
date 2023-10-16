@@ -86,6 +86,14 @@ const getMerkleTree = async (live = false) => {
   return data
 }
 
+const getBridgeTransactions = async (account) => {
+  const response = await fetch(origin + '/bridge/' + AppConstants.NETWORK + '/account/transactions/' + account)
+
+  const data = await response.json()
+
+  return data
+}
+
 const getMerkleLeaf = async (account, live = false) => {
   const response = await fetch(origin + '/merkle/' + AppConstants.NETWORK + '/tree/' + (live ? 'live/' : '') + account)
 
@@ -136,9 +144,9 @@ const getPersona = async (account) => {
   }
 }
 
-const getUserMintedNFTs = async (account) => {
+const getUserMintedNFTs = async (account, network) => {
   const { nftApiBaseURL, NETWORK } = AppConstants
-  const url = `${nftApiBaseURL}/marketplace/${NETWORK}/account/collection/${account}`
+  const url = `${nftApiBaseURL}/marketplace/${network || NETWORK}/account/collection/${account}`
 
   try {
     const res = await fetch(url, { headers: { 'Content-Type': 'application/json' } })
@@ -165,7 +173,8 @@ const NftApi = {
   getMerkleLeaf,
   getUserInfoFromApi,
   getPersona,
-  getUserMintedNFTs
+  getUserMintedNFTs,
+  getBridgeTransactions
 }
 
 export { NftApi }

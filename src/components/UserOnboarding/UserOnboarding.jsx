@@ -100,7 +100,7 @@ const UserOnboarding = () => {
           {children}
         </div>
 
-        {displayHint && (
+        {displayHint && !checkboxNeverShow && (
           <MinimizedInfo hide={() => {
             setDisplayHint(false)
           }}

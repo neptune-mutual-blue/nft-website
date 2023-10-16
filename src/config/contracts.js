@@ -1,4 +1,5 @@
 import ERC20_ABI from '../abis/IERC20.json'
+import layerZeroNftABI from '../abis/ILzONft721.json'
 import merkleProofMinterABI from '../abis/IMerkleProofMinter.json'
 import neptuneLegendsABI from '../abis/INeptuneLegends.json'
 import policyProofMinterABI from '../abis/IPolicyProofMinter.json'
@@ -7,7 +8,8 @@ export const ContractAbis = {
   POLICY_PROOF_MINTER: policyProofMinterABI,
   MERKLE_PROOF_MINTER: merkleProofMinterABI,
   NEPTUNE_LEGENDS: neptuneLegendsABI,
-  ERC20: ERC20_ABI
+  ERC20: ERC20_ABI,
+  LZ_NFT: layerZeroNftABI
 }
 
 export const ContractAddresses = {

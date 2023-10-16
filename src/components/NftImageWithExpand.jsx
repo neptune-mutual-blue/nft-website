@@ -29,12 +29,12 @@ const NftImageWithExpand = ({ nft, isCover }) => {
         </button>
 
         <img
-          src={nft.cover} alt={nft.name}
+          src={nft?.cover} alt={nft?.name}
         />
       </div>
 
       <img
-        src={isCover ? nft.cover : nft.thumbnail} alt={nft.name}
+        src={isCover ? nft?.cover : nft?.thumbnail} alt={nft?.name}
       />
       <button
         className='fullscreen icon' role='button' tabIndex={0} onClick={() => {

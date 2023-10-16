@@ -12,6 +12,7 @@ import { ThemeProvider } from '@/contexts/ThemeContext'
 import { getLibrary } from '@/lib/connect-wallet/web3'
 import { Web3ReactProvider } from '@web3-react/core'
 
+const excludeScriptPaths = ['/my-collection/bridge/receipt/[txHash]']
 const UserOnboarding = dynamic(() => { return import('@/components/UserOnboarding/UserOnboarding') }, { ssr: false })
 
 export default function App ({ Component, pageProps }) {
@@ -48,9 +49,15 @@ export default function App ({ Component, pageProps }) {
 
       </Web3ReactProvider>
 
-      <Script strategy='lazyOnload' src='/scripts/hamburger.js' />
-      <Script strategy='lazyOnload' src='/scripts/mega-menu.js' />
-      <Script strategy='lazyOnload' src='/scripts/video.js' />
+      {
+        !excludeScriptPaths.includes(router.pathname) && (
+          <>
+            <Script strategy='lazyOnload' src='/scripts/hamburger.js' />
+            <Script strategy='lazyOnload' src='/scripts/mega-menu.js' />
+            <Script strategy='lazyOnload' src='/scripts/video.js' />
+          </>
+        )
+      }
     </>
   )
 }
