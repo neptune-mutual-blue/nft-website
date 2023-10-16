@@ -42,7 +42,7 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
 
   const { owner, loading: ownerLoading } = useTokenOwner(nftDetails.tokenId)
 
-  const currentOwner = owner || nftDetails.tokenOwner
+  const currentOwner = owner || nftDetails.tokenOwner?.[0]?.owner
 
   const getDisabledReason = () => {
     if (!active) {
