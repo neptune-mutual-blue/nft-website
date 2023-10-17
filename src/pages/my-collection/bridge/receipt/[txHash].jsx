@@ -2,6 +2,7 @@ import { ethers } from 'ethers'
 
 import Seo from '@/components/Seo/Seo'
 import { bridgeConfig } from '@/config/bridge'
+import { ContractAbis } from '@/config/contracts'
 import { rpcUrls } from '@/lib/connect-wallet/utils/switch-network'
 import { TransactionReceipt } from '@/views/bridge/TransactionReceipt'
 import { createClient } from '@layerzerolabs/scan-client'
@@ -16,17 +17,31 @@ export async function getServerSideProps (context) {
   )
 
   const tx = messages?.[0]
-  const depChain = Object.values(bridgeConfig).find((x) => { return x.lzChainId === parseInt(tx.srcChainId) })
+  const depChain = Object.values(bridgeConfig).find((x) => { return x.lzChainId === parseInt(tx?.srcChainId) })
 
-  const etherscanProvider = new ethers.providers.JsonRpcProvider(rpcUrls[depChain.chainId][0])
+  let txReceipt
+  let tokenIds
 
-  const txReceipt = await etherscanProvider.getTransaction(txHash)
+  const inter = new ethers.utils.Interface(ContractAbis.LZ_NFT)
+
+  try {
+    const etherscanProvider = new ethers.providers.JsonRpcProvider(rpcUrls[depChain?.chainId]?.[0])
+
+    txReceipt = await etherscanProvider.getTransaction(txHash)
+
+    const decoded = inter.parseTransaction({ data: txReceipt.data, value: txReceipt.value })
+
+    tokenIds = decoded.args._tokenIds.map((id) => { return id.toString() })
+  } catch (err) {
+    console.error(err)
+  }
 
   return {
     props: {
       txDetails: {
         messages,
-        fees: txReceipt.value.toString()
+        fees: txReceipt?.value.toString() ?? '0',
+        tokenIds: tokenIds ?? []
       }
     }
   }

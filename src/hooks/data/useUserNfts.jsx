@@ -11,7 +11,7 @@ const useUserNfts = (account, network) => {
   const [userNFTs, setUserNFTs] = useState([])
 
   const updateUserNfts = useCallback(async () => {
-    if (!account) { return }
+    if (!account) { return setUserNFTs([]) }
     const nfts = await NftApi.getUserMintedNFTs(account, network)
 
     const nftsWithDetails = (nfts ?? []).map(nft => {

@@ -14,6 +14,8 @@ const TransactionReceipt = ({ txDetails }) => {
 
   const tx = txDetails.messages?.[0]
 
+  const tokenIds = txDetails.tokenIds
+
   const depChain = Object.values(bridgeConfig).find((x) => { return x.lzChainId === parseInt(tx.srcChainId) })
   const dstChain = Object.values(bridgeConfig).find((x) => { return x.lzChainId === parseInt(tx.dstChainId) })
 
@@ -30,11 +32,7 @@ const TransactionReceipt = ({ txDetails }) => {
     depHash: tx?.srcTxHash,
     destHash: tx?.dstTxHash,
     txHash: tx?.srcBlockHash,
-    nfts: [
-      'Diabolic Merman Serpent #172001',
-      'Sabersquatch #153771',
-      'Epic Aquavallo #145216'
-    ],
+    nfts: tokenIds.map(tokenId => { return `#${tokenId}` }),
     fees: formatNpmToken(txDetails.fees, depNativeCurrency.decimals, depNativeCurrency.symbol)
   }
 

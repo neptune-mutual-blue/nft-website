@@ -7,17 +7,14 @@ import {
 
 import { ToastContext } from '@/components/Toast/Toast'
 import { bridgeConfig } from '@/config/bridge'
-import {
-  ContractAbis,
-  ContractAddresses
-} from '@/config/contracts'
+import { ContractAbis } from '@/config/contracts'
 import { AppConstants } from '@/constants/AppConstants'
 import { useContractCall } from '@/hooks/useContractCall'
 import { chains } from '@/lib/connect-wallet/utils/switch-network'
 import { formatNpmToken } from '@/utils/currencyHelpers'
 import { useWeb3React } from '@web3-react/core'
 
-const useNftBridge = (selectedTokens, destinationChainId, lzAddress) => {
+const useNftBridge = (selectedTokens, destinationChainId, nftAddress, lzAddress) => {
   const [balance, setBalance] = useState('')
   const [fees, setFees] = useState('')
   const [feesNumeric, setFeesNumeric] = useState(0)
@@ -26,8 +23,8 @@ const useNftBridge = (selectedTokens, destinationChainId, lzAddress) => {
 
   const nativeCurrency = chains[chainId]?.nativeCurrency.name ?? ''
 
-  const { callMethod: callLz, isReady: isLzReady } = useContractCall({ abi: ContractAbis.LZ_NFT, address: bridgeConfig[AppConstants.NETWORK].lzProxyONft })
-  const { callMethod: callNft, isReady: isNftReady } = useContractCall({ abi: ContractAbis.NEPTUNE_LEGENDS, address: ContractAddresses.NEPTUNE_LEGENDS })
+  const { callMethod: callLz, isReady: isLzReady } = useContractCall({ abi: ContractAbis.LZ_NFT, address: lzAddress })
+  const { callMethod: callNft, isReady: isNftReady } = useContractCall({ abi: ContractAbis.NEPTUNE_LEGENDS, address: nftAddress })
 
   const [error, setError] = useState('')
   const { showToast, setOpen: setToastOpen } = useContext(ToastContext)
