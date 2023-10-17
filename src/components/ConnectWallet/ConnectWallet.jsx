@@ -7,6 +7,7 @@ import {
 import { ConnectedDropdown } from '@/components/ConnectWallet/ConnectedDropdown'
 import RippleLoader from '@/components/Loader/RippleLoader'
 import { Modal } from '@/components/Modal/Modal'
+import { AppConstants } from '@/constants/AppConstants'
 import { ThemeContext } from '@/contexts/ThemeContext'
 import { Icon } from '@/elements/Icon'
 import { wallets } from '@/lib/connect-wallet/config/wallets'
@@ -18,10 +19,17 @@ import {
 
 const { Button } = require('@/components/Button/Button')
 
-const ConnectWallet = () => {
+const ConnectWallet = ({ chainId }) => {
   const [popupOpen, setPopupOpen] = useState(false)
 
   const { login, logout } = useAuth()
+
+  // Auto Logout When Necessary to Connect to Other Chain
+  useEffect(() => {
+    if (chainId) {
+      logout()
+    }
+  }, [chainId, logout])
 
   const [isConnecting, setIsConnecting] = useState(false)
 
@@ -51,7 +59,7 @@ const ConnectWallet = () => {
     setConnectorName(wallet.name)
 
     try {
-      login(connectorName, (error) => {
+      login(connectorName, Number(chainId ?? AppConstants.NETWORK), (error) => {
         if (error instanceof UnsupportedChainIdError) {
           setPopupOpen(false)
         }

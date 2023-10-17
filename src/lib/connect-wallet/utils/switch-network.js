@@ -11,6 +11,9 @@ export const rpcUrls = {
   ],
   1: [
     'https://mainnet.infura.io/v3/04f673a8619b4e3f89a49232d453f6f2'
+  ],
+  4002: [
+    'https://rpc.testnet.fantom.network'
   ]
 }
 
@@ -103,9 +106,7 @@ export const addChain = async (provider) => {
   return false
 }
 
-export const setupNetwork = async (provider) => {
-
-  const networkId = AppConstants.NETWORK;
+export const setupNetwork = async (provider, networkId = AppConstants.NETWORK) => {
 
   if (!provider) {
     console.error("Can't setup network - injected provider not found")
@@ -122,6 +123,10 @@ export const setupNetwork = async (provider) => {
     // This error code indicates that the chain has not been added to MetaMask.
     if (switchError.code === 4902) {
       return addChain(provider)
+    }
+
+    if (switchError.code === -32002){
+      return true
     }
     // handle other "switch" errors
     console.error(switchError)

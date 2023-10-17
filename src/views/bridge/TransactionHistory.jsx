@@ -44,7 +44,7 @@ const TransactionHistory = () => {
   const [transactions, setTransactions] = useState([])
   const [loading, setLoading] = useState(false)
 
-  const { account } = useWeb3React()
+  const { account, active } = useWeb3React()
 
   const getTransactions = async () => {
     setLoading(true)
@@ -65,6 +65,8 @@ const TransactionHistory = () => {
   useEffect(() => {
     if (account) {
       getTransactions()
+    } else {
+      setTransactions([])
     }
     // eslint-disable-next-line
   }, [account])
@@ -160,10 +162,12 @@ const TransactionHistory = () => {
                     : (
                       <tr>
                         <td className='empty' colSpan={columns.length} align='center'>
-                          <p>You have made no transactions yet</p>
-                          <Link href='/my-collection/bridge'>
-                            Bridge NFT
-                          </Link>
+                          <p>{active ? 'You have made no transactions yet' : 'Connect Your Wallet'}</p>
+                          {active && (
+                            <Link href='/my-collection/bridge'>
+                              Bridge NFT
+                            </Link>
+                          )}
                         </td>
                       </tr>
                       )

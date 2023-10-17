@@ -1,3 +1,5 @@
+import { AppConstants } from '@/constants/AppConstants'
+
 import { ConnectorNames } from '../config/connectors'
 
 /**
@@ -5,18 +7,18 @@ import { ConnectorNames } from '../config/connectors'
  *
  * @param {string} name
  */
-export const getConnectorByName = async (name) => {
+export const getConnectorByName = async (name, chainId = AppConstants.NETWORK) => {
   switch (name) {
     case ConnectorNames.Injected: {
       const c = await import('./injected/connector')
 
-      return c.getConnector()
+      return c.getConnector(chainId)
     }
 
     case ConnectorNames.OKXWallet: {
       const c = await import('./okx-wallet/connector')
 
-      return c.getConnector()
+      return c.getConnector(chainId)
     }
 
     // case ConnectorNames.BSC: {
@@ -28,19 +30,19 @@ export const getConnectorByName = async (name) => {
     case ConnectorNames.Gnosis: {
       const c = await import('./gnosis-safe/connector')
 
-      return c.getConnector()
+      return c.getConnector(chainId)
     }
 
     case ConnectorNames.CoinbaseWallet: {
       const c = await import('./coinbase-wallet/connector')
 
-      return c.getConnector()
+      return c.getConnector(chainId)
     }
 
     case ConnectorNames.BinanceWallet: {
       const c = await import('./binance-wallet/connector')
 
-      return c.getConnector()
+      return c.getConnector(chainId)
     }
 
     default:

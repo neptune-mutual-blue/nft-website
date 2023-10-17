@@ -1,10 +1,10 @@
 import React, {
-  useEffect,
   useMemo,
   useState
 } from 'react'
 
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { Button } from '@/components/Button/Button'
@@ -40,9 +40,9 @@ const crumbs = [
 ]
 
 const NftBridge = () => {
-  const { account } = useWeb3React()
+  const { account, active } = useWeb3React()
 
-  const { userNFTs, updateUserNfts } = useUserNfts(account)
+  const { userNFTs } = useUserNfts(account)
 
   const [info, setInfo] = useState()
 
@@ -52,13 +52,13 @@ const NftBridge = () => {
 
   const [showImport, setShowImport] = useState(false)
 
-  const currentNetwork = bridgeConfig[AppConstants.NETWORK]
+  const [sourceChainId, setSourceChainId] = useState(AppConstants.NETWORK)
+
+  const currentNetwork = bridgeConfig[sourceChainId]
 
   const otherNetworks = Object.values(bridgeConfig).filter((value) => { return value.chainId !== currentNetwork.chainId && value.isTestnet === currentNetwork.isTestnet })
 
   const initialDestinationNetwork = otherNetworks.length > 0 ? otherNetworks[0] : currentNetwork
-
-  const [sourceChainId, setSourceChainId] = useState(AppConstants.NETWORK)
 
   const [destinationChainId, setDestinationChainId] = useState(initialDestinationNetwork.chainId)
 
@@ -77,27 +77,22 @@ const NftBridge = () => {
     error,
     fetchingFees,
     setError,
-    transaction,
-    setTransaction
-  } = useNftBridge(selectedNfts, destinationChainId, currentNetwork.lzProxyONft || currentNetwork.lzONft721)
-
-  useEffect(() => {
-    if (transaction) {
-      updateUserNfts()
-    }
-
-    // eslint-disable-next-line
-  }, [transaction])
+    transaction
+  } = useNftBridge(selectedNfts, destinationChainId, currentNetwork.neptuneLegends || currentNetwork.lzONft721, currentNetwork.lzProxyONft || currentNetwork.lzONft721)
 
   const [searchText, setSearchText] = useState('')
 
   const filteredNfts = useMemo(() => {
     const searchQuery = searchText.toLowerCase().trim()
 
-    if (!searchQuery) { return nonSoulboundNFTs }
+    const nfts = nonSoulboundNFTs.filter((nft) => { return nft?.tokenOwner?.[0]?.chainId?.toString() === sourceChainId.toString() })
 
-    return nonSoulboundNFTs.filter((nft) => { return nft.tokenId.toString().includes(searchQuery) || nft.name.toLowerCase().includes(searchQuery) || nft.nickname.toLowerCase().includes(searchQuery) })
-  }, [searchText, nonSoulboundNFTs])
+    if (!searchQuery) { return nfts }
+
+    return nfts.filter((nft) => { return nft.tokenId.toString().includes(searchQuery) || nft.name.toLowerCase().includes(searchQuery) || nft.nickname.toLowerCase().includes(searchQuery) })
+  }, [searchText, nonSoulboundNFTs, sourceChainId])
+
+  const router = useRouter()
 
   return (
     <div className='nft bridge page'>
@@ -105,7 +100,9 @@ const NftBridge = () => {
 
         <div className='breadcrumb and connect wallet'>
           <Breadcrumb items={crumbs} />
-          <ConnectWallet />
+          {stage === 2 && (
+            <ConnectWallet chainId={sourceChainId} />
+          )}
         </div>
 
         <EvmErrorModal
@@ -209,8 +206,7 @@ const NftBridge = () => {
                 destinationChainId={destinationChainId}
                 open={!!transaction}
                 close={() => {
-                  setSelectedNfts([])
-                  setTransaction(undefined)
+                  router.push('/my-collection/bridge/transactions')
                 }}
                 transaction={transaction}
                 nfts={nonSoulboundNFTs.filter((nft) => { return selectedNfts.includes(nft.tokenId) })}
@@ -255,7 +251,7 @@ const NftBridge = () => {
                 {filteredNfts.length === 0 && (
                   <div className='no nft found'>
                     <img src='/assets/images/bridge/bridge_no_nft_bg.webp' alt='Background NFT' srcset='' />
-                    <div className='text'>No NFTs Found</div>
+                    <div className='text'>{active ? 'No NFTs Found' : 'Connect Your Wallet'}</div>
                   </div>
                 )}
               </div>

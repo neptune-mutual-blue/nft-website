@@ -1,6 +1,6 @@
-import { SUPPORTED_CHAINS } from '@/lib/connect-wallet/config/supported-chains'
+import { AppConstants } from '@/constants/AppConstants'
 import { InjectedConnector } from '@web3-react/injected-connector'
 
-export const getConnector = () => {
-  return new InjectedConnector({supportedChainIds: SUPPORTED_CHAINS})
+export const getConnector = (chainId = AppConstants.NETWORK) => {
+  return new InjectedConnector({supportedChainIds: [chainId]})
 }

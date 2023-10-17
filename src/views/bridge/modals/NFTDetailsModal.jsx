@@ -47,8 +47,8 @@ const NFTDetailsModal = ({ open, close, nft }) => {
           <div className='detail card'>
             <p className='title'>Chain</p>
             <div className='value chain'>
-              <Icon variant='ethereum-round-blue' size='xl' />
-              <p>{nft?.tokenId}</p>
+              <img src={`/assets/images/chains/${nft?.tokenOwner?.[0]?.chainId}.png`} alt={nft?.tokenOwner?.[0].chainId} />
+              <p>{nft?.tokenOwner?.[0]?.chainId}</p>
             </div>
           </div>
         </div>
