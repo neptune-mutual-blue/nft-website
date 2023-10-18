@@ -5,9 +5,13 @@
 
 .bridging.results.modal.DialogContent {
   padding: 32px;
-  background-image: url("/assets/images/bridge/blue-bg.png");
+  background-image: url("/assets/images/bridge/blue-bg.webp");
   border: none;
   width: 650px;
+
+  @media (max-width: 767px) {
+    width: calc(100% - 32px);
+  }
 
   button.close {
     position: absolute;
@@ -41,6 +45,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+
+      @media (max-width: 767px) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
 
       p.key {
         @include styles.text-sm;
@@ -121,6 +130,10 @@
         display: flex;
         gap: 16px;
         margin-bottom: 8px;
+
+        @media (max-width: 767px) {
+          flex-direction: column;
+        }
 
         img {
           border-radius: 6px;

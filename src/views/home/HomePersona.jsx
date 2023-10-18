@@ -109,11 +109,11 @@ const HomePersona = ({ characters }) => {
 
     if (userPersona.length === 0) { return undefined }
 
-    const nft = characters.find((character) => { return character.level === nextLevel && (character.level === 7 || character.role === userPersona[Math.floor(nextLevel / 2)]) })
+    const nft = characters.find((character) => { return character.level === nextLevel && (character.level === 7 || character.role === userPersona[Math.floor((nextLevel - 1) / 2)]) })
 
     return ({
       image: nft.thumbnail,
-      url: `/marketplace?roles=${userPersona[0]}&level=${nextLevel}`,
+      url: `/marketplace?roles=${userPersona[Math.floor((nextLevel - 1) / 2)]}&level=${nextLevel}&minted=false`,
       soulbound: false
     })
   }, [characters, userLevel, userPersona, boundToken])

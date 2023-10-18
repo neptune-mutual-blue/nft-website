@@ -1,4 +1,5 @@
 import React, {
+  useEffect,
   useMemo,
   useState
 } from 'react'
@@ -20,7 +21,6 @@ import { useUserNfts } from '@/hooks/data/useUserNfts'
 import { imageOrigin } from '@/services/marketplace-api'
 import ChainSelector from '@/views/bridge/ChainSelector'
 import { BridgingResults } from '@/views/bridge/modals/BridgingResults'
-import { ImportNFT } from '@/views/bridge/modals/ImportNFT'
 import { NFTDetailsModal } from '@/views/bridge/modals/NFTDetailsModal'
 import { useWeb3React } from '@web3-react/core'
 
@@ -50,8 +50,6 @@ const NftBridge = () => {
 
   const [selectedNfts, setSelectedNfts] = useState([])
 
-  const [showImport, setShowImport] = useState(false)
-
   const [sourceChainId, setSourceChainId] = useState(AppConstants.NETWORK)
 
   const currentNetwork = bridgeConfig[sourceChainId]
@@ -65,6 +63,12 @@ const NftBridge = () => {
   // Stage 1: Source & Destination Selection
   // Stage 2: Bridge
   const [stage, setStage] = useState(1)
+
+  useEffect(() => {
+    if (!active) {
+      setSelectedNfts([])
+    }
+  }, [active])
 
   const {
     balance,
@@ -93,6 +97,14 @@ const NftBridge = () => {
   }, [searchText, nonSoulboundNFTs, sourceChainId])
 
   const router = useRouter()
+
+  useEffect(() => {
+    if (Number(sourceChainId) === Number(destinationChainId)) {
+      const currentNetwork = bridgeConfig[sourceChainId]
+      const otherNetworks = Object.values(bridgeConfig).filter((value) => { return value.chainId !== currentNetwork.chainId && value.isTestnet === currentNetwork.isTestnet })
+      setDestinationChainId(otherNetworks[0].chainId)
+    }
+  }, [sourceChainId, destinationChainId])
 
   return (
     <div className='nft bridge page'>
@@ -134,9 +146,14 @@ const NftBridge = () => {
                     <ChainSelector selectedChain={destinationChainId} setSelectedChain={setDestinationChainId} />
                   </div>
 
-                  <div className='vertical switch'>
+                  <button
+                    onClick={() => {
+                      setDestinationChainId(sourceChainId)
+                      setSourceChainId(destinationChainId)
+                    }} className='vertical switch'
+                  >
                     <Icon variant='switch-vertical-02' size='lg' />
-                  </div>
+                  </button>
                 </div>
                 <Button
                   type='primary' size='2xl' onClick={() => {
@@ -177,27 +194,59 @@ const NftBridge = () => {
 
               </div>
 
-              <div className='actions'>
-                <Link href='/my-collection/bridge/transactions'>Transaction History</Link>
-                <Button
-                  variant='secondary-gray' onClick={() => {
-                    setShowImport(true)
-                  }}
-                >
-                  <Icon variant='plus' />
-                </Button>
+              <div className='rest content'>
+                <div className='actions'>
+                  <Link href='/my-collection/bridge/transactions'>Transaction History</Link>
+                </div>
+
+                <div className='nft selection'>
+                  <div className='nft list'>
+                    {filteredNfts.map((nft) => {
+                      return (
+                        <NftCard
+                          onInfo={() => {
+                            setInfo(
+                              nft
+                            )
+                          }}
+                          selectable
+                          checked={selectedNfts.includes(nft.tokenId)}
+                          setChecked={(selected) => {
+                            if (selected && !selectedNfts.includes(nft.tokenId)) {
+                              return setSelectedNfts([...selectedNfts, nft.tokenId])
+                            }
+
+                            if (!selected && selectedNfts.includes(nft.tokenId)) {
+                              return setSelectedNfts(selectedNfts.filter(x => {
+                                return x !== nft.tokenId
+                              }))
+                            }
+                          }}
+                          key={nft.tokenId}
+                          name={nft.nickname}
+                          nftId={nft.tokenId}
+                          views={nft.views}
+                          count={nft.siblings}
+                          image={`${imageOrigin}/thumbnails/${nft.tokenId}.webp`}
+                          soulbound={nft.soulbound}
+                          minted={!!nft.tokenOwner}
+                        />
+                      )
+                    })}
+                  </div>
+                  {filteredNfts.length === 0 && (
+                    <div className='no nft found'>
+                      <img src='/assets/images/bridge/bridge_no_nft_bg.webp' alt='Background NFT' srcset='' />
+                      <div className='text'>{active ? 'No NFTs Found' : 'Connect Your Wallet'}</div>
+                    </div>
+                  )}
+                </div>
+
               </div>
 
               <NFTDetailsModal
                 nft={info} open={!!info} close={() => {
                   setInfo(undefined)
-                }}
-              />
-
-              <ImportNFT
-                open={showImport}
-                close={() => {
-                  setShowImport(false)
                 }}
               />
 
@@ -217,59 +266,12 @@ const NftBridge = () => {
                 visible={sending}
               />
 
-              <div className='nft selection'>
-                <div className='nft list'>
-                  {filteredNfts.map((nft) => {
-                    return (
-                      <NftCard
-                        onInfo={() => {
-                          setInfo(
-                            nft
-                          )
-                        }}
-                        selectable
-                        checked={selectedNfts.includes(nft.tokenId)}
-                        setChecked={(selected) => {
-                          if (selected) {
-                            setSelectedNfts([...selectedNfts, nft.tokenId])
-                          } else {
-                            setSelectedNfts(selectedNfts.filter(x => { return x !== nft.tokenId }))
-                          }
-                        }}
-                        key={nft.tokenId}
-                        name={nft.nickname}
-                        nftId={nft.tokenId}
-                        views={nft.views}
-                        count={nft.siblings}
-                        image={`${imageOrigin}/thumbnails/${nft.tokenId}.webp`}
-                        soulbound={nft.soulbound}
-                        minted={!!nft.tokenOwner}
-                      />
-                    )
-                  })}
-                </div>
-                {filteredNfts.length === 0 && (
-                  <div className='no nft found'>
-                    <img src='/assets/images/bridge/bridge_no_nft_bg.webp' alt='Background NFT' srcset='' />
-                    <div className='text'>{active ? 'No NFTs Found' : 'Connect Your Wallet'}</div>
-                  </div>
-                )}
-              </div>
             </section>
             <section className='destination'>
               <div className='chain'>
                 Destination
                 <ChainSelector selectedChain={destinationChainId} setSelectedChain={setDestinationChainId} />
               </div>
-
-              <input
-                id='destination'
-                placeholder='Destination Address'
-                className='destination input'
-                aria-label='Destination Address'
-                value={account}
-                disabled
-              />
 
               <div className='selected info'>
                 <h3>NFTs Selected <span>{selectedNfts.length}/{nonSoulboundNFTs.length}</span></h3>
@@ -284,6 +286,13 @@ const NftBridge = () => {
                 </div>
 
               </div>
+
+              {selectedNfts.length > 0 && (
+                <div className='selected mobile'>
+                  <h3>NFTs Selected <span>{selectedNfts.length}/{nonSoulboundNFTs.length}</span></h3>
+                </div>
+              )}
+
               <Button
                 size='2xl'
                 disabled={approving || fetchingFees || sending || (isApproved && selectedNfts.length === 0)}

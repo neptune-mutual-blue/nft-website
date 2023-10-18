@@ -42,7 +42,8 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
 
   const { owner, loading: ownerLoading } = useTokenOwner(nftDetails.tokenId)
 
-  const currentOwner = owner || nftDetails.tokenOwner?.[0]?.owner
+  const currentOwner = nftDetails.tokenOwner?.[0]?.owner || owner
+  const currentOwnerChainId = nftDetails.tokenOwner?.[0]?.chainId || AppConstants.NETWORK
 
   const getDisabledReason = () => {
     if (!active) {
@@ -110,7 +111,7 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
               )}
 
               {currentOwner && (
-                <NftOwner owner={currentOwner} tokenId={nftDetails.tokenId} />
+                <NftOwner owner={currentOwner} chainId={currentOwnerChainId} tokenId={nftDetails.tokenId} />
               )}
 
               <LikeAndShare nft={nftDetails} />
@@ -146,7 +147,7 @@ const NftDetails = ({ nftDetails, premiumNfts }) => {
               <h3>Details</h3>
 
               <div className='links content'>
-                <a href={getExplorerLinkForToken(nftDetails.tokenId)} target='_blank'>
+                <a href={getExplorerLinkForToken(nftDetails.tokenId, AppConstants.NETWORK)} target='_blank'>
                   <Icon variant={chains[AppConstants.NETWORK].explorerIcon} />
                   View on {chains[AppConstants.NETWORK].explorerName}
                   <Icon variant='arrow-right' />

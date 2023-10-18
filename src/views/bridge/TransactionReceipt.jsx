@@ -6,7 +6,6 @@ import { chains } from '@/lib/connect-wallet/utils/switch-network'
 import { formatNpmToken } from '@/utils/currencyHelpers'
 import { getDateInFormat } from '@/utils/date'
 
-import NpmDarkLogo from '../../elements/npm/npm-logo-dark-mode.svg'
 import NpmLightLogo from '../../elements/npm/npm-logo-light-mode.svg'
 
 const TransactionReceipt = ({ txDetails }) => {
@@ -42,8 +41,7 @@ const TransactionReceipt = ({ txDetails }) => {
         <div className='header'>
           <a className='logo' href={AppConstants.neptunemutualOrigin}>
             <span className='sr-only'>Neptune Mutual</span>
-            <span className='light only'><NpmLightLogo /></span>
-            <span className='dark only'><NpmDarkLogo /></span>
+            <NpmLightLogo />
           </a>
 
           <Link href={nftDomain.href}>
