@@ -117,9 +117,9 @@ const BridgingResults = ({ open, close, departureChainId, destinationChainId, tr
           </div>
         </div>
 
-        <a target='_blank' href={`/my-collection/bridge/receipt/${transaction?.hash}`}>
+        <a target='_blank' href='/my-collection/bridge/transactions'>
           <PrimaryButton>
-            View Receipt
+            View Transaction History
           </PrimaryButton>
         </a>
       </div>
