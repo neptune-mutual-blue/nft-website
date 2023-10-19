@@ -9,6 +9,8 @@ import { NftNickname } from '@/components/NftNickname'
 import { Progress } from '@/components/Progress/Progress'
 import { Tags } from '@/components/Tags/Tags'
 import { CustomTooltip } from '@/components/Tooltip/Tooltip'
+import { bridgeConfig } from '@/config/bridge'
+import { AppConstants } from '@/constants/AppConstants'
 import { Icon } from '@/elements/Icon'
 import useUserInfo from '@/hooks/data/useUserInfo'
 import { useUserMilestonesData } from '@/hooks/data/useUserMilestonesData'
@@ -99,14 +101,16 @@ const MyCollection = ({ premiumNfts }) => {
             </div>
           </div>
 
-          <div className='bridge banner'>
-            <p>
-              Move your NFTs across different blockchain networks.
-            </p>
-            <Link href='/my-collection/bridge'>
-              Bridge My NFTs
-            </Link>
-          </div>
+          {AppConstants.NETWORK in bridgeConfig && (
+            <div className='bridge banner'>
+              <p>
+                Move your NFTs across different blockchain networks.
+              </p>
+              <Link href='/my-collection/bridge'>
+                Bridge My NFTs
+              </Link>
+            </div>
+          )}
 
           <div className='minted nfts'>
             <h3>NFTs You've Minted</h3>

@@ -4,7 +4,7 @@ import { copyToClipboard } from '@/utils/copy-to-clipboard'
 import { getExplorerLinkForToken } from '@/utils/getExplorerLinkForToken'
 import { useWeb3React } from '@web3-react/core'
 
-const NftOwner = ({ owner, tokenId }) => {
+const NftOwner = ({ owner, tokenId, chainId }) => {
   const { account } = useWeb3React()
 
   const abbreviatedAccount = abbreviateAccount(owner)
@@ -24,7 +24,7 @@ const NftOwner = ({ owner, tokenId }) => {
             copyToClipboard(owner)
           }}
         />
-        <a href={getExplorerLinkForToken(tokenId)} target='_blank'>
+        <a href={getExplorerLinkForToken(tokenId, chainId)} target='_blank'>
           <IconButton size='sm' variant='link-03' />
         </a>
 

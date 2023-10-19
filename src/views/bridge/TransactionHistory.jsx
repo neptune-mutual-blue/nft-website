@@ -162,7 +162,7 @@ const TransactionHistory = () => {
                     : (
                       <tr>
                         <td className='empty' colSpan={columns.length} align='center'>
-                          <p>{active ? 'You have made no transactions yet' : 'Connect Your Wallet'}</p>
+                          <p>{active ? query ? 'No transactions found' : 'You have made no transactions yet' : 'Connect Your Wallet'}</p>
                           {active && (
                             <Link href='/my-collection/bridge'>
                               Bridge NFT

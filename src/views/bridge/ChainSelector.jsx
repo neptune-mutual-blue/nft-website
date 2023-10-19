@@ -1,15 +1,27 @@
-import React, { useState } from 'react'
+import React, {
+  useRef,
+  useState
+} from 'react'
 
 import { bridgeConfig } from '@/config/bridge'
 import { Icon } from '@/elements/Icon'
+import { useOnClickOutside } from '@/hooks/useOnOutsideClick'
 
 const ChainSelector = ({ selectedChain, setSelectedChain }) => {
   const chains = Object.entries(bridgeConfig)
 
   const [open, setOpen] = useState(false)
 
+  const ref = useRef()
+
+  useOnClickOutside(ref, () => {
+    if (open) {
+      setOpen(false)
+    }
+  })
+
   return (
-    <div className='chain selector'>
+    <div className='chain selector' ref={ref}>
       <div>
         <button
           className='trigger' onClick={() => {
