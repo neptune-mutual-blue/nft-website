@@ -13,6 +13,9 @@ import { AppConstants } from '@/constants/AppConstants'
 import { LoaderContext } from '@/contexts/LoaderContext'
 import useAuth from '@/lib/connect-wallet/hooks/useAuth'
 
+import dynamic from 'next/dynamic'
+const UserOnboarding = dynamic(() => { return import('@/components/UserOnboarding/UserOnboarding') }, { ssr: false })
+
 const BaseLayout = ({ children, videos }) => {
   const router = useRouter()
 
@@ -38,6 +41,7 @@ const BaseLayout = ({ children, videos }) => {
       )}
       <Header headerStyle={router.pathname === '/marketplace' ? 'colored' : null} videos={videos} />
       <div className='header gap' />
+      <UserOnboarding />
       {children}
       {router.pathname !== '/404' && <Footer />}
     </div>
