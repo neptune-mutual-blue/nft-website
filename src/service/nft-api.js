@@ -94,6 +94,14 @@ const getBridgeTransactions = async (account) => {
   return data
 }
 
+const getBridgeTransactionDetails = async (chainId, txHash) => {
+  const response = await fetch('/api/layerzero-scan/' + chainId + '/' + txHash)
+
+  const data = await response.json()
+
+  return data.data
+}
+
 const getMerkleLeaf = async (account, live = false) => {
   const response = await fetch(origin + '/merkle/' + AppConstants.NETWORK + '/tree/' + (live ? 'live/' : '') + account)
 
@@ -174,7 +182,8 @@ const NftApi = {
   getUserInfoFromApi,
   getPersona,
   getUserMintedNFTs,
-  getBridgeTransactions
+  getBridgeTransactions,
+  getBridgeTransactionDetails
 }
 
 export { NftApi }

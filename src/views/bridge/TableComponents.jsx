@@ -1,3 +1,4 @@
+import { CustomTooltip } from '@/components/Tooltip/Tooltip'
 import { bridgeConfig } from '@/config/bridge'
 import { copyToClipboard } from '@/utils/copy-to-clipboard'
 import { getExplorerAddressURL } from '@/utils/get-explorer-url'
@@ -40,14 +41,14 @@ const columns = [
   },
   {
     header: (onSortChange, key) => { return <HeaderCol title='NFT' sort onSortChange={sortType => { return onSortChange(sortType, 'nft') }} key={key} /> },
-    render: (data, key, index, expandedRowIndexes, setExpandedRowIndexes) => { return <RenderNFTTitle index={index} expandedRowIndexes={expandedRowIndexes} setExpandedRowIndexes={setExpandedRowIndexes} count={data.tokens.length} name={data.tokens[0].name} key={key} /> }
+    render: (data, key) => { return <RenderNFTTitle nfts={data.tokens} key={key} /> }
   },
   {
-    header: (_, key) => { return <HeaderCol title='DEP/DST Chain' key={key} /> },
+    header: (_, key) => { return <HeaderCol title='SRC/DST Chain' key={key} /> },
     render: (data, key) => { return <RenderChainInfo depChainId={data.chainId} destChainId={data.dstChainId} key={key} /> }
   },
   {
-    header: (_, key) => { return <HeaderCol title='Departure Address' key={key} /> },
+    header: (_, key) => { return <HeaderCol title='Source Address' key={key} /> },
     render: (data, key) => { return <RenderAddress address={data.sender} chainId={data.chainId} key={key} /> }
   },
   {
@@ -60,7 +61,7 @@ const columns = [
   },
   {
     header: (_, key) => { return <HeaderCol title='' key={key} /> },
-    render: (data, key) => { return <RenderAction txHash={data.transactionHash} key={key} /> }
+    render: (data, key, setTransaction) => { return <RenderAction setTransaction={setTransaction} data={data} key={key} /> }
   }
 ]
 
@@ -76,31 +77,19 @@ const RenderDate = ({ timestamp }) => {
   )
 }
 
-const RenderNFTTitle = ({ name, count, index, expandedRowIndexes, setExpandedRowIndexes }) => {
+const RenderNFTTitle = ({ nfts }) => {
   return (
     <td className='nft'>
       <div className='title'>
 
-        {name}
+        {nfts.map(nft => {
+          return (
+            <div key={nft.name}>
+              {nft.name}
+            </div>
+          )
+        })}
       </div>
-
-      <div className='dropdown'>
-
-        <div className='badge'>
-          {count}
-        </div>
-        <button onClick={() => {
-          if (expandedRowIndexes.includes(index)) {
-            setExpandedRowIndexes(expandedRowIndexes.filter(x => { return x !== index }))
-          } else {
-            setExpandedRowIndexes([...expandedRowIndexes, index])
-          }
-        }}
-        >
-          <Icon size='md' variant={expandedRowIndexes.includes(index) ? 'chevron-up' : 'chevron-down'} />
-        </button>
-      </div>
-
     </td>
   )
 }
@@ -112,9 +101,13 @@ const RenderChainInfo = ({ depChainId, destChainId }) => {
   return (
     <td className='chain'>
       <div>
-        <img src={depChain?.image} alt={depChain?.chainName} title={depChain?.chainName} />
+        <CustomTooltip text={depChain?.chainName}>
+          <img src={depChain?.image} alt={depChain?.chainName} title={depChain?.chainName} />
+        </CustomTooltip>
         <Icon variant='arrow-right' />
-        <img src={dstChain?.image} alt={dstChain?.chainName} title={dstChain?.chainName} />
+        <CustomTooltip text={dstChain?.chainName}>
+          <img src={dstChain?.image} alt={dstChain?.chainName} title={dstChain?.chainName} />
+        </CustomTooltip>
       </div>
     </td>
   )
@@ -126,7 +119,11 @@ const RenderAddress = ({ address, chainId }) => {
   return (
     <td className='address'>
       <div>
-        <span>{address ? truncateAddress(address) : ''}</span>
+        <CustomTooltip text={address}>
+          <div>
+            <span>{address ? truncateAddress(address) : ''}</span>
+          </div>
+        </CustomTooltip>
 
         <button onClick={() => { return copyToClipboard(address) }}>
           <Icon variant='copy-01' size='md' />
@@ -140,12 +137,25 @@ const RenderAddress = ({ address, chainId }) => {
   )
 }
 
-const RenderAction = ({ txHash }) => {
+const RenderAction = ({ data, setTransaction }) => {
+  const depChain = bridgeConfig[data.chainId]
+  const dstChain = Object.values(bridgeConfig).find((x) => { return x.lzChainId === parseInt(data.dstChainId) })
+
   return (
     <td className='action'>
-      <a href={`/my-collection/bridge/receipt/${txHash}`} target='_blank'>
-        View Receipt
-      </a>
+      <button
+        onClick={() => {
+          setTransaction({
+            sourceChainId: depChain.chainId,
+            destinationChainId: dstChain.chainId,
+            date: data.blockTimestamp * 1000,
+            hash: data.transactionHash,
+            tokens: data.tokens.map(token => { return Number(token.name.split('#')[1]) })
+          })
+        }}
+      >
+        View Detail
+      </button>
     </td>
   )
 }

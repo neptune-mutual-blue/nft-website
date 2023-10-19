@@ -136,10 +136,6 @@
 
               &.nft {
                 min-width: 243px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 8px;
 
                 .title {
                   white-space: nowrap;
@@ -210,7 +206,7 @@
               }
 
               &.action {
-                a {
+                button {
                   display: block;
                   width: max-content;
                   @include weights.semibold;

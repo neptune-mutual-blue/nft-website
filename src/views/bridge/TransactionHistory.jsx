@@ -11,7 +11,9 @@ import { Breadcrumb } from '@/components/Breadcrumb/Breadcrumb'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
 import { InputWithIcon } from '@/components/InputWithIcon/InputWithIcon'
 import { bridgeConfig } from '@/config/bridge'
+import { useUserNfts } from '@/hooks/data/useUserNfts'
 import { NftApi } from '@/service/nft-api'
+import { BridgingResults } from '@/views/bridge/modals/BridgingResults'
 import { columns } from '@/views/bridge/TableComponents'
 import { RowPlaceholder } from '@/views/merkle-proof/RowPlaceholder'
 import { useWeb3React } from '@web3-react/core'
@@ -38,8 +40,6 @@ const TransactionHistory = () => {
 
   const [query, setQuery] = useState('')
   const [sortType, setSortType] = useState(null)
-
-  const [expandedRowIndexes, setExpandedRowIndexes] = useState([])
 
   const [transactions, setTransactions] = useState([])
   const [loading, setLoading] = useState(false)
@@ -74,11 +74,11 @@ const TransactionHistory = () => {
   const filteredData = useMemo(() => {
     if (!query) { return transactions }
 
-    return transactions.filter(({ tokenIds, chainId, dstChainId }) => {
+    return transactions.filter(({ tokens, chainId, dstChainId }) => {
       const dstChain = Object.values(bridgeConfig).find((x) => { return x.lzChainId === parseInt(dstChainId) })
 
       return dstChain.chainId.toString().toLowerCase().includes(query.toLowerCase()) ||
-        tokenIds.toLowerCase().includes(query.toLowerCase()) ||
+        tokens.map(token => { return token.name }).join(' ').toLowerCase().includes(query.toLowerCase()) ||
         chainId.toLowerCase().includes(query.toLowerCase())
     })
   }, [query, transactions])
@@ -96,7 +96,11 @@ const TransactionHistory = () => {
     })
   }, [sortType, filteredData])
 
+  const [transaction, setTransaction] = useState()
+
   const empty = filteredData.length === 0
+
+  const { userNFTs } = useUserNfts(account)
 
   return (
     <div className='nft bridge transaction history'>
@@ -105,6 +109,18 @@ const TransactionHistory = () => {
           <Breadcrumb items={crumbs} />
           <ConnectWallet />
         </div>
+
+        <BridgingResults
+          departureChainId={transaction?.sourceChainId}
+          destinationChainId={transaction?.destinationChainId}
+          open={!!transaction}
+          close={() => {
+            setTransaction(undefined)
+          }}
+          date={transaction?.date}
+          transaction={transaction}
+          nfts={userNFTs.filter((nft) => { return (transaction?.tokens ?? []).includes(nft.tokenId) })}
+        />
 
         <div className='content'>
           <div className='table header'>
@@ -135,27 +151,9 @@ const TransactionHistory = () => {
                       return (
                         <Fragment key={`row-${idx2}`}>
                           <tr>
-                            {columns.map(({ render }, idx3) => { return render(data, `row-${idx2}-col-${idx3}`, idx2, expandedRowIndexes, setExpandedRowIndexes) })}
+
+                            {columns.map(({ render }, idx3) => { return idx3 === columns.length - 1 ? render(data, `row-${idx2}-col-${idx3}`, setTransaction) : render(data, `row-${idx2}-col-${idx3}`) })}
                           </tr>
-                          {expandedRowIndexes.includes(idx2) && (
-                            <tr className='expanded'>
-                              {columns.map((_, idx3) => {
-                                return idx3 === 1
-                                  ? (
-                                    <td className='expanded'>
-                                      {data.tokens.map(token => {
-                                        return (
-                                          <div className='nowrap' key={token.tokenId}>
-                                            {token.name}
-                                          </div>
-                                        )
-                                      })}
-                                    </td>
-                                    )
-                                  : <td />
-                              })}
-                            </tr>
-                          )}
                         </Fragment>
                       )
                     })
