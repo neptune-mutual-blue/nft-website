@@ -67,7 +67,6 @@ const BridgingResults = ({ open, close, date, departureChainId, destinationChain
 
   const getTransactionDetails = useCallback(async () => {
     if (!transaction?.hash) {
-      console.log('TX DETAILS')
       return setTx(undefined)
     }
 
@@ -83,7 +82,7 @@ const BridgingResults = ({ open, close, date, departureChainId, destinationChain
       setTx(undefined)
       console.error(err)
     }
-  }, [departureChain, transaction, open])
+  }, [transaction, open, departureChainId])
 
   useEffect(() => {
     getTransactionDetails()
