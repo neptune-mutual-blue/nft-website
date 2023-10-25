@@ -11,6 +11,7 @@
 
   @media (max-width: 767px) {
     width: calc(100% - 32px);
+    padding: 16px;
   }
 
   button.close {
@@ -41,6 +42,10 @@
     border: 1px solid colors.$gray-200;
     backdrop-filter: blur(12px);
 
+    @media (max-width: 767px) {
+      padding: 12px;
+    }
+
     div.key.value {
       display: flex;
       align-items: center;
@@ -62,6 +67,32 @@
           @include styles.text-sm;
           @include weights.semibold;
           color: colors.$gray-900;
+        }
+
+        div.bridging {
+          color: colors.$blue-600;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+
+          svg * {
+            color: colors.$blue-600 !important;
+          }
+
+          svg {
+            animation: rotating 2s linear infinite;
+          }
+        }
+
+        div.failed {
+          color: colors.$error-600;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+
+          svg * {
+            color: colors.$error-600 !important;
+          }
         }
 
         div.chain,
@@ -114,6 +145,10 @@
       border: 1px solid colors.$base-white;
       background-color: rgba(242, 244, 247, 0.6);
 
+      @media (max-width: 767px) {
+        padding: 12px;
+      }
+
       p.card.title {
         @include styles.text-sm;
         @include weights.semibold;
@@ -126,19 +161,34 @@
         margin: 16px 0;
       }
 
-      div.info {
-        display: flex;
-        gap: 16px;
-        margin-bottom: 8px;
+      .bridged.list {
+        max-height: 210px;
+        overflow: auto;
 
         @media (max-width: 767px) {
-          flex-direction: column;
+          max-height: 160px;
+        }
+      }
+
+      div.info {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 8px;
+        align-items: center;
+
+        &:last-of-type {
+          margin-bottom: 0;
         }
 
         img {
           border-radius: 6px;
-          width: 48px;
-          height: 48px;
+          width: 40px;
+          height: 40px;
+
+          @media (max-width: 767px) {
+            height: 32px;
+            width: 32px;
+          }
         }
 
         div {
@@ -149,7 +199,6 @@
             &.name {
               @include weights.semibold;
               color: colors.$gray-900;
-              margin-top: 4px;
             }
           }
         }

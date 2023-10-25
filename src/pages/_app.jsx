@@ -11,8 +11,6 @@ import { ThemeProvider } from '@/contexts/ThemeContext'
 import { getLibrary } from '@/lib/connect-wallet/web3'
 import { Web3ReactProvider } from '@web3-react/core'
 
-const excludeScriptPaths = ['/my-collection/bridge/receipt/[txHash]']
-
 export default function App ({ Component, pageProps }) {
   const router = useRouter()
 
@@ -46,15 +44,11 @@ export default function App ({ Component, pageProps }) {
 
       </Web3ReactProvider>
 
-      {
-        !excludeScriptPaths.includes(router.pathname) && (
-          <>
-            <Script strategy='lazyOnload' src='/scripts/hamburger.js' />
-            <Script strategy='lazyOnload' src='/scripts/mega-menu.js' />
-            <Script strategy='lazyOnload' src='/scripts/video.js' />
-          </>
-        )
-      }
+      <>
+        <Script strategy='lazyOnload' src='/scripts/hamburger.js' />
+        <Script strategy='lazyOnload' src='/scripts/mega-menu.js' />
+        <Script strategy='lazyOnload' src='/scripts/video.js' />
+      </>
     </>
   )
 }

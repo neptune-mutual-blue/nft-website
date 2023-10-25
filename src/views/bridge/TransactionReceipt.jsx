@@ -78,8 +78,8 @@ const TransactionReceipt = ({ txDetails }) => {
           </div>
 
           <div className='kv wrapper'>
-            <KeyVal keyText='Departure Chain' val={details.depChain} />
-            <KeyVal keyText='Departure Address' val={details.depAddress} />
+            <KeyVal keyText='Source Chain' val={details.depChain} />
+            <KeyVal keyText='Source Address' val={details.depAddress} />
             <KeyVal keyText='Destination Chain' val={details.destChain} />
             <KeyVal keyText='Destination Address' val={details.destAddress} />
             <KeyVal keyText='Fees Paid' val={details.fees.long} />
@@ -89,7 +89,7 @@ const TransactionReceipt = ({ txDetails }) => {
         <hr />
 
         <div className='footer'>
-          <KeyVal keyText='Departure Hash' val={details.depHash} />
+          <KeyVal keyText='Source Hash' val={details.depHash} />
           <KeyVal keyText='Destination Hash' val={details.destHash} />
         </div>
       </div>

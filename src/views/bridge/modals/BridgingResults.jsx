@@ -1,8 +1,15 @@
+import {
+  useCallback,
+  useEffect,
+  useState
+} from 'react'
+
 import { PrimaryButton } from '@/components/Button/PrimaryButton'
 import { IconButton } from '@/components/IconButton/IconButton'
 import { Modal } from '@/components/Modal/Modal'
 import { Icon } from '@/elements/Icon'
 import { chains } from '@/lib/connect-wallet/utils/switch-network'
+import { NftApi } from '@/service/nft-api'
 import { imageOrigin } from '@/services/marketplace-api'
 import { copyToClipboard } from '@/utils/copy-to-clipboard'
 import { getDateInFormat } from '@/utils/date'
@@ -44,11 +51,42 @@ const KeyVal = ({ keyText, value, isAddress = false, isHash = false, chainId }) 
   )
 }
 
-const BridgingResults = ({ open, close, departureChainId, destinationChainId, transaction, nfts }) => {
+const BridgingResults = ({ open, close, date, departureChainId, destinationChainId, transaction, nfts }) => {
   const departureChain = chains[departureChainId]
   const destinationChain = chains[destinationChainId]
 
   const { account } = useWeb3React()
+
+  const [tx, setTx] = useState()
+
+  const status = (tx?.status ?? 'INFLIGHT')
+  const destinationHash = (tx?.dstTxHash ?? '')
+
+  const bridging = status === 'INFLIGHT'
+  const failed = status === 'FAILED'
+
+  const getTransactionDetails = useCallback(async () => {
+    if (!transaction?.hash) {
+      return setTx(undefined)
+    }
+
+    if (!open) {
+      return setTx(undefined)
+    }
+
+    try {
+      const tx = await NftApi.getBridgeTransactionDetails(departureChainId, transaction.hash)
+
+      setTx(tx)
+    } catch (err) {
+      setTx(undefined)
+      console.error(err)
+    }
+  }, [transaction, open, departureChainId])
+
+  useEffect(() => {
+    getTransactionDetails()
+  }, [getTransactionDetails])
 
   return (
     <Modal
@@ -66,26 +104,26 @@ const BridgingResults = ({ open, close, departureChainId, destinationChainId, tr
 
       <div className='details container'>
         <div className='details'>
-          <KeyVal keyText='Date' value={getDateInFormat(Date.now())} />
+          <KeyVal keyText='Date' value={getDateInFormat(date || Date.now())} />
 
           <KeyVal
-            keyText='Departure Chain' value={(
+            keyText='Source Chain' value={(
               <div className='chain'>
-                <img src={`/assets/images/chains/${departureChainId}.png`} alt={departureChain.chainName} />
-                <span>{departureChain.chainName}</span>
+                <img src={`/assets/images/chains/${departureChainId}.png`} alt={departureChain?.chainName} />
+                <span>{departureChain?.chainName}</span>
               </div>
           )}
           />
 
           <KeyVal
-            keyText='Departure Address' value={account} isAddress chainId={departureChainId}
+            keyText='Source Address' value={account} isAddress chainId={departureChainId}
           />
 
           <KeyVal
             keyText='Destination Chain' value={(
               <div className='chain'>
-                <img src={`/assets/images/chains/${destinationChainId}.png`} alt={destinationChain.chainName} />
-                <span>{destinationChain.chainName}</span>
+                <img src={`/assets/images/chains/${destinationChainId}.png`} alt={destinationChain?.chainName} />
+                <span>{destinationChain?.chainName}</span>
               </div>
           )}
           />
@@ -99,29 +137,40 @@ const BridgingResults = ({ open, close, departureChainId, destinationChainId, tr
           <p className='card title'>Send NFT</p>
           <hr />
 
-          {nfts.map(nft => {
-            return (
-              <div className='info' key={nft.tokenId}>
-                <img src={`${imageOrigin}/thumbnails/${nft.tokenId}.webp`} alt={nft.name + ' thumbnail image'} />
-                <div>
-                  <p>Name</p>
-                  <p className='name'>{nft?.name}</p>
+          <div className='bridged list'>
+            {nfts.map(nft => {
+              return (
+                <div className='info' key={nft.tokenId}>
+                  <img src={`${imageOrigin}/thumbnails/${nft.tokenId}.webp`} alt={nft.name + ' thumbnail image'} />
+                  <div>
+                    <p className='name'>{nft?.name}</p>
+                  </div>
                 </div>
-              </div>
-            )
-          })}
+              )
+            })}
+          </div>
 
           <div className='details'>
-            <KeyVal keyText='Departure Hash' value={transaction?.hash} isHash chainId={departureChainId} />
-            {/* <KeyVal keyText='Destination Hash' value={mock.destHash} isAddress /> */}
+            <KeyVal keyText='Source Transaction Hash' value={transaction?.hash} isHash chainId={departureChainId} />
+            <KeyVal
+              keyText='Destination Hash' isAddress={!!destinationHash} chainId={destinationChainId} value={destinationHash || (
+                <>
+                  {bridging && <div className='bridging'>Bridging <Icon variant='refresh-ccw-02' size='sm' /></div>}
+                  {failed && <div className='failed'>Bridging Attempt Failed <Icon variant='alert-circle' size='sm' /></div>}
+                </>
+              )}
+            />
           </div>
         </div>
 
-        <a target='_blank' href='/my-collection/bridge/transactions'>
-          <PrimaryButton>
-            View Transaction History
-          </PrimaryButton>
-        </a>
+        {!(transaction?.date) && (
+          <a target='_blank' href='/my-collection/bridge/transactions'>
+            <PrimaryButton>
+              View Transaction History
+            </PrimaryButton>
+          </a>
+        )}
+
       </div>
 
     </Modal>

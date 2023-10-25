@@ -138,7 +138,7 @@ const NftBridge = () => {
                 <h1>Move NFTs across different blockchain networks.</h1>
                 <div className='selection box'>
                   <div className='source selection container'>
-                    <div className='label'>Departure Chain</div>
+                    <div className='label'>Source Chain</div>
                     <ChainSelector selectedChain={sourceChainId} setSelectedChain={setSourceChainId} />
                   </div>
                   <div className='destination selection container'>

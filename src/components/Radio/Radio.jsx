@@ -9,7 +9,7 @@
 
 const Radio = ({ label, checked, onChange, ...rest }) => {
   return (
-    <label className='custom radio container'>
+    <label className='custom radio container' aria-disabled={rest.disabled ? 'true' : 'false'}>
       <input
         type='radio'
         className={checked ? 'checked' : undefined}

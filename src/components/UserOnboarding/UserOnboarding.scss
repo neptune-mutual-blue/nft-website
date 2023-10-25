@@ -29,6 +29,7 @@
       width: 100%;
       padding: 16px;
       z-index: 10;
+      box-shadow: none;
     }
 
     &.hidden {
@@ -151,11 +152,11 @@
 
 header {
   @media (max-width: 767px) {
-    &~.user.onboarding.section {
+    & ~ .user.onboarding.section {
       background-color: colors.$base-white;
     }
 
-    &[data-style="colored"]~.user.onboarding.section {
+    &[data-style="colored"] ~ .user.onboarding.section {
       background-color: colors.$primary-25;
     }
   }
@@ -163,11 +164,11 @@ header {
 
 .dark header {
   @media (max-width: 767px) {
-    &~.user.onboarding.section {
+    & ~ .user.onboarding.section {
       background-color: colors.$black;
     }
 
-    &[data-style="colored"]~.user.onboarding.section {
+    &[data-style="colored"] ~ .user.onboarding.section {
       background-color: colors.$black;
     }
   }
@@ -274,15 +275,15 @@ header {
       gap: 8px;
     }
 
-    &>* {
+    & > * {
       flex-basis: 100%;
     }
 
-    &>div:nth-child(2) {
+    & > div:nth-child(2) {
       text-align: center;
     }
 
-    &>div:nth-child(3) button {
+    & > div:nth-child(3) button {
       margin-left: auto;
     }
   }
@@ -315,7 +316,6 @@ header {
     .minimized.modal {
       background-color: colors.$black-900;
       border-color: colors.$gray-800;
-      box-shadow: shadows.$lg;
 
       .description {
         color: colors.$gray-25;
