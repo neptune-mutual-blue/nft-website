@@ -9,6 +9,12 @@ export const rpcUrls = {
     'https://bsc-dataseed3.binance.org',
     'https://bsc-dataseed4.binance.org',
   ],
+  1: [
+    'https://mainnet.infura.io/v3/04f673a8619b4e3f89a49232d453f6f2'
+  ],
+  4002: [
+    'https://rpc.testnet.fantom.network'
+  ]
 }
 
 export const chains = {
@@ -50,6 +56,32 @@ export const chains = {
     rpcUrls: rpcUrls[56],
     explorerName: 'BscScan',
     blockExplorerUrls: ['https://bscscan.com']
+  },
+  1: {
+    chainId: `0x${(1).toString(16)}`,
+    chainName: 'Ethereum',
+    nativeCurrency: {
+      name: 'Ether',
+      symbol: 'ETH',
+      decimals: 18
+    },
+    explorerIcon: "ethereum-round",
+    rpcUrls: rpcUrls[1],
+    explorerName: 'EtherScan',
+    blockExplorerUrls: ['https://etherscan.io']
+  },
+  4002: {
+    chainId: `0x${(4002).toString(16)}`,
+    chainName: 'Fantom Testnet',
+    nativeCurrency: {
+      name: 'FTM',
+      symbol: 'FTM',
+      decimals: 18
+    },
+    explorerIcon: "ethereum-round",
+    rpcUrls: rpcUrls[1],
+    explorerName: 'FTMScan',
+    blockExplorerUrls: ['https://testnet.ftmscan.com']
   }
 }
 
@@ -74,9 +106,7 @@ export const addChain = async (provider) => {
   return false
 }
 
-export const setupNetwork = async (provider) => {
-
-  const networkId = AppConstants.NETWORK;
+export const setupNetwork = async (provider, networkId = AppConstants.NETWORK) => {
 
   if (!provider) {
     console.error("Can't setup network - injected provider not found")
@@ -93,6 +123,10 @@ export const setupNetwork = async (provider) => {
     // This error code indicates that the chain has not been added to MetaMask.
     if (switchError.code === 4902) {
       return addChain(provider)
+    }
+
+    if (switchError.code === -32002){
+      return true
     }
     // handle other "switch" errors
     console.error(switchError)

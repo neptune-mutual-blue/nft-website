@@ -1,0 +1,120 @@
+@use "../../../design-system/utils";
+@use "../../../design-system/colors";
+@use "../../../design-system/typography/styles";
+@use "../../../design-system/typography/weights";
+
+.nft.details.modal.DialogContent {
+  padding: 32px;
+  background-color: colors.$base-white;
+
+  @media (max-width: 767px) {
+    width: calc(100% - 32px);
+  }
+
+  button.close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 6px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  h3 {
+    @include styles.display-xs;
+    @include weights.semibold;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  .image.and.details {
+    display: flex;
+    gap: 16px;
+    max-height: 360px;
+
+    @media (max-width: 767px) {
+      flex-direction: column;
+      max-height: 100vh;
+    }
+
+    .nft.expand.image {
+      width: 320px;
+
+      @media (max-width: 767px) {
+        width: 100%;
+      }
+    }
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow-y: auto;
+
+      .detail {
+        width: 320px;
+        padding: 24px;
+        border-radius: 8px;
+        background-color: colors.$gray-100;
+
+        p.title {
+          @include styles.text-sm;
+          color: colors.$gray-700;
+        }
+
+        div.value {
+          margin-top: 4px;
+
+          &,
+          * {
+            @include styles.text-md;
+            @include weights.semibold;
+          }
+
+          &.chain,
+          &.address {
+            display: flex;
+            align-items: center;
+          }
+
+          &.address {
+            gap: 8px;
+
+            svg {
+              height: 20px;
+              aspect-ratio: 1;
+            }
+          }
+
+          &.chain {
+            gap: 4px;
+
+            img {
+              height: 24px;
+              aspect-ratio: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.dark .nft.details.modal.DialogContent {
+  background-color: colors.$black-900;
+
+  h3 {
+    color: colors.$base-white;
+  }
+
+  .image.and.details .details .detail {
+    background-color: colors.$black-800;
+
+    p.title {
+      color: colors.$gray-25;
+    }
+  }
+}

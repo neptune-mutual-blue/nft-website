@@ -91,16 +91,16 @@ const UserOnboarding = () => {
 
   const minimized = !open && !expanded
 
-  const wrap = (children) => {
-    const hiddenModal = neverShow === undefined ? true : neverShow
+  const hiddenModal = neverShow === undefined ? true : neverShow
 
+  const wrap = (children) => {
     return (
       <>
         <div className={`minimized modal${hiddenModal ? ' hidden' : minimized ? '' : ' hidden'}`}>
           {children}
         </div>
 
-        {displayHint && (
+        {displayHint && !checkboxNeverShow && (
           <MinimizedInfo hide={() => {
             setDisplayHint(false)
           }}
@@ -217,7 +217,7 @@ const UserOnboarding = () => {
   }
 
   return (
-    <div className='user onboarding section'>
+    <div className={`user onboarding section ${hiddenModal ? 'hide' : ''}`}>
       {
         wrap(
           <div className='onboarding modal'>
@@ -257,11 +257,17 @@ const UserOnboarding = () => {
             </div>
 
             <div className='pagination wrapper mobile'>
-              {previousButton}
+              <div>
+                {previousButton}
+              </div>
+
               <div>
                 {page} of 4
               </div>
-              {nextButton}
+
+              <div>
+                {nextButton}
+              </div>
             </div>
 
             <div className='content mobile'>

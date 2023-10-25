@@ -1,0 +1,223 @@
+@use "../../../design-system/utils";
+@use "../../../design-system/colors";
+@use "../../../design-system/typography/styles";
+@use "../../../design-system/typography/weights";
+
+.bridging.results.modal.DialogContent {
+  padding: 32px;
+  background-image: url("/assets/images/bridge/blue-bg.webp");
+  border: none;
+  width: 650px;
+
+  @media (max-width: 767px) {
+    width: calc(100% - 32px);
+    padding: 16px;
+  }
+
+  button.close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 6px;
+
+    svg {
+      color: colors.$base-white;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  h3 {
+    @include styles.display-xs;
+    @include weights.semibold;
+    margin-bottom: 21px;
+    text-align: center;
+    color: colors.$white;
+  }
+
+  div.details.container {
+    border-radius: 16px;
+    padding: 24px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid colors.$gray-200;
+    backdrop-filter: blur(12px);
+
+    @media (max-width: 767px) {
+      padding: 12px;
+    }
+
+    div.key.value {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      @media (max-width: 767px) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      p.key {
+        @include styles.text-sm;
+        color: colors.$gray-700;
+      }
+
+      div.value {
+        &,
+        * {
+          @include styles.text-sm;
+          @include weights.semibold;
+          color: colors.$gray-900;
+        }
+
+        div.bridging {
+          color: colors.$blue-600;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+
+          svg * {
+            color: colors.$blue-600 !important;
+          }
+
+          svg {
+            animation: rotating 2s linear infinite;
+          }
+        }
+
+        div.failed {
+          color: colors.$error-600;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+
+          svg * {
+            color: colors.$error-600 !important;
+          }
+        }
+
+        div.chain,
+        div.address {
+          display: flex;
+          gap: 4px;
+          align-items: center;
+
+          svg {
+            height: 16px;
+            width: 16px;
+          }
+
+          img {
+            height: 20px;
+            width: 20px;
+          }
+        }
+
+        div.address {
+          span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 184px;
+          }
+
+          button {
+            flex-shrink: 0;
+            flex-grow: 1;
+            width: 16px;
+          }
+
+          * {
+            color: colors.$blue-600;
+          }
+        }
+      }
+    }
+
+    div.details {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    div.nft {
+      margin-top: 16px;
+      padding: 24px;
+      border-radius: 8px;
+      border: 1px solid colors.$base-white;
+      background-color: rgba(242, 244, 247, 0.6);
+
+      @media (max-width: 767px) {
+        padding: 12px;
+      }
+
+      p.card.title {
+        @include styles.text-sm;
+        @include weights.semibold;
+        color: colors.$gray-900;
+      }
+
+      hr {
+        height: 1px;
+        background-color: colors.$gray-300;
+        margin: 16px 0;
+      }
+
+      .bridged.list {
+        max-height: 210px;
+        overflow: auto;
+
+        @media (max-width: 767px) {
+          max-height: 160px;
+        }
+      }
+
+      div.info {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 8px;
+        align-items: center;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+
+        img {
+          border-radius: 6px;
+          width: 40px;
+          height: 40px;
+
+          @media (max-width: 767px) {
+            height: 32px;
+            width: 32px;
+          }
+        }
+
+        div {
+          p {
+            @include styles.text-sm;
+            color: colors.$gray-700;
+
+            &.name {
+              @include weights.semibold;
+              color: colors.$gray-900;
+            }
+          }
+        }
+      }
+
+      div.details {
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+
+    button.primary {
+      width: 100%;
+      margin-top: 16px;
+      padding: 12px 20px;
+      @include styles.text-md;
+      @include weights.semibold;
+    }
+  }
+}

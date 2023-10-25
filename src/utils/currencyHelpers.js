@@ -60,9 +60,13 @@ const abbreviateNumber = (input) => {
     result = +(number / 1e12).toFixed(2)
   }
 
+  if (result < 1) {
+    result = +(number).toFixed(6)
+  }
+
   return {
     abbreviation: `${sign}${result}`,
-    short: `${sign}${result}${symbol}`,
+    short: `${sign}${result.toFixed(2)}${symbol}`,
     long: number.toLocaleString('en-US', { maximumFractionDigits: 2 }),
     symbol,
     result

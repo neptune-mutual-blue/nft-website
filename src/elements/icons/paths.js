@@ -135,6 +135,7 @@ const paths = {
   'bell-02': import('./variants/AlertsAndFeedback/bell-02.svg?raw'),
   'alert-circle': import('./variants/AlertsAndFeedback/alert-circle.svg?raw'),
   'check-circle': import('./variants/General/check-circle.svg?raw'),
+  plus: import('./variants/General/plus.svg?raw'),
   'maximize-01': import('./variants/Layout/maximize-01.svg?raw'),
   'minimize-01': import('./variants/Layout/minimize-01.svg?raw'),
 
@@ -147,6 +148,7 @@ const paths = {
   Dot: import('./custom/dot.svg?raw'),
   'check-circle-filled': import('./variants/General/check-circle-filled.svg?raw'),
   'x-circle-filled': import('./variants/General/x-circle-filled.svg?raw'),
+  'switch-vertical-02': import('./variants/General/switch-vertical-02.svg?raw'),
 
   // Custom Brand Icons
   'arbitrum-nft': import('./custom/Brands/default/SvgArbitrumNft.svg?raw'),
@@ -177,6 +179,7 @@ const paths = {
   avalanche: import('./custom/Brands/default/SvgAvalanche.svg?raw'),
   bnbchain: import('./custom/Brands/default/SvgBNBChain.svg?raw'),
   polygon: import('./custom/Brands/default/SvgPolygon.svg?raw'),
+  'ethereum-round-blue': import('./custom/Brands/default/SvgEthereumRoundBlue.svg?raw'),
 
   // NFT Icons
   guardian: import('./variants/Nft/guardian.svg?raw'),

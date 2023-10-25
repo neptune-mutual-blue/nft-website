@@ -10,12 +10,14 @@ const BaseButton = forwardRef((props, ref) => {
     destructive,
     iconOnlyMobile,
     onClick,
-    children
+    children,
+    style
   } = props
 
   return (
     <button
       id={id}
+      style={style}
       onClick={onClick}
       className={`ui ${(className || '').trim()} button`}
       data-text-size={size}

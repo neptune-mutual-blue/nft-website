@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useMemo,
   useRef,
   useState
@@ -9,6 +10,7 @@ import SecondaryGrayButton from '@/components/Button/SecondaryGrayButton'
 import { Radio } from '@/components/Radio/Radio'
 import { Icon } from '@/elements/Icon'
 import { useOnClickOutside } from '@/hooks/useOnOutsideClick'
+import { getFiltersByLevelAndFamily } from '@/utils/filters'
 
 const createToggleStates = (filters) => {
   return filters.reduce((acc, curr) => {
@@ -21,6 +23,8 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
   const [toggles, setToggles] = useState(createToggleStates(filters))
   const [selectedFilters, setSelectedFilters] = useState(properties)
   const [searchValue, setSearchValue] = useState('')
+
+  const [levelAndFamily, setLevelAndFamily] = useState({ level: null, family: null })
 
   const ref = useRef()
 
@@ -42,8 +46,8 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
     // }
 
     const _selectedFilters = selectedFilters.filter(filter => { return filter.key !== key })
-
     _selectedFilters.push({ key, value })
+
     setSelectedFilters([..._selectedFilters])
     if (!showFilter) { setProperties([..._selectedFilters]) }
   }
@@ -58,16 +62,58 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
     setSearchValue(e.target.value)
   }
 
+  useEffect(() => {
+    selectedFilters.map(({ key, value }) => {
+      if (['Level', 'Family'].includes(key)) {
+        setLevelAndFamily(prev => {
+          if (key === 'Level') { return { ...prev, level: value } }
+          if (key === 'Family') { return { ...prev, family: value } }
+          return prev
+        })
+      }
+      return null
+    })
+  }, [selectedFilters])
+
+  const filteredByFamilyAndLevel = useMemo(() => {
+    const { levels, families, properties } = getFiltersByLevelAndFamily(levelAndFamily.level, levelAndFamily.family)
+    let _filters = filters.filter(f => { return ['Level', 'Family'].includes(f.key) || properties.find(p => { return p.key === f.key }) })
+
+    _filters = _filters.map(f => {
+      const _prop = properties.find(p => { return p.key === f.key })
+
+      const _f = { ...f }
+      let enabled = []
+
+      if (['Level', 'Family'].includes(f.key)) {
+        enabled = f.key === 'Level' ? levels : families
+      }
+
+      if (_prop) {
+        enabled = _prop.values
+      }
+
+      _f.enabled = enabled
+      if (f.key !== 'Level') { _f.values.sort((a, b) => { return enabled.includes(b) - enabled.includes(a) }) }
+
+      return _f
+    })
+
+    return _filters
+  }, [filters, levelAndFamily])
+
   const filteredProperties = useMemo(() => {
-    return filters.map(f => {
+    return filteredByFamilyAndLevel.map(f => {
       return {
+        ...f,
         key: f.key,
         values: f.values.filter(v => { return v && v.toLowerCase().includes(searchValue.toLowerCase()) })
       }
     })
-  }, [searchValue, filters])
+  }, [searchValue, filteredByFamilyAndLevel])
 
   const handleClearAll = () => {
+    setLevelAndFamily({ family: null, level: null })
     if (properties.length) {
       setProperties([])
     }
@@ -77,6 +123,8 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
   }
 
   const handleClearFilter = (key) => {
+    if (key === 'Level') { setLevelAndFamily(prev => { return { ...prev, level: '' } }) }
+    if (key === 'Family') { setLevelAndFamily(prev => { return { ...prev, family: '' } }) }
     const newProperties = properties.filter(p => {
       return p.key !== key
     })
@@ -138,7 +186,7 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
                       className='filter'
                       onClick={() => { return handleClearFilter(key) }}
                     >
-                      {value}
+                      <strong>{key}: </strong>{value}
                       <Icon variant='x-close' size='sm' />
                     </button>
                   )
@@ -185,14 +233,18 @@ const Filter = ({ filters = [], properties, setProperties, showFilter, onFilterC
                     <ul>
                       {
                         filter.values.map((value, idx) => {
+                          const disabled = filter.enabled ? !filter.enabled.includes(value) : false
                           const checked = selectedFilters.find(f => {
-                            return f.key === filter.key && f.value === value
+                            return (
+                              f.key === filter.key && f.value.toString() === value.toString()
+                            )
                           })
                           return (
                             <li className='option' key={idx}>
                               <Radio
                                 label={value}
                                 checked={Boolean(checked)}
+                                disabled={disabled}
                                 onChange={() => { return handleFilterUpdate(filter.key, value) }}
                               />
                             </li>

@@ -293,6 +293,11 @@
 
 .tags.container,
 .dark .tags.container {
+  .tag[data-color="level0"] {
+    background-color: colors.$gray-500;
+    color: colors.$white;
+  }
+
   .tag[data-color="level1"] {
     background-color: colors.$orange-dark-400;
     color: colors.$white;

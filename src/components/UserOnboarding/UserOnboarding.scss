@@ -24,11 +24,12 @@
     z-index: 99999;
 
     @media (max-width: 767px) {
-      bottom: 0;
-      right: 0;
-      width: 100vw;
-      border-radius: 0;
+      position: relative;
+      inset: 0;
+      width: 100%;
       padding: 16px;
+      z-index: 10;
+      box-shadow: none;
     }
 
     &.hidden {
@@ -136,6 +137,41 @@
       }
     }
   }
+
+  @media (max-width: 767px) {
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &.hide {
+    display: none;
+  }
+}
+
+header {
+  @media (max-width: 767px) {
+    & ~ .user.onboarding.section {
+      background-color: colors.$base-white;
+    }
+
+    &[data-style="colored"] ~ .user.onboarding.section {
+      background-color: colors.$primary-25;
+    }
+  }
+}
+
+.dark header {
+  @media (max-width: 767px) {
+    & ~ .user.onboarding.section {
+      background-color: colors.$black;
+    }
+
+    &[data-style="colored"] ~ .user.onboarding.section {
+      background-color: colors.$black;
+    }
+  }
 }
 
 .on-boarding-modal {
@@ -235,7 +271,20 @@
     .pagination {
       display: flex;
       align-items: center;
+      justify-content: flex-end;
       gap: 8px;
+    }
+
+    & > * {
+      flex-basis: 100%;
+    }
+
+    & > div:nth-child(2) {
+      text-align: center;
+    }
+
+    & > div:nth-child(3) button {
+      margin-left: auto;
     }
   }
 
@@ -267,7 +316,6 @@
     .minimized.modal {
       background-color: colors.$black-900;
       border-color: colors.$gray-800;
-      box-shadow: shadows.$lg;
 
       .description {
         color: colors.$gray-25;

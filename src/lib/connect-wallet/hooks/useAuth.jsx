@@ -6,7 +6,6 @@ import {
 
 import { ToastContext } from '@/components/Toast/Toast'
 import { LocalStorageKeys } from '@/config/localstorage'
-import { AppConstants } from '@/constants/AppConstants'
 import { getProviderByName } from '@/lib/connect-wallet/utils/providers'
 import {
   chains,
@@ -21,16 +20,18 @@ import { getConnectorByName } from '../utils/connectors'
 
 const activateConnector = async (
   connectorName,
+  chainId,
   activate,
   notify,
   errorCallback 
 ) => {
-  const connector = await getConnectorByName(connectorName)
+  const connector = await getConnectorByName(connectorName, chainId)
 
   if (!connector) {
     console.info('Invalid Connector Name', connectorName)
     return
   }
+
   try {
     activate(connector, async (error) => {
       notify(error)
@@ -64,19 +65,19 @@ const useAuth = (notify = console.log) => {
   const {showToast} = useContext(ToastContext);
 
   const login = useCallback(
-    (connectorName, errorCallback = () => {}) => {
-      activateConnector(connectorName, activate, notify, async (error) => {
+    (connectorName, chainId, errorCallback = () => {}) => {
+      activateConnector(connectorName, chainId, activate, notify, async (error) => {
         if (error instanceof UnsupportedChainIdError) {
           logout();
           try {
-             console.log(connectorName)
-             const accepted = await setupNetwork(getProviderByName(connectorName))
-             if(accepted) {
-              login(connectorName)
+             const accepted = await setupNetwork(getProviderByName(connectorName), chainId)
+
+             if (accepted) {
+              login(connectorName, chainId)
              } else {
               showToast({
                 title: "Unsupported Network", 
-                 description: `Please switch to ${chains[AppConstants.NETWORK].chainName} in your wallet.`
+                 description: `Please switch to ${chains[chainId].chainName} in your wallet.`
               });
              }
           } catch(err){

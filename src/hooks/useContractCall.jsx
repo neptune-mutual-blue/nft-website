@@ -32,7 +32,7 @@ export const useContractCall = ({ abi, address }) => {
     }
   }, [abi, address, library, account])
 
-  async function callMethod (methodName, args = [], skipGasEstimation = false, swallowError = false) {
+  async function callMethod (methodName, args = [], skipGasEstimation = false, swallowError = false, overrides = {}) {
     if (!contract || !methodName) { return }
 
     const iface = new Interface(abi)
@@ -41,11 +41,11 @@ export const useContractCall = ({ abi, address }) => {
     let estimatedGas = null
     try {
       if (!skipGasEstimation) {
-        estimatedGas = await contract.estimateGas[methodName](...args)
+        estimatedGas = await contract.estimateGas[methodName](...args, { ...overrides })
       }
 
       try {
-        methodArgs = [...args, { gasLimit: skipGasEstimation ? AppConstants.DEFAULT_GAS_LIMIT : calculateGasMargin(estimatedGas) }]
+        methodArgs = [...args, { gasLimit: skipGasEstimation ? AppConstants.DEFAULT_GAS_LIMIT : calculateGasMargin(estimatedGas), ...overrides }]
         const res = await contract[methodName](...methodArgs)
 
         if (res?.wait) {

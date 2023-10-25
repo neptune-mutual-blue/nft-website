@@ -82,7 +82,8 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
     requiredPoints: requirements.points
   })
 
-  const currentOwner = owner || nftDetails.tokenOwner
+  const currentOwner = nftDetails.tokenOwner?.[0]?.owner || owner
+  const currentOwnerChainId = nftDetails.tokenOwner?.[0]?.chainId || AppConstants.NETWORK
 
   const [open, setOpen] = useState(false)
 
@@ -191,7 +192,7 @@ const MintNft = ({ nftDetails, premiumNfts, mintingLevels, currentProgress, acti
                 )}
 
                 {currentOwner && (
-                  <NftOwner owner={currentOwner} tokenId={nftDetails.tokenId} />
+                  <NftOwner chainId={currentOwnerChainId} owner={currentOwner} tokenId={nftDetails.tokenId} />
                 )}
 
                 <LikeAndShare nft={nftDetails} />

@@ -1,0 +1,40 @@
+@use "../../design-system/colors";
+@use "../../design-system/typography/styles";
+@use "../../design-system/typography/weights";
+@use "../../design-system/shadows";
+
+.input.with.icon.container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid colors.$gray-300;
+
+  i[data-size] {
+    flex-shrink: 0;
+
+    svg {
+      color: colors.$gray-500;
+    }
+  }
+
+  &:focus-within {
+    box-shadow: shadows.$xs, 0px 0px 0px 3px colors.$primary-100;
+  }
+
+  input {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    @include styles.text-md;
+  }
+}
+
+.dark .input.with.icon.container {
+  border-color: colors.$gray-800;
+
+  &:focus-within {
+    box-shadow: shadows.$xs, 0px 0px 0px 3px colors.$primary-700;
+  }
+}
