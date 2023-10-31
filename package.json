@@ -29,7 +29,7 @@
     "eslint-plugin-promise": "~5.1.0",
     "eslint-plugin-unused-imports": "2.0.0",
     "merkletreejs": "^0.3.10",
-    "next": "13.2.4",
+    "next": "13.5.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "uuid": "^9.0.0"
