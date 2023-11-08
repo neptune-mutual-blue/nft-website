@@ -1,3 +1,5 @@
+import { generateURL } from '@/utils/url-helpers'
+
 const truncateAddress = (address) => {
   if (address.length !== 42) { return 'INVALID_ADDRESS' }
 
@@ -46,71 +48,30 @@ const getMarketplaceFiltersHref = (nft) => {
   const { name, level } = nft
 
   const data = [{
-    key: 'Family',
-    value: name.replace(/(Diabolic|Epic|Legendary)\s/, '')
+    key: 'family',
+    value: [name.replace(/(Diabolic|Epic|Legendary)\s/, '')]
   }]
 
   if (level && level < 7) {
     data.push({
-      key: 'Type',
-      value: level % 2 === 0 ? 'Evolution' : 'Selection'
+      key: 'type',
+      value: [level % 2 === 0 ? 'Evolution' : 'Selection']
     })
   }
 
-  return getMarketplaceUrl(1, '', data) + '#view-nfts'
+  return getMarketplaceUrl(1, data) + '#view-nfts'
 }
 
-// Capitalize first letter of a string
-function capitalizeFirstLetter (str) {
-  if (!str) { return '' }
-  return str.charAt(0).toUpperCase() + str.slice(1)
-}
+const getMarketplaceUrl = (_page, parameterArray) => {
+  let urlPrefix = '/marketplace'
 
-// Decapitalize first letter of a string
-function decapitalizeFirstLetter (str) {
-  if (!str) { return '' }
-  return str.charAt(0).toLowerCase() + str.slice(1)
-}
+  if (_page !== 1) { urlPrefix += `/page/${_page}` }
 
-const getFiltersFromQueryString = (query) => {
-  const searchParams = new URLSearchParams(query)
-
-  const filters = []
-
-  for (const [key, value] of searchParams.entries()) {
-    if (!['search', 'minted', 'soulbound', 'roles'].includes(key)) {
-      filters.push({ key: capitalizeFirstLetter(key), value })
-    }
-  }
-
-  return filters
-}
-
-const getMarketplaceUrl = (_page, _search, _filters, _additionalFilters) => {
-  let url = '/marketplace'
-
-  if (_page !== 1) { url += `/page/${_page}` }
-
-  const searchParams = new URLSearchParams()
-
-  if (_search) {
-    searchParams.append('search', _search)
-  }
-
-  for (const filter in _additionalFilters) {
-    searchParams.append(filter, _additionalFilters[filter])
-  }
-
-  for (const filter of _filters) {
-    searchParams.append(decapitalizeFirstLetter(filter.key), filter.value)
-  }
-
-  return url + (Array.from(searchParams.keys()).length > 0 ? '?' + searchParams : '')
+  return generateURL(parameterArray, urlPrefix)
 }
 
 export {
   aggregateFiltersData,
-  getFiltersFromQueryString,
   getMarketplaceFiltersHref,
   getMarketplaceUrl,
   truncateAddress
