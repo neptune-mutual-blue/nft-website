@@ -25,11 +25,11 @@ const generateURL = (arr, urlPrefix) => {
   const searchParams = new URLSearchParams()
 
   arr.forEach(({ key, value }) => {
-    if (!value) {
-      return
-    }
-
     value.forEach(val => {
+      if (!val) {
+        return
+      }
+
       searchParams.append(key, val)
     })
   })
