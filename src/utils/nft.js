@@ -54,8 +54,8 @@ const getMarketplaceFiltersHref = (nft) => {
 
   if (level && level < 7) {
     data.push({
-      key: 'type',
-      value: [level % 2 === 0 ? 'Evolution' : 'Selection']
+      key: 'level',
+      value: [level]
     })
   }
 
