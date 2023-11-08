@@ -44,10 +44,16 @@ const schema = {
     filteredProperties.map((x) => { return x.layersOrder }).flat().map((layer) => {
       return {
         [decapitalizeFirstLetter(layer.name)]: {
-          validator: (value) => { return layer.options.includes(value) }
+          possibleValues: layer.options
         }
       }
     }).reduce((acc, val) => {
+      const key = Object.keys(val)[0]
+      if (acc[key]) {
+        acc[key].possibleValues.push(...val[key].possibleValues)
+        return acc
+      }
+
       return { ...acc, ...val }
     }, {})
   )
@@ -62,7 +68,11 @@ const validateAndGetValue = (result, key, fallback, val) => {
 
   let value = val || result.find((item) => { return item.key === key })?.value
 
-  const validator = keySchema.validator
+  let validator = keySchema.validator
+
+  if (!validator && keySchema.possibleValues) {
+    validator = (value) => { return keySchema.possibleValues.includes(value) }
+  }
   const transformer = keySchema.transformer
 
   if (validator) {
