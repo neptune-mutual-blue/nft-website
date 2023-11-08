@@ -1,5 +1,4 @@
 import {
-  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -21,6 +20,7 @@ import { useMobileFilter } from '@/hooks/useMobileFilter'
 import { useOnClickOutside } from '@/hooks/useOnOutsideClick'
 import { imageOrigin } from '@/services/marketplace-api'
 import { getMarketplaceUrl } from '@/utils/nft'
+import { decapitalizeFirstLetter } from '@/utils/string'
 import DropdownFilterItem from '@/views/marketplace/DropdownFilterItem'
 import { Filter } from '@/views/marketplace/Filter'
 import { NftPlaceholder } from '@/views/marketplace/NftPlaceholder'
@@ -40,19 +40,38 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
   const debouncedSearchValue = useDebounce(searchValue, 500)
   const { showFilter, onFilterOpen, onFilterClose } = useMobileFilter()
 
-  const updateUrlPath = useCallback((_page, _search, _filters, _additionalFilters) => {
-    if (initial.current) { return }
+  const urlParametersArray = useMemo(() => {
+    const parameterArray = [
+      {
+        key: 'search',
+        value: [searchValue]
+      },
+      ...Object.entries(additionalFilters).map(([key, value]) => {
+        return {
+          key,
+          value: value.toString().split(',')
+        }
+      }),
+      ...properties.map(({ key, value }) => {
+        return {
+          key: decapitalizeFirstLetter(key),
+          value: [value]
+        }
+      })
+    ]
 
-    const urlObject = getMarketplaceUrl(_page, _search, _filters, _additionalFilters)
-
-    router.push(urlObject, undefined, { scroll: false })
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    return parameterArray
+  }, [additionalFilters, properties, searchValue])
 
   useEffect(() => {
-    updateUrlPath(1, debouncedSearchValue, properties, additionalFilters)
-  }, [debouncedSearchValue, properties, updateUrlPath, additionalFilters])
+    if (initial.current) { return }
+
+    const url = getMarketplaceUrl(1, urlParametersArray)
+
+    router.push(url, undefined, { scroll: false })
+
+    // eslint-disable-next-line
+  }, [debouncedSearchValue, properties, additionalFilters, urlParametersArray])
 
   useEffect(() => {
     /* initial delay of 500ms */
@@ -263,7 +282,7 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
           <Pagination
             currentPage={curentPage}
             totalPages={totalPages}
-            getHref={page => { return page ? getMarketplaceUrl(page, searchValue, properties, additionalFilters) : '#' }}
+            getHref={page => { return page ? getMarketplaceUrl(page, urlParametersArray) : '#' }}
           />
         </div>
       </div>
