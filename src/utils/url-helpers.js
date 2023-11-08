@@ -7,12 +7,14 @@ const parseUrl = (url, validKeys) => {
   for (const [key, value] of searchParams.entries()) {
     // Validate Keys
     if (validKeys.includes(key)) {
-      const values = value.split(',')
+      const filter = filters.find(filter => { return filter.key === key })
 
-      // considering the first encounter of key as the desired one
-      if (values.length > 0 && !filters.find(filter => { return filter.key === key })) {
-        filters.push({ key: key, value: values })
+      if (filter) {
+        filter.value.push(value)
+        continue
       }
+
+      filters.push({ key: key, value: [value] })
     }
   }
 
@@ -27,13 +29,9 @@ const generateURL = (arr, urlPrefix) => {
       return
     }
 
-    const joinedValue = value.join(',')
-
-    if (!joinedValue) {
-      return
-    }
-
-    searchParams.append(key, value.join(','))
+    value.forEach(val => {
+      searchParams.append(key, val)
+    })
   })
 
   const qs = searchParams.toString()
