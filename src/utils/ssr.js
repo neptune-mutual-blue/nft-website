@@ -10,6 +10,15 @@ const { searchMarketplace, getMarketplaceFilters } = require('@/services/marketp
 const SUPPORTED_ROLES = ['Beast', 'Guardian', 'Neptune']
 const BOOLEAN_STRINGS = ['true', 'false']
 const NON_FILTER_KEYS = ['search', 'minted', 'soulbound', 'roles']
+const FAMILIES = ['Aquavallo',
+  'Delphinus',
+  'Gargantuworm',
+  'Grim Wyvern',
+  'Merman Serpent',
+  'Neptune',
+  'Sabersquatch',
+  'Salacia'
+]
 
 const schema = {
   search: {},
@@ -29,7 +38,7 @@ const schema = {
     validator: (value) => { return value >= 1 && value <= 7 }
   },
   family: {
-    validator: () => { return true }
+    validator: (value) => { return FAMILIES.includes(value) }
   },
   ...(
     filteredProperties.map((x) => { return x.layersOrder }).flat().map((layer) => {
