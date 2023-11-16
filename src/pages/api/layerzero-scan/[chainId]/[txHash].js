@@ -1,4 +1,4 @@
-import { getMessagesBySrcTxHash } from '@layerzerolabs/scan-client'
+import { getMessagesBySrcTxHash } from '@/layerzero/client'
 
 const LAYERZERO_CHAIN_MAPPING = {
   1: 101,
