@@ -1,25 +1,129 @@
-import { getFiltersFromQueryString } from '@/utils/nft'
+import filteredProperties from '@/constants/marketplace-filters'
+import {
+  capitalizeFirstLetter,
+  decapitalizeFirstLetter
+} from '@/utils/string'
+import { parseUrl } from '@/utils/url-helpers'
 
 const { searchMarketplace, getMarketplaceFilters } = require('@/services/marketplace-api')
 
 const SUPPORTED_ROLES = ['Beast', 'Guardian', 'Neptune']
 const BOOLEAN_STRINGS = ['true', 'false']
+const NON_FILTER_KEYS = ['search', 'minted', 'soulbound', 'roles']
+const FAMILIES = ['Aquavallo',
+  'Delphinus',
+  'Gargantuworm',
+  'Grim Wyvern',
+  'Merman Serpent',
+  'Neptune',
+  'Sabersquatch',
+  'Salacia'
+]
+
+const schema = {
+  search: {},
+  minted: {
+    validator: (value) => { return BOOLEAN_STRINGS.includes(value) },
+    transformer: (value) => { return value === 'true' }
+  },
+  soulbound: {
+    validator: (value) => { return BOOLEAN_STRINGS.includes(value) },
+    transformer: (value) => { return value === 'true' }
+  },
+  roles: {
+    multiple: true,
+    validator: (value) => { return SUPPORTED_ROLES.includes(value) }
+  },
+  level: {
+    validator: (value) => { return value >= 1 && value <= 7 }
+  },
+  family: {
+    validator: (value) => { return FAMILIES.includes(value) }
+  },
+  ...(
+    filteredProperties.map((x) => { return x.layersOrder }).flat().map((layer) => {
+      return {
+        [decapitalizeFirstLetter(layer.name)]: {
+          possibleValues: layer.options
+        }
+      }
+    }).reduce((acc, val) => {
+      const key = Object.keys(val)[0]
+      if (acc[key]) {
+        acc[key].possibleValues.push(...val[key].possibleValues)
+        return acc
+      }
+
+      return { ...acc, ...val }
+    }, {})
+  )
+}
+
+const validKeys = Object.keys(schema)
+
+const validateAndGetValue = (result, key, fallback, val) => {
+  const keySchema = schema[key]
+
+  if (!keySchema) { return fallback }
+
+  let value = val || result.find((item) => { return item.key === key })?.value
+
+  let validator = keySchema.validator
+
+  if (!validator && keySchema.possibleValues) {
+    validator = (value) => { return keySchema.possibleValues.includes(value) }
+  }
+  const transformer = keySchema.transformer
+
+  if (validator) {
+    value = value?.filter(validator)
+  }
+
+  if (transformer) {
+    value = value?.map(transformer)
+  }
+
+  const hasMultiple = keySchema.multiple
+
+  if (!hasMultiple) {
+    value = value?.[0]
+  }
+
+  if (hasMultiple && value?.length === 0) {
+    return fallback
+  }
+
+  return value ?? fallback
+}
 
 const getSSRData = async (context) => {
-  const { params, query, resolvedUrl } = context
+  const { params, resolvedUrl } = context
+
+  const parsedResult = parseUrl(resolvedUrl, validKeys)
 
   let page = 1
   if (params) {
     page = params.page && parseInt(params.page)
   }
-  const search = query.search ?? ''
-  const minted = BOOLEAN_STRINGS.includes(query.minted) ? query.minted === 'true' : undefined
-  const soulbound = BOOLEAN_STRINGS.includes(query.soulbound) ? query.soulbound === 'true' : undefined
-  const roles = query.roles ? query.roles.split(',').filter(role => { return SUPPORTED_ROLES.includes(role) }) : undefined
 
-  const queryString = resolvedUrl.includes('?') ? resolvedUrl.split('?')[1] : ''
+  const search = validateAndGetValue(parsedResult, 'search', '')
 
-  const filters = queryString ? getFiltersFromQueryString(queryString) : []
+  const minted = validateAndGetValue(parsedResult, 'minted')
+  const soulbound = validateAndGetValue(parsedResult, 'soulbound')
+  const roles = validateAndGetValue(parsedResult, 'roles')
+
+  const filters = []
+
+  for (const { key, value } of parsedResult) {
+    if (!NON_FILTER_KEYS.includes(key)) {
+      const val = validateAndGetValue(parsedResult, key, undefined, value)
+      if (!val) {
+        continue
+      }
+
+      filters.push({ key: capitalizeFirstLetter(key), value: val })
+    }
+  }
 
   // { "value": 500, "traitType": "Siblings" },
   // { "value": 6, "maxValue": 10, "traitType": "Rarity" },
