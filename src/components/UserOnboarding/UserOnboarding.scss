@@ -283,8 +283,10 @@ header {
       text-align: center;
     }
 
-    & > div:nth-child(3) button {
-      margin-left: auto;
+    @media (max-width: 767px) {
+      & > div:nth-child(3) button {
+        margin-left: auto;
+      }
     }
   }
 

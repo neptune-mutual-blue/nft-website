@@ -136,13 +136,19 @@ const UserOnboarding = () => {
     <Button
       size='sm'
       variant='primary'
-      disabled={page === 4}
       onClick={() => {
+        if (page === 4) {
+          return closeDialog()
+        }
+
         setPage(page + 1)
       }}
-      icon='only'
-      iconTrailing='arrow-right'
-    />
+      disabled={page === 4 && minimized}
+      icon={!minimized && page === 4 ? undefined : 'only'}
+      iconTrailing={!minimized && page === 4 ? undefined : 'arrow-right'}
+    >
+      {!minimized && page === 4 && (checkboxNeverShow ? 'Close' : 'Minimize')}
+    </Button>
 
   )
 
