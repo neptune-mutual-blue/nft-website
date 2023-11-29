@@ -4,7 +4,7 @@ const bridgeConfig = {
     chainName: 'Binance Smart Chain',
     chainId: 56,
     chainShortName: 'BNB',
-    neptuneLegends: '',
+    neptuneLegends: '0xAAF54CEf71aa3B2Cba33fE06042A5C5e89de57eB',
     lzProxyONft: '',
     lzONft721: '',
     isTestnet: false,
