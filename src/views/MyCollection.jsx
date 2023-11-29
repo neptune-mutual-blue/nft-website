@@ -101,7 +101,7 @@ const MyCollection = ({ premiumNfts }) => {
             </div>
           </div>
 
-          {AppConstants.NETWORK in bridgeConfig && (
+          {AppConstants.NETWORK in bridgeConfig && AppConstants.NETWORK !== 56 && (
             <div className='bridge banner'>
               <p>
                 Move your NFTs across different blockchain networks.

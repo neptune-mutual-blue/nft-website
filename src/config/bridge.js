@@ -1,4 +1,15 @@
 const bridgeConfig = {
+  56: {
+    image: '/assets/images/chains/56.png',
+    chainName: 'Binance Smart Chain',
+    chainId: 56,
+    chainShortName: 'BNB',
+    neptuneLegends: '',
+    lzProxyONft: '',
+    lzONft721: '',
+    isTestnet: false,
+    lzChainId: 102
+  },
   80001: {
     image: '/assets/images/chains/80001.png',
     chainName: 'Mumbai',
