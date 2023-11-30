@@ -65,7 +65,7 @@ const UserOnboarding = () => {
   const [displayHint, setDisplayHint] = useState(false)
   const [hasDisplayedHint, setHasDisplayedHint] = useLocalStorage('USER_ONBOARDING_DISPLAY_HINT', false)
 
-  const closeDialog = () => {
+  const closeDialog = (thisSessionOnly = false) => {
     setOpen(false)
     setExpanded(false)
 
@@ -75,6 +75,10 @@ const UserOnboarding = () => {
     }
 
     document.body.style.overflow = 'auto'
+
+    if (thisSessionOnly && !checkboxNeverShow) {
+      setNeverShow(undefined)
+    }
 
     if (checkboxNeverShow) {
       return setNeverShow(true)
@@ -136,13 +140,18 @@ const UserOnboarding = () => {
     <Button
       size='sm'
       variant='primary'
-      disabled={page === 4}
       onClick={() => {
+        if (page === 4) {
+          return closeDialog(true)
+        }
+
         setPage(page + 1)
       }}
-      icon='only'
-      iconTrailing='arrow-right'
-    />
+      icon={page === 4 ? undefined : 'only'}
+      iconTrailing={page === 4 ? undefined : 'arrow-right'}
+    >
+      {page === 4 && 'Close'}
+    </Button>
 
   )
 
@@ -244,12 +253,17 @@ const UserOnboarding = () => {
             {sliders()}
 
             <div className='pagination wrapper'>
-              <div className='checkbox'>
-                {checkbox}
-              </div>
-              <div>
-                {page} of 4
-              </div>
+              {(!minimized || page === 4) && (
+                <div className='checkbox'>
+                  {checkbox}
+                </div>
+              )}
+              {page !== 4 && (
+                <div>
+                  {page} of 4
+                </div>
+              )}
+
               <div className='pagination'>
                 {previousButton}
                 {nextButton}

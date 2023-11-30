@@ -72,10 +72,6 @@
       display: none;
     }
 
-    .checkbox {
-      display: none;
-    }
-
     h1,
     .description {
       text-align: left;
@@ -283,8 +279,10 @@ header {
       text-align: center;
     }
 
-    & > div:nth-child(3) button {
-      margin-left: auto;
+    @media (max-width: 767px) {
+      & > div:nth-child(3) button {
+        margin-left: auto;
+      }
     }
   }
 
