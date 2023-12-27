@@ -114,7 +114,11 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
     if (!nftDetails.level) {
       const eligibilityCheckList = [
         {
-          label: 'Have an active policy',
+          label: (
+            <div>
+              Have an <button onClick={() => { return openMarketplace() }}>active policy</button>
+            </div>
+          ),
           completed: activePolicies.length > 0
         },
         {

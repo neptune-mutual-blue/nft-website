@@ -35,6 +35,8 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
   const initial = useRef(true)
   const inputRef = useRef(null)
 
+  const filtersCount = Object.keys(additionalFilters).length
+
   const router = useRouter()
 
   const debouncedSearchValue = useDebounce(searchValue, 500)
@@ -209,6 +211,7 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
                   Properties
                 </Button>
                 <div className='filter dialog wrapper'>
+
                   <Button
                     variant='secondary-gray'
                     size='md'
@@ -220,6 +223,12 @@ const MarketPlaceSection = ({ data = [], filters = [], pageData }) => {
                   >
                     Filter
                   </Button>
+
+                  {filtersCount > 0 && (
+                    <div className='filter count'>
+                      {filtersCount}
+                    </div>
+                  )}
 
                   <div className={`filter dialog${showFilters ? ' open' : ''}`} ref={ref}>
                     <div className='filter title mobile'>

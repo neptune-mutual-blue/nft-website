@@ -11,6 +11,7 @@ import { Button } from '@/components/Button/Button'
 import { ConnectWallet } from '@/components/ConnectWallet/ConnectWallet'
 import { LoaderPopup } from '@/components/LoaderPopup/LoaderPopup'
 import Switch from '@/components/Switch/Switch'
+import { Tags } from '@/components/Tags/Tags'
 import { ToastContext } from '@/components/Toast/Toast'
 import {
   ContractAbis,
@@ -236,6 +237,7 @@ const MerkleProofView = () => {
                 <div>Liquidity</div>
                 <div>Points</div>
                 <div>Level</div>
+                <div>Persona</div>
                 {!showLiveData && (
                   <div>Proof</div>
                 )}
@@ -248,7 +250,28 @@ const MerkleProofView = () => {
                     <div>{formatDollar(row.policy)}</div>
                     <div>{formatDollar(row.liquidity)}</div>
                     <div className='points'>{formatNumber(parseFloat(row.points))}</div>
+
                     <div>{row.level}</div>
+                    <div>
+                      <Tags
+                        tags={[
+                          {
+                            id: '1',
+                            slug: '1',
+                            text: row.persona
+                              ? row.persona === 1
+                                ? 'Guardian'
+                                : 'Beast'
+                              : 'Not Set',
+                            color: row.persona
+                              ? row.persona === 1
+                                ? 'green'
+                                : 'pink'
+                              : 'gray'
+                          }
+                        ]}
+                      />
+                    </div>
                     {!showLiveData && (
                       <div className='view-proof'>
                         <button onClick={() => {

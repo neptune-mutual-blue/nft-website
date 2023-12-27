@@ -102,7 +102,7 @@ const HomePersona = ({ characters }) => {
     if (nextLevel === 0) {
       return {
         image: `${imageOrigin}/thumbnails/180001.webp`,
-        url: '/marketplace?soulbound=true',
+        url: '/marketplace?soulbound=true&minted=false',
         soulbound: true
       }
     }
