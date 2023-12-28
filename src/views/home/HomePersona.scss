@@ -260,7 +260,7 @@
 
       .text {
         position: absolute;
-        z-index: 1000;
+        z-index: 90;
         text-align: center;
         color: colors.$gray-500;
         @include styles.text-md;

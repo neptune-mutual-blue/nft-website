@@ -114,8 +114,16 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
     if (!nftDetails.level) {
       const eligibilityCheckList = [
         {
-          label: 'Have an active policy',
+          label: (
+            <div>
+              Have an <button onClick={() => { return openMarketplace() }}>active policy</button>
+            </div>
+          ),
           completed: activePolicies.length > 0
+        },
+        {
+          label: 'Holding 10 NPM in your wallet',
+          completed: (balance / 10 ** 18) > 10
         },
         {
           label: 'Have not minted a Soulbound NFT',

@@ -60,6 +60,17 @@
           position: relative;
           height: 100%;
 
+          .filter.count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: colors.$error-500;
+            color: colors.$base-white;
+            padding: 3px 8px;
+            border-radius: 50%;
+            @include styles.text-xs;
+          }
+
           @media (max-width: 768px) {
             height: unset;
           }

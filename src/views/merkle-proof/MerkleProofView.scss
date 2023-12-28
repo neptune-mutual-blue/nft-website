@@ -95,12 +95,12 @@
 
       .row {
         display: grid;
-        grid-template-columns: 450px 184px 184px 184px 90px 122px;
+        grid-template-columns: 400px 184px 184px 124px 80px 120px 122px;
         @include styles.text-md;
         @include weights.semibold;
 
         &.live {
-          grid-template-columns: 450px 192px 192px 192px 188px;
+          grid-template-columns: 400px 184px 184px 192px 134px 120px;
         }
 
         & > div {
