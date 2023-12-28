@@ -122,6 +122,10 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
           completed: activePolicies.length > 0
         },
         {
+          label: 'Holding 10 NPM in your wallet',
+          completed: (balance / 10 ** 18) > 10
+        },
+        {
           label: 'Have not minted a Soulbound NFT',
           completed: !boundToken,
           errored: !!boundToken
