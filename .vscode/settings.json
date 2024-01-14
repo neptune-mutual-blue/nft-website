@@ -19,5 +19,10 @@
   "javascript.preferences.importModuleSpecifier": "non-relative",
   "cSpell.words": [
     "neptunemutual"
-  ]
+  ],
+  "[javascript][javascriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit"
+    }
+  }
 }
