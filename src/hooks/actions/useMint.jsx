@@ -116,7 +116,7 @@ const useMint = ({ nftDetails, activePolicies, points, requiredPoints }) => {
         {
           label: (
             <div>
-              Have an <button onClick={() => { return openMarketplace() }}>active policy</button>
+              Have an <button onClick={() => { return openMarketplace() }}>active policy</button> on <a href='https://bsc.neptunemutual.net/' target='_blank' rel='noopener noreferrer'>BSC</a>
             </div>
           ),
           completed: activePolicies.length > 0
