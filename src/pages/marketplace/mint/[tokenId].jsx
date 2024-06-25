@@ -89,7 +89,7 @@ const MintNftPage = ({ nft, premiumNfts, mintingLevels, videos }) => {
         const [
           data,
           nftDetailsResponse,
-          activePolicies
+          _activePolicies
         ] = await Promise.all([
           NftApi.mintingLevelsMilestone(account),
           NftApi.getNftDetails(tokenId),
@@ -103,7 +103,7 @@ const MintNftPage = ({ nft, premiumNfts, mintingLevels, videos }) => {
 
         setNftDetails(nftDetailsResponse.data[0])
 
-        setActivePolicies(activePolicies.data)
+        setActivePolicies(_activePolicies?.data || [])
       } catch (err) {
         console.error(err)
       }
